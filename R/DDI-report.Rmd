@@ -1,0 +1,24 @@
+---
+title: "R Notebook"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+```{r}
+library(knitr)
+#library(kableExtra)
+library(ddir)
+```
+
+```{r}
+cpds <- load_perpetrators("/Users/rainerstrotmann/Documents/Programming/R/ddir/tests/testthat/fixtures/compounds.csv")
+
+a <- cpds[[1]]
+b <- cpds[[2]]
+
+property_table(a)
+conc_table(a)
+conc_table(b)
+```
+

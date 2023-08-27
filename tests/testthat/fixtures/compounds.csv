@@ -24,3 +24,17 @@ M1,  rb,     1,         study 002
 M1,  fa,     NA,
 M1,  fg,     NA,
 M1,  ka,     NA,      
+
+# compound 2
+
+compound 2, type,       	parent, 
+compound 2, mw,         312.41, 
+compound 2, dose,       1800,    max dose for 60 mg/kg and a body weight of 30 kg
+compound 2, solubility, 300, 
+compound 2, imaxss,     1090,    study 003
+compound 2, fu,         0.2,     study 004
+compound 2, fumic,      0.97,    study 004
+compound 2, rb,         0.68,    study 004
+compound 2, fa,         1,       study 005
+compound 2, fg,         1,
+compound 2, ka,         0.1,     EMA guidance
