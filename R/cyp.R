@@ -59,7 +59,7 @@ basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
 #' @return Basic evaluation of CYP inhibition risk as markdown-formatted table,
 #'   or an empty string if no CYP inhibition data available.
 #' @export
-basic_cyp_inhibition_risk_table <- function(perp, cyp_inh, na.rm=T) {
+basic_cyp_inhibition_risk_table <- function(perp, cyp_inh, na.rm=F) {
   temp <- basic_cyp_inhibition_risk(perp, cyp_inh)
 
   if(na.rm==TRUE) {
