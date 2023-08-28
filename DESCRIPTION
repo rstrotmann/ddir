@@ -19,3 +19,5 @@ Imports:
     dplyr,
     tidyr,
     stringr
+Depends: 
+    R (>= 2.10)

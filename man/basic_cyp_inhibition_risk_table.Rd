@@ -4,12 +4,14 @@
 \alias{basic_cyp_inhibition_risk_table}
 \title{Table of basic CYP inhibition risk}
 \usage{
-basic_cyp_inhibition_risk_table(perp, cyp_inh, na.rm = T)
+basic_cyp_inhibition_risk_table(perp, cyp_inh, na.rm = F)
 }
 \arguments{
 \item{perp}{The perpetrator object.}
 
-\item{cyp_inh}{CYP inhibiton data as data frame.}
+\item{cyp_inh}{CYP inhibition data as data frame.}
+
+\item{ra.rm}{Remove rows with lacking ki data (i.e., where ki == NA).}
 }
 \value{
 Basic evaluation of CYP inhibition risk as markdown-formatted table,

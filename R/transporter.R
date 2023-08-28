@@ -1,26 +1,27 @@
 
-transporter_ref <- data.frame(
-  param=c("Pgp_int", "Pgp_sys", "BCRP_int", "BCRP_sys", "OCT1", "OATP1B1",
-          "OATP1B3", "OAT1", "OAT3", "BSEP", "OCT2", "MATE1", "MATE2k"),
-  rank=seq(1, 13),
-  fda_thld=c(10, 0.1, 10, 0.1, NA, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1),
-  ema_thld=c(10, 0.02, 10, 0.02, 0.04, 0.04, 0.04, 0.04, 0.04, 0.02, 0.02, 0.02, 0.02),
-  i=c("igut", "imaxssu", "igut", "imaxssu", "imaxinletu", "imaxinletu",
-      "imaxinletu", "imaxssu", "imaxssu", "imaxssu", "imaxssu", "imaxssu", "imaxssu")
-)
+# transporter_reference_data <- data.frame(
+#   param=c("Pgp_int", "Pgp_sys", "BCRP_int", "BCRP_sys", "OCT1", "OATP1B1",
+#           "OATP1B3", "OAT1", "OAT3", "BSEP", "OCT2", "MATE1", "MATE2k"),
+#   rank=seq(1, 13),
+#   fda_thld=c(10, 0.1, 10, 0.1, NA, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1),
+#   ema_thld=c(10, 0.02, 10, 0.02, 0.04, 0.04, 0.04, 0.04, 0.04, 0.02, 0.02, 0.02, 0.02),
+#   i=c("igut", "imaxssu", "igut", "imaxssu", "imaxinletu", "imaxinletu",
+#       "imaxinletu", "imaxssu", "imaxssu", "imaxssu", "imaxssu", "imaxssu", "imaxssu")
+# )
 
 
-
-#' Title
+#' Drug transporter inhibition risk
 #'
-#' @param perp
-#' @param transporter_ic50
+#' @param perp The perpetrator object.
+#' @param transporter_ic50 Transporter inhibition IC50 as data frame.
+#' @param transporter_ref Transporter reference data.
 #'
-#' @return
+#' @return A data frame.
 #' @export
-#'
-#' @examples
-transporter_inhibition_risk <- function(perp, transporter_ic50) {
+transporter_inhibition_risk <- function(
+    perp,
+    transporter_ic50,
+    transporter_ref=transporter_reference_data) {
   ic50 <- transporter_ic50 %>%
     filter(name==name(perp)) %>%
     filter(param!="name") %>%
@@ -51,10 +52,27 @@ transporter_inhibition_risk <- function(perp, transporter_ic50) {
   return(out)
 }
 
-transporter_inhibition_risk_table <- function(perp, transporter_ic50, na.rm=F) {
-  temp <- transporter_inhibition_risk(perp, transporter_ic50)
 
-  if(na.rm==TRUE) {
+#' Table of drug transporter inhibition risks
+#'
+#' @param perp The perpetrator object.
+#' @param transporter_ic50 Transporter inhibition IC50 as data frame.
+#' @param na.rm Remove rows with lacking ki data (i.e., where ki == NA).
+#' @param transporter_ref Transporter reference data.
+#'
+#' @return A markdown-formatted table.
+#' @export
+transporter_inhibition_risk_table <- function(
+    perp,
+    transporter_ic50,
+    transporter_ref=transporter_reference_data,
+    na.rm=F) {
+  temp <- transporter_inhibition_risk(
+      perp, transporter_ic50,
+      transporter_ref=transporter_reference_data) %>%
+    mutate(r=round(r, 3))
+
+if(na.rm==TRUE) {
     temp <- temp %>%
       filter(!is.na(ic50))
   }
