@@ -1754,10 +1754,6 @@ display: none;
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShrbml0cilcbmxpYnJhcnkoa2FibGVFeHRyYSlcbmBgYCJ9 -->
-<pre class="r"><code>library(knitr)
-library(kableExtra)</code></pre>
-<!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiXG5BdHRhY2hpbmcgcGFja2FnZTog4oCYa2FibGVFeHRyYeKAmVxuXG5UaGUgZm9sbG93aW5nIG9iamVjdCBpcyBtYXNrZWQgZnJvbSDigJhwYWNrYWdlOmRkaXLigJk6XG5cbiAgICBncm91cF9yb3dzXG4ifQ== -->
 <pre><code>
 Attaching package: ‘kableExtra’
@@ -1766,21 +1762,24 @@ The following object is masked from ‘package:ddir’:
 
     group_rows</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI2xpYnJhcnkoZGRpcilcbmBgYCJ9 -->
-<pre class="r"><code>#library(ddir)</code></pre>
-<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<!-- This is basic introductory text that should suffice in most cases. Feel free to change or extend but keep concise.
+The version information should not be changed as it provides a back link to the script template. -->
+<p>This assessment of the perpetrator risks for xxx is based on the
+relevant FDA and EMA guidance documents (FDA 2020 and EMA 2012).</p>
+<p>This output was generated using version xx (dd-dd-dddd) of the DDI
+assessment R script.</p>
+</div>
+<div id="drug-properties" class="section level1">
+<h1>Drug properties</h1>
+<p>The following physico-chemical, ADME and clinical exposure data were
+used for the calculation of the maximal gut and portal vein
+concentrations, and the unbound systemic concentrations.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY3BkcyA8LSBsb2FkX3BlcnBldHJhdG9ycyhcIi9Vc2Vycy9yYWluZXJzdHJvdG1hbm4vRG9jdW1lbnRzL1Byb2dyYW1taW5nL1IvZGRpci90ZXN0cy90ZXN0dGhhdC9maXh0dXJlcy9jb21wb3VuZHMuY3N2XCIpXG5cbmEgPC0gY3Bkc1tbMV1dXG5iIDwtIGNwZHNbWzJdXVxuXG5wcm9wZXJ0eV90YWJsZShhKVxuYGBgIn0= -->
-<pre class="r"><code>cpds &lt;- load_perpetrators(&quot;/Users/rainerstrotmann/Documents/Programming/R/ddir/tests/testthat/fixtures/compounds.csv&quot;)
-
-a &lt;- cpds[[1]]
-b &lt;- cpds[[2]]
-
-property_table(a)</code></pre>
-<!-- rnb-source-end -->
 
 <!-- rnb-html-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImtuaXRfYXNpcyJdLCJzaXppbmdQb2xpY3kiOltdfX0= -->
 
@@ -1917,9 +1916,6 @@ EMA guidance
 
 <!-- rnb-html-end -->
 
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY29uY190YWJsZShhKVxuYGBgIn0= -->
-<pre class="r"><code>conc_table(a)</code></pre>
-<!-- rnb-source-end -->
 
 <!-- rnb-html-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImtuaXRfYXNpcyJdLCJzaXppbmdQb2xpY3kiOltdfX0= -->
 
@@ -2000,9 +1996,6 @@ is limited by the solubility of the compound
 
 <!-- rnb-html-end -->
 
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY29uY190YWJsZShiKVxuYGBgIn0= -->
-<pre class="r"><code>conc_table(b)</code></pre>
-<!-- rnb-source-end -->
 
 <!-- rnb-html-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImtuaXRfYXNpcyJdLCJzaXppbmdQb2xpY3kiOltdfX0= -->
 
@@ -2076,9 +2069,101 @@ value (µM)
 
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+</div>
+<div id="key-perpetrator-concentrations" class="section level1">
+<h1>Key perpetrator concentrations</h1>
+<p>The relevant perpetrator concentrations are calculated as outlined in
+the Appendix:</p>
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="ddi-perpetrator-risk-assessment" class="section level1">
+<h1>DDI perpetrator risk assessment</h1>
+<div id="basic-modeling-of-cyp-inhibition" class="section level2">
+<h2>Basic modeling of CYP inhibition</h2>
+<div id="reversible-inhibition" class="section level3">
+<h3>Reversible inhibition</h3>
+<p>As per the FDA guideline (FDA, 2020), the relevant metric for the
+basic modeling of the direct CYP inhibition risk is <span class="math inline">\(R=1+[I]/K_{i,u}\)</span> with the relevant
+inhibitor concentration <span class="math inline">\([I]\)</span> being
+<span class="math inline">\(I_{max,ss,u}\)</span> for hepatic CYP
+enzymes and <span class="math inline">\(I_{gut}\)</span> for intestinal
+CYP enzymes.</p>
+<p>Thresholds of <span class="math inline">\(R &lt; 1.02\)</span> and
+<span class="math inline">\(R &lt; 11\)</span> apply for hepatic and
+intestinal enzymes, respectively. Note that intestinal CYP inhibition is
+only evaluated for CYP3A4.</p>
+<p>Basic modeling as per the FDA guideline results in the following risk
+assessment for direct CYP inhibition by xxx.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Note that the ratios used in the EMA guidance correspond to the FDA
+ratios listed above minus 1.</p>
+</div>
+</div>
+<div id="modeling-of-cyp-induction" class="section level2">
+<h2>Modeling of CYP induction</h2>
+<div id="basicfold-change-method" class="section level3">
+<h3>Basic/fold-change method</h3>
+<p>The basic (EMA) or fold-change (FDA) methods evaluate whether the
+maximal fold-change in mRNA expression is &gt; 2-fold at the expected
+unbound hepatic concentration of the drug.</p>
+<p>For the relevant drug concentrations, the FDA guidance suggests
+considering <span class="math inline">\(30*I_{max,ss,u}\)</span> while
+the EMA guidance considers <span class="math inline">\(50*I_{max,ss,u}\)</span> for hepatic and <span class="math inline">\(0.1*I_{gut}\)</span> for intestinal induction. It
+is expected that the concentrations in the respective in vitro assays
+cover these concentrations.</p>
+<p>Basic modeling as per the FDA guideline results in the following risk
+assessment:</p>
+</div>
+</div>
+<div id="mechanistic-static-modeling-of-cyp-modulation" class="section level2">
+<h2>Mechanistic static modeling of CYP modulation</h2>
+<p>As per the FDA guideline (FDA 2020), the relevant metric for
+mechanistic static modeling of the CYP inhibition potential is the
+predicted AUC ratio (<span class="math inline">\(AUCR\)</span>) for
+specific probe substrates. A cut-off of <span class="math inline">\(R&lt;1.25\)</span> applies.</p>
+<p>In the current implementation of this tool (and listed in the table
+below), only reversible inhibition and induction (as reflected in the A-
+and C-terms of the AUCR formula, see Appendix) is included. In general,
+the FDA guidelines advises to investigate mechanistic static models of
+inhibition (reversible and mechanism-dependent) and induction
+separately.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="inhibition-of-drug-transporters" class="section level2">
+<h2>Inhibition of drug transporters</h2>
+<p>The relevant metric for the assessment of transporter interactions is
+<span class="math inline">\(R=[I]/K_i\)</span>. In in vitro transporter
+inhibition studies, <span class="math inline">\(IC_{50}\)</span> values
+are experimentally determined. Since the transporter substrate
+concentration is ususally kept very low in relation to <span class="math inline">\(K_m\)</span> in order to minimze passive
+permeation, <span class="math inline">\(K_i = IC_{50}\)</span> can be
+assumed.</p>
+<p>The relevant perpetrator concentrations <span class="math inline">\([I]\)</span> are: <span class="math inline">\(I_{gut}\)</span> for intestinal P-gp and BRCR,
+<span class="math inline">\(I_{max,inlet,u}\)</span> for the hepatic
+basolateral transporters OCT1, OATP1B1 and OATP1B3, and <span class="math inline">\(I_{max,ss,u}\)</span> for the renal basolateral
+transporters OAT1, OAT3 and OCT2, as well as the apical transporters
+outside the intestinal mucosa, i.e., hepatic P-gp and BCRP, and MATE1,
+MATE2-k.</p>
+<p>The FDA and EMA guidelines differ in their threshold definitions. The
+risk assessments according to both guidelines are presented below:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+</div>
+</div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OgogIHBkZl9kb2N1bWVudDogZGVmYXVsdAogIGh0bWxfbm90ZWJvb2s6IGRlZmF1bHQKLS0tCgpgYGB7cn0KbGlicmFyeShrbml0cikKI2xpYnJhcnkoa2FibGVFeHRyYSkKbGlicmFyeShkZGlyKQpgYGAKCmBgYHtyfQpjcGRzIDwtIGxvYWRfcGVycGV0cmF0b3JzKCIvVXNlcnMvcmFpbmVyc3Ryb3RtYW5uL0RvY3VtZW50cy9Qcm9ncmFtbWluZy9SL2RkaXIvdGVzdHMvdGVzdHRoYXQvZml4dHVyZXMvY29tcG91bmRzLmNzdiIpCgphIDwtIGNwZHNbWzFdXQpiIDwtIGNwZHNbWzJdXQoKcHJvcGVydHlfdGFibGUoYSkKY29uY190YWJsZShhKQpjb25jX3RhYmxlKGIpCmBgYAoK</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OgogIHBkZl9kb2N1bWVudDogZGVmYXVsdAogIGh0bWxfbm90ZWJvb2s6IGRlZmF1bHQKLS0tCgpgYGB7ciBlY2hvPUYsIHdhcm5pbmc9RiwgaW5mbz1GLCBtZXNzYWdlPUZ9CmxpYnJhcnkoa25pdHIpCmxpYnJhcnkoZGRpcikKCmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvPUZBTFNFLCBtZXNzYWdlPUZBTFNFLCB3YXJuaW5nPUZBTFNFLCBmaWcud2lkdGg9NCwgZmlnLmhlaWdodD0zLCBmaWcuYWxpZ249ImNlbnRlciIpCmBgYAoKIyBJbnRyb2R1Y3Rpb24KCjwhLS0gVGhpcyBpcyBiYXNpYyBpbnRyb2R1Y3RvcnkgdGV4dCB0aGF0IHNob3VsZCBzdWZmaWNlIGluIG1vc3QgY2FzZXMuIEZlZWwgZnJlZSB0byBjaGFuZ2Ugb3IgZXh0ZW5kIGJ1dCBrZWVwIGNvbmNpc2UuClRoZSB2ZXJzaW9uIGluZm9ybWF0aW9uIHNob3VsZCBub3QgYmUgY2hhbmdlZCBhcyBpdCBwcm92aWRlcyBhIGJhY2sgbGluayB0byB0aGUgc2NyaXB0IHRlbXBsYXRlLiAtLT4KClRoaXMgYXNzZXNzbWVudCBvZiB0aGUgcGVycGV0cmF0b3Igcmlza3MgZm9yIHh4eCBpcyBiYXNlZCBvbiB0aGUgcmVsZXZhbnQgRkRBCmFuZCBFTUEgZ3VpZGFuY2UgZG9jdW1lbnRzIChGREEgMjAyMCBhbmQgRU1BIDIwMTIpLgoKVGhpcyBvdXRwdXQgd2FzIGdlbmVyYXRlZCB1c2luZyB2ZXJzaW9uIHh4IChkZC1kZC1kZGRkKSBvZiB0aGUgRERJIGFzc2Vzc21lbnQKUiBzY3JpcHQuCgoKIyBEcnVnIHByb3BlcnRpZXMKClRoZSBmb2xsb3dpbmcgcGh5c2ljby1jaGVtaWNhbCwgQURNRSBhbmQgY2xpbmljYWwgZXhwb3N1cmUgZGF0YSB3ZXJlIHVzZWQgZm9yIHRoZQpjYWxjdWxhdGlvbiBvZiB0aGUgbWF4aW1hbCBndXQgYW5kIHBvcnRhbCB2ZWluIGNvbmNlbnRyYXRpb25zLCBhbmQgdGhlIHVuYm91bmQKc3lzdGVtaWMgY29uY2VudHJhdGlvbnMuIAoKYGBge3J9CmNwZHMgPC0gbG9hZF9wZXJwZXRyYXRvcnMoIi9Vc2Vycy9yYWluZXJzdHJvdG1hbm4vRG9jdW1lbnRzL1Byb2dyYW1taW5nL1IvZGRpci90ZXN0cy90ZXN0dGhhdC9maXh0dXJlcy9jb21wb3VuZHMuY3N2IikKCmN5cF9raSA8LSBsb2FkX2RtcGtfZGF0YSgiL1VzZXJzL3JhaW5lcnN0cm90bWFubi9Eb2N1bWVudHMvUHJvZ3JhbW1pbmcvUi9kZGlyL3Rlc3RzL3Rlc3R0aGF0L2ZpeHR1cmVzL2N5cC1pbmhpYml0aW9uLmNzdiIpCgpjeXBfaW5kIDwtIGxvYWRfY3lwX2luZHVjZXJfZGF0YSgiL1VzZXJzL3JhaW5lcnN0cm90bWFubi9Eb2N1bWVudHMvUHJvZ3JhbW1pbmcvUi9kZGlyL3Rlc3RzL3Rlc3R0aGF0L2ZpeHR1cmVzL2N5cC1pbmR1Y3Rpb24uY3N2IikKCnRyYW5zcG9ydGVyX2ljNTAgPC0gbG9hZF9kbXBrX2RhdGEoIi9Vc2Vycy9yYWluZXJzdHJvdG1hbm4vRG9jdW1lbnRzL1Byb2dyYW1taW5nL1IvZGRpci90ZXN0cy90ZXN0dGhhdC9maXh0dXJlcy90cmFuc3BvcnRlci1pbmhpYml0aW9uLlIiKQoKcCA8LSBjcGRzW1syXV0KbSA8LSBjcGRzW1szXV0KCnByb3BlcnR5X3RhYmxlKHApCnByb3BlcnR5X3RhYmxlKG0pCmBgYAoKIyBLZXkgcGVycGV0cmF0b3IgY29uY2VudHJhdGlvbnMKClRoZSByZWxldmFudCBwZXJwZXRyYXRvciBjb25jZW50cmF0aW9ucyBhcmUgY2FsY3VsYXRlZCBhcyBvdXRsaW5lZCBpbiB0aGUKQXBwZW5kaXg6CgpgYGB7cn0KY29uY190YWJsZShwKQpjb25jX3RhYmxlKG0pCmBgYAoKIyBEREkgcGVycGV0cmF0b3IgcmlzayBhc3Nlc3NtZW50CgojIyBCYXNpYyBtb2RlbGluZyBvZiBDWVAgaW5oaWJpdGlvbgoKIyMjIFJldmVyc2libGUgaW5oaWJpdGlvbgoKQXMgcGVyIHRoZSBGREEgZ3VpZGVsaW5lIChGREEsIDIwMjApLCB0aGUgcmVsZXZhbnQgbWV0cmljIGZvciB0aGUgYmFzaWMgbW9kZWxpbmcgb2YgdGhlIGRpcmVjdCBDWVAgaW5oaWJpdGlvbiByaXNrIGlzICRSPTErW0ldL0tfe2ksdX0kIHdpdGggdGhlIHJlbGV2YW50IGluaGliaXRvciBjb25jZW50cmF0aW9uICRbSV0kIGJlaW5nICRJX3ttYXgsc3MsdX0kIGZvciBoZXBhdGljIENZUCBlbnp5bWVzIGFuZCAkSV97Z3V0fSQgZm9yIGludGVzdGluYWwgQ1lQIGVuenltZXMuCgpUaHJlc2hvbGRzIG9mICRSIDwgMS4wMiQgYW5kICRSIDwgMTEkIGFwcGx5IGZvciBoZXBhdGljIGFuZCBpbnRlc3RpbmFsIGVuenltZXMsIHJlc3BlY3RpdmVseS4gTm90ZSB0aGF0IGludGVzdGluYWwgQ1lQIGluaGliaXRpb24gaXMgb25seSBldmFsdWF0ZWQgZm9yIENZUDNBNC4KCkJhc2ljIG1vZGVsaW5nIGFzIHBlciB0aGUgRkRBIGd1aWRlbGluZSByZXN1bHRzIGluIHRoZSBmb2xsb3dpbmcgcmlzayBhc3Nlc3NtZW50IGZvciBkaXJlY3QgQ1lQIGluaGliaXRpb24gYnkgeHh4LgoKYGBge3J9CmJhc2ljX2N5cF9pbmhpYml0aW9uX3Jpc2tfdGFibGUocCwgY3lwX2tpKQpiYXNpY19jeXBfaW5oaWJpdGlvbl9yaXNrX3RhYmxlKG0sIGN5cF9raSkKYGBgCgpOb3RlIHRoYXQgdGhlIHJhdGlvcyB1c2VkIGluIHRoZSBFTUEgZ3VpZGFuY2UgY29ycmVzcG9uZCB0byB0aGUgRkRBIHJhdGlvcyBsaXN0ZWQgYWJvdmUgbWludXMgMS4KCiMjIE1vZGVsaW5nIG9mIENZUCBpbmR1Y3Rpb24KCiMjIyBCYXNpYy9mb2xkLWNoYW5nZSBtZXRob2QKClRoZSBiYXNpYyAoRU1BKSBvciBmb2xkLWNoYW5nZSAoRkRBKSBtZXRob2RzIGV2YWx1YXRlIHdoZXRoZXIgdGhlIG1heGltYWwgZm9sZC1jaGFuZ2UgaW4gbVJOQSBleHByZXNzaW9uIGlzID4gMi1mb2xkIGF0IHRoZSBleHBlY3RlZCB1bmJvdW5kIGhlcGF0aWMgY29uY2VudHJhdGlvbiBvZiB0aGUgZHJ1Zy4KCkZvciB0aGUgcmVsZXZhbnQgZHJ1ZyBjb25jZW50cmF0aW9ucywgdGhlIEZEQSBndWlkYW5jZSBzdWdnZXN0cyBjb25zaWRlcmluZyAkMzAqSV97bWF4LHNzLHV9JCB3aGlsZSB0aGUgRU1BIGd1aWRhbmNlIGNvbnNpZGVycyAkNTAqSV97bWF4LHNzLHV9JCBmb3IgaGVwYXRpYyBhbmQgJDAuMSpJX3tndXR9JCBmb3IgaW50ZXN0aW5hbCBpbmR1Y3Rpb24uIEl0IGlzIGV4cGVjdGVkIHRoYXQgdGhlIGNvbmNlbnRyYXRpb25zIGluIHRoZSByZXNwZWN0aXZlIGluIHZpdHJvIGFzc2F5cyBjb3ZlciB0aGVzZSBjb25jZW50cmF0aW9ucy4KCkJhc2ljIG1vZGVsaW5nIGFzIHBlciB0aGUgRkRBIGd1aWRlbGluZSByZXN1bHRzIGluIHRoZSBmb2xsb3dpbmcgcmlzayBhc3Nlc3NtZW50OgoKIyMgTWVjaGFuaXN0aWMgc3RhdGljIG1vZGVsaW5nIG9mIENZUCBtb2R1bGF0aW9uCgpBcyBwZXIgdGhlIEZEQSBndWlkZWxpbmUgKEZEQSAyMDIwKSwgdGhlIHJlbGV2YW50IG1ldHJpYyBmb3IgbWVjaGFuaXN0aWMgc3RhdGljIG1vZGVsaW5nIG9mIHRoZSBDWVAgaW5oaWJpdGlvbiBwb3RlbnRpYWwgaXMgdGhlIHByZWRpY3RlZCBBVUMgcmF0aW8gKCRBVUNSJCkgZm9yIHNwZWNpZmljIHByb2JlIHN1YnN0cmF0ZXMuIEEgY3V0LW9mZiBvZiAkUjwxLjI1JCBhcHBsaWVzLgogCkluIHRoZSBjdXJyZW50IGltcGxlbWVudGF0aW9uIG9mIHRoaXMgdG9vbCAoYW5kIGxpc3RlZCBpbiB0aGUgdGFibGUgYmVsb3cpLCBvbmx5IHJldmVyc2libGUgaW5oaWJpdGlvbiBhbmQgaW5kdWN0aW9uIChhcyByZWZsZWN0ZWQgaW4gdGhlIEEtIGFuZCBDLXRlcm1zIG9mIHRoZSBBVUNSIGZvcm11bGEsIHNlZSBBcHBlbmRpeCkgaXMgaW5jbHVkZWQuIEluIGdlbmVyYWwsIHRoZSBGREEgZ3VpZGVsaW5lcyBhZHZpc2VzIHRvIGludmVzdGlnYXRlIG1lY2hhbmlzdGljIHN0YXRpYyBtb2RlbHMgb2YgaW5oaWJpdGlvbiAocmV2ZXJzaWJsZSBhbmQgbWVjaGFuaXNtLWRlcGVuZGVudCkgYW5kIGluZHVjdGlvbiBzZXBhcmF0ZWx5LgoKYGBge3J9Cm1lY2hfc3RhdF9jeXBfcmlza190YWJsZShwLCBjeXBfa2ksIGN5cF9pbmQpCm1lY2hfc3RhdF9jeXBfcmlza190YWJsZShtLCBjeXBfa2ksIGN5cF9pbmQpCgpgYGAKCgoKIyMgSW5oaWJpdGlvbiBvZiBkcnVnIHRyYW5zcG9ydGVycwoKVGhlIHJlbGV2YW50IG1ldHJpYyBmb3IgdGhlIGFzc2Vzc21lbnQgb2YgdHJhbnNwb3J0ZXIgaW50ZXJhY3Rpb25zIGlzICRSPVtJXS9LX2kkLiBJbiBpbiB2aXRybyB0cmFuc3BvcnRlciBpbmhpYml0aW9uIHN0dWRpZXMsICRJQ197NTB9JCB2YWx1ZXMgYXJlIGV4cGVyaW1lbnRhbGx5IGRldGVybWluZWQuIFNpbmNlIHRoZSB0cmFuc3BvcnRlciBzdWJzdHJhdGUgY29uY2VudHJhdGlvbiBpcyB1c3VzYWxseSBrZXB0IHZlcnkgbG93IGluIHJlbGF0aW9uIHRvICRLX20kIGluIG9yZGVyIHRvIG1pbmltemUgcGFzc2l2ZSBwZXJtZWF0aW9uLCAkS19pID0gSUNfezUwfSQgY2FuIGJlIGFzc3VtZWQuCgpUaGUgcmVsZXZhbnQgcGVycGV0cmF0b3IgY29uY2VudHJhdGlvbnMgJFtJXSQgYXJlOiAkSV97Z3V0fSQgZm9yIGludGVzdGluYWwgUC1ncCBhbmQgQlJDUiwgJElfe21heCxpbmxldCx1fSQgZm9yIHRoZSBoZXBhdGljIGJhc29sYXRlcmFsIHRyYW5zcG9ydGVycyBPQ1QxLCBPQVRQMUIxIGFuZCBPQVRQMUIzLCBhbmQgJElfe21heCxzcyx1fSQgZm9yIHRoZSByZW5hbCBiYXNvbGF0ZXJhbCB0cmFuc3BvcnRlcnMgT0FUMSwgT0FUMyBhbmQgT0NUMiwgYXMgd2VsbCBhcyB0aGUgYXBpY2FsIHRyYW5zcG9ydGVycyBvdXRzaWRlIHRoZSBpbnRlc3RpbmFsIG11Y29zYSwgaS5lLiwgaGVwYXRpYyBQLWdwIGFuZCBCQ1JQLCBhbmQgTUFURTEsIE1BVEUyLWsuCgpUaGUgRkRBIGFuZCBFTUEgZ3VpZGVsaW5lcyBkaWZmZXIgaW4gdGhlaXIgdGhyZXNob2xkIGRlZmluaXRpb25zLiBUaGUgcmlzayBhc3Nlc3NtZW50cyBhY2NvcmRpbmcgdG8gYm90aCBndWlkZWxpbmVzIGFyZSBwcmVzZW50ZWQgYmVsb3c6CgpgYGB7cn0KdHJhbnNwb3J0ZXJfaW5oaWJpdGlvbl9yaXNrX3RhYmxlKHAsIHRyYW5zcG9ydGVyX2ljNTApCnRyYW5zcG9ydGVyX2luaGliaXRpb25fcmlza190YWJsZShtLCB0cmFuc3BvcnRlcl9pYzUwKQpgYGAKCgoKCg==</div>
 
 
 

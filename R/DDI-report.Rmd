@@ -5,20 +5,113 @@ output:
   html_notebook: default
 ---
 
-```{r}
+```{r echo=F, warning=F, info=F, message=F}
 library(knitr)
-#library(kableExtra)
 library(ddir)
+
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, fig.width=4, fig.height=3, fig.align="center")
 ```
+
+# Introduction
+
+<!-- This is basic introductory text that should suffice in most cases. Feel free to change or extend but keep concise.
+The version information should not be changed as it provides a back link to the script template. -->
+
+This assessment of the perpetrator risks for xxx is based on the relevant FDA
+and EMA guidance documents (FDA 2020 and EMA 2012).
+
+This output was generated using version xx (dd-dd-dddd) of the DDI assessment
+R script.
+
+
+# Drug properties
+
+The following physico-chemical, ADME and clinical exposure data were used for the
+calculation of the maximal gut and portal vein concentrations, and the unbound
+systemic concentrations. 
 
 ```{r}
 cpds <- load_perpetrators("/Users/rainerstrotmann/Documents/Programming/R/ddir/tests/testthat/fixtures/compounds.csv")
 
-a <- cpds[[1]]
-b <- cpds[[2]]
+cyp_ki <- load_dmpk_data("/Users/rainerstrotmann/Documents/Programming/R/ddir/tests/testthat/fixtures/cyp-inhibition.csv")
 
-property_table(a)
-conc_table(a)
-conc_table(b)
+cyp_ind <- load_cyp_inducer_data("/Users/rainerstrotmann/Documents/Programming/R/ddir/tests/testthat/fixtures/cyp-induction.csv")
+
+transporter_ic50 <- load_dmpk_data("/Users/rainerstrotmann/Documents/Programming/R/ddir/tests/testthat/fixtures/transporter-inhibition.R")
+
+p <- cpds[[2]]
+m <- cpds[[3]]
+
+property_table(p)
+property_table(m)
 ```
+
+# Key perpetrator concentrations
+
+The relevant perpetrator concentrations are calculated as outlined in the
+Appendix:
+
+```{r}
+conc_table(p)
+conc_table(m)
+```
+
+# DDI perpetrator risk assessment
+
+## Basic modeling of CYP inhibition
+
+### Reversible inhibition
+
+As per the FDA guideline (FDA, 2020), the relevant metric for the basic modeling of the direct CYP inhibition risk is $R=1+[I]/K_{i,u}$ with the relevant inhibitor concentration $[I]$ being $I_{max,ss,u}$ for hepatic CYP enzymes and $I_{gut}$ for intestinal CYP enzymes.
+
+Thresholds of $R < 1.02$ and $R < 11$ apply for hepatic and intestinal enzymes, respectively. Note that intestinal CYP inhibition is only evaluated for CYP3A4.
+
+Basic modeling as per the FDA guideline results in the following risk assessment for direct CYP inhibition by xxx.
+
+```{r}
+basic_cyp_inhibition_risk_table(p, cyp_ki)
+basic_cyp_inhibition_risk_table(m, cyp_ki)
+```
+
+Note that the ratios used in the EMA guidance correspond to the FDA ratios listed above minus 1.
+
+## Modeling of CYP induction
+
+### Basic/fold-change method
+
+The basic (EMA) or fold-change (FDA) methods evaluate whether the maximal fold-change in mRNA expression is > 2-fold at the expected unbound hepatic concentration of the drug.
+
+For the relevant drug concentrations, the FDA guidance suggests considering $30*I_{max,ss,u}$ while the EMA guidance considers $50*I_{max,ss,u}$ for hepatic and $0.1*I_{gut}$ for intestinal induction. It is expected that the concentrations in the respective in vitro assays cover these concentrations.
+
+Basic modeling as per the FDA guideline results in the following risk assessment:
+
+## Mechanistic static modeling of CYP modulation
+
+As per the FDA guideline (FDA 2020), the relevant metric for mechanistic static modeling of the CYP inhibition potential is the predicted AUC ratio ($AUCR$) for specific probe substrates. A cut-off of $R<1.25$ applies.
+ 
+In the current implementation of this tool (and listed in the table below), only reversible inhibition and induction (as reflected in the A- and C-terms of the AUCR formula, see Appendix) is included. In general, the FDA guidelines advises to investigate mechanistic static models of inhibition (reversible and mechanism-dependent) and induction separately.
+
+```{r}
+mech_stat_cyp_risk_table(p, cyp_ki, cyp_ind)
+mech_stat_cyp_risk_table(m, cyp_ki, cyp_ind)
+
+```
+
+
+
+## Inhibition of drug transporters
+
+The relevant metric for the assessment of transporter interactions is $R=[I]/K_i$. In in vitro transporter inhibition studies, $IC_{50}$ values are experimentally determined. Since the transporter substrate concentration is ususally kept very low in relation to $K_m$ in order to minimze passive permeation, $K_i = IC_{50}$ can be assumed.
+
+The relevant perpetrator concentrations $[I]$ are: $I_{gut}$ for intestinal P-gp and BRCR, $I_{max,inlet,u}$ for the hepatic basolateral transporters OCT1, OATP1B1 and OATP1B3, and $I_{max,ss,u}$ for the renal basolateral transporters OAT1, OAT3 and OCT2, as well as the apical transporters outside the intestinal mucosa, i.e., hepatic P-gp and BCRP, and MATE1, MATE2-k.
+
+The FDA and EMA guidelines differ in their threshold definitions. The risk assessments according to both guidelines are presented below:
+
+```{r}
+transporter_inhibition_risk_table(p, transporter_ic50)
+transporter_inhibition_risk_table(m, transporter_ic50)
+```
+
+
+
 
