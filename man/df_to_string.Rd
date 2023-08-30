@@ -13,6 +13,9 @@ df_to_string(df, indent = "", n = NULL, colnames = TRUE)
 output.}
 
 \item{n}{The number of lines to be included, or all if NULL.}
+
+\item{colnames}{Boolean value to inidcate whether column names are to be
+included in the output.}
 }
 \value{
 The output as string.

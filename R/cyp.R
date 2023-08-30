@@ -76,7 +76,7 @@ basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
 #'
 #' @param perp The perpetrator object.
 #' @param cyp_inh CYP inhibition data as data frame.
-#' @param ra.rm Remove rows with lacking ki data (i.e., where ki == NA).
+#' @param na.rm Remove rows with lacking ki data (i.e., where ki == NA).
 #'
 #' @return Basic evaluation of CYP inhibition risk as markdown-formatted table,
 #'   or an empty string if no CYP inhibition data available.

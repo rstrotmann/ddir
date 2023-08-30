@@ -6,19 +6,25 @@
 #' @param df The data.frame to be rendered
 #' @param indent A string that defines the left indentation of the rendered
 #'   output.
+#' @param colnames Boolean value to inidcate whether column names are to be
+#'   included in the output.
 #' @param n The number of lines to be included, or all if NULL.
+#'
 #' @return The output as string.
 #' @import stringr
 #' @import utils
 df_to_string <- function(df, indent="", n=NULL, colnames=TRUE){
   df <- as.data.frame(df)
-  max.widths <- as.numeric(lapply(rbind(df, names(df)), FUN=function(x) max(sapply(as.character(x), nchar), na.rm=TRUE)))
+  max.widths <- as.numeric(
+    lapply(rbind(df, names(df)),
+           FUN=function(x) max(sapply(as.character(x), nchar), na.rm=TRUE)))
   line = df[1,]
 
   render.line <- function(line){
     out <- indent
     for(i in 1:length(line)){
-      out <- paste0(out, sprintf(paste0("%-", max.widths[i]+3, "s"), as.character(line[i])))
+      out <- paste0(out, sprintf(paste0("%-", max.widths[i]+3, "s"),
+                                 as.character(line[i])))
     }
     return(out)
   }
@@ -47,6 +53,69 @@ as.num = function(x, na.strings = "NA") {
 
 #' Load perpetrator file
 #'
+#' @details
+#'
+#' The file is expected to have the following content:
+#'   * Comments start with '#' and go until the end of the line
+#'   * lines have the format: __drug__, __parameter__, __value__, __source__
+#'   * fields within a line are comma-separated
+#'   * fields are plain text without enclosing ""
+#'   * the source field is only for reference and usually refers to a clinical
+#'     or non-clinical study report. The source field may remain empty. Note
+#'     that the line then ends with a comma.
+#'
+#'   At least the following parameters are expected in the compound file
+#'
+#'   | parameter | values | detail |
+#'   | --------- | ------ | ------ |
+#'   | type      | 'parent' or 'metabolite' | the type of substance |
+#'   | mw        | numeric | molar weight in g/mol      |
+#'   | dose      | numeric | clinical dose in mg        |
+#'   | imaxss    | numeric | clinical steady-state Cmax in ng/ml |
+#'   | fu        | numeric | unbound fraction in plasma |
+#'   | fumic.    | numeric | unbound fraction in microsomes |
+#'   | rb        | numeric | blood to plasma ratio      |
+#'   | fa        | numeric | fraction absorbed          |
+#'   | fg        | numeric | fraction escaping gut metabolism  |
+#'   | ka        | numeric | absorption rate constant in 1/min |
+#'
+#'   For metabolites, the fields dose, fa, fg and ka are not relevant and should
+#'   be filled with `NA`.
+#'
+#'   Note that multiple compounds, e.g., the parent and metabolites may be
+#'   included in the perpetrator file. A typical compound file could look e.g.,
+#'   like this:
+#'
+#'   ```
+#'   # name, param, value, source
+#'   # parent
+#'
+#'   examplinib,  type,     parent,
+#'   examplinib,  mw,       492.6,
+#'   examplinib,  dose,     450,       clinical dose
+#'   examplinib,  imaxss,   3530,      study 001
+#'   examplinib,  fu,       0.023,     study 002
+#'   examplinib,  fumic,    1,         default
+#'   examplinib,  rb,       1,         study 003
+#'   examplinib,  fa,       0.81,      study 003
+#'   examplinib,  fg,       1,         default
+#'   examplinib,  ka,       0.00267,   unknown
+#'
+#'   # metabolite
+#'
+#'   M1,  type,   metabolite,
+#'   M1,  mw,     506.56,
+#'   M1,  dose,   NA,
+#'   M1,  imaxss, 1038,      study 001
+#'   M1,  fu,     0.012,     study 002
+#'   M1,  fumic,  1,         default
+#'   M1,  rb,     1,         study 002
+#'   M1,  fa,     NA,
+#'   M1,  fg,     NA,
+#'   M1,  ka,     NA,
+#'   ```
+#'
+#' @md
 #' @param filename The full path to the compound file
 #'
 #' @return A list of perpetrator objects
@@ -69,7 +138,8 @@ load_perpetrators <- function(filename) {
   return(out)
 }
 
-#' @export
+#' @param df A data frame to be converted into a perpetrator object.
+#'
 perpetrator <- function(df) {
   stopifnot(c("param", "value", "source") %in% colnames(df))
   rownames(df) <- df$param

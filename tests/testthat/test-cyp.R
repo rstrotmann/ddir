@@ -3,5 +3,5 @@ test_that("cyp inhibitor data loads", {
 })
 
 test_that("cyp inhibitor data loads", {
-  cyp_ind <- load_dmpk_data(test_path("fixtures", "cyp-induction.csv"))
+  cyp_ind <- load_cyp_inducer_data(test_path("fixtures", "cyp-induction.csv"))
 })

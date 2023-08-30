@@ -11,7 +11,7 @@ basic_cyp_inhibition_risk_table(perp, cyp_inh, na.rm = F)
 
 \item{cyp_inh}{CYP inhibition data as data frame.}
 
-\item{ra.rm}{Remove rows with lacking ki data (i.e., where ki == NA).}
+\item{na.rm}{Remove rows with lacking ki data (i.e., where ki == NA).}
 }
 \value{
 Basic evaluation of CYP inhibition risk as markdown-formatted table,

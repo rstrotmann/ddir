@@ -1,18 +1,18 @@
-# name, param, value, comment
+# name, param, value, source
 # parent
 
-examplinib,  type,   parent,
-examplinib,  mw,     492.6,
-examplinib,  dose,   450,       clinical dose
-examplinib,  imaxss, 3530,      study 001
-examplinib,  fu,     0.023,     study 002
-examplinib,  fumic,  1,         default
-examplinib,  rb,     1,         study 003
-examplinib,  fa,     0.81,      study 003
-examplinib,  fg,     1,         default
-examplinib,  ka,     0.00267,   unknown
+examplinib,  type,     parent,
+examplinib,  mw,       492.6,
+examplinib,  dose,     450,       clinical dose
+examplinib,  imaxss,   3530,      study 001
+examplinib,  fu,       0.023,     study 002
+examplinib,  fumic,    1,         default
+examplinib,  rb,       1,         study 003
+examplinib,  fa,       0.81,      study 003
+examplinib,  fg,       1,         default
+examplinib,  ka,       0.00267,   unknown
 
-# metabolite
+# metabolite 
 
 M1,  type,   metabolite,
 M1,  mw,     506.56,
@@ -25,16 +25,3 @@ M1,  fa,     NA,
 M1,  fg,     NA,
 M1,  ka,     NA,      
 
-# compound 2
-
-compound 2, type,       	parent, 
-compound 2, mw,         312.41, 
-compound 2, dose,       1800,    max dose for 60 mg/kg and a body weight of 30 kg
-compound 2, solubility, 300, 
-compound 2, imaxss,     1090,    study 003
-compound 2, fu,         0.2,     study 004
-compound 2, fumic,      0.97,    study 004
-compound 2, rb,         0.68,    study 004
-compound 2, fa,         1,       study 005
-compound 2, fg,         1,
-compound 2, ka,         0.1,     EMA guidance

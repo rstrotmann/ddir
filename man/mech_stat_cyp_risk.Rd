@@ -4,7 +4,13 @@
 \alias{mech_stat_cyp_risk}
 \title{CYP perpetration risk as per mechanistic-static modeling}
 \usage{
-mech_stat_cyp_risk(perp, cyp_inh, cyp_ind, substr = cyp_reference_substrates)
+mech_stat_cyp_risk(
+  perp,
+  cyp_inh,
+  cyp_ind,
+  include_induction = T,
+  substr = cyp_reference_substrates
+)
 }
 \arguments{
 \item{perp}{The perpetrator object.}
@@ -12,6 +18,9 @@ mech_stat_cyp_risk(perp, cyp_inh, cyp_ind, substr = cyp_reference_substrates)
 \item{cyp_inh}{CYP inhibiton data as data frame.}
 
 \item{cyp_ind}{CYP induction data as data frame.}
+
+\item{include_induction}{Boolean value to define whether induction should be
+included in the calculation (C-terms as per the FDA guideline)}
 
 \item{substr}{The CYP reference substrates to be used as data frame.}
 }

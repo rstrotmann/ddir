@@ -30,17 +30,19 @@ The following physico-chemical, ADME and clinical exposure data were used for th
 calculation of the maximal gut and portal vein concentrations, and the unbound
 systemic concentrations. 
 
-```{r}
+```{r load_compound_data}
 cpds <- load_perpetrators("/Users/rainerstrotmann/Documents/Programming/R/ddir/tests/testthat/fixtures/compounds.csv")
 
 cyp_ki <- load_dmpk_data("/Users/rainerstrotmann/Documents/Programming/R/ddir/tests/testthat/fixtures/cyp-inhibition.csv")
 
 cyp_ind <- load_cyp_inducer_data("/Users/rainerstrotmann/Documents/Programming/R/ddir/tests/testthat/fixtures/cyp-induction.csv")
 
-transporter_ic50 <- load_dmpk_data("/Users/rainerstrotmann/Documents/Programming/R/ddir/tests/testthat/fixtures/transporter-inhibition.R")
+ugt_inh <- load_dmpk_data("/Users/rainerstrotmann/Documents/Programming/R/ddir/tests/testthat/fixtures/ugt-inhibition.csv")
 
-p <- cpds[[2]]
-m <- cpds[[3]]
+transp_inh <- load_dmpk_data("/Users/rainerstrotmann/Documents/Programming/R/ddir/tests/testthat/fixtures/transporter-inhibition.R")
+
+p <- cpds[[1]]
+m <- cpds[[2]]
 
 property_table(p)
 property_table(m)
@@ -97,7 +99,18 @@ mech_stat_cyp_risk_table(m, cyp_ki, cyp_ind)
 
 ```
 
+## Basic modeling of UGT inhibition
 
+The relevant metric for basic modeling of the UGT inhibition risk is $R_1=I_{max,ss,u}/K_{i,u}$. For the clinical risk assessment, a cut-off of $R<1.02$ applies.
+
+In in vitro UGT inhibition studies, ususally $IC_{50}$ rather than $k_i$ values are determined. Assuming that a substrate concentration close to $K_m$ is used, $K_i$ is calculated as $K_i = IC_{50}/2$ (refer to Cheng, Prusoff 1973).
+ 
+Basic modeling as per the FDA guideline (FDA 2020) results in the following risk assessment:
+
+```{r}
+basic_ugt_inhibition_risk_table(p, ugt_inh)
+basic_ugt_inhibition_risk_table(m, ugt_inh)
+```
 
 ## Inhibition of drug transporters
 
@@ -108,8 +121,8 @@ The relevant perpetrator concentrations $[I]$ are: $I_{gut}$ for intestinal P-gp
 The FDA and EMA guidelines differ in their threshold definitions. The risk assessments according to both guidelines are presented below:
 
 ```{r}
-transporter_inhibition_risk_table(p, transporter_ic50)
-transporter_inhibition_risk_table(m, transporter_ic50)
+transporter_inhibition_risk_table(p, transp_inh)
+transporter_inhibition_risk_table(m, transp_inh)
 ```
 
 
