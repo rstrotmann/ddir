@@ -102,31 +102,6 @@ basic_cyp_inhibition_risk_table <- function(perp, cyp_inh, na.rm=F) {
 
 #### CYP INDUCTION
 
-# cyp.ind.basic.table <- function(ind, compound) {
-#   emax <- as.numeric(ind$emax)
-#   ec50 <- as.numeric(ind$ec50)
-#   conc <- perp.conc(compound)
-#   imaxu <- conc["imaxssu", "molar.c"]
-#   igut <- conc["igut", "molar.c"]
-#   ind %>%
-#     mutate(syst.ratio=round(as.numeric(max.conc)/imaxu,1), int.ratio=round(as.numeric(max.conc)/igut, 3)) %>%
-#     mutate(risk=as.numeric(emax)>=2) %>%
-#     mutate_at(c(6), function(x){ifelse(is.infinite(x), "NA", x)}) %>%
-#     mutate_at(c(1, 2, 3, 4, 5, 6, 7), function(x){ifelse(is.na(x), "", x)}) %>%
-#     knitr::kable(caption=paste("CYP induction risk for", compound["name", "value"], "(basic method)"), col.names=c("$E_{max}$", "$EC_{50}$", "$I$", "Source", "$I/I_{max,ss,u}$", "$I/I_{gut}$", "Risk"))
-# }
-
-
-# basic_cyp_induction_risk <- function(perp, cyp_ind) {
-#   i <- key_concentrations(perp, molar=TRUE)
-#
-#   ki <- cyp_ind %>%
-#     filter(name==name(perp)) %>%
-#     mutate(rsys=maxc/i["imaxssu"]) %>%
-#     mutate(rint=maxc/i["igut"])
-# }
-
-
 #' Basic kinetc CYP induction risk
 #'
 #' @param perp The perpetrator object.
@@ -256,8 +231,6 @@ mech_stat_cyp_risk_table <- function(
     temp <- temp %>%
       filter(!is.na(kiu))
   }
-  # temp <- temp %>%
-  #   select(-"ki")
 
   labels <- c("CYP", "substrate", "$K_{i,u}$", "$F_{gut}$", "$f_m$",
               "$f_{m,CYP}$", "$A_g$", "$A_h$", "$C_g$", "$C_h$", "AUCR", "risk")
