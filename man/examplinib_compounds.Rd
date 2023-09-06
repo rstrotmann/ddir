@@ -5,10 +5,7 @@
 \alias{examplinib_compounds}
 \title{Fictional substrate data}
 \format{
-## `examplinib_compounds`
-A list of two: `perpetrator`objects:
-* examplinib, a fictional drug.
-* M1, a fictional metabolite of examplinib.
+An object of class \code{list} of length 2.
 }
 \source{
 Fictional data, made up for demo purposes.
@@ -17,7 +14,9 @@ Fictional data, made up for demo purposes.
 examplinib_compounds
 }
 \description{
-Fictional substrate data
+A list of two: `perpetrator`objects:
+* examplinib, a fictional drug.
+* M1, a fictional metabolite of examplinib.
 }
 \seealso{
 [perpetrator()]

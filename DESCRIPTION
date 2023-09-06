@@ -1,11 +1,12 @@
 Package: ddir
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Assessment of the clinical DDI risk for drug compounds.
 Version: 0.2.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Author: Rainer Strotmann
+Maintainer: Rainer Strotmann <rainer.strotmann@mailbox.org>
+Description: The goal of ddir is to facilitate the analysis of the drug-drug
+    interaction risk for drug compounds as per the relevant FDA and EMA
+    guidelines.
 Encoding: UTF-8
 LazyData: true
 Suggests: 

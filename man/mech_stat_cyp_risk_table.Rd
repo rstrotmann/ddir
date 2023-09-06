@@ -8,6 +8,7 @@ mech_stat_cyp_risk_table(
   perp,
   cyp_inh,
   cyp_ind,
+  include_induction = T,
   substr = cyp_reference_substrates,
   na.rm = FALSE
 )
@@ -18,6 +19,9 @@ mech_stat_cyp_risk_table(
 \item{cyp_inh}{CYP inhibiton data as data frame.}
 
 \item{cyp_ind}{CYP induction data as data frame.}
+
+\item{include_induction}{Boolean value to define whether induction should be
+included in the calculation (C-terms as per the FDA guideline)}
 
 \item{substr}{The CYP reference substrates to be used as data frame.}
 

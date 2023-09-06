@@ -7,9 +7,49 @@ output:
 
 ```{r echo=F, warning=F, info=F, message=F}
 library(knitr)
+library(knitrdata)
 library(ddir)
 
 knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, fig.width=4, fig.height=3, fig.align="center")
+```
+
+```{data output.var="cpds"}
+# name, param, value, source
+# parent
+
+examplinib,  type,     parent,
+examplinib,  mw,       492.6,
+examplinib,  dose,     450,       clinical dose
+examplinib,  imaxss,   3530,      study 001
+examplinib,  fu,       0.023,     study 002
+examplinib,  fumic,    1,         default
+examplinib,  rb,       1,         study 003
+examplinib,  fa,       0.81,      study 003
+examplinib,  fg,       1,         default
+examplinib,  ka,       0.00267,   unknown
+
+# metabolite 
+
+M1,  type,   metabolite,
+M1,  mw,     506.56,
+M1,  dose,   NA,        
+M1,  imaxss, 1038,      study 001
+M1,  fu,     0.012,     study 002
+M1,  fumic,  1,         default
+M1,  rb,     1,         study 002
+M1,  fa,     NA,
+M1,  fg,     NA,
+M1,  ka,     NA,    
+```
+
+
+```{r}
+d = read.csv(textConnection(
+"name,score
+David M. Kaplan,1.2
+The man formerly known as \"Prince\",3.4
+Peter O'Toole,5.6
+"))
 ```
 
 # Introduction

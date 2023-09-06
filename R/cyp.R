@@ -19,6 +19,25 @@ load_dmpk_data <- function(filename) {
 }
 
 
+#' @export
+load_cyp_inhibitor_data <- load_dmpk_data
+
+
+#' @export
+read_string_dmpk_data <- function(x) {
+  raw <- as.data.frame(read.csv(text=x,
+                                col.names=c("name", "param", "value", "source"),
+                                header = F,
+                                comment.char = '#')) %>%
+    dplyr::mutate(across(everything(), trimws)) %>%
+    dplyr::group_by(name) %>%
+    dplyr::group_modify(~ tibble::add_row(param="name", value=.y$name, source="", .x, , .before=1)) %>%
+    dplyr::ungroup() %>%
+    as.data.frame()
+  return(raw)
+}
+
+
 #' Load CYP inducer data from file
 #'
 #' @param filename The filename.
@@ -37,6 +56,18 @@ load_cyp_inducer_data <- function(filename) {
   return(raw)
 }
 
+#' @export
+read_string_cyp_inducer_data <- function(x) {
+  raw <- as.data.frame(read.csv(text=x,
+                                col.names=c("name", "cyp", "emax", "ec50",
+                                            "maxc", "source"),
+                                header = F,
+                                comment.char = '#')) %>%
+    dplyr::mutate(across(everything(), trimws)) %>%
+    mutate(across(3:5, as.num)) %>%
+    as.data.frame()
+  return(raw)
+}
 
 #### BASIC MODELING
 
@@ -212,6 +243,8 @@ mech_stat_cyp_risk <- function(
 #' @param perp The perpetrator object.
 #' @param cyp_inh CYP inhibiton data as data frame.
 #' @param cyp_ind CYP induction data as data frame.
+#' @param include_induction Boolean value to define whether induction should be
+#'   included in the calculation (C-terms as per the FDA guideline)
 #' @param substr The CYP reference substrates to be used as data frame.
 #' @param na.rm Remove rows with lacking ki data (i.e., where ki == NA).
 #'
@@ -221,9 +254,13 @@ mech_stat_cyp_risk_table <- function(
     perp,
     cyp_inh,
     cyp_ind,
+    include_induction=T,
     substr=cyp_reference_substrates,
     na.rm=FALSE) {
-  temp <- mech_stat_cyp_risk(perp, cyp_inh, cyp_ind, substr=substr) %>%
+  temp <- mech_stat_cyp_risk(perp, cyp_inh, cyp_ind,
+                             include_induction=include_induction,
+                             substr=substr) %>%
+    select(cyp, kiu, substrate, fgut, fm, fmcyp, Ag, Ah, Cg, Ch, aucr, risk) %>%
     mutate(across(Ag:Ch, ~ format(.x, digits=3))) %>%
     mutate(aucr=format(aucr, digits=3))
 
@@ -232,7 +269,7 @@ mech_stat_cyp_risk_table <- function(
       filter(!is.na(kiu))
   }
 
-  labels <- c("CYP", "substrate", "$K_{i,u}$", "$F_{gut}$", "$f_m$",
+  labels <- c("CYP", "$K_{i,u}$", "substrate", "$F_{gut}$", "$f_m$",
               "$f_{m,CYP}$", "$A_g$", "$A_h$", "$C_g$", "$C_h$", "AUCR", "risk")
 
   if(nrow(temp)!=0) {

@@ -77,3 +77,6 @@ M1,  fg,     NA,
 M1,  ka,     NA,
 }\if{html}{\out{</div>}}
 }
+\seealso{
+\code{\link[=read_string_perpetrators]{read_string_perpetrators()}}
+}

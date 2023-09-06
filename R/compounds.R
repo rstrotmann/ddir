@@ -51,6 +51,12 @@ as.num = function(x, na.strings = "NA") {
   x
 }
 
+#' @export
+names_string <- function(perps) {
+  paste(lapply(perps, name), collapse=", ")
+}
+
+
 #' Load perpetrator file
 #'
 #' @details
@@ -122,6 +128,7 @@ as.num = function(x, na.strings = "NA") {
 #' @export
 #' @import dplyr
 #' @import utils
+#' @seealso [read_string_perpetrators()]
 load_perpetrators <- function(filename) {
   raw <- as.data.frame(read.csv(filename,
            col.names=c("name", "param", "value", "source"),
@@ -138,6 +145,34 @@ load_perpetrators <- function(filename) {
   return(out)
 }
 
+
+#' Load perpetrator data from csv-formatted string
+#'
+#' @param input_string The string variable holding the csv-formatted data.
+#'
+#' @return A list of perpetrator objects
+#' @export
+#' @import dplyr
+#' @import utils
+#' @seealso [load_perpetrators()]
+read_string_perpetrators <- function(input_string) {
+  raw <- as.data.frame(read.csv(text=input_string,
+                                col.names=c("name", "param", "value", "source"),
+                                header = F,
+                                comment.char = '#')) %>%
+    dplyr::mutate(across(everything(), trimws)) %>%
+    dplyr::group_by(name) %>%
+    dplyr::group_modify(~ tibble::add_row(param="name", value=.y$name, source="", .x, , .before=1)) %>%
+    dplyr::ungroup() %>%
+    as.data.frame()
+
+  data <- split(raw, raw$name)
+  out <- lapply(data, perpetrator)
+  return(out)
+}
+
+#' Perpetrator object constructor
+#'
 #' @param df A data frame to be converted into a perpetrator object.
 #'
 perpetrator <- function(df) {
@@ -148,6 +183,7 @@ perpetrator <- function(df) {
   class(df) <- c("perpetrator", "data.frame")
   df
 }
+
 
 #' @export
 #' @import dplyr
