@@ -5,6 +5,7 @@ output:
 ---
 
 ```{r echo=F, warning=F, info=F, message=F}
+library(tidyverse)
 library(knitr)
 library(knitrdata)
 library(ddir)
@@ -241,7 +242,7 @@ transporter_inhibition_risk_table(m, transporter_inhibition_data)
 ```
 
 \newpage
-# Appendix
+# Appendix 1: Calculations and formulae
 
 
 #### Gut concentration {-}
@@ -330,4 +331,22 @@ $$C_h = 1 + \frac{d*E_{max}*I_h}{I_h+EC_{50}}$$
 
 with the hepatic inlet concentration $I_h=I_{max,inlet,u}$ and the intestinal concentration $I_g=I_{enteric,u}$ (see above). $d$ is an induction scaling factor (assumed to be 1 but can be adjusted).
 
+\newpage
+# Appendix 2: R Session Info
+
+This document was created using `r sessionInfo()[[1]][["version.string"]]` and
+the following packages:
+
+```{r}
+si <- sessionInfo()[[9]]
+
+name_vers <- function(item) {
+  item <- as.list(item)
+  return(c(name=as.character(item[["Package"]]), version=as.character(item[["Version"]])))
+}
+
+data.frame(lapply(si, name_vers)) %>%
+  t() %>% 
+  kable(row.names = F)
+```
 
