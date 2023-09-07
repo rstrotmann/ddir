@@ -51,9 +51,13 @@ as.num = function(x, na.strings = "NA") {
   x
 }
 
-#' @export
+
+#' Perpetrator names as comma-separated string
+#'
+#' @param perps The perpetrator objects as a list.
+#' @return The output as string.
 names_string <- function(perps) {
-  paste(lapply(perps, name), collapse=", ")
+  return(paste(lapply(perps, name), collapse=", "))
 }
 
 
@@ -185,11 +189,17 @@ perpetrator <- function(df) {
 }
 
 
+#' Print implementation for perpetrator objects
+#'
+#' @param x The perpetrator object.
+#'
+#' @param ... Further parameters.
+#'
 #' @export
 #' @import dplyr
-print.perpetrator <- function(obj) {
+print.perpetrator <- function(x, ...) {
   cat("== DDI perpetrator object ==\n")
-  obj %>%
+  x %>%
     dplyr::select(-name) %>%
     df_to_string(colnames=F) %>%
     cat()
@@ -327,7 +337,7 @@ conc_table <- function(perp) {
     temp["igut", "parameter"] <- "$I_{gut}$ *"
   }
 
-  colnames(temp) <- c("parameter", "value (ng/ml)", "value (µM)")
+  colnames(temp) <- c("parameter", "value (ng/ml)", "value (uM)")
   rownames(temp) <- NULL
 
   out <- knitr::kable(temp, caption = paste("Key perpetrator concentrations for", name))

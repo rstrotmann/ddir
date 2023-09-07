@@ -49,3 +49,15 @@
 "examplinib_cyp_inhibition_data"
 
 
+#' Fictional CYP induction data
+#'
+"examplinib_cyp_induction_data"
+
+
+#' Fictional transporter inhibition data
+#'
+"examplinib_transporter_inhibition_data"
+
+#' Fictional UGT inhibition data
+#'
+"examplinib_ugt_inhibition_data"

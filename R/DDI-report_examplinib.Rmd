@@ -8,11 +8,17 @@ output:
 library(tidyverse)
 library(knitr)
 library(knitrdata)
-library(ddir)
+# library(ddir)
 
 knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, fig.width=4, fig.height=3, fig.align="center")
 ```
 
+<!-- The following sections contain compound-specific data for the DDI calculations. -->
+<!-- Please replace the sample data with the relevant information. Note that all  -->
+<!-- lines must contain the respective number of fields in a comma-separated way. -->
+<!-- The 'source' field is for reference source information, i.e., the relevant -->
+<!-- clinical or non-clinical study report. It may remain empty without affecting  -->
+<!-- the DDI calculations. -->
 
 ```{data output.var="compounds_text"}
 # PARENT
@@ -113,6 +119,8 @@ examplinib, OCT2,      67,    study 006
 examplinib, MATE1,     3.6,    study 006
 examplinib, MATE2k,    1.1,    study 006
 ```
+
+<!-- End of the compund-specific data section. -->
 
 
 ```{r load_compound_data}

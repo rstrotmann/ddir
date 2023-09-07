@@ -18,11 +18,21 @@ load_dmpk_data <- function(filename) {
   return(raw)
 }
 
-
+#' Load CYP inhibitor data
+#'
+#' @param filename The filename as string.
+#' @return The data as data frame.
 #' @export
-load_cyp_inhibitor_data <- load_dmpk_data
+load_cyp_inhibitor_data <- function(filename) {
+  return(load_dmpk_data(filename))
+}
 
 
+
+#' Read csv-formatted DMPK data from string
+#'
+#' @param x The string containing the data in csv format.
+#' @return The data as data frame.
 #' @export
 read_string_dmpk_data <- function(x) {
   raw <- as.data.frame(read.csv(text=x,
@@ -41,7 +51,6 @@ read_string_dmpk_data <- function(x) {
 #' Load CYP inducer data from file
 #'
 #' @param filename The filename.
-#'
 #' @return A list of data frames.
 #' @export
 load_cyp_inducer_data <- function(filename) {
@@ -56,6 +65,10 @@ load_cyp_inducer_data <- function(filename) {
   return(raw)
 }
 
+#' Read csv-formatted CYP inducer data from string
+#'
+#' @param x The string containing the data in csv format.
+#' @return The data as data frame.
 #' @export
 read_string_cyp_inducer_data <- function(x) {
   raw <- as.data.frame(read.csv(text=x,
