@@ -56,6 +56,7 @@ as.num = function(x, na.strings = "NA") {
 #'
 #' @param perps The perpetrator objects as a list.
 #' @return The output as string.
+#' @export
 names_string <- function(perps) {
   return(paste(lapply(perps, name), collapse=", "))
 }
