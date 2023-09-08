@@ -346,7 +346,7 @@ This document was created using `r sessionInfo()[[1]][["version.string"]]` and
 the following packages:
 
 ```{r}
-si <- sessionInfo()[[9]]
+si <- sessionInfo()[["otherPkgs"]]
 
 name_vers <- function(item) {
   item <- as.list(item)

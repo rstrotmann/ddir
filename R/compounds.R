@@ -58,7 +58,8 @@ as.num = function(x, na.strings = "NA") {
 #' @return The output as string.
 #' @export
 names_string <- function(perps) {
-  return(paste(lapply(perps, name), collapse=", "))
+  #return(paste(lapply(perps, name), collapse=", "))
+  return(paste(lapply(perps, function(p) {p[(p$param=="name"), "value"]}), collapse=", "))
 }
 
 
@@ -146,7 +147,7 @@ load_perpetrators <- function(filename) {
     as.data.frame()
 
   data <- split(raw, raw$name)
-  out <- lapply(data, perpetrator)
+  out <- lapply(data, new_perpetrator)
   return(out)
 }
 
@@ -172,7 +173,7 @@ read_string_perpetrators <- function(input_string) {
     as.data.frame()
 
   data <- split(raw, raw$name)
-  out <- lapply(data, perpetrator)
+  out <- lapply(data, new_perpetrator)
   return(out)
 }
 
@@ -180,7 +181,7 @@ read_string_perpetrators <- function(input_string) {
 #'
 #' @param df A data frame to be converted into a perpetrator object.
 #'
-perpetrator <- function(df) {
+new_perpetrator <- function(df) {
   stopifnot(c("param", "value", "source") %in% colnames(df))
   rownames(df) <- df$param
   stopifnot(c("name", "type", "mw", "dose", "imaxss", "fu", "fumic", "rb",
