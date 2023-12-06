@@ -47,6 +47,7 @@ M1,          fa,       NA,
 M1,          fg,       NA,
 M1,          ka,       NA,    
 ```
+
 ```{data output.var="cyp_inhibition_text"}
 # PARENT
 # compound, CYP, ki, source
@@ -61,6 +62,7 @@ examplinib, CYP3A4,  12.5, study 001
 # METABOLITE
 M1,         CYP2C9,  4.4,  study 002
 ```
+
 ```{data output.var="cyp_induction_text"}
 # PARENT
 # compound, CYP, Emax, EC50, max c, source
@@ -82,6 +84,7 @@ M1, CYP2C19, NA,   NA,   NA,
 M1, CYP2D6,  NA,   NA,   NA, 
 M1, CYP3A4,  22.7, 1.1,  5,  study 007
 ```
+
 ```{data output.var="ugt_inhibition_text"}
 # PARENT
 # compound, enzyme, IC50, source
@@ -104,6 +107,7 @@ M1, UGT1A9, 3.6, study 009
 M1, UGT2B7, 15, study 009
 M1, UGT2B15, 9.6, study 009
 ```
+
 ```{data output.var="transporter_inhibiton_text"}
 # PARENT
 # name,     transporter, IC50, source
@@ -124,10 +128,12 @@ examplinib, MATE2k,    1.1,    study 006
 
 
 ```{r load_compound_data}
-compounds <- read_string_perpetrators(compounds_text)
-cyp_inhibition_data <- read_string_dmpk_data(cyp_inhibition_text)
+compounds <- read_perpetrators(textConnection(compounds_text))
+# compounds <- read_string_perpetrators(compounds_text)
+cyp_inhibition_data <- read_dmpk(textConnection(cyp_inhibition_text))
+# cyp_inhibition_data <- read_string_dmpk_data(cyp_inhibition_text)
 cyp_induction_data <- read_string_cyp_inducer_data(cyp_induction_text)
-ugt_inhibition_data <- read_string_dmpk_data(ugt_inhibition_text)
+ugt_inhibition_data <- read_dmpk(textConnection(ugt_inhibition_text))
 transporter_inhibition_data <- read_string_dmpk_data(transporter_inhibiton_text)
 ```
 
