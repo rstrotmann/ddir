@@ -15,14 +15,23 @@
 
 #' Fictional substrate data
 #'
-#' A list of two: `perpetrator`objects:
+#' A list of two: `perpetrator` objects:
 #' * examplinib, a fictional drug.
 #' * M1, a fictional metabolite of examplinib.
 #'
 #' @source Fictional data, made up for demo purposes.
-#' @seealso [perpetrator()]
-#' @seealso [load_perpetrators()]
 "examplinib_compounds"
+
+
+#' Fictional substrate data as string
+#'
+#' A text string containing data for two: `perpetrator` objects:
+#' * examplinib, a fictional drug.
+#' * M1, a fictional metabolite of examplinib.
+#'
+#' @source Fictional data, made up for demo purposes.
+#' @seealso [read_perpetrators()]
+"examplinib_compounds_string"
 
 
 #' Fictional CYP inhibition data

@@ -14,13 +14,8 @@ Fictional data, made up for demo purposes.
 examplinib_compounds
 }
 \description{
-A list of two: `perpetrator`objects:
+A list of two: `perpetrator` objects:
 * examplinib, a fictional drug.
 * M1, a fictional metabolite of examplinib.
-}
-\seealso{
-[perpetrator()]
-
-[load_perpetrators()]
 }
 \keyword{datasets}

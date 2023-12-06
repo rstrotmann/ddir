@@ -58,7 +58,6 @@ as.num = function(x, na.strings = "NA") {
 #' @return The output as string.
 #' @export
 names_string <- function(perps) {
-  #return(paste(lapply(perps, name), collapse=", "))
   return(paste(lapply(perps, function(p) {p[(p$param=="name"), "value"]}), collapse=", "))
 }
 
@@ -103,6 +102,7 @@ print.perpetrator <- function(x, ...) {
 name <- function(obj) {
   UseMethod("name")
 }
+
 
 #' Name of a perpetrator
 #'

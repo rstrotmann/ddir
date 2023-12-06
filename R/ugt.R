@@ -51,9 +51,11 @@ basic_ugt_inhibition_risk_table <- function(perp, ugt_inh, na.rm=F) {
 
   labels <- c("UGT", "$K_{i,u}$", "$R_1$", "risk")
   if(nrow(temp)!=0) {
-    out <- knitr::kable(temp,
-                        caption=paste("Risk for UGT inhibition by", name(perp), "(basic model)"),
-                        col.names=labels)
+    out <- temp %>%
+      mutate(r1=round(r1, 3)) %>%
+      knitr::kable(caption=paste("Risk for UGT inhibition by",
+                                 name(perp), "(basic model)"),
+                   col.names=labels)
     return(out)
   }
 }

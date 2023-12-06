@@ -129,12 +129,10 @@ examplinib, MATE2k,    1.1,    study 006
 
 ```{r load_compound_data}
 compounds <- read_perpetrators(textConnection(compounds_text))
-# compounds <- read_string_perpetrators(compounds_text)
-cyp_inhibition_data <- read_dmpk(textConnection(cyp_inhibition_text))
-# cyp_inhibition_data <- read_string_dmpk_data(cyp_inhibition_text)
-cyp_induction_data <- read_string_cyp_inducer_data(cyp_induction_text)
-ugt_inhibition_data <- read_dmpk(textConnection(ugt_inhibition_text))
-transporter_inhibition_data <- read_string_dmpk_data(transporter_inhibiton_text)
+cyp_inhibition_data <- read_dmpk_data(textConnection(cyp_inhibition_text))
+cyp_induction_data <- read_cyp_inducer_data(textConnection(cyp_induction_text))
+ugt_inhibition_data <- read_dmpk_data(textConnection(ugt_inhibition_text))
+transporter_inhibition_data <- read_dmpk_data(textConnection(transporter_inhibiton_text))
 ```
 
 ---
