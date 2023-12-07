@@ -2,20 +2,17 @@
 % Please edit documentation in R/cyp.R
 \name{kinetic_cyp_induction_risk_table}
 \alias{kinetic_cyp_induction_risk_table}
-\title{Table of the basic kinetc CYP induction risk}
+\title{Generic function: Table of the basic kinetc CYP induction risk}
 \usage{
 kinetic_cyp_induction_risk_table(perp, cyp_ind, na.rm = F)
 }
 \arguments{
-\item{perp}{The perpetrator object.}
+\item{perp}{The perpetrator object or list thereof}
 
 \item{cyp_ind}{The CYP induction data as data frame.}
 
 \item{na.rm}{Remove rows with lacking ki data (i.e., where ki == NA).}
 }
-\value{
-A markdown-formatted table.
-}
 \description{
-Table of the basic kinetc CYP induction risk
+Generic function: Table of the basic kinetc CYP induction risk
 }

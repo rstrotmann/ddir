@@ -205,13 +205,23 @@ key_concentrations <- function(obj, qh=1.616, qent=18/60, molar=TRUE) {
 }
 
 
+#' Generic function to display ky perpetrator concentrations
+#'
+#' @param perp The object (compund object or list thereof)
+#'
+#' @export
+conc_table <- function(perp) {
+  UseMethod("conc_table")
+}
+
+
 #' Table of key perpetrator concentrations
 #'
 #' @param perp The perpetrator object.
 #'
 #' @return Key perpetrator concentrations as a markdown-formatted table.
 #' @export
-conc_table <- function(perp) {
+conc_table.perpetrator <- function(perp) {
   sol_limit <- is_igut_solubility_limited(perp)
 
   name <- perp["name", "value"]
@@ -229,16 +239,30 @@ conc_table <- function(perp) {
   rownames(temp) <- NULL
 
   out <- knitr::kable(temp, caption = paste("Key perpetrator concentrations for", name))
-  # if (sol_limit) {
-  #   out <- kableExtra::add_footnote(
-  #     out,
-  #     label="*$I_{gut}$ is limited by the solubility of the compound",
-  #     notation="none",
-  #     threeparttable = TRUE)
-  # }
   return(out)
 }
 
+
+#' Table of key perpetrator concentrations for a list of compounds
+#'
+#' @param perp The compounds as list of compound objects.
+#'
+#' @export
+conc_table.list <- function(perp) {
+  for(i in perp) {
+    print(conc_table(i))
+  }
+}
+
+
+#' Generic function to display compound properties
+#'
+#' @param obj The object (compund object or list thereof)
+#'
+#' @export
+property_table <- function(obj) {
+  UseMethod("property_table")
+}
 
 
 #' Table of perpetrator properties
@@ -247,7 +271,7 @@ conc_table <- function(perp) {
 #'
 #' @return Perpetrator properties as markdown-formatted table.
 #' @export
-property_table <- function(obj){
+property_table.perpetrator <- function(obj){
   labels <- data.frame(
     param=c("mw", "dose", "solubility", "imaxss", "fu", "fumic", "rb", "fa", "fg", "ka"),
     parameter =c("$MW$ (g/mol)", "$dose$ (mg)", "$solubility$ (mg/l)", "$C_{max,ss}$ (ng/ml)",
@@ -263,5 +287,22 @@ property_table <- function(obj){
 
   return(out)
 }
+
+
+#' Compound properties for a list of compounds
+#'
+#' @param obj A list of perpetrator objects.
+#'
+#' @export
+property_table.list <- function(obj) {
+  for(i in obj) {
+    print(property_table(i))
+  }
+}
+
+
+
+
+
 
 

@@ -2,16 +2,13 @@
 % Please edit documentation in R/compounds.R
 \name{property_table}
 \alias{property_table}
-\title{Table of perpetrator properties}
+\title{Generic function to display compound properties}
 \usage{
 property_table(obj)
 }
 \arguments{
-\item{obj}{The perpetrator object.}
-}
-\value{
-Perpetrator properties as markdown-formatted table.
+\item{obj}{The object (compund object or list thereof)}
 }
 \description{
-Table of perpetrator properties
+Generic function to display compound properties
 }

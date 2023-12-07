@@ -129,10 +129,10 @@ examplinib, MATE2k,    1.1,    study 006
 
 ```{r load_compound_data}
 compounds <- read_perpetrators(textConnection(compounds_text))
-cyp_inhibition_data <- read_dmpk_data(textConnection(cyp_inhibition_text))
-cyp_induction_data <- read_cyp_inducer_data(textConnection(cyp_induction_text))
-ugt_inhibition_data <- read_dmpk_data(textConnection(ugt_inhibition_text))
-transporter_inhibition_data <- read_dmpk_data(textConnection(transporter_inhibiton_text))
+cyp_inhibition_data <- read_inhibitor_data(textConnection(cyp_inhibition_text))
+cyp_induction_data <- read_inducer_data(textConnection(cyp_induction_text))
+ugt_inhibition_data <- read_inhibitor_data(textConnection(ugt_inhibition_text))
+transporter_inhibition_data <- read_inhibitor_data(textConnection(transporter_inhibiton_text))
 ```
 
 ---
@@ -162,9 +162,11 @@ systemic concentrations.
 ```{r perpetrator_properties}
 p <- compounds[[1]]
 m <- compounds[[2]]
+# 
+# property_table(p)
+# property_table(m)
 
-property_table(p)
-property_table(m)
+property_table(compounds)
 ```
 
 # Key perpetrator concentrations
@@ -173,8 +175,10 @@ The relevant perpetrator concentrations are calculated as outlined in the
 Appendix:
 
 ```{r}
-conc_table(p)
-conc_table(m)
+# conc_table(p)
+# conc_table(m)
+
+conc_table(compounds)
 ```
 
 # DDI perpetrator risk assessment
@@ -190,8 +194,10 @@ Thresholds of $R < 1.02$ and $R < 11$ apply for hepatic and intestinal enzymes, 
 Basic modeling as per the FDA guideline results in the following risk assessment for direct CYP inhibition by xxx.
 
 ```{r}
-basic_cyp_inhibition_risk_table(p, cyp_inhibition_data)
-basic_cyp_inhibition_risk_table(m, cyp_inhibition_data)
+# basic_cyp_inhibition_risk_table(p, cyp_inhibition_data)
+# basic_cyp_inhibition_risk_table(m, cyp_inhibition_data)
+
+basic_cyp_inhibition_risk_table(compounds, cyp_inhibition_data, na.rm=T)
 ```
 
 Note that the ratios used in the EMA guidance correspond to the FDA ratios listed above minus 1.
@@ -205,6 +211,11 @@ The basic (EMA) or fold-change (FDA) methods evaluate whether the maximal fold-c
 For the relevant drug concentrations, the FDA guidance suggests considering $30*I_{max,ss,u}$ while the EMA guidance considers $50*I_{max,ss,u}$ for hepatic and $0.1*I_{gut}$ for intestinal induction. It is expected that the concentrations in the respective in vitro assays cover these concentrations.
 
 Basic modeling as per the FDA guideline results in the following risk assessment:
+
+```{r}
+kinetic_cyp_induction_risk_table(compounds, cyp_induction_data, na.rm=T)
+```
+
 
 ## Mechanistic static modeling of CYP modulation
 

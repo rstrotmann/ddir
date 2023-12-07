@@ -147,7 +147,7 @@ read_perpetrators <- function(source) {
 #'
 #' @return The data as data frame.
 #' @export
-read_dmpk_data <- function(source) {
+read_inhibitor_data <- function(source) {
   raw <- as.data.frame(read.csv(source,
                                 col.names=c("name", "param", "value", "source"),
                                 header = F,
@@ -164,15 +164,15 @@ read_dmpk_data <- function(source) {
 }
 
 
-#' Read CYP inhibitor data
-#'
-#' @param source The connection to read from.
-#'
-#' @return The data as data frame.
-#' @export
-read_cyp_inhibitor_data <- function(source) {
-  return(read_dmpk_data(source))
-}
+#' #' Read CYP inhibitor data
+#' #'
+#' #' @param source The connection to read from.
+#' #'
+#' #' @return The data as data frame.
+#' #' @export
+#' read_cyp_inhibitor_data <- function(source) {
+#'   return(read_dmpk_data(source))
+#' }
 
 
 #' Read csv-formatted CYP inducer data
@@ -180,7 +180,7 @@ read_cyp_inhibitor_data <- function(source) {
 #' @param source The connection to read from.
 #' @return The data as data frame.
 #' @export
-read_cyp_inducer_data <- function(source) {
+read_inducer_data <- function(source) {
   raw <- as.data.frame(read.csv(source,
                                 col.names=c("name", "cyp", "emax", "ec50",
                                             "maxc", "source"),

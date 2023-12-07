@@ -2,18 +2,15 @@
 % Please edit documentation in R/cyp.R
 \name{kinetic_cyp_induction_risk}
 \alias{kinetic_cyp_induction_risk}
-\title{Basic kinetc CYP induction risk}
+\title{GEneric functino for basic kinetic CYP induction risk}
 \usage{
 kinetic_cyp_induction_risk(perp, cyp_ind)
 }
 \arguments{
-\item{perp}{The perpetrator object.}
+\item{perp}{The perpetrator object or a list thereof.}
 
 \item{cyp_ind}{The CYP induction data as data frame.}
 }
-\value{
-A data frame.
-}
 \description{
-Basic kinetc CYP induction risk
+GEneric functino for basic kinetic CYP induction risk
 }

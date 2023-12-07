@@ -2,18 +2,18 @@
 % Please edit documentation in R/cyp.R
 \name{basic_cyp_inhibition_risk}
 \alias{basic_cyp_inhibition_risk}
-\title{Basic CYP inhibition parameters}
+\title{Generic function to evaluate the basic CYP inhibition risk}
 \usage{
 basic_cyp_inhibition_risk(perp, cyp_inh)
 }
 \arguments{
-\item{perp}{The perpetrator object.}
+\item{perp}{The perpetrator as perpetrator object or list thereof.}
 
-\item{cyp_inh}{CYP inhibiton data as data frame.}
+\item{cyp_inh}{The CYP inhibitor data as data frame.}
 }
 \value{
-Data frame.
+A data frame.
 }
 \description{
-Basic CYP inhibition parameters
+Generic function to evaluate the basic CYP inhibition risk
 }

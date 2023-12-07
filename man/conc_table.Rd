@@ -2,16 +2,13 @@
 % Please edit documentation in R/compounds.R
 \name{conc_table}
 \alias{conc_table}
-\title{Table of key perpetrator concentrations}
+\title{Generic function to display ky perpetrator concentrations}
 \usage{
 conc_table(perp)
 }
 \arguments{
-\item{perp}{The perpetrator object.}
-}
-\value{
-Key perpetrator concentrations as a markdown-formatted table.
+\item{perp}{The object (compund object or list thereof)}
 }
 \description{
-Table of key perpetrator concentrations
+Generic function to display ky perpetrator concentrations
 }
