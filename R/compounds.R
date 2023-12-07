@@ -249,9 +249,10 @@ conc_table.perpetrator <- function(perp) {
 #'
 #' @export
 conc_table.list <- function(perp) {
-  for(i in perp) {
-    print(conc_table(i))
-  }
+  # for(i in perp) {
+  #   conc_table(i)
+  # }
+  lapply(perp, conc_table)
 }
 
 

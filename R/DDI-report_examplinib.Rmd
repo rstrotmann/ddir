@@ -162,11 +162,9 @@ systemic concentrations.
 ```{r perpetrator_properties}
 p <- compounds[[1]]
 m <- compounds[[2]]
-# 
-# property_table(p)
-# property_table(m)
 
-property_table(compounds)
+property_table(p)
+property_table(m)
 ```
 
 # Key perpetrator concentrations
@@ -175,10 +173,8 @@ The relevant perpetrator concentrations are calculated as outlined in the
 Appendix:
 
 ```{r}
-# conc_table(p)
-# conc_table(m)
-
-conc_table(compounds)
+conc_table(p)
+conc_table(m)
 ```
 
 # DDI perpetrator risk assessment
@@ -194,10 +190,8 @@ Thresholds of $R < 1.02$ and $R < 11$ apply for hepatic and intestinal enzymes, 
 Basic modeling as per the FDA guideline results in the following risk assessment for direct CYP inhibition by xxx.
 
 ```{r}
-# basic_cyp_inhibition_risk_table(p, cyp_inhibition_data)
-# basic_cyp_inhibition_risk_table(m, cyp_inhibition_data)
-
-basic_cyp_inhibition_risk_table(compounds, cyp_inhibition_data, na.rm=T)
+basic_cyp_inhibition_risk_table(p, cyp_inhibition_data)
+basic_cyp_inhibition_risk_table(m, cyp_inhibition_data)
 ```
 
 Note that the ratios used in the EMA guidance correspond to the FDA ratios listed above minus 1.
@@ -213,7 +207,8 @@ For the relevant drug concentrations, the FDA guidance suggests considering $30*
 Basic modeling as per the FDA guideline results in the following risk assessment:
 
 ```{r}
-kinetic_cyp_induction_risk_table(compounds, cyp_induction_data, na.rm=T)
+kinetic_cyp_induction_risk_table(p, cyp_induction_data, na.rm=T)
+kinetic_cyp_induction_risk_table(m, cyp_induction_data, na.rm=T)
 ```
 
 
