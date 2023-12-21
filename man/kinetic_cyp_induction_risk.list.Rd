@@ -7,7 +7,7 @@
 \method{kinetic_cyp_induction_risk}{list}(perp, cyp_ind)
 }
 \arguments{
-\item{perp}{The perpetrator object.}
+\item{perp}{A list of perpetrator objects.}
 
 \item{cyp_ind}{The CYP induction data as data frame.}
 }

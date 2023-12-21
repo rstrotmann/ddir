@@ -202,13 +202,23 @@ Note that the ratios used in the EMA guidance correspond to the FDA ratios liste
 
 The basic (EMA) or fold-change (FDA) methods evaluate whether the maximal fold-change in mRNA expression is > 2-fold at the expected unbound hepatic concentration of the drug.
 
-For the relevant drug concentrations, the FDA guidance suggests considering $30*I_{max,ss,u}$ while the EMA guidance considers $50*I_{max,ss,u}$ for hepatic and $0.1*I_{gut}$ for intestinal induction. It is expected that the concentrations in the respective in vitro assays cover these concentrations.
+For the relevant maximal drug concentrations to be tested in vitro ($maxc$), the FDA guidance suggests considering $30*I_{max,ss,u}$ while the EMA guidance considers $50*I_{max,ss,u}$ for hepatic and $0.1*I_{gut}$ for intestinal induction. It is expected that the concentrations in the respective in vitro assays cover these concentrations.
 
 Basic modeling as per the FDA guideline results in the following risk assessment:
 
 ```{r}
+static_cyp_induction_risk_table.perpetrator(p, cyp_induction_data)
+static_cyp_induction_risk_table.perpetrator(m, cyp_induction_data)
+```
+
+
+```{r}
 kinetic_cyp_induction_risk_table(p, cyp_induction_data, na.rm=T)
 kinetic_cyp_induction_risk_table(m, cyp_induction_data, na.rm=T)
+```
+
+```{r}
+
 ```
 
 
@@ -309,11 +319,11 @@ For the basic modeling of direct (reversible) enzyme inhibition, the ratios of t
 
 #### Liver {-}
 
-$$R_1=1-\frac{I_{max,ss,u}}{K_{i,u}}$$
+$$R_1=1+\frac{I_{max,ss,u}}{K_{i,u}}$$
 
 #### Gut wall {-}
 
-$$R_{1,gut}=1-\frac{I_{gut}}{K_{i,u}}$$
+$$R_{1,gut}=1+\frac{I_{gut}}{K_{i,u}}$$
 
 <!-- ### Time-dependent enzyme inhibition -->
 

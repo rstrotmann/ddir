@@ -114,7 +114,111 @@ basic_cyp_inhibition_risk_table.list <- function(perp, cyp_inh, na.rm=F) {
 
 #### CYP INDUCTION
 
-#' GEneric functino for basic kinetic CYP induction risk
+#' Generic function for basic static CYP induction risk
+#'
+#' @param perp The perpetrator object or a list thereof.
+#' @param cyp_ind The CYP induction data as data frame.
+#'
+#' @return A data frame.
+#' @export
+static_cyp_induction_risk <- function(perp, cyp_ind) {
+  UseMethod("static_cyp_induction_risk")
+}
+
+
+#' Basic static CYP induction risk
+#'
+#' @param perp The perpetrator object or a list thereof.
+#' @param cyp_ind The CYP induction data as data frame.
+#'
+#' @return A data frame.
+#' @export
+static_cyp_induction_risk.perpetrator <- function(perp, cyp_ind)  {
+  i <- key_concentrations(perp, molar=TRUE)
+
+  cyp_ind %>%
+    filter(name==name(perp)) %>%
+    mutate(maxc_imaxssu=round(maxc/i["imaxssu"], 1)) %>%
+    mutate(risk=emax>2) %>%
+    mutate(note=case_when(
+      maxc_imaxssu<30~"Maximal tested concentration is below EMA/FDA expectations",
+      (maxc_imaxssu>30 & maxc_imaxssu<50)~"Maximal tested concentration is below FDA expectations",
+      .default="")) %>%
+    select(-c(name, ec50))
+}
+
+
+#' Basic static CYP induction risk
+#'
+#' @param perp The perpetrator object or a list thereof.
+#' @param cyp_ind The CYP induction data as data frame.
+#'
+#' @return A data frame.
+#' @export
+static_cyp_induction_risk.list <- function(perp, cyp_ind) {
+  lapply(perp, static_cyp_induction_risk, cyp_ind=cyp_ind)
+}
+
+
+#' Generic function: Table of the basic static CYP induction risk
+#'
+#' @param perp The perpetrator object or list thereof
+#' @param cyp_ind The CYP induction data as data frame.
+#' @param na.rm Remove rows with lacking ki data (i.e., where ki == NA).
+#' @export
+static_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
+  UseMethod("static_cyp_induction_risk_table")
+}
+
+
+#' Table of the basic static CYP induction risk
+#'
+#' @param perp The perpetrator object.
+#' @param cyp_ind The CYP induction data as data frame.
+#' @param na.rm Remove rows with lacking ki data (i.e., where ki == NA).
+#'
+#' @return A markdown-formatted table.
+#' @export
+static_cyp_induction_risk_table.perpetrator <- function(perp, cyp_ind, na.rm=F) {
+  temp <- static_cyp_induction_risk(perp, cyp_ind)
+
+  if(na.rm==TRUE) {
+    temp <- temp %>%
+      filter(!is.na(emax))
+  }
+
+  labels <- c("CYP", "$E_{max}$", "$max c$", "source", "$max c/I_{max,ss,u}$",
+              "risk", "notes")
+
+  if(nrow(temp)!=0) {
+    out <- knitr::kable(
+      temp, caption=paste("Risk for hepatic CYP induction by", name(perp),
+        "(basic static model)"),
+      col.names=labels)
+    return(out)
+  }
+}
+
+
+#' Tables of the basic static CYP induction risk
+#'
+#' @param perp The list of perpetrator objects.
+#' @param cyp_ind The CYP induction data as data frame.
+#' @param na.rm Remove rows with lacking ki data (i.e., where ki == NA).
+#'
+#' @return A list of markdown-formatted tables.
+#' @export
+static_cyp_induction_risk_table.list <- function(perp, cyp_ind, na.rm=F) {
+  for(i in perp) {
+    print(static_cyp_induction_risk_table(i, cyp_ind, na.rm=na.rm))
+  }
+}
+
+
+
+
+
+#' Generic function for basic kinetic CYP induction risk
 #'
 #' @param perp The perpetrator object or a list thereof.
 #' @param cyp_ind The CYP induction data as data frame.
@@ -145,7 +249,7 @@ kinetic_cyp_induction_risk.perpetrator <- function(perp, cyp_ind) {
 
 #' Basic kinetic CYP induction risk
 #'
-#' @param perp The perpetrator object.
+#' @param perp A list of perpetrator objects.
 #' @param cyp_ind The CYP induction data as data frame.
 #'
 #' @return A list of data frames.
@@ -187,7 +291,7 @@ kinetic_cyp_induction_risk_table.perpetrator <- function(perp, cyp_ind, na.rm=F)
               "source", "$R_3$", "risk")
   if(nrow(temp)!=0) {
     out <- knitr::kable(temp,
-                        caption=paste("Risk for CYP inductio by", name(perp),
+                        caption=paste("Risk for CYP induction by", name(perp),
                                       "(basic kinetic model)"),
                         col.names=labels)
     return(out)
