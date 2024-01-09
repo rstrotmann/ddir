@@ -5,8 +5,7 @@
 \alias{transporter_reference_data}
 \title{Drug transporter reference data}
 \format{
-\subsection{\code{transporter_reference_data}}{
-}
+An object of class \code{data.frame} with 13 rows and 5 columns.
 }
 \source{
 FDA and EMA guidelines.

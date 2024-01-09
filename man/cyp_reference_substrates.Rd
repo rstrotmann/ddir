@@ -5,8 +5,7 @@
 \alias{cyp_reference_substrates}
 \title{CYP reference substrate data}
 \format{
-\subsection{\code{cyp_reference_substrates}}{
-}
+An object of class \code{data.frame} with 5 rows and 5 columns.
 }
 \source{
 FDA and EMA guidelines.
