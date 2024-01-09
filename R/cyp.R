@@ -423,7 +423,8 @@ mech_stat_cyp_risk <- function(
 #' @return A markdown-formatted table.
 #' @export
 #' @examples
-#' mech_stat_cyp_risk_table(examplinib_parent, examplinib_cyp_inhibition_data, examplinib_cyp_induction_data)
+#' mech_stat_cyp_risk_table(examplinib_parent, examplinib_cyp_inhibition_data,
+examplinib_cyp_induction_data)
 mech_stat_cyp_risk_table <- function(
     perp,
     cyp_inh,
