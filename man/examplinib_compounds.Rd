@@ -14,8 +14,10 @@ Fictional data, made up for demo purposes.
 examplinib_compounds
 }
 \description{
-A list of two: `perpetrator` objects:
-* examplinib, a fictional drug.
-* M1, a fictional metabolite of examplinib.
+A list of two: \code{perpetrator} objects:
+\itemize{
+\item examplinib, a fictional drug.
+\item M1, a fictional metabolite of examplinib.
+}
 }
 \keyword{datasets}

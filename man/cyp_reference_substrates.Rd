@@ -5,7 +5,8 @@
 \alias{cyp_reference_substrates}
 \title{CYP reference substrate data}
 \format{
-## `cyp_reference_substrates`
+\subsection{\code{cyp_reference_substrates}}{
+}
 }
 \source{
 FDA and EMA guidelines.

@@ -18,55 +18,50 @@ This can be used to read the compound data from a string.
 }
 \details{
 The file is expected to comply with the following:
+\itemize{
+\item Comments start with '#' and go until the end of the line
+\item lines have the format: \strong{drug}, \strong{parameter}, \strong{value}, \strong{source}
+\item fields within a line are comma-separated
+\item fields are plain text without enclosing ""
+\item the source field is only for reference and usually refers to a clinical
+or non-clinical study report. The source field may remain empty. Note
+that the line then ends with a comma.
+}
 
-  * Comments start with '#' and go until the end of the line
+For metabolites, the fields dose, fa, fg and ka are not relevant and should
+be filled with \code{NA}.
 
-  * lines have the format: __drug__, __parameter__, __value__, __source__
+Note that multiple compounds, e.g., the parent and metabolites may be
+included in the perpetrator file. A typical compound file could look e.g.,
+like this:
 
-  * fields within a line are comma-separated
+\if{html}{\out{<div class="sourceCode">}}\preformatted{# name, param, value, source
+# parent
 
-  * fields are plain text without enclosing ""
+examplinib,  type,     parent,
+examplinib,  mw,       492.6,
+examplinib,  dose,     450,       clinical dose
+examplinib,  imaxss,   3530,      study 001
+examplinib,  fu,       0.023,     study 002
+examplinib,  fumic,    1,         default
+examplinib,  rb,       1,         study 003
+examplinib,  fa,       0.81,      study 003
+examplinib,  fg,       1,         default
+examplinib,  ka,       0.00267,   unknown
 
-  * the source field is only for reference and usually refers to a clinical
-    or non-clinical study report. The source field may remain empty. Note
-    that the line then ends with a comma.
+# metabolite
 
-
-  For metabolites, the fields dose, fa, fg and ka are not relevant and should
-  be filled with `NA`.
-
-  Note that multiple compounds, e.g., the parent and metabolites may be
-  included in the perpetrator file. A typical compound file could look e.g.,
-  like this:
-
-  ```
-  # name, param, value, source
-  # parent
-
-  examplinib,  type,     parent,
-  examplinib,  mw,       492.6,
-  examplinib,  dose,     450,       clinical dose
-  examplinib,  imaxss,   3530,      study 001
-  examplinib,  fu,       0.023,     study 002
-  examplinib,  fumic,    1,         default
-  examplinib,  rb,       1,         study 003
-  examplinib,  fa,       0.81,      study 003
-  examplinib,  fg,       1,         default
-  examplinib,  ka,       0.00267,   unknown
-
-  # metabolite
-
-  M1,  type,   metabolite,
-  M1,  mw,     506.56,
-  M1,  dose,   NA,
-  M1,  imaxss, 1038,      study 001
-  M1,  fu,     0.012,     study 002
-  M1,  fumic,  1,         default
-  M1,  rb,     1,         study 002
-  M1,  fa,     NA,
-  M1,  fg,     NA,
-  M1,  ka,     NA,
-  ```
+M1,  type,   metabolite,
+M1,  mw,     506.56,
+M1,  dose,   NA,
+M1,  imaxss, 1038,      study 001
+M1,  fu,     0.012,     study 002
+M1,  fumic,  1,         default
+M1,  rb,     1,         study 002
+M1,  fa,     NA,
+M1,  fg,     NA,
+M1,  ka,     NA,
+}\if{html}{\out{</div>}}
 }
 \examples{
 read_perpetrators(textConnection(examplinib_compounds_string))

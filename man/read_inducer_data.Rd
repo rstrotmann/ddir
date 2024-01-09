@@ -9,7 +9,7 @@
 #' @return The data as data frame.
 #' @export
 read_cyp_inhibitor_data <- function(source) {
-  return(read_dmpk_data(source))
+return(read_dmpk_data(source))
 }
 Read csv-formatted CYP inducer data}
 \usage{
@@ -29,7 +29,7 @@ The data as data frame.
 #' @return The data as data frame.
 #' @export
 read_cyp_inhibitor_data <- function(source) {
-  return(read_dmpk_data(source))
+return(read_dmpk_data(source))
 }
 Read csv-formatted CYP inducer data
 }

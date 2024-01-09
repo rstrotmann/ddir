@@ -14,11 +14,13 @@ Fictional data, made up for demo purposes.
 examplinib_compounds_string
 }
 \description{
-A text string containing data for two: `perpetrator` objects:
-* examplinib, a fictional drug.
-* M1, a fictional metabolite of examplinib.
+A text string containing data for two: \code{perpetrator} objects:
+\itemize{
+\item examplinib, a fictional drug.
+\item M1, a fictional metabolite of examplinib.
+}
 }
 \seealso{
-[read_perpetrators()]
+\code{\link[=read_perpetrators]{read_perpetrators()}}
 }
 \keyword{datasets}

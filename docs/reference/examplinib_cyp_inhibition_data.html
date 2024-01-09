@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,13 +47,18 @@
 
     <div class="section level2">
     <h2 id="format">Format<a class="anchor" aria-label="anchor" href="#format"></a></h2>
-    <p>## `examplinib_cyp_inhibition_data`
-A data frame with the columns `name`, `param`, `value` and `source`, where:
-* name is the name of the compound for which the data is recorded
-* param contains the respective CYP enzyme names.
-* value contains the Ki values for the respective CYP enzyme
-* source provides information for the source of the respective value, often
-    the name of the DMPK study. This entry is optional.</p>
+    
+<div class="section">
+<h3 id="examplinib-cyp-inhibition-data"><code>examplinib_cyp_inhibition_data</code><a class="anchor" aria-label="anchor" href="#examplinib-cyp-inhibition-data"></a></h3>
+
+
+<p>A data frame with the columns <code>name</code>, <code>param</code>, <code>value</code> and <code>source</code>, where:</p><ul><li><p>name is the name of the compound for which the data is recorded</p></li>
+<li><p>param contains the respective CYP enzyme names.</p></li>
+<li><p>value contains the Ki values for the respective CYP enzyme</p></li>
+<li><p>source provides information for the source of the respective value, often
+the name of the DMPK study. This entry is optional.</p></li>
+</ul></div>
+
     </div>
     <div class="section level2">
     <h2 id="source">Source<a class="anchor" aria-label="anchor" href="#source"></a></h2>
@@ -61,11 +66,10 @@ A data frame with the columns `name`, `param`, `value` and `source`, where:
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>[basic_cyp_inhibition_risk()]
-[basic_cyp_inhibition_risk_table]
-[mech_stat_cyp_risk()]
-[mech_stat_cyp_risk_table()]</p>
-
+    <p><code><a href="basic_cyp_inhibition_risk.html">basic_cyp_inhibition_risk()</a></code>
+<a href="basic_cyp_inhibition_risk_table.html">basic_cyp_inhibition_risk_table</a>
+<code><a href="mech_stat_cyp_risk.html">mech_stat_cyp_risk()</a></code>
+<code><a href="mech_stat_cyp_risk_table.html">mech_stat_cyp_risk_table()</a></code></p>
 <p>CYP inhibition data can contain ki data for multiple compounds.</p>
     </div>
 

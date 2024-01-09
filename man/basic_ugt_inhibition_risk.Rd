@@ -17,7 +17,7 @@ A markdown-formatted table.
 }
 \description{
 This function assumes that the UGT inhibition data is provided as ICC50.
-  According to Cheng-Prusoff, Ki can be assumed to be IC50/2 at the
-  usual experimental conditions where substrate concentrations close to Km
-  are used.
+According to Cheng-Prusoff, Ki can be assumed to be IC50/2 at the
+usual experimental conditions where substrate concentrations close to Km
+are used.
 }

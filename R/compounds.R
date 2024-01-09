@@ -351,9 +351,12 @@ property_table <- function(obj) {
 #' @export
 property_table.perpetrator <- function(obj){
   labels <- data.frame(
-    param=c("mw", "dose", "solubility", "imaxss", "fu", "fumic", "rb", "fa", "fg", "ka"),
-    parameter =c("$MW$ (g/mol)", "$dose$ (mg)", "$solubility$ (mg/l)", "$C_{max,ss}$ (ng/ml)",
-            "$f_u$", "$f_{u,mic}$", "$R_B$", "$F_a$", "$F_g$", "$k_a$ (1/min)")
+    param=c("mw", "dose", "solubility", "imaxss", "fu", "fumic", "rb", "fa",
+            "fg", "ka"),
+    parameter =c("$MW$ (g/mol)", "$dose$ (mg)", "$solubility$ (mg/l)",
+                 "$C_{max,ss}$ (ng/ml)",
+                 "$f_u$", "$f_{u,mic}$", "$R_B$", "$F_a$", "$F_g$",
+                 "$k_a$ (1/min)")
   )
 
   out <- obj %>%

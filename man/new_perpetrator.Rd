@@ -14,15 +14,17 @@ A perpetrator object.
 }
 \description{
 The following columns are expected in the input:
-* name
-* type
-* mw
-* dose
-* imaxss
-* fu
-* fumic
-* rb
-* fa
-* fg
-* ka
+\itemize{
+\item name
+\item type
+\item mw
+\item dose
+\item imaxss
+\item fu
+\item fumic
+\item rb
+\item fa
+\item fg
+\item ka
+}
 }

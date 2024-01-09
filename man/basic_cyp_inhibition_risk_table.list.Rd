@@ -15,7 +15,7 @@
 }
 \value{
 Basic evaluation of CYP inhibition risk as markdown-formatted tables,
-  or an empty string if no CYP inhibition data available.
+or an empty string if no CYP inhibition data available.
 }
 \description{
 Table of basic CYP inhibition risk

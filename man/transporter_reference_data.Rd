@@ -5,7 +5,8 @@
 \alias{transporter_reference_data}
 \title{Drug transporter reference data}
 \format{
-## `transporter_reference_data`
+\subsection{\code{transporter_reference_data}}{
+}
 }
 \source{
 FDA and EMA guidelines.

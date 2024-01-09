@@ -5,13 +5,17 @@
 \alias{examplinib_cyp_inhibition_data}
 \title{Fictional CYP inhibition data}
 \format{
-## `examplinib_cyp_inhibition_data`
-A data frame with the columns `name`, `param`, `value` and `source`, where:
-* name is the name of the compound for which the data is recorded
-* param contains the respective CYP enzyme names.
-* value contains the Ki values for the respective CYP enzyme
-* source provides information for the source of the respective value, often
-    the name of the DMPK study. This entry is optional.
+\subsection{\code{examplinib_cyp_inhibition_data}}{
+
+A data frame with the columns \code{name}, \code{param}, \code{value} and \code{source}, where:
+\itemize{
+\item name is the name of the compound for which the data is recorded
+\item param contains the respective CYP enzyme names.
+\item value contains the Ki values for the respective CYP enzyme
+\item source provides information for the source of the respective value, often
+the name of the DMPK study. This entry is optional.
+}
+}
 }
 \source{
 Fictional data, made up for demo purposes.
@@ -23,11 +27,10 @@ examplinib_cyp_inhibition_data
 This data frame is a typical input to the following functions:
 }
 \details{
-[basic_cyp_inhibition_risk()]
-[basic_cyp_inhibition_risk_table]
-[mech_stat_cyp_risk()]
-[mech_stat_cyp_risk_table()]
-
+\code{\link[=basic_cyp_inhibition_risk]{basic_cyp_inhibition_risk()}}
+\link{basic_cyp_inhibition_risk_table}
+\code{\link[=mech_stat_cyp_risk]{mech_stat_cyp_risk()}}
+\code{\link[=mech_stat_cyp_risk_table]{mech_stat_cyp_risk_table()}}
 
 CYP inhibition data can contain ki data for multiple compounds.
 }
