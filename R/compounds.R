@@ -87,25 +87,59 @@ compound_names_string <- function(compounds) {
 
 #' Perpetrator object constructor
 #'
-#' The following columns are expected in the input:
-#' * name
-#' * type
-#' * mw
-#' * dose
-#' * imaxss
-#' * fu
-#' * fumic
-#' * rb
-#' * fa
-#' * fg
-#' * ka
+#' @details
 #'
-#' @param df A data frame to be converted into a perpetrator object.
+#' The input is a data frame with the columns 'name', 'param', 'value' and
+#' 'source'.
+#' In all rows, 'name' must be the name of the compound, 'param' defines the
+#' parameter, 'value' is the respective value and 'source' is (optional) source
+#' information, e.g., the code of the study from which the value is taken.
+#'
+#' Rows with the following parameters ('param') are expected in the input:
+#'
+#' | PARAM | REQUIREMENT | DESCRIPTION |
+#' | --- | --- | --- |
+#' | name | required |  |
+#' | type | optional | either 'parent' (default) or 'metabolite' |
+#' | mw | required | molar weight in g/mol |
+#' | dose | required for parent compounds | clinical dose in mg |
+#' | imaxss | required | total Cmax in ng/ml |
+#' | fu | optional | fraction unbound, default is 1 |
+#' | fumic | optional | microsomal unbound fraction, dafault is 1 |
+#' | rb | optional | blood-to-plasma concentration ratio, default is 1 |
+#' | fa | optional | fraction absorbed, default is 1 |
+#' | fg | optional | fraction escaping gut metabolism, default is 1 |
+#' | ka | optional | absorption rate constant, default is 0.1 /ml |
+#' | solubility | optional | solubility of the compound in mg/l, defaults to `Inf` |
+#'
+#' The following example is a valid input data frame:
+#'
+#' |       name |      param |      value |        source |
+#' | --- | --- | --- | --- |
+#' | examplinib |       name | examplinib |               |
+#' | examplinib |       type |     parent |               |
+#' | examplinib |         mw |      492.6 |               |
+#' | examplinib |       dose |        450 | clinical dose |
+#' | examplinib |     imaxss |       3530 |     study 001 |
+#' | examplinib |         fu |      0.023 |     study 002 |
+#' | examplinib |      fumic |          1 |       default |
+#' | examplinib |         rb |          1 |     study 003 |
+#' | examplinib |         fa |       0.81 |     study 003 |
+#' | examplinib |         fg |          1 |       default |
+#' | examplinib |         ka |    0.00267 |       unknown |
+#' | examplinib | solubility |        Inf |       default |
+#'
+#' @param df A data frame to be converted into a perpetrator object. See
+#' 'Details' for the expected format and fields.
 #' @return A perpetrator object.
 #' @import assertr
 #' @import tibble
 #' @import tidyr
 #' @export
+#' @examples
+#' new_perpetrator(data.frame(
+#' ))
+#'
 new_perpetrator <- function(df) {
   default_values <- tribble(
     ~param, ~default,

@@ -7,24 +7,57 @@
 new_perpetrator(df)
 }
 \arguments{
-\item{df}{A data frame to be converted into a perpetrator object.}
+\item{df}{A data frame to be converted into a perpetrator object. See
+'Details' for the expected format and fields.}
 }
 \value{
 A perpetrator object.
 }
 \description{
-The following columns are expected in the input:
-\itemize{
-\item name
-\item type
-\item mw
-\item dose
-\item imaxss
-\item fu
-\item fumic
-\item rb
-\item fa
-\item fg
-\item ka
+Perpetrator object constructor
 }
+\details{
+The input is a data frame with the columns 'name', 'param', 'value' and
+'source'.
+In all rows, 'name' must be the name of the compound, 'param' defines the
+parameter, 'value' is the respective value and 'source' is (optional) source
+information, e.g., the code of the study from which the value is taken.
+
+Rows with the following parameters ('param') are expected in the input:\tabular{lll}{
+   PARAM \tab REQUIREMENT \tab DESCRIPTION \cr
+   name \tab required \tab  \cr
+   type \tab optional \tab either 'parent' (default) or 'metabolite' \cr
+   mw \tab required \tab molar weight in g/mol \cr
+   dose \tab required for parent compounds \tab clinical dose in mg \cr
+   imaxss \tab required \tab total Cmax in ng/ml \cr
+   fu \tab optional \tab fraction unbound, default is 1 \cr
+   fumic \tab optional \tab microsomal unbound fraction, dafault is 1 \cr
+   rb \tab optional \tab blood-to-plasma concentration ratio, default is 1 \cr
+   fa \tab optional \tab fraction absorbed, default is 1 \cr
+   fg \tab optional \tab fraction escaping gut metabolism, default is 1 \cr
+   ka \tab optional \tab absorption rate constant, default is 0.1 /ml \cr
+   solubility \tab optional \tab solubility of the compound in mg/l, defaults to \code{Inf} \cr
+}
+
+
+The following example is a valid input data frame:\tabular{llll}{
+   name \tab param \tab value \tab source \cr
+   examplinib \tab name \tab examplinib \tab  \cr
+   examplinib \tab type \tab parent \tab  \cr
+   examplinib \tab mw \tab 492.6 \tab  \cr
+   examplinib \tab dose \tab 450 \tab clinical dose \cr
+   examplinib \tab imaxss \tab 3530 \tab study 001 \cr
+   examplinib \tab fu \tab 0.023 \tab study 002 \cr
+   examplinib \tab fumic \tab 1 \tab default \cr
+   examplinib \tab rb \tab 1 \tab study 003 \cr
+   examplinib \tab fa \tab 0.81 \tab study 003 \cr
+   examplinib \tab fg \tab 1 \tab default \cr
+   examplinib \tab ka \tab 0.00267 \tab unknown \cr
+   examplinib \tab solubility \tab Inf \tab default \cr
+}
+}
+\examples{
+new_perpetrator(data.frame(
+))
+
 }
