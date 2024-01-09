@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,22 +66,11 @@ In all rows, 'name' must be the name of the compound, 'param' defines the
 parameter, 'value' is the respective value and 'source' is (optional) source
 information, e.g., the code of the study from which the value is taken.</p>
 <p>Rows with the following parameters ('param') are expected in the input:</p><table class="table table"><tr><td>PARAM</td><td>REQUIREMENT</td><td>DESCRIPTION</td></tr><tr><td>name</td><td>required</td><td></td></tr><tr><td>type</td><td>optional</td><td>either 'parent' (default) or 'metabolite'</td></tr><tr><td>mw</td><td>required</td><td>molar weight in g/mol</td></tr><tr><td>dose</td><td>required for parent compounds</td><td>clinical dose in mg</td></tr><tr><td>imaxss</td><td>required</td><td>total Cmax in ng/ml</td></tr><tr><td>fu</td><td>optional</td><td>fraction unbound, default is 1</td></tr><tr><td>fumic</td><td>optional</td><td>microsomal unbound fraction, dafault is 1</td></tr><tr><td>rb</td><td>optional</td><td>blood-to-plasma concentration ratio, default is 1</td></tr><tr><td>fa</td><td>optional</td><td>fraction absorbed, default is 1</td></tr><tr><td>fg</td><td>optional</td><td>fraction escaping gut metabolism, default is 1</td></tr><tr><td>ka</td><td>optional</td><td>absorption rate constant, default is 0.1 /ml</td></tr><tr><td>solubility</td><td>optional</td><td>solubility of the compound in mg/l, defaults to <code>Inf</code></td></tr></table><p>The following example is a valid input data frame:</p><table class="table table"><tr><td>name</td><td>param</td><td>value</td><td>source</td></tr><tr><td>examplinib</td><td>name</td><td>examplinib</td><td></td></tr><tr><td>examplinib</td><td>type</td><td>parent</td><td></td></tr><tr><td>examplinib</td><td>mw</td><td>492.6</td><td></td></tr><tr><td>examplinib</td><td>dose</td><td>450</td><td>clinical dose</td></tr><tr><td>examplinib</td><td>imaxss</td><td>3530</td><td>study 001</td></tr><tr><td>examplinib</td><td>fu</td><td>0.023</td><td>study 002</td></tr><tr><td>examplinib</td><td>fumic</td><td>1</td><td>default</td></tr><tr><td>examplinib</td><td>rb</td><td>1</td><td>study 003</td></tr><tr><td>examplinib</td><td>fa</td><td>0.81</td><td>study 003</td></tr><tr><td>examplinib</td><td>fg</td><td>1</td><td>default</td></tr><tr><td>examplinib</td><td>ka</td><td>0.00267</td><td>unknown</td></tr><tr><td>examplinib</td><td>solubility</td><td>Inf</td><td>default</td></tr></table></div>
-
     <div class="section level2">
-    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">new_perpetrator</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> verification [assertr::has_all_names("param", "value", "source")] failed! (1 failure)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     verb redux_fn                                          predicate column</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 verify       NA assertr::has_all_names("param", "value", "source")     NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   index value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     1    NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> assertr stopped execution</span>
-<span class="r-in"><span></span></span>
-</code></pre></div>
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p><code><a href="read_perpetrators.html">read_perpetrators()</a></code></p></div>
     </div>
+
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 
