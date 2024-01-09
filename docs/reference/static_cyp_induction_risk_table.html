@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +63,19 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">static_cyp_induction_risk_table</span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_induction_data</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'examplinib_parent' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Table: Risk for hepatic CYP induction by examplinib (basic static model)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP     | $E_{max}$| $max c$|source    | $max c/I_{max,ss,u}$|risk  |notes                                                      |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |:-------|---------:|-------:|:---------|--------------------:|:-----|:----------------------------------------------------------|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP1A2  |      1.00|       5|study 007 |                 30.3|FALSE |Maximal tested concentration is below FDA expectations     |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2B6  |      1.00|       5|study 007 |                 30.3|FALSE |Maximal tested concentration is below FDA expectations     |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C8  |        NA|      NA|          |                   NA|NA    |                                                           |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9  |        NA|      NA|          |                   NA|NA    |                                                           |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C19 |        NA|      NA|          |                   NA|NA    |                                                           |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2D6  |        NA|      NA|          |                   NA|NA    |                                                           |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP3A4  |      7.35|       3|study 007 |                 18.2|TRUE  |Maximal tested concentration is below EMA/FDA expectations |</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
