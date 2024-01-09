@@ -17,3 +17,6 @@ A data frame.
 \description{
 Basic static CYP induction risk
 }
+\examples{
+static_cyp_induction_risk(examplinib_compounds, examplinib_cyp_induction_data)
+}

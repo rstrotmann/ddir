@@ -19,7 +19,8 @@ Imports:
     tibble,
     knitr,
     assertr,
-    lifecycle
+    lifecycle,
+    tidyr
 Depends: 
     R (>= 2.10)
 License: MIT + file LICENSE

@@ -17,3 +17,6 @@ A list of data frames.
 \description{
 Basic kinetic CYP induction risk
 }
+\examples{
+kinetic_cyp_induction_risk(examplinib_compounds, examplinib_cyp_induction_data)
+}

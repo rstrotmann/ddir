@@ -1,6 +1,5 @@
 #' Drug transporter reference data
 #'
-#' @format ## `transporter_reference_data`
 #' @source FDA and EMA guidelines.
 "transporter_reference_data"
 
@@ -8,7 +7,6 @@
 
 #' CYP reference substrate data
 #'
-#' @format ## `cyp_reference_substrates`
 #' @source FDA and EMA guidelines.
 "cyp_reference_substrates"
 
@@ -21,6 +19,22 @@
 #'
 #' @source Fictional data, made up for demo purposes.
 "examplinib_compounds"
+
+
+#' Fictional examplnib parent compound data
+#'
+#' A `perpetrator` object for 'examplinib'.
+#'
+#' @source Fictional data, made up for demo purposes.
+"examplinib_parent"
+
+
+#' Fictional examplinib metabolite compound data
+#'
+#' A `perpetrator` object for 'examplinib-M1'.
+#'
+#' @source Fictional data, made up for demo purposes.
+"examplinib_metabolite"
 
 
 #' Fictional substrate data as string
@@ -70,3 +84,4 @@
 #' Fictional UGT inhibition data
 #'
 "examplinib_ugt_inhibition_data"
+

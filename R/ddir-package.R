@@ -10,5 +10,5 @@ utils::globalVariables(c(
   "risk", "emax", "ec50", "cyp_reference_substrates", "Cg", "Ch", "Ag", "fgut",
   "Ah", "fm", "fmcyp", "aucr", "cyp", "substrate", "parameter",
   "transporter_reference_data", "conc", "fda_thld", "ema_thld", "fda_risk",
-  "ema_risk", "ic50", "r", "maxc", "."
+  "ema_risk", "ic50", "r", "maxc", "." , "default"
 ))

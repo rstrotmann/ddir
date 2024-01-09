@@ -56,8 +56,6 @@ The following example is a valid input data frame:\tabular{llll}{
    examplinib \tab solubility \tab Inf \tab default \cr
 }
 }
-\examples{
-new_perpetrator(data.frame(
-))
-
+\seealso{
+\code{\link[=read_perpetrators]{read_perpetrators()}}
 }

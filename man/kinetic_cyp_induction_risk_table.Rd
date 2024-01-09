@@ -16,3 +16,6 @@ kinetic_cyp_induction_risk_table(perp, cyp_ind, na.rm = F)
 \description{
 Generic function: Table of the basic kinetc CYP induction risk
 }
+\examples{
+kinetic_cyp_induction_risk_table(examplinib_parent, examplinib_cyp_induction_data)
+}

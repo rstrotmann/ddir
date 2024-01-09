@@ -17,3 +17,6 @@ A data frame.
 \description{
 Basic kinetic CYP induction risk
 }
+\examples{
+kinetic_cyp_induction_risk(examplinib_parent, examplinib_cyp_induction_data)
+}

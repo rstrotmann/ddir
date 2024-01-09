@@ -16,3 +16,6 @@ static_cyp_induction_risk_table(perp, cyp_ind, na.rm = F)
 \description{
 Generic function: Table of the basic static CYP induction risk
 }
+\examples{
+static_cyp_induction_risk_table(examplinib_parent, examplinib_cyp_induction_data)
+}

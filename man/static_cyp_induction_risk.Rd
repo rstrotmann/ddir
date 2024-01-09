@@ -17,3 +17,6 @@ A data frame.
 \description{
 Generic function for basic static CYP induction risk
 }
+\examples{
+static_cyp_induction_risk(examplinib_parent, examplinib_cyp_induction_data)
+}

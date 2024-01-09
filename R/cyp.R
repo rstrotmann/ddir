@@ -20,6 +20,9 @@ basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
 #'
 #' @return A data frame.
 #' @export
+#' @examples
+#' basic_cyp_inhibition_risk(examplinib_parent, examplinib_cyp_inhibition_data)
+#'
 basic_cyp_inhibition_risk.perpetrator <- function(perp, cyp_inh) {
   ki <- cyp_inh %>%
     filter(name==name(perp)) %>%
@@ -51,6 +54,9 @@ basic_cyp_inhibition_risk.perpetrator <- function(perp, cyp_inh) {
 #'
 #' @return A list of data frames.
 #' @export
+#' @examples
+#' basic_cyp_inhibition_risk(examplinib_compounds, examplinib_cyp_inhibition_data)
+
 basic_cyp_inhibition_risk.list <- function(perp, cyp_inh) {
   lapply(perp, basic_cyp_inhibition_risk, cyp_inh=cyp_inh)
 }
@@ -62,6 +68,8 @@ basic_cyp_inhibition_risk.list <- function(perp, cyp_inh) {
 #' @param cyp_inh CYP inhibition data as data frame.
 #' @param na.rm Remove rows with lacking ki data (i.e., where ki == NA).
 #' @export
+#' @examples
+#' basic_cyp_inhibition_risk_table(examplinib_parent, examplinib_cyp_inhibition_data)
 basic_cyp_inhibition_risk_table <- function(perp, cyp_inh, na.rm=F) {
   UseMethod("basic_cyp_inhibition_risk_table")
 }
@@ -76,6 +84,8 @@ basic_cyp_inhibition_risk_table <- function(perp, cyp_inh, na.rm=F) {
 #' @return Basic evaluation of CYP inhibition risk as markdown-formatted table,
 #'   or an empty string if no CYP inhibition data available.
 #' @export
+#' @examples
+#' basic_cyp_inhibition_risk_table(examplinib_parent, examplinib_cyp_inhibition_data)
 basic_cyp_inhibition_risk_table.perpetrator <- function(perp, cyp_inh, na.rm=F) {
   temp <- basic_cyp_inhibition_risk(perp, cyp_inh)
 
@@ -104,6 +114,8 @@ basic_cyp_inhibition_risk_table.perpetrator <- function(perp, cyp_inh, na.rm=F) 
 #' @return Basic evaluation of CYP inhibition risk as markdown-formatted tables,
 #'   or an empty string if no CYP inhibition data available.
 #' @export
+#' @examples
+#' basic_cyp_inhibition_risk_table(examplinib_compounds, examplinib_cyp_inhibition_data)
 basic_cyp_inhibition_risk_table.list <- function(perp, cyp_inh, na.rm=F) {
   for(i in perp) {
     print(basic_cyp_inhibition_risk_table(i, cyp_inh, na.rm=na.rm))
@@ -121,6 +133,8 @@ basic_cyp_inhibition_risk_table.list <- function(perp, cyp_inh, na.rm=F) {
 #'
 #' @return A data frame.
 #' @export
+#' @examples
+#' static_cyp_induction_risk(examplinib_parent, examplinib_cyp_induction_data)
 static_cyp_induction_risk <- function(perp, cyp_ind) {
   UseMethod("static_cyp_induction_risk")
 }
@@ -133,6 +147,8 @@ static_cyp_induction_risk <- function(perp, cyp_ind) {
 #'
 #' @return A data frame.
 #' @export
+#' @examples
+#' static_cyp_induction_risk(examplinib_parent, examplinib_cyp_induction_data)
 static_cyp_induction_risk.perpetrator <- function(perp, cyp_ind)  {
   i <- key_concentrations(perp, molar=TRUE)
 
@@ -155,6 +171,8 @@ static_cyp_induction_risk.perpetrator <- function(perp, cyp_ind)  {
 #'
 #' @return A data frame.
 #' @export
+#' @examples
+#' static_cyp_induction_risk(examplinib_compounds, examplinib_cyp_induction_data)
 static_cyp_induction_risk.list <- function(perp, cyp_ind) {
   lapply(perp, static_cyp_induction_risk, cyp_ind=cyp_ind)
 }
@@ -166,6 +184,8 @@ static_cyp_induction_risk.list <- function(perp, cyp_ind) {
 #' @param cyp_ind The CYP induction data as data frame.
 #' @param na.rm Remove rows with lacking ki data (i.e., where ki == NA).
 #' @export
+#' @examples
+#' static_cyp_induction_risk_table(examplinib_parent, examplinib_cyp_induction_data)
 static_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
   UseMethod("static_cyp_induction_risk_table")
 }
@@ -179,6 +199,8 @@ static_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
 #'
 #' @return A markdown-formatted table.
 #' @export
+#' @examples
+#' static_cyp_induction_risk_table(examplinib_parent, examplinib_cyp_induction_data)
 static_cyp_induction_risk_table.perpetrator <- function(perp, cyp_ind, na.rm=F) {
   temp <- static_cyp_induction_risk(perp, cyp_ind)
 
@@ -208,6 +230,8 @@ static_cyp_induction_risk_table.perpetrator <- function(perp, cyp_ind, na.rm=F) 
 #'
 #' @return A list of markdown-formatted tables.
 #' @export
+#' @examples
+#' static_cyp_induction_risk_table(examplinib_compounds, examplinib_cyp_induction_data)
 static_cyp_induction_risk_table.list <- function(perp, cyp_ind, na.rm=F) {
   for(i in perp) {
     print(static_cyp_induction_risk_table(i, cyp_ind, na.rm=na.rm))
@@ -223,6 +247,8 @@ static_cyp_induction_risk_table.list <- function(perp, cyp_ind, na.rm=F) {
 #' @param perp The perpetrator object or a list thereof.
 #' @param cyp_ind The CYP induction data as data frame.
 #' @export
+#' @examples
+#' kinetic_cyp_induction_risk(examplinib_parent, examplinib_cyp_induction_data)
 kinetic_cyp_induction_risk <- function(perp, cyp_ind) {
   UseMethod("kinetic_cyp_induction_risk")
 }
@@ -235,6 +261,8 @@ kinetic_cyp_induction_risk <- function(perp, cyp_ind) {
 #'
 #' @return A data frame.
 #' @export
+#' @examples
+#' kinetic_cyp_induction_risk(examplinib_parent, examplinib_cyp_induction_data)
 kinetic_cyp_induction_risk.perpetrator <- function(perp, cyp_ind) {
   i <- key_concentrations(perp, molar=TRUE)
 
@@ -254,6 +282,8 @@ kinetic_cyp_induction_risk.perpetrator <- function(perp, cyp_ind) {
 #'
 #' @return A list of data frames.
 #' @export
+#' @examples
+#' kinetic_cyp_induction_risk(examplinib_compounds, examplinib_cyp_induction_data)
 kinetic_cyp_induction_risk.list <- function(perp, cyp_ind) {
   lapply(perp, kinetic_cyp_induction_risk, cyp_ind=cyp_ind)
 }
@@ -265,6 +295,8 @@ kinetic_cyp_induction_risk.list <- function(perp, cyp_ind) {
 #' @param cyp_ind The CYP induction data as data frame.
 #' @param na.rm Remove rows with lacking ki data (i.e., where ki == NA).
 #' @export
+#' @examples
+#' kinetic_cyp_induction_risk_table(examplinib_parent, examplinib_cyp_induction_data)
 kinetic_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
   UseMethod("kinetic_cyp_induction_risk_table")
 }
@@ -278,6 +310,8 @@ kinetic_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
 #'
 #' @return A markdown-formatted table.
 #' @export
+#' @examples
+#' kinetic_cyp_induction_risk_table(examplinib_parent, examplinib_cyp_induction_data)
 kinetic_cyp_induction_risk_table.perpetrator <- function(perp, cyp_ind, na.rm=F) {
   temp <- kinetic_cyp_induction_risk(perp, cyp_ind) %>%
     mutate(r3=format(r3, digit=3))
@@ -336,6 +370,9 @@ kinetic_cyp_induction_risk_table.list <- function(perp, cyp_ind, na.rm=F) {
 #'   included in the calculation (C-terms as per the FDA guideline)
 #' @return A data frame.
 #' @export
+#' @examples
+#' mech_stat_cyp_risk(examplinib_parent, examplinib_cyp_inhibition_data, examplinib_cyp_induction_data)
+#'
 mech_stat_cyp_risk <- function(
     perp,
     cyp_inh,
@@ -385,6 +422,8 @@ mech_stat_cyp_risk <- function(
 #'
 #' @return A markdown-formatted table.
 #' @export
+#' @examples
+#' mech_stat_cyp_risk_table(examplinib_parent, examplinib_cyp_inhibition_data, examplinib_cyp_induction_data)
 mech_stat_cyp_risk_table <- function(
     perp,
     cyp_inh,

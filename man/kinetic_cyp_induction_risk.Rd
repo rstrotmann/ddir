@@ -14,3 +14,6 @@ kinetic_cyp_induction_risk(perp, cyp_ind)
 \description{
 Generic function for basic kinetic CYP induction risk
 }
+\examples{
+kinetic_cyp_induction_risk(examplinib_parent, examplinib_cyp_induction_data)
+}

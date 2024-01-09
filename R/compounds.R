@@ -135,10 +135,8 @@ compound_names_string <- function(compounds) {
 #' @import assertr
 #' @import tibble
 #' @import tidyr
+#' @seealso [read_perpetrators()]
 #' @export
-#' @examples
-#' new_perpetrator(data.frame(
-#' ))
 #'
 new_perpetrator <- function(df) {
   default_values <- tribble(

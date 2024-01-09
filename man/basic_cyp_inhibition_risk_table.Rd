@@ -16,3 +16,6 @@ basic_cyp_inhibition_risk_table(perp, cyp_inh, na.rm = F)
 \description{
 Generic function for basic CYP inhibition risk evaluation as table
 }
+\examples{
+basic_cyp_inhibition_risk_table(examplinib_parent, examplinib_cyp_inhibition_data)
+}

@@ -17,3 +17,6 @@ A list of data frames.
 \description{
 Basic CYP inhibition risk evaluation for a list of perpetrator objects
 }
+\examples{
+basic_cyp_inhibition_risk(examplinib_compounds, examplinib_cyp_inhibition_data)
+}

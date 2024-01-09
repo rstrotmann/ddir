@@ -20,3 +20,6 @@ or an empty string if no CYP inhibition data available.
 \description{
 Table of basic CYP inhibition risk
 }
+\examples{
+basic_cyp_inhibition_risk_table(examplinib_compounds, examplinib_cyp_inhibition_data)
+}

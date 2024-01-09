@@ -30,3 +30,7 @@ A data frame.
 \description{
 CYP perpetration risk as per mechanistic-static modeling
 }
+\examples{
+mech_stat_cyp_risk(examplinib_parent, examplinib_cyp_inhibition_data, examplinib_cyp_induction_data)
+
+}

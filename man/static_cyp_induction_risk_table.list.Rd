@@ -19,3 +19,6 @@ A list of markdown-formatted tables.
 \description{
 Tables of the basic static CYP induction risk
 }
+\examples{
+static_cyp_induction_risk_table(examplinib_compounds, examplinib_cyp_induction_data)
+}
