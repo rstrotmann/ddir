@@ -13,5 +13,8 @@ is_igut_solubility_limited(obj)
 A boolean value.
 }
 \description{
-Test if Igut of a perpetrator is limited by its solubility
+If the solubility field is `Inf` (default), or the compound solubility is
+larger than Igut, the function returns `FALSE`. If the solubility is lower
+than the theoretical Igut, i.e., lower than the dose dissolved in 250 ml,
+the function returns `TRUE`. Note that the solubility is expected in mg/l.
 }

@@ -4,24 +4,22 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of `ddir` is to facilitate the analysis of the drug-drug interaction risk
-for drug compounds as per the relevant FDA and EMA guidelines.
+This package provides functions for the analysis of the clinical drug-drug
+interaction (DDI) risk as per the relevant FDA and EMA guidelines.
 
 ## Installation
 
-You can install the development version of ddir like so:
+You can install the development version of `ddir` using:
 
 ``` r
-library(devtools)
-
 devtools::install_github("rstrotmann/ddir")
 ```
 
 ## Example
 
 The package provides sample data for a fictional drug, `examplinib`. The
-following code calculates the DDI risk for direct CYP inhibition (basic method)
-and provides a markdown-formatted output table: 
+following code calculates the perpetrator DDI risk for direct CYP inhibition
+(basic method) and provides a markdown-formatted output table: 
 
 ``` r
 library(ddir)
@@ -32,7 +30,9 @@ basic_cyp_inhibition_risk_table(p, examplinib_cyp_inhibition_data)
 ```
 
 See also:
-* `kinetic_cyp_induction_risk_table()`
-* `mech_stat_cyp_risk_table()`
-* `basic_ugt_inhibition_risk_table()`
-* `transporter_inhibition_risk_table()`
+`kinetic_cyp_induction_risk_table()`,
+`mech_stat_cyp_risk_table()`,
+`basic_ugt_inhibition_risk_table()`,
+`transporter_inhibition_risk_table()`
+
+Full documentation can be found on [github](https://rstrotmann.github.io/ddir).

@@ -2,7 +2,7 @@
 % Please edit documentation in R/compounds.R
 \name{print.perpetrator}
 \alias{print.perpetrator}
-\title{Print implementation for perpetrator objects}
+\title{Implementation of the generic print function for perpetrator objects}
 \usage{
 \method{print}{perpetrator}(x, ...)
 }
@@ -12,5 +12,5 @@
 \item{...}{Further parameters.}
 }
 \description{
-Print implementation for perpetrator objects
+Implementation of the generic print function for perpetrator objects
 }

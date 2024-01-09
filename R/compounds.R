@@ -1,16 +1,16 @@
-#' Render data frame object to string
+#' Render data frame to character.
 #'
-#' This function renders a data.frame into a string similar to its representation
-#'  when printed without line numbers
+#' This function renders a data frame into a string object.
 #'
-#' @param df The data.frame to be rendered
+#' @param df The datavframe.
 #' @param indent A string that defines the left indentation of the rendered
-#'   output.
-#' @param colnames Boolean value to inidcate whether column names are to be
-#'   included in the output.
-#' @param n The number of lines to be included, or all if NULL.
+#' output.
+#' @param colnames Boolean value to indicate whether column names are to be
+#' included in the output.
+#' @param n The number of lines to be rendered. If NULL (default), all lines
+#' are rendered.
 #'
-#' @return The output as string.
+#' @return The data frame representation as character.
 #' @import stringr
 #' @import utils
 df_to_string <- function(df, indent="", n=NULL, colnames=TRUE){
@@ -54,32 +54,103 @@ as.num = function(x, na.strings = "NA") {
 
 #' Perpetrator names as comma-separated string
 #'
-#' @param perps The perpetrator objects as a list.
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#' @param perps perpetrator objects as a list.
+#' @import lifecycle
 #' @return The output as string.
 #' @export
 names_string <- function(perps) {
+  lifecycle::deprecate_warn("0.8.1", "names_string()", "compound_names_string()")
   return(paste(lapply(perps, function(p) {p[(p$param=="name"), "value"]}), collapse=", "))
+}
+
+
+#' Compound names as single string
+#'
+#' This function returns a single string with the comma-separated names of the
+#' compounds included in the list of compunds.
+#'
+#' @param compounds A list of perpetrator objects
+#'
+#' @return A character string.
+#' @export
+#'
+#' @examples
+#' compound_names_string(examplinib_compounds)
+compound_names_string <- function(compounds) {
+  return(paste(lapply(compounds, function(p) {
+    p[(p$param=="name"), "value"]}),
+    collapse=", "))
 }
 
 
 #' Perpetrator object constructor
 #'
-#' @param df A data frame to be converted into a perpetrator object.
+#' The following columns are expected in the input:
+#' * name
+#' * type
+#' * mw
+#' * dose
+#' * imaxss
+#' * fu
+#' * fumic
+#' * rb
+#' * fa
+#' * fg
+#' * ka
 #'
+#' @param df A data frame to be converted into a perpetrator object.
+#' @return A perpetrator object.
+#' @import assertr
+#' @import tibble
+#' @import tidyr
+#' @export
 new_perpetrator <- function(df) {
-  stopifnot(c("param", "value", "source") %in% colnames(df))
-  rownames(df) <- df$param
-  stopifnot(c("name", "type", "mw", "dose", "imaxss", "fu", "fumic", "rb",
-                  "fa", "fg", "ka") %in% rownames(df))
-  class(df) <- c("perpetrator", "data.frame")
-  df
+  default_values <- tribble(
+    ~param, ~default,
+    "name",   NA,
+    "type",   "parent",
+    "mw",     NA,
+    "dose",   NA,
+    "imaxss", NA,
+    "fu",     "1",
+    "fumic",  "1",
+    "rb",     "1",
+    "fa",     "1",
+    "fg",     "1",
+    "ka",     "0.1",
+    "solubility", "Inf"
+  )
+
+  df %>%
+    assertr::verify(assertr::has_all_names("param", "value", "source")) %>%
+    assertr::verify(c("name", "mw", "dose", "imaxss") %in% .$param)
+
+  compound_name <- df[which(df$param=="name"), "value"]
+
+  out <- df %>%
+    as.data.frame() %>%
+    assertr::verify(name == compound_name) %>%
+    right_join(default_values, by="param") %>%
+    tidyr::fill(name) %>%
+    mutate(source = case_when(is.na(value) & !is.na(default) ~ "default",
+                              .default = source)) %>%
+    mutate(value = case_when(is.na(value) & !is.na(default) ~ default,
+                             .default = value)) %>%
+    select(-default) %>%
+    assertr::verify(!is.na(value)) %>%
+    remove_rownames() %>%
+    magrittr::set_rownames(.$param)
+
+  class(out) <- c("perpetrator", "data.frame")
+  return(out)
 }
 
 
-#' Print implementation for perpetrator objects
+#' Implementation of the generic print function for perpetrator objects
 #'
 #' @param x The perpetrator object.
-#'
 #' @param ... Further parameters.
 #'
 #' @export
@@ -118,12 +189,17 @@ name.perpetrator <- function(obj) {
 
 #' Test if Igut of a perpetrator is limited by its solubility
 #'
+#' If the solubility field is `Inf` (default), or the compound solubility is
+#' larger than Igut, the function returns `FALSE`. If the solubility is lower
+#' than the theoretical Igut, i.e., lower than the dose dissolved in 250 ml,
+#' the function returns `TRUE`. Note that the solubility is expected in mg/l.
+#'
 #' @param obj The perpetrator object.
 #'
 #' @return A boolean value.
 is_igut_solubility_limited <- function(obj) {
-  type <- obj["type", "value"]
-  dose <- as.num(obj["dose", "value"])
+  type <- obj[which(obj$param=="type"), "value"]
+  dose <- as.num(obj[which(obj$param=="dose"), "value"])
 
   # total gut concentration in ng/ml
   if(type=="metabolite") {
@@ -136,7 +212,8 @@ is_igut_solubility_limited <- function(obj) {
     sol <- as.num(obj["solubility", "value"]) * 1000
     if(!is.na(sol) & igut > sol){
       return(TRUE)
-    }
+    } else
+      return(FALSE)
   } else {
     return(FALSE)
   }
@@ -145,8 +222,8 @@ is_igut_solubility_limited <- function(obj) {
 
 #' Key perpetrator concentrations
 #'
-#' @param qh Hepatic blood flow in l/min.
-#' @param qent Enteric blood flow in l/min.
+#' @param qh Hepatic blood flow in l/min, defaults to 1.616 l/min.
+#' @param qent Enteric blood flow in l/min, defaults to 0.3 l/min = 18 l/h.
 #' @param molar Boolean value to select output in molar concentrations.
 #' @param obj A perpetrator object.
 #'
@@ -172,6 +249,9 @@ key_concentrations <- function(obj, qh=1.616, qent=18/60, molar=TRUE) {
 
   if(is_igut_solubility_limited(obj)) {
     igut <- as.num(obj["solubility", "value"]) * 1000
+    message(paste0("Caution: Igut for ", obj["name", "value"] ,
+                   " is limited to its solubility of ",
+                   obj["solubility", "value"], " mg/l!"))
   }
 
   # total portal contribution to hepatic inlet concentration
@@ -249,9 +329,6 @@ conc_table.perpetrator <- function(perp) {
 #'
 #' @export
 conc_table.list <- function(perp) {
-  # for(i in perp) {
-  #   conc_table(i)
-  # }
   lapply(perp, conc_table)
 }
 

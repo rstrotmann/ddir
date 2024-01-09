@@ -2,25 +2,25 @@
 % Please edit documentation in R/compounds.R
 \name{df_to_string}
 \alias{df_to_string}
-\title{Render data frame object to string}
+\title{Render data frame to character.}
 \usage{
 df_to_string(df, indent = "", n = NULL, colnames = TRUE)
 }
 \arguments{
-\item{df}{The data.frame to be rendered}
+\item{df}{The datavframe.}
 
 \item{indent}{A string that defines the left indentation of the rendered
 output.}
 
-\item{n}{The number of lines to be included, or all if NULL.}
+\item{n}{The number of lines to be rendered. If NULL (default), all lines
+are rendered.}
 
-\item{colnames}{Boolean value to inidcate whether column names are to be
+\item{colnames}{Boolean value to indicate whether column names are to be
 included in the output.}
 }
 \value{
-The output as string.
+The data frame representation as character.
 }
 \description{
-This function renders a data.frame into a string similar to its representation
- when printed without line numbers
+This function renders a data frame into a string object.
 }

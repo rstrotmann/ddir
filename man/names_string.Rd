@@ -7,11 +7,11 @@
 names_string(perps)
 }
 \arguments{
-\item{perps}{The perpetrator objects as a list.}
+\item{perps}{perpetrator objects as a list.}
 }
 \value{
 The output as string.
 }
 \description{
-Perpetrator names as comma-separated string
+`r lifecycle::badge("deprecated")`
 }

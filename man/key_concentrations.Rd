@@ -9,9 +9,9 @@ key_concentrations(obj, qh = 1.616, qent = 18/60, molar = TRUE)
 \arguments{
 \item{obj}{A perpetrator object.}
 
-\item{qh}{Hepatic blood flow in l/min.}
+\item{qh}{Hepatic blood flow in l/min, defaults to 1.616 l/min.}
 
-\item{qent}{Enteric blood flow in l/min.}
+\item{qent}{Enteric blood flow in l/min, defaults to 0.3 l/min = 18 l/h.}
 
 \item{molar}{Boolean value to select output in molar concentrations.}
 }

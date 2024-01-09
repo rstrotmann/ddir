@@ -9,6 +9,20 @@ new_perpetrator(df)
 \arguments{
 \item{df}{A data frame to be converted into a perpetrator object.}
 }
+\value{
+A perpetrator object.
+}
 \description{
-Perpetrator object constructor
+The following columns are expected in the input:
+* name
+* type
+* mw
+* dose
+* imaxss
+* fu
+* fumic
+* rb
+* fa
+* fg
+* ka
 }
