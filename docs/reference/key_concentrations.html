@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,6 +68,57 @@
     
 
 <p>Key perpetrator concentrations as a named vector.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    
+<div class="section">
+<h3 id="gut-concentration">Gut concentration<a class="anchor" aria-label="anchor" href="#gut-concentration"></a></h3>
+
+
+<p>$$I_{gut} = \frac{D} {250}$$</p>
+</div>
+
+<div class="section">
+<h3 id="systemic-concentration">Systemic concentration<a class="anchor" aria-label="anchor" href="#systemic-concentration"></a></h3>
+
+
+<p>$$I_{max,ss,u}=I_{max,ss} * f_u$$</p>
+</div>
+
+<div class="section">
+<h3 id="hepatic-inlet-concentration">Hepatic inlet concentration<a class="anchor" aria-label="anchor" href="#hepatic-inlet-concentration"></a></h3>
+
+
+<p>For orally administered (parent) compounds, the hepatic inlet concentration
+is the sytemic concentration plus a portal term:</p>
+<p>$$portal\ term = D*\frac{F_a*F_g*k_a}{Q_h*R_B}*1000\ ng/ml$$</p>
+<p>where \(D\) is the administered dose in mg, \(F_a\) the fraction absorbed
+after oral administration, \(F_g\) the fraction available after gut
+metabolism, \(k_a\) the absorption rate, \(Q_h\) the hepatic blood flow
+and \(R_B\) the blood-to-plasma ratio.</p>
+<p>The relevant hepatic inlet concentration (\(I_{max,inlet,u}\), also called
+\(I_h\) in the mechanistic static modeling equations) concentration is the
+sum of the maximal systemic plasma concentration and the portal contribution:</p>
+<p>$$I_{max,inlet,u}=(I_{max,ss} + portal\ term) * f_u$$</p>
+</div>
+
+<div class="section">
+<h3 id="enteric-concentration">Enteric concentration<a class="anchor" aria-label="anchor" href="#enteric-concentration"></a></h3>
+
+
+<p>For orally administered (parent) compounds, the villous concentration in the
+gut (\(I_{enteric}\), also called \(I_g\) in the mechanistic static
+modeling equations) is calculated as:</p>
+<p>$$I_{enteric,u} = D * \frac{F_a*k_a}{Q_{ent}} *1000\ ng/ml$$</p>
+<p>where \(F_a\) is the fraction absorbed after oral administration, \(k_a\)
+the absorption rate, \(Q_{ent}\) the enteric villous blood flow and
+\(R_B\) the blood-to-plasma distribution ratio of the compound.</p>
+<p>Note that as per the FDA guideline (refer to FDA, 2020, Fig. 7, and
+Rostami-Hodjegan and Tucker, 2004) the blood-to-plasma ratio and the plasma
+binding of the drug are ignored.</p>
+</div>
+
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
