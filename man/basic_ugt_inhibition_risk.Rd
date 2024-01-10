@@ -9,8 +9,8 @@ basic_ugt_inhibition_risk(perp, ugt_inh)
 \arguments{
 \item{perp}{The perpetrator object.}
 
-\item{ugt_inh}{UGT inhibiton data as data frame, with value repersenting the
-IC50 (!).}
+\item{ugt_inh}{UGT inhibition data as data frame, with 'value' representing
+the IC50 (!).}
 }
 \value{
 A markdown-formatted table.
@@ -20,4 +20,15 @@ This function assumes that the UGT inhibition data is provided as ICC50.
 According to Cheng-Prusoff, Ki can be assumed to be IC50/2 at the
 usual experimental conditions where substrate concentrations close to Km
 are used.
+}
+\details{
+The relevant metric for basic modeling of the UGT inhibition risk is
+\eqn{R_1=I_{max,ss,u}/K_{i,u}}. For the clinical risk assessment, a cut-off
+of \eqn{R<1.02} applies.
+
+In in vitro UGT inhibition studies, usually \eqn{IC_{50}} rather than
+\eqn{k_i} values are determined. Assuming that a substrate concentration
+close to \eqn{K_m} is used in these studies, \eqn{K_i} is calculated as
+\eqn{K_i = IC_{50}/2}
+(refer to \href{https://doi.org/10.1016/0006-2952(73)90196-2}{Cheng, Prusoff 1973}).
 }

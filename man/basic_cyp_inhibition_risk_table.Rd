@@ -23,3 +23,6 @@ Table of basic CYP inhibition risk
 \examples{
 basic_cyp_inhibition_risk_table(examplinib_parent, examplinib_cyp_inhibition_data)
 }
+\seealso{
+\code{\link[=basic_cyp_inhibition_risk]{basic_cyp_inhibition_risk()}}
+}

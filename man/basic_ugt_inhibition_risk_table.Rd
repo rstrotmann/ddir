@@ -9,8 +9,8 @@ basic_ugt_inhibition_risk_table(perp, ugt_inh, na.rm = F)
 \arguments{
 \item{perp}{The perpetrator object.}
 
-\item{ugt_inh}{UGT inhibiton data as data frame, with value repersenting the
-IC50 (!).}
+\item{ugt_inh}{UGT inhibition data as data frame, with 'value' representing
+the IC50 (!).}
 
 \item{na.rm}{Remove rows with lacking ki data (i.e., where ki == NA).}
 }
@@ -19,4 +19,7 @@ A markdown-formatted table.
 }
 \description{
 UGT inhibition risk table
+}
+\seealso{
+\code{\link[=basic_ugt_inhibition_risk]{basic_ugt_inhibition_risk()}}
 }

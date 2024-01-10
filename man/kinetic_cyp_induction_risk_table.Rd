@@ -22,3 +22,6 @@ Table of the basic kinetc CYP induction risk
 \examples{
 kinetic_cyp_induction_risk_table(examplinib_parent, examplinib_cyp_induction_data)
 }
+\seealso{
+\code{\link[=kinetic_cyp_induction_risk]{kinetic_cyp_induction_risk()}}
+}

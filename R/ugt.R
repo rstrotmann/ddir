@@ -7,9 +7,20 @@
 #'   usual experimental conditions where substrate concentrations close to Km
 #'   are used.
 #'
+#' @details
+#' The relevant metric for basic modeling of the UGT inhibition risk is
+#' \eqn{R_1=I_{max,ss,u}/K_{i,u}}. For the clinical risk assessment, a cut-off
+#' of \eqn{R<1.02} applies.
+#'
+#' In in vitro UGT inhibition studies, usually \eqn{IC_{50}} rather than
+#' \eqn{k_i} values are determined. Assuming that a substrate concentration
+#' close to \eqn{K_m} is used in these studies, \eqn{K_i} is calculated as
+#' \eqn{K_i = IC_{50}/2}
+#' (refer to [Cheng, Prusoff 1973](https://doi.org/10.1016/0006-2952(73)90196-2)).
+#'
 #' @param perp The perpetrator object.
-#' @param ugt_inh UGT inhibiton data as data frame, with value repersenting the
-#'   IC50 (!).
+#' @param ugt_inh UGT inhibition data as data frame, with 'value' representing
+#' the IC50 (!).
 #'
 #' @return A markdown-formatted table.
 #' @export
@@ -35,10 +46,10 @@ basic_ugt_inhibition_risk <- function(perp, ugt_inh) {
 #' UGT inhibition risk table
 #'
 #' @param perp The perpetrator object.
-#' @param ugt_inh UGT inhibiton data as data frame, with value repersenting the
-#'   IC50 (!).
+#' @param ugt_inh UGT inhibition data as data frame, with 'value' representing
+#' the IC50 (!).
 #' @param na.rm Remove rows with lacking ki data (i.e., where ki == NA).
-#'
+#' @seealso [basic_ugt_inhibition_risk()]
 #' @return A markdown-formatted table.
 #' @export
 basic_ugt_inhibition_risk_table <- function(perp, ugt_inh, na.rm=F) {

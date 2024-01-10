@@ -37,3 +37,6 @@ CYP perpetration risk table as per mechanistic-static modeling
 mech_stat_cyp_risk_table(examplinib_parent, examplinib_cyp_inhibition_data, examplinib_cyp_induction_data)
 
 }
+\seealso{
+\code{\link[=mech_stat_cyp_risk]{mech_stat_cyp_risk()}}
+}

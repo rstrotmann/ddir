@@ -18,11 +18,18 @@ transporter_inhibition_risk_table(
 
 \item{transporter_ref}{Transporter reference data.}
 
-\item{na.rm}{Remove rows with lacking ki data (i.e., where ki == NA).}
+\item{na.rm}{Boolean to indicate whether rows with lacking ki data should be
+removed from the output (i.e., where ki == NA).}
 }
 \value{
 A markdown-formatted table.
 }
 \description{
 Table of drug transporter inhibition risks
+}
+\examples{
+transporter_inhibition_risk_table(examplinib_parent, examplinib_transporter_inhibition_data)
+}
+\seealso{
+\code{\link[=transporter_inhibition_risk]{transporter_inhibition_risk()}}
 }

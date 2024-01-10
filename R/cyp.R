@@ -58,6 +58,7 @@ basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
 #' @return Basic evaluation of CYP inhibition risk as markdown-formatted table,
 #'   or an empty string if no CYP inhibition data available.
 #' @export
+#' @seealso [basic_cyp_inhibition_risk()]
 #' @examples
 #' basic_cyp_inhibition_risk_table(examplinib_parent, examplinib_cyp_inhibition_data)
 basic_cyp_inhibition_risk_table <- function(perp, cyp_inh, na.rm=F) {
@@ -126,6 +127,7 @@ static_cyp_induction_risk <- function(perp, cyp_ind)  {
 #'
 #' @return A markdown-formatted table.
 #' @export
+#' @seealso [static_cyp_induction_risk()]
 #' @examples
 #' static_cyp_induction_risk_table(examplinib_parent, examplinib_cyp_induction_data)
 static_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
@@ -185,6 +187,7 @@ kinetic_cyp_induction_risk <- function(perp, cyp_ind) {
 #'
 #' @return A markdown-formatted table.
 #' @export
+#' @seealso [kinetic_cyp_induction_risk()]
 #' @examples
 #' kinetic_cyp_induction_risk_table(examplinib_parent, examplinib_cyp_induction_data)
 kinetic_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
@@ -211,6 +214,45 @@ kinetic_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
 #### MECHANISTIC STATIC MODELING
 
 #' CYP perpetration risk as per mechanistic-static modeling
+#'
+#' @details
+#' In this approach, AUC ratios for probe substrates are calculated based on
+#' their known intestinal and hepatic metabolism. Both direct (competitive) and
+#' time-dependent inhibition are considered.
+#'
+#' The below formula given by the FDA guideline (refer to FDA 2020, Fig. 7) also
+#' includes intestinal and hepatic enzyme induction terms (\eqn{C_g} and
+#' \eqn{C_h}, respectively). At the same time, the guideline states that both
+#' inhibition and induction should be considered separately.
+#'
+#' \deqn{AUCR = \frac{1}{A_g*B_g*C_g* \left(1-F_g \right)+F_g} * \frac{1}{A_h*B_h*C_h*f_m+\left(1-f_m\right)}}
+#'
+#' The individual terms are:
+#'
+#' ## Reversible inhibition
+#'
+#' \deqn{A_g = \frac{1}{1+\frac{I_g}{K_i}}}
+#'
+#' \deqn{A_h = \frac{1}{1+\frac{I_h}{K_i}}}
+#'
+#' ## Time-dependent inhibition
+#'
+#' \deqn{B_g = \frac{k_{deg,g}}{k_{deg,g} + \frac{I_g*k_{inact}}{I_g+K_I}}}
+#'
+#' \deqn{B_h = \frac{k_{deg,h}}{k_{deg,h} + \frac{I_h*k_{inact}}{I_h+K_I}}}
+#'
+#' ## Induction
+#'
+#' \deqn{C_g = 1 + \frac{d*E_{max}*I_g}{I_g+EC_{50}}}
+#'
+#' \deqn{C_h = 1 + \frac{d*E_{max}*I_h}{I_h+EC_{50}}}
+#'
+#' with the hepatic inlet concentration \eqn{I_h=I_{max,inlet,u}} and the
+#' intestinal concentration \eqn{I_g=I_{enteric,u}}, see
+#' [`key_concentrations()`].
+#'
+#' \eqn{d} is an induction scaling factor (assumed to
+#' be 1, but can be adjusted).
 #'
 #' @param perp The perpetrator object.
 #' @param cyp_inh CYP inhibiton data as data frame.
@@ -271,6 +313,7 @@ mech_stat_cyp_risk <- function(
 #' @param na.rm Remove rows with lacking ki data (i.e., where ki == NA).
 #'
 #' @return A markdown-formatted table.
+#' @seealso [mech_stat_cyp_risk()]
 #' @export
 #' @examples
 #' mech_stat_cyp_risk_table(examplinib_parent, examplinib_cyp_inhibition_data, examplinib_cyp_induction_data)

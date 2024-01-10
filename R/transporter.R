@@ -1,6 +1,23 @@
 
-
 #' Drug transporter inhibition risk
+#'
+#' @details
+#' The relevant metric for the assessment of transporter interactions is
+#' \eqn{R=[I]/K_i}. In in vitro transporter inhibition studies, \eqn{IC_{50}}
+#' values are experimentally determined. Since the transporter substrate
+#' concentration is usually kept very low in relation to \eqn{K_m} to
+#' minimize passive permeation, \eqn{K_i = IC_{50}} can be assumed.
+#'
+#' The relevant perpetrator concentrations \eqn{[I]} are:
+#' * \eqn{I_{gut}} for intestinal P-gp and BRCR
+#' * \eqn{I_{max,inlet,u}} for the hepatic basolateral transporters OCT1,
+#' OATP1B1 and OATP1B3
+#' * \eqn{I_{max,ss,u}} for the renal basolateral transporters OAT1, OAT3 and
+#' OCT2, as well as the apical transporters outside the intestinal mucosa, i.e.,
+#' hepatic P-gp and BCRP, and MATE1, MATE2-k.
+#'
+#' Note that the FDA and EMA guidelines differ in their definitions for the
+#' thresholds for assumed clinically relevant effects.
 #'
 #' @param perp The perpetrator object.
 #' @param transporter_ic50 Transporter inhibition IC50 as data frame.
@@ -8,6 +25,9 @@
 #'
 #' @return A data frame.
 #' @export
+#' @examples
+#' transporter_inhibition_risk(examplinib_parent, examplinib_transporter_inhibition_data)
+#'
 transporter_inhibition_risk <- function(
     perp,
     transporter_ic50,
@@ -47,11 +67,14 @@ transporter_inhibition_risk <- function(
 #'
 #' @param perp The perpetrator object.
 #' @param transporter_ic50 Transporter inhibition IC50 as data frame.
-#' @param na.rm Remove rows with lacking ki data (i.e., where ki == NA).
+#' @param na.rm Boolean to indicate whether rows with lacking ki data should be
+#' removed from the output (i.e., where ki == NA).
 #' @param transporter_ref Transporter reference data.
-#'
+#' @seealso [transporter_inhibition_risk()]
 #' @return A markdown-formatted table.
 #' @export
+#' @examples
+#' transporter_inhibition_risk_table(examplinib_parent, examplinib_transporter_inhibition_data)
 transporter_inhibition_risk_table <- function(
     perp,
     transporter_ic50,
