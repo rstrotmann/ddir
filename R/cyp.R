@@ -1,29 +1,31 @@
 #### BASIC MODELING
 
-
-#' Generic function to evaluate the basic CYP inhibition risk
-#'
-#' @param perp The perpetrator as perpetrator object or list thereof.
-#' @param cyp_inh The CYP inhibitor data as data frame.
-#'
-#' @return A data frame.
-#' @export
-basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
-  UseMethod("basic_cyp_inhibition_risk")
-}
-
-
 #' Basic CYP inhibition risk evaluation for a perpetrator object
 #'
+#' @details
+#' For the basic modeling of direct (reversible) CYP enzyme inhibition, the
+#' ratios of the relevant inhibitor concentration to the \eqn{K_i} are
+#' considered, i.e., \eqn{R_1} for hepatic enzymes and \eqn{R_{1,gut}} for
+#' intestinal enzymes (refer to the FDA guidance, FDA 2020, Fig. 1). A cut-off
+#' of 1.02 applies.
+#'
+#' ## Liver
+#'
+#' \deqn{R_1=1+\frac{I_{max,ss,u}}{K_{i,u}}}
+#'
+#' ## Gut wall
+#'
+#' \deqn{R_{1,gut}=1+\frac{I_{gut}}{K_{i,u}}}
+#'
 #' @param perp The perpetrator object.
-#' @param cyp_inh CYP inhibiton data as data frame.
+#' @param cyp_inh CYP inhibition data as data frame.
 #'
 #' @return A data frame.
 #' @export
 #' @examples
 #' basic_cyp_inhibition_risk(examplinib_parent, examplinib_cyp_inhibition_data)
 #'
-basic_cyp_inhibition_risk.perpetrator <- function(perp, cyp_inh) {
+basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
   ki <- cyp_inh %>%
     filter(name==name(perp)) %>%
     filter(param!="name")
@@ -47,34 +49,6 @@ basic_cyp_inhibition_risk.perpetrator <- function(perp, cyp_inh) {
 }
 
 
-#' Basic CYP inhibition risk evaluation for a list of perpetrator objects
-#'
-#' @param perp Perpetrator objects as list.
-#' @param cyp_inh CYP inhibition data as data frame.
-#'
-#' @return A list of data frames.
-#' @export
-#' @examples
-#' basic_cyp_inhibition_risk(examplinib_compounds, examplinib_cyp_inhibition_data)
-
-basic_cyp_inhibition_risk.list <- function(perp, cyp_inh) {
-  lapply(perp, basic_cyp_inhibition_risk, cyp_inh=cyp_inh)
-}
-
-
-#' Generic function for basic CYP inhibition risk evaluation as table
-#'
-#' @param perp The perpetrator as perpetrator object or list thereof.
-#' @param cyp_inh CYP inhibition data as data frame.
-#' @param na.rm Remove rows with lacking ki data (i.e., where ki == NA).
-#' @export
-#' @examples
-#' basic_cyp_inhibition_risk_table(examplinib_parent, examplinib_cyp_inhibition_data)
-basic_cyp_inhibition_risk_table <- function(perp, cyp_inh, na.rm=F) {
-  UseMethod("basic_cyp_inhibition_risk_table")
-}
-
-
 #' Table of basic CYP inhibition risk
 #'
 #' @param perp The perpetrator object.
@@ -86,7 +60,7 @@ basic_cyp_inhibition_risk_table <- function(perp, cyp_inh, na.rm=F) {
 #' @export
 #' @examples
 #' basic_cyp_inhibition_risk_table(examplinib_parent, examplinib_cyp_inhibition_data)
-basic_cyp_inhibition_risk_table.perpetrator <- function(perp, cyp_inh, na.rm=F) {
+basic_cyp_inhibition_risk_table <- function(perp, cyp_inh, na.rm=F) {
   temp <- basic_cyp_inhibition_risk(perp, cyp_inh)
 
   if(na.rm==TRUE) {
@@ -105,43 +79,23 @@ basic_cyp_inhibition_risk_table.perpetrator <- function(perp, cyp_inh, na.rm=F) 
 }
 
 
-#' Table of basic CYP inhibition risk
-#'
-#' @param perp A list of perpetrator objects.
-#' @param cyp_inh CYP inhibition data as data frame.
-#' @param na.rm Remove rows with lacking ki data (i.e., where ki == NA).
-#'
-#' @return Basic evaluation of CYP inhibition risk as markdown-formatted tables,
-#'   or an empty string if no CYP inhibition data available.
-#' @export
-#' @examples
-#' basic_cyp_inhibition_risk_table(examplinib_compounds, examplinib_cyp_inhibition_data)
-basic_cyp_inhibition_risk_table.list <- function(perp, cyp_inh, na.rm=F) {
-  for(i in perp) {
-    print(basic_cyp_inhibition_risk_table(i, cyp_inh, na.rm=na.rm))
-  }
-}
-
-
 
 #### CYP INDUCTION
 
-#' Generic function for basic static CYP induction risk
-#'
-#' @param perp The perpetrator object or a list thereof.
-#' @param cyp_ind The CYP induction data as data frame.
-#'
-#' @return A data frame.
-#' @export
-#' @examples
-#' static_cyp_induction_risk(examplinib_parent, examplinib_cyp_induction_data)
-static_cyp_induction_risk <- function(perp, cyp_ind) {
-  UseMethod("static_cyp_induction_risk")
-}
-
-
 #' Basic static CYP induction risk
 #'
+#' @details
+#' The basic (EMA) or fold-change (FDA) methods evaluate whether the maximal
+#' fold-change in mRNA expression is > 2-fold at the expected unbound hepatic
+#' concentration of the drug.
+#'
+#' Regarding the relevant drug concentrations, the FDA guidance suggests
+#' considering \eqn{30*I_{max,ss,u}} while the EMA guidance considers
+#' \eqn{50*I_{max,ss,u}} for hepatic and \eqn{0.1*I_{gut}} for intestinal
+#' CYP enzyme induction. It is expected that the concentrations in the
+#' respective in vitro assays cover these concentrations.
+#'
+#'
 #' @param perp The perpetrator object or a list thereof.
 #' @param cyp_ind The CYP induction data as data frame.
 #'
@@ -149,7 +103,7 @@ static_cyp_induction_risk <- function(perp, cyp_ind) {
 #' @export
 #' @examples
 #' static_cyp_induction_risk(examplinib_parent, examplinib_cyp_induction_data)
-static_cyp_induction_risk.perpetrator <- function(perp, cyp_ind)  {
+static_cyp_induction_risk <- function(perp, cyp_ind)  {
   i <- key_concentrations(perp, molar=TRUE)
 
   cyp_ind %>%
@@ -157,37 +111,10 @@ static_cyp_induction_risk.perpetrator <- function(perp, cyp_ind)  {
     mutate(maxc_imaxssu=round(maxc/i["imaxssu"], 1)) %>%
     mutate(risk=emax>2) %>%
     mutate(note=case_when(
-      maxc_imaxssu<30~"Maximal tested concentration is below EMA/FDA expectations",
+      maxc_imaxssu<30 ~ "Maximal tested concentration is below EMA/FDA expectations",
       (maxc_imaxssu>30 & maxc_imaxssu<50)~"Maximal tested concentration is below FDA expectations",
       .default="")) %>%
     select(-c(name, ec50))
-}
-
-
-#' Basic static CYP induction risk
-#'
-#' @param perp The perpetrator object or a list thereof.
-#' @param cyp_ind The CYP induction data as data frame.
-#'
-#' @return A data frame.
-#' @export
-#' @examples
-#' static_cyp_induction_risk(examplinib_compounds, examplinib_cyp_induction_data)
-static_cyp_induction_risk.list <- function(perp, cyp_ind) {
-  lapply(perp, static_cyp_induction_risk, cyp_ind=cyp_ind)
-}
-
-
-#' Generic function: Table of the basic static CYP induction risk
-#'
-#' @param perp The perpetrator object or list thereof
-#' @param cyp_ind The CYP induction data as data frame.
-#' @param na.rm Remove rows with lacking ki data (i.e., where ki == NA).
-#' @export
-#' @examples
-#' static_cyp_induction_risk_table(examplinib_parent, examplinib_cyp_induction_data)
-static_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
-  UseMethod("static_cyp_induction_risk_table")
 }
 
 
@@ -201,7 +128,7 @@ static_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
 #' @export
 #' @examples
 #' static_cyp_induction_risk_table(examplinib_parent, examplinib_cyp_induction_data)
-static_cyp_induction_risk_table.perpetrator <- function(perp, cyp_ind, na.rm=F) {
+static_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
   temp <- static_cyp_induction_risk(perp, cyp_ind)
 
   if(na.rm==TRUE) {
@@ -222,39 +149,14 @@ static_cyp_induction_risk_table.perpetrator <- function(perp, cyp_ind, na.rm=F) 
 }
 
 
-#' Tables of the basic static CYP induction risk
-#'
-#' @param perp The list of perpetrator objects.
-#' @param cyp_ind The CYP induction data as data frame.
-#' @param na.rm Remove rows with lacking ki data (i.e., where ki == NA).
-#'
-#' @return A list of markdown-formatted tables.
-#' @export
-#' @examples
-#' static_cyp_induction_risk_table(examplinib_compounds, examplinib_cyp_induction_data)
-static_cyp_induction_risk_table.list <- function(perp, cyp_ind, na.rm=F) {
-  for(i in perp) {
-    print(static_cyp_induction_risk_table(i, cyp_ind, na.rm=na.rm))
-  }
-}
-
-
-
-
-
-#' Generic function for basic kinetic CYP induction risk
-#'
-#' @param perp The perpetrator object or a list thereof.
-#' @param cyp_ind The CYP induction data as data frame.
-#' @export
-#' @examples
-#' kinetic_cyp_induction_risk(examplinib_parent, examplinib_cyp_induction_data)
-kinetic_cyp_induction_risk <- function(perp, cyp_ind) {
-  UseMethod("kinetic_cyp_induction_risk")
-}
-
-
 #' Basic kinetic CYP induction risk
+#'
+#' @details
+#' Basic kinetic modeling of the CYP induction risk considers \eqn{R_3}:
+#'
+#' \deqn{R_3 = \frac {1}{1+d* \frac {E_{max}*10*I_{max,u}}{EC_{50} + 10*I_{max,u}}}}
+#'
+#' For the risk assessment, a threshold of 0.8 applies to \eqn{R_3}.
 #'
 #' @param perp The perpetrator object.
 #' @param cyp_ind The CYP induction data as data frame.
@@ -263,7 +165,7 @@ kinetic_cyp_induction_risk <- function(perp, cyp_ind) {
 #' @export
 #' @examples
 #' kinetic_cyp_induction_risk(examplinib_parent, examplinib_cyp_induction_data)
-kinetic_cyp_induction_risk.perpetrator <- function(perp, cyp_ind) {
+kinetic_cyp_induction_risk <- function(perp, cyp_ind) {
   i <- key_concentrations(perp, molar=TRUE)
 
   out <- cyp_ind %>%
@@ -272,33 +174,6 @@ kinetic_cyp_induction_risk.perpetrator <- function(perp, cyp_ind) {
     mutate(risk=r3<=0.8) %>%
     select(-name)
   return(out)
-}
-
-
-#' Basic kinetic CYP induction risk
-#'
-#' @param perp A list of perpetrator objects.
-#' @param cyp_ind The CYP induction data as data frame.
-#'
-#' @return A list of data frames.
-#' @export
-#' @examples
-#' kinetic_cyp_induction_risk(examplinib_compounds, examplinib_cyp_induction_data)
-kinetic_cyp_induction_risk.list <- function(perp, cyp_ind) {
-  lapply(perp, kinetic_cyp_induction_risk, cyp_ind=cyp_ind)
-}
-
-
-#' Generic function: Table of the basic kinetc CYP induction risk
-#'
-#' @param perp The perpetrator object or list thereof
-#' @param cyp_ind The CYP induction data as data frame.
-#' @param na.rm Remove rows with lacking ki data (i.e., where ki == NA).
-#' @export
-#' @examples
-#' kinetic_cyp_induction_risk_table(examplinib_parent, examplinib_cyp_induction_data)
-kinetic_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
-  UseMethod("kinetic_cyp_induction_risk_table")
 }
 
 
@@ -312,7 +187,7 @@ kinetic_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
 #' @export
 #' @examples
 #' kinetic_cyp_induction_risk_table(examplinib_parent, examplinib_cyp_induction_data)
-kinetic_cyp_induction_risk_table.perpetrator <- function(perp, cyp_ind, na.rm=F) {
+kinetic_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
   temp <- kinetic_cyp_induction_risk(perp, cyp_ind) %>%
     mutate(r3=format(r3, digit=3))
 
@@ -333,32 +208,7 @@ kinetic_cyp_induction_risk_table.perpetrator <- function(perp, cyp_ind, na.rm=F)
 }
 
 
-#' Table of the basic kinetc CYP induction risk
-#'
-#' @param perp A list of perpetrator objects.
-#' @param cyp_ind The CYP induction data as data frame.
-#' @param na.rm Remove rows with lacking ki data (i.e., where ki == NA).
-#'
-#' @return A markdown-formatted table.
-#' @export
-kinetic_cyp_induction_risk_table.list <- function(perp, cyp_ind, na.rm=F) {
-  for(i in perp) {
-    print(kinetic_cyp_induction_risk_table(i, cyp_ind, na.rm=na.rm))
-  }
-}
-
-
-
 #### MECHANISTIC STATIC MODELING
-
-# cyp_reference_substrates <- data.frame(
-#   cyp=c("CYP1A2", "CYP2C8", "CYP2C9", "CYP2C19", "CYP3A4"),
-#   substrate=c("tizanidine", "repaglinide", "S-warfarin", "omeprazole", "midazolam"),
-#   fgut=c(1, 1, 1, 1, 0.57),
-#   fm=c(0.95, 1, 1, 1, 0.96),
-#   fmcyp=c(0.98, 0.61, 0.91, 0.87, 1)
-# )
-
 
 #' CYP perpetration risk as per mechanistic-static modeling
 #'

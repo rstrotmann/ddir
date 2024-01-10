@@ -2,18 +2,38 @@
 % Please edit documentation in R/cyp.R
 \name{basic_cyp_inhibition_risk}
 \alias{basic_cyp_inhibition_risk}
-\title{Generic function to evaluate the basic CYP inhibition risk}
+\title{Basic CYP inhibition risk evaluation for a perpetrator object}
 \usage{
 basic_cyp_inhibition_risk(perp, cyp_inh)
 }
 \arguments{
-\item{perp}{The perpetrator as perpetrator object or list thereof.}
+\item{perp}{The perpetrator object.}
 
-\item{cyp_inh}{The CYP inhibitor data as data frame.}
+\item{cyp_inh}{CYP inhibition data as data frame.}
 }
 \value{
 A data frame.
 }
 \description{
-Generic function to evaluate the basic CYP inhibition risk
+Basic CYP inhibition risk evaluation for a perpetrator object
+}
+\details{
+For the basic modeling of direct (reversible) CYP enzyme inhibition, the
+ratios of the relevant inhibitor concentration to the \eqn{K_i} are
+considered, i.e., \eqn{R_1} for hepatic enzymes and \eqn{R_{1,gut}} for
+intestinal enzymes (refer to the FDA guidance, FDA 2020, Fig. 1). A cut-off
+of 1.02 applies.
+\subsection{Liver}{
+
+\deqn{R_1=1+\frac{I_{max,ss,u}}{K_{i,u}}}
+}
+
+\subsection{Gut wall}{
+
+\deqn{R_{1,gut}=1+\frac{I_{gut}}{K_{i,u}}}
+}
+}
+\examples{
+basic_cyp_inhibition_risk(examplinib_parent, examplinib_cyp_inhibition_data)
+
 }

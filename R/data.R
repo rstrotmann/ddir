@@ -74,14 +74,18 @@
 
 #' Fictional CYP induction data
 #'
+#' @source Fictional data, made up for demo purposes.
 "examplinib_cyp_induction_data"
 
 
 #' Fictional transporter inhibition data
 #'
-"examplinib_transporter_inhibition_data"
+#' @source Fictional data, made up for demo purposes.
+#' "examplinib_transporter_inhibition_data"
+
 
 #' Fictional UGT inhibition data
 #'
-"examplinib_ugt_inhibition_data"
+#' @source Fictional data, made up for demo purposes.
+#' "examplinib_ugt_inhibition_data"
 

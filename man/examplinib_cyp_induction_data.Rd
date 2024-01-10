@@ -7,6 +7,9 @@
 \format{
 An object of class \code{data.frame} with 14 rows and 6 columns.
 }
+\source{
+Fictional data, made up for demo purposes.
+}
 \usage{
 examplinib_cyp_induction_data
 }

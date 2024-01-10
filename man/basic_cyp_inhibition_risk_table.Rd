@@ -2,19 +2,23 @@
 % Please edit documentation in R/cyp.R
 \name{basic_cyp_inhibition_risk_table}
 \alias{basic_cyp_inhibition_risk_table}
-\title{Generic function for basic CYP inhibition risk evaluation as table}
+\title{Table of basic CYP inhibition risk}
 \usage{
 basic_cyp_inhibition_risk_table(perp, cyp_inh, na.rm = F)
 }
 \arguments{
-\item{perp}{The perpetrator as perpetrator object or list thereof.}
+\item{perp}{The perpetrator object.}
 
 \item{cyp_inh}{CYP inhibition data as data frame.}
 
 \item{na.rm}{Remove rows with lacking ki data (i.e., where ki == NA).}
 }
+\value{
+Basic evaluation of CYP inhibition risk as markdown-formatted table,
+or an empty string if no CYP inhibition data available.
+}
 \description{
-Generic function for basic CYP inhibition risk evaluation as table
+Table of basic CYP inhibition risk
 }
 \examples{
 basic_cyp_inhibition_risk_table(examplinib_parent, examplinib_cyp_inhibition_data)

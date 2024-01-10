@@ -1,14 +1,4 @@
 
-# transporter_reference_data <- data.frame(
-#   param=c("Pgp_int", "Pgp_sys", "BCRP_int", "BCRP_sys", "OCT1", "OATP1B1",
-#           "OATP1B3", "OAT1", "OAT3", "BSEP", "OCT2", "MATE1", "MATE2k"),
-#   rank=seq(1, 13),
-#   fda_thld=c(10, 0.1, 10, 0.1, NA, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1),
-#   ema_thld=c(10, 0.02, 10, 0.02, 0.04, 0.04, 0.04, 0.04, 0.04, 0.02, 0.02, 0.02, 0.02),
-#   i=c("igut", "imaxssu", "igut", "imaxssu", "imaxinletu", "imaxinletu",
-#       "imaxinletu", "imaxssu", "imaxssu", "imaxssu", "imaxssu", "imaxssu", "imaxssu")
-# )
-
 
 #' Drug transporter inhibition risk
 #'

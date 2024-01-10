@@ -2,17 +2,27 @@
 % Please edit documentation in R/cyp.R
 \name{kinetic_cyp_induction_risk}
 \alias{kinetic_cyp_induction_risk}
-\title{Generic function for basic kinetic CYP induction risk}
+\title{Basic kinetic CYP induction risk}
 \usage{
 kinetic_cyp_induction_risk(perp, cyp_ind)
 }
 \arguments{
-\item{perp}{The perpetrator object or a list thereof.}
+\item{perp}{The perpetrator object.}
 
 \item{cyp_ind}{The CYP induction data as data frame.}
 }
+\value{
+A data frame.
+}
 \description{
-Generic function for basic kinetic CYP induction risk
+Basic kinetic CYP induction risk
+}
+\details{
+Basic kinetic modeling of the CYP induction risk considers \eqn{R_3}:
+
+\deqn{R_3 = \frac {1}{1+d* \frac {E_{max}*10*I_{max,u}}{EC_{50} + 10*I_{max,u}}}}
+
+For the risk assessment, a threshold of 0.8 applies to \eqn{R_3}.
 }
 \examples{
 kinetic_cyp_induction_risk(examplinib_parent, examplinib_cyp_induction_data)

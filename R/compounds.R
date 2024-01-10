@@ -254,6 +254,50 @@ is_igut_solubility_limited <- function(obj) {
 
 #' Key perpetrator concentrations
 #'
+#' @details
+#'
+#' ## Gut concentration
+#'
+#' \deqn{I_{gut} = \frac{D} {250}}
+#'
+#' ## Systemic concentration
+#'
+#' \deqn{I_{max,ss,u}=I_{max,ss} * f_u}
+#'
+#' ## Hepatic inlet concentration
+#'
+#' For orally administered (parent) compounds, the hepatic inlet concentration
+#' is the sytemic concentration plus a portal term:
+#'
+#' \deqn{portal\ term = D*\frac{F_a*F_g*k_a}{Q_h*R_B}*1000\ ng/ml}
+#'
+#' where \eqn{D} is the administered dose in mg, \eqn{F_a} the fraction absorbed
+#' after oral administration, \eqn{F_g} the fraction available after gut
+#' metabolism, \eqn{k_a} the absorption rate, \eqn{Q_h} the hepatic blood flow
+#' and \eqn{R_B} the blood-to-plasma ratio.
+#'
+#' The relevant hepatic inlet concentration (\eqn{I_{max,inlet,u}}, also called
+#' \eqn{I_h} in the mechanistic static modeling equations) concentration is the
+#' sum of the maximal systemic plasma concentration and the portal contribution:
+#'
+#' \deqn{I_{max,inlet,u}=(I_{max,ss} + portal\ term) * f_u}
+#'
+#' ## Enteric concentration
+#'
+#' For orally administered (parent) compounds, the villous concentration in the
+#' gut (\eqn{I_{enteric}}, also called \eqn{I_g} in the mechanistic static
+#' modeling equations) is calculated as:
+#'
+#' \deqn{I_{enteric,u} = D * \frac{F_a*k_a}{Q_{ent}} *1000\ ng/ml}
+#'
+#' where \eqn{F_a} is the fraction absorbed after oral administration, \eqn{k_a}
+#' the absorption rate, \eqn{Q_{ent}} the enteric villous blood flow and
+#' \eqn{R_B} the blood-to-plasma distribution ratio of the compound.
+#'
+#' Note that as per the FDA guideline (refer to FDA, 2020, Fig. 7, and
+#' Rostami-Hodjegan and Tucker, 2004) the blood-to-plasma ratio and the plasma
+#' binding of the drug are ignored.
+#'
 #' @param qh Hepatic blood flow in l/min, defaults to 1.616 l/min.
 #' @param qent Enteric blood flow in l/min, defaults to 0.3 l/min = 18 l/h.
 #' @param molar Boolean value to select output in molar concentrations.

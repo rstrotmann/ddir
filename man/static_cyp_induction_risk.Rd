@@ -2,7 +2,7 @@
 % Please edit documentation in R/cyp.R
 \name{static_cyp_induction_risk}
 \alias{static_cyp_induction_risk}
-\title{Generic function for basic static CYP induction risk}
+\title{Basic static CYP induction risk}
 \usage{
 static_cyp_induction_risk(perp, cyp_ind)
 }
@@ -15,7 +15,18 @@ static_cyp_induction_risk(perp, cyp_ind)
 A data frame.
 }
 \description{
-Generic function for basic static CYP induction risk
+Basic static CYP induction risk
+}
+\details{
+The basic (EMA) or fold-change (FDA) methods evaluate whether the maximal
+fold-change in mRNA expression is > 2-fold at the expected unbound hepatic
+concentration of the drug.
+
+Regarding the relevant drug concentrations, the FDA guidance suggests
+considering \eqn{30*I_{max,ss,u}} while the EMA guidance considers
+\eqn{50*I_{max,ss,u}} for hepatic and \eqn{0.1*I_{gut}} for intestinal
+CYP enzyme induction. It is expected that the concentrations in the
+respective in vitro assays cover these concentrations.
 }
 \examples{
 static_cyp_induction_risk(examplinib_parent, examplinib_cyp_induction_data)
