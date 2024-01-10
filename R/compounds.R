@@ -137,23 +137,6 @@ compound_names_string <- function(compounds) {
 #' @import tidyr
 #' @seealso [read_perpetrators()]
 #' @export
-#' @examples
-#' \code{
-#' new_perpetrator(tribble(
-#'   ~name,        ~param,       ~value,       ~source,
-#'   "examplinib", "name",       "examplinib", "",
-#'   "examplinib", "type",       "parent",     "",
-#'   "examplinib", "mw",         "492.6",      "",
-#'   "examplinib", "dose",       "450",        "clinical dose",
-#'   "examplinib", "imaxss",     "3530",       "study 001",
-#'   "examplinib", "fu",         "0.023",      "study 002",
-#'   "examplinib", "fumic",      "1",          "default",
-#'   "examplinib", "rb",         "1",          "study 003",
-#'   "examplinib", "fa",         "0.81",       "study 003",
-#'   "examplinib", "fg",         "1",          "default",
-#'   "examplinib", "ka",         "0.00267",    "unknown",
-#'   "examplinib", "solubility", "Inf",        "default"))
-#' }
 new_perpetrator <- function(df) {
   default_values <- tribble(
     ~param, ~default,

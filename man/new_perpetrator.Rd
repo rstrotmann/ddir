@@ -56,24 +56,6 @@ The following example is a valid input data frame:\tabular{llll}{
    examplinib \tab solubility \tab Inf \tab default \cr
 }
 }
-\examples{
-\code{
-new_perpetrator(tribble(
-  ~name,        ~param,       ~value,       ~source,
-  "examplinib", "name",       "examplinib", "",
-  "examplinib", "type",       "parent",     "",
-  "examplinib", "mw",         "492.6",      "",
-  "examplinib", "dose",       "450",        "clinical dose",
-  "examplinib", "imaxss",     "3530",       "study 001",
-  "examplinib", "fu",         "0.023",      "study 002",
-  "examplinib", "fumic",      "1",          "default",
-  "examplinib", "rb",         "1",          "study 003",
-  "examplinib", "fa",         "0.81",       "study 003",
-  "examplinib", "fg",         "1",          "default",
-  "examplinib", "ka",         "0.00267",    "unknown",
-  "examplinib", "solubility", "Inf",        "default"))
-}
-}
 \seealso{
 \code{\link[=read_perpetrators]{read_perpetrators()}}
 }
