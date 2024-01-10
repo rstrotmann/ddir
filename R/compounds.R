@@ -198,6 +198,18 @@ print.perpetrator <- function(x, ...) {
 }
 
 
+
+#' Generic name method
+#'
+#' @param obj The perpetrator object.
+#'
+#' @return The name of the perpetrator as character.
+#' @export
+name <- function(obj) {
+  UseMethod("name")
+}
+
+
 #' Name of a perpetrator
 #'
 #' @param obj The perpetrator object.
