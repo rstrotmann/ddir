@@ -15,3 +15,7 @@ Perpetrator properties as markdown-formatted table.
 \description{
 Table of perpetrator properties
 }
+\examples{
+property_table(examplinib_parent)
+
+}

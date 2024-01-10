@@ -137,7 +137,23 @@ compound_names_string <- function(compounds) {
 #' @import tidyr
 #' @seealso [read_perpetrators()]
 #' @export
-#'
+#' @examples
+#' \code{
+#' new_perpetrator(tribble(
+#'   ~name,        ~param,       ~value,       ~source,
+#'   "examplinib", "name",       "examplinib", "",
+#'   "examplinib", "type",       "parent",     "",
+#'   "examplinib", "mw",         "492.6",      "",
+#'   "examplinib", "dose",       "450",        "clinical dose",
+#'   "examplinib", "imaxss",     "3530",       "study 001",
+#'   "examplinib", "fu",         "0.023",      "study 002",
+#'   "examplinib", "fumic",      "1",          "default",
+#'   "examplinib", "rb",         "1",          "study 003",
+#'   "examplinib", "fa",         "0.81",       "study 003",
+#'   "examplinib", "fg",         "1",          "default",
+#'   "examplinib", "ka",         "0.00267",    "unknown",
+#'   "examplinib", "solubility", "Inf",        "default"))
+#' }
 new_perpetrator <- function(df) {
   default_values <- tribble(
     ~param, ~default,
@@ -187,6 +203,9 @@ new_perpetrator <- function(df) {
 #'
 #' @export
 #' @import dplyr
+#' @examples
+#' print(examplinib_parent)
+#'
 print.perpetrator <- function(x, ...) {
   cat("== DDI perpetrator object ==\n")
   x %>%
@@ -218,7 +237,6 @@ name.perpetrator <- function(obj) {
 }
 
 
-
 #' Test if Igut of a perpetrator is limited by its solubility
 #'
 #' If the solubility field is `Inf` (default), or the compound solubility is
@@ -229,6 +247,8 @@ name.perpetrator <- function(obj) {
 #' @param obj The perpetrator object.
 #'
 #' @return A boolean value.
+#' @examples
+#' is_igut_solubility_limited(examplinib_parent)
 is_igut_solubility_limited <- function(obj) {
   type <- obj[which(obj$param=="type"), "value"]
   dose <- as.num(obj[which(obj$param=="dose"), "value"])
@@ -302,7 +322,8 @@ is_igut_solubility_limited <- function(obj) {
 #' @param qent Enteric blood flow in l/min, defaults to 0.3 l/min = 18 l/h.
 #' @param molar Boolean value to select output in molar concentrations.
 #' @param obj A perpetrator object.
-#'
+#' @seealso [conc_table()]
+#' @seealso [property_table()]
 #' @return Key perpetrator concentrations as a named vector.
 #' @export
 key_concentrations <- function(obj, qh=1.616, qent=18/60, molar=TRUE) {
@@ -366,6 +387,7 @@ key_concentrations <- function(obj, qh=1.616, qent=18/60, molar=TRUE) {
 #' @param perp The object (compund object or list thereof)
 #'
 #' @export
+#' @seealso [key_concentrations()]
 conc_table <- function(perp) {
   UseMethod("conc_table")
 }
@@ -377,6 +399,9 @@ conc_table <- function(perp) {
 #'
 #' @return Key perpetrator concentrations as a markdown-formatted table.
 #' @export
+#' @seealso [key_concentrations()]
+#' @examples
+#' conc_table(examplinib_parent)
 conc_table.perpetrator <- function(perp) {
   sol_limit <- is_igut_solubility_limited(perp)
 
@@ -404,6 +429,8 @@ conc_table.perpetrator <- function(perp) {
 #' @param perp The compounds as list of compound objects.
 #'
 #' @export
+#' @examples
+#' conc_table(examplinib_compounds)
 conc_table.list <- function(perp) {
   lapply(perp, conc_table)
 }
@@ -425,6 +452,9 @@ property_table <- function(obj) {
 #'
 #' @return Perpetrator properties as markdown-formatted table.
 #' @export
+#' @examples
+#' property_table(examplinib_parent)
+#'
 property_table.perpetrator <- function(obj){
   labels <- data.frame(
     param=c("mw", "dose", "solubility", "imaxss", "fu", "fumic", "rb", "fa",
@@ -451,6 +481,8 @@ property_table.perpetrator <- function(obj){
 #' @param obj A list of perpetrator objects.
 #'
 #' @export
+#' @examples
+#' property_table(examplinib_compounds)
 property_table.list <- function(obj) {
   for(i in obj) {
     print(property_table(i))

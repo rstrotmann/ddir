@@ -12,3 +12,6 @@ conc_table(perp)
 \description{
 Generic function to display ky perpetrator concentrations
 }
+\seealso{
+\code{\link[=key_concentrations]{key_concentrations()}}
+}

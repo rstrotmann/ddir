@@ -15,3 +15,9 @@ Key perpetrator concentrations as a markdown-formatted table.
 \description{
 Table of key perpetrator concentrations
 }
+\examples{
+conc_table(examplinib_parent)
+}
+\seealso{
+\code{\link[=key_concentrations]{key_concentrations()}}
+}

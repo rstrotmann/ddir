@@ -14,3 +14,7 @@
 \description{
 Implementation of the generic print function for perpetrator objects
 }
+\examples{
+print(examplinib_parent)
+
+}

@@ -12,3 +12,6 @@
 \description{
 Compound properties for a list of compounds
 }
+\examples{
+property_table(examplinib_compounds)
+}

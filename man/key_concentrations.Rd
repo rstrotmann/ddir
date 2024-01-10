@@ -68,3 +68,8 @@ Rostami-Hodjegan and Tucker, 2004) the blood-to-plasma ratio and the plasma
 binding of the drug are ignored.
 }
 }
+\seealso{
+\code{\link[=conc_table]{conc_table()}}
+
+\code{\link[=property_table]{property_table()}}
+}

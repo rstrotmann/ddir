@@ -12,3 +12,6 @@
 \description{
 Table of key perpetrator concentrations for a list of compounds
 }
+\examples{
+conc_table(examplinib_compounds)
+}
