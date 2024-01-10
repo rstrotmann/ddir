@@ -124,9 +124,22 @@ be 1, but can be adjusted).</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">mech_stat_cyp_risk</span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_inhibition_data</span>, <span class="va">examplinib_cyp_induction_data</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in filter(., name == name(perp)):</span> <span style="color: #00BBBB;">ℹ</span> In argument: `name == name(perp)`.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error in `name()`:</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> could not find function "name"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       cyp   substrate  kiu fgut   fm fmcyp        Ag        Ah      Cg       Ch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  CYP1A2  tizanidine   NA 1.00 0.95  0.98        NA        NA 1.00000 1.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  CYP2B6        &lt;NA&gt;   NA   NA   NA    NA        NA        NA 1.00000 1.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  CYP2C8 repaglinide 11.0 1.00 1.00  0.61 0.9864172 0.9827625 1.00000 1.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  CYP2C9  S-warfarin 13.5 1.00 1.00  0.91 0.9889046 0.9859096 1.00000 1.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 CYP2C19  omeprazole 15.0 1.00 1.00  0.87 0.9900031 0.9873008 1.00000 1.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  CYP2D6        &lt;NA&gt;   NA   NA   NA    NA        NA        NA 1.00000 1.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  CYP3A4   midazolam 12.5 0.57 0.96  1.00 0.9880276 0.9847995 1.62144 1.773674</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        aucr  risk</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        NA    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        NA    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 1.0106266 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 1.0129888 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 1.0111717 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6        NA    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 0.4626871  TRUE</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

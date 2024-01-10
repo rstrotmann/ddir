@@ -83,9 +83,25 @@ removed from the output (i.e., where ki == NA).</p></dd>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">transporter_inhibition_risk_table</span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_transporter_inhibition_data</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in filter(., name == name(perp)):</span> <span style="color: #00BBBB;">ℹ</span> In argument: `name == name(perp)`.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error in `name()`:</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> could not find function "name"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Table: Risk for drug transporter inhibition by examplinib</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |transporter | $IC_{50}$|source    |      $R$| thld FDA|risk FDA | thld EMA|risk EMA |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |:-----------|---------:|:---------|--------:|--------:|:--------|--------:|:--------|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |Pgp_int     |      0.41|study 005 | 8912.391|     10.0|TRUE     |    10.00|TRUE     |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |Pgp_sys     |      0.41|study 005 |    0.402|      0.1|TRUE     |     0.02|TRUE     |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |BCRP_int    |      1.90|study 005 | 1923.200|     10.0|TRUE     |    10.00|TRUE     |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |BCRP_sys    |      1.90|study 005 |    0.087|      0.1|FALSE    |     0.02|TRUE     |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |OCT1        |      2.30|study 006 |    0.084|       NA|NA       |     0.04|TRUE     |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |OATP1B1     |    177.00|study 006 |    0.001|      0.1|FALSE    |     0.04|FALSE    |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |OATP1B3     |     35.00|study 006 |    0.006|      0.1|FALSE    |     0.04|FALSE    |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |OAT1        |    271.00|          |    0.001|      0.1|FALSE    |     0.04|FALSE    |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |OAT3        |    300.00|          |    0.001|      0.1|FALSE    |     0.04|FALSE    |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |BSEP        |     12.80|          |    0.013|      0.1|FALSE    |     0.02|FALSE    |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |OCT2        |     67.00|study 006 |    0.002|      0.1|FALSE    |     0.02|FALSE    |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |MATE1       |      3.60|study 006 |    0.046|      0.1|FALSE    |     0.02|TRUE     |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |MATE2k      |      1.10|study 006 |    0.150|      0.1|TRUE     |     0.02|TRUE     |</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
