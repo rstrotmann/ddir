@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,7 +69,43 @@
 
 <p>A data frame.</p>
     </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>The relevant metric for the assessment of transporter interactions is
+\(R=[I]/K_i\). In in vitro transporter inhibition studies, \(IC_{50}\)
+values are experimentally determined. Since the transporter substrate
+concentration is usually kept very low in relation to \(K_m\) to
+minimize passive permeation, \(K_i = IC_{50}\) can be assumed.</p>
+<p>The relevant perpetrator concentrations \([I]\) are:</p><ul><li><p>\(I_{gut}\) for intestinal P-gp and BRCR</p></li>
+<li><p>\(I_{max,inlet,u}\) for the hepatic basolateral transporters OCT1,
+OATP1B1 and OATP1B3</p></li>
+<li><p>\(I_{max,ss,u}\) for the renal basolateral transporters OAT1, OAT3 and
+OCT2, as well as the apical transporters outside the intestinal mucosa, i.e.,
+hepatic P-gp and BCRP, and MATE1, MATE2-k.</p></li>
+</ul><p>Note that the FDA and EMA guidelines differ in their definitions for the
+thresholds for assumed clinically relevant effects.</p>
+    </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">transporter_inhibition_risk</span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_transporter_inhibition_data</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       param   ic50    source            r fda_thld fda_risk ema_thld ema_risk</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   Pgp_int   0.41 study 005 8.912391e+03     10.0     TRUE    10.00     TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   Pgp_sys   0.41 study 005 4.019984e-01      0.1     TRUE     0.02     TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  BCRP_int   1.90 study 005 1.923200e+03     10.0     TRUE    10.00     TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  BCRP_sys   1.90 study 005 8.674701e-02      0.1    FALSE     0.02     TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      OCT1   2.30 study 006 8.388626e-02       NA       NA     0.04     TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   OATP1B1 177.00 study 006 1.090047e-03      0.1    FALSE     0.04    FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   OATP1B3  35.00 study 006 5.512525e-03      0.1    FALSE     0.04    FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8      OAT1 271.00           6.081894e-04      0.1    FALSE     0.04    FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9      OAT3 300.00           5.493978e-04      0.1    FALSE     0.04    FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10     BSEP  12.80           1.287651e-02      0.1    FALSE     0.02    FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11     OCT2  67.00 study 006 2.459990e-03      0.1    FALSE     0.02    FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12    MATE1   3.60 study 006 4.578315e-02      0.1    FALSE     0.02     TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13   MATE2k   1.10 study 006 1.498358e-01      0.1     TRUE     0.02     TRUE</span>
+<span class="r-in"><span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 

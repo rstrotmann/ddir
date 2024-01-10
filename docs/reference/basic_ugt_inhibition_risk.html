@@ -16,7 +16,7 @@ are used."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/m
     
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,8 +61,8 @@ are used.</p>
 
 
 <dt>ugt_inh</dt>
-<dd><p>UGT inhibiton data as data frame, with value repersenting the
-IC50 (!).</p></dd>
+<dd><p>UGT inhibition data as data frame, with 'value' representing
+the IC50 (!).</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -70,6 +70,17 @@ IC50 (!).</p></dd>
     
 
 <p>A markdown-formatted table.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>The relevant metric for basic modeling of the UGT inhibition risk is
+\(R_1=I_{max,ss,u}/K_{i,u}\). For the clinical risk assessment, a cut-off
+of \(R&lt;1.02\) applies.</p>
+<p>In in vitro UGT inhibition studies, usually \(IC_{50}\) rather than
+\(k_i\) values are determined. Assuming that a substrate concentration
+close to \(K_m\) is used in these studies, \(K_i\) is calculated as
+\(K_i = IC_{50}/2\)
+(refer to <a href="https://doi.org/10.1016/0006-2952(73)90196-2" class="external-link">Cheng, Prusoff 1973</a>).</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

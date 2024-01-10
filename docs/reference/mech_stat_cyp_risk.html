@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,6 +79,46 @@ included in the calculation (C-terms as per the FDA guideline)</p></dd>
     
 
 <p>A data frame.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>In this approach, AUC ratios for probe substrates are calculated based on
+their known intestinal and hepatic metabolism. Both direct (competitive) and
+time-dependent inhibition are considered.</p>
+<p>The below formula given by the FDA guideline (refer to FDA 2020, Fig. 7) also
+includes intestinal and hepatic enzyme induction terms (\(C_g\) and
+\(C_h\), respectively). At the same time, the guideline states that both
+inhibition and induction should be considered separately.</p>
+<p>$$AUCR = \frac{1}{A_g*B_g*C_g* \left(1-F_g \right)+F_g} * \frac{1}{A_h*B_h*C_h*f_m+\left(1-f_m\right)}$$</p>
+<p>The individual terms are:</p><div class="section">
+<h3 id="reversible-inhibition">Reversible inhibition<a class="anchor" aria-label="anchor" href="#reversible-inhibition"></a></h3>
+
+
+<p>$$A_g = \frac{1}{1+\frac{I_g}{K_i}}$$</p>
+<p>$$A_h = \frac{1}{1+\frac{I_h}{K_i}}$$</p>
+</div>
+
+<div class="section">
+<h3 id="time-dependent-inhibition">Time-dependent inhibition<a class="anchor" aria-label="anchor" href="#time-dependent-inhibition"></a></h3>
+
+
+<p>$$B_g = \frac{k_{deg,g}}{k_{deg,g} + \frac{I_g*k_{inact}}{I_g+K_I}}$$</p>
+<p>$$B_h = \frac{k_{deg,h}}{k_{deg,h} + \frac{I_h*k_{inact}}{I_h+K_I}}$$</p>
+</div>
+
+<div class="section">
+<h3 id="induction">Induction<a class="anchor" aria-label="anchor" href="#induction"></a></h3>
+
+
+<p>$$C_g = 1 + \frac{d*E_{max}*I_g}{I_g+EC_{50}}$$</p>
+<p>$$C_h = 1 + \frac{d*E_{max}*I_h}{I_h+EC_{50}}$$</p>
+<p>with the hepatic inlet concentration \(I_h=I_{max,inlet,u}\) and the
+intestinal concentration \(I_g=I_{enteric,u}\), see
+<code><a href="key_concentrations.html">key_concentrations()</a></code>.</p>
+<p>\(d\) is an induction scaling factor (assumed to
+be 1, but can be adjusted).</p>
+</div>
+
     </div>
 
     <div class="section level2">
