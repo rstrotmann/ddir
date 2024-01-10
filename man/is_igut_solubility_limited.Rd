@@ -20,4 +20,5 @@ the function returns \code{TRUE}. Note that the solubility is expected in mg/l.
 }
 \examples{
 is_igut_solubility_limited(examplinib_parent)
+
 }

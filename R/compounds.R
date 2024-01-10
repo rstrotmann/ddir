@@ -221,17 +221,9 @@ print.perpetrator <- function(x, ...) {
 #'
 #' @return The name of the perpetrator as character.
 #' @export
-name <- function(obj) {
-  UseMethod("name")
-}
-
-
-#' Name of a perpetrator
+#' @examples
+#' name(examplinib_parent)
 #'
-#' @param obj The perpetrator object.
-#'
-#' @return The name of the perpetrator as character.
-#' @export
 name.perpetrator <- function(obj) {
   return(obj["name", "value"])
 }
@@ -247,8 +239,10 @@ name.perpetrator <- function(obj) {
 #' @param obj The perpetrator object.
 #'
 #' @return A boolean value.
+#' @export
 #' @examples
 #' is_igut_solubility_limited(examplinib_parent)
+#'
 is_igut_solubility_limited <- function(obj) {
   type <- obj[which(obj$param=="type"), "value"]
   dose <- as.num(obj[which(obj$param=="dose"), "value"])
@@ -326,6 +320,10 @@ is_igut_solubility_limited <- function(obj) {
 #' @seealso [property_table()]
 #' @return Key perpetrator concentrations as a named vector.
 #' @export
+#' @examples
+#' key_concentrations(examplinib_parent)
+#' key_concentrations(examplinib_metabolite)
+#'
 key_concentrations <- function(obj, qh=1.616, qent=18/60, molar=TRUE) {
   type <- obj["type", "value"]
   dose <- as.num(obj["dose", "value"])

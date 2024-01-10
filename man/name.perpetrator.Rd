@@ -4,7 +4,7 @@
 \alias{name.perpetrator}
 \title{Name of a perpetrator}
 \usage{
-\method{name}{perpetrator}(obj)
+name.perpetrator(obj)
 }
 \arguments{
 \item{obj}{The perpetrator object.}
@@ -14,4 +14,8 @@ The name of the perpetrator as character.
 }
 \description{
 Name of a perpetrator
+}
+\examples{
+name(examplinib_parent)
+
 }

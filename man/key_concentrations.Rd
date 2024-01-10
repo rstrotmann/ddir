@@ -68,6 +68,11 @@ Rostami-Hodjegan and Tucker, 2004) the blood-to-plasma ratio and the plasma
 binding of the drug are ignored.
 }
 }
+\examples{
+key_concentrations(examplinib_parent)
+key_concentrations(examplinib_metabolite)
+
+}
 \seealso{
 \code{\link[=conc_table]{conc_table()}}
 

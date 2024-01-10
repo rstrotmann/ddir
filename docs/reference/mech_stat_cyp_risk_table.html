@@ -93,19 +93,9 @@ included in the calculation (C-terms as per the FDA guideline)</p></dd>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">mech_stat_cyp_risk_table</span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_inhibition_data</span>, <span class="va">examplinib_cyp_induction_data</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Table: Mechanistic static modeling of CYP inhibition risk for  examplinib</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP     | $K_{i,u}$|substrate   | $F_{gut}$| $f_m$| $f_{m,CYP}$|$A_g$ |$A_h$ |$C_g$ |$C_h$ |AUCR  |risk  |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |:-------|---------:|:-----------|---------:|-----:|-----------:|:-----|:-----|:-----|:-----|:-----|:-----|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP1A2  |        NA|tizanidine  |      1.00|  0.95|        0.98|NA    |NA    |1.00  |1.00  |NA    |NA    |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2B6  |        NA|NA          |        NA|    NA|          NA|NA    |NA    |1.00  |1.00  |NA    |NA    |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C8  |      11.0|repaglinide |      1.00|  1.00|        0.61|0.986 |0.983 |1.00  |1.00  |1.011 |FALSE |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9  |      13.5|S-warfarin  |      1.00|  1.00|        0.91|0.989 |0.986 |1.00  |1.00  |1.013 |FALSE |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C19 |      15.0|omeprazole  |      1.00|  1.00|        0.87|0.990 |0.987 |1.00  |1.00  |1.011 |FALSE |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2D6  |        NA|NA          |        NA|    NA|          NA|NA    |NA    |1.00  |1.00  |NA    |NA    |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP3A4  |      12.5|midazolam   |      0.57|  0.96|        1.00|0.988 |0.985 |1.62  |1.77  |0.463 |TRUE  |</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in filter(., name == name(perp)):</span> <span style="color: #00BBBB;">ℹ</span> In argument: `name == name(perp)`.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error in `name()`:</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> could not find function "name"</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
