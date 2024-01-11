@@ -2,7 +2,7 @@
 % Please edit documentation in R/cyp.R
 \name{basic_cyp_inhibition_risk_table}
 \alias{basic_cyp_inhibition_risk_table}
-\title{Table of basic CYP inhibition risk}
+\title{Basic CYP inhibition risk table}
 \usage{
 basic_cyp_inhibition_risk_table(perp, cyp_inh, na.rm = F)
 }
@@ -11,17 +11,21 @@ basic_cyp_inhibition_risk_table(perp, cyp_inh, na.rm = F)
 
 \item{cyp_inh}{CYP inhibition data as data frame.}
 
-\item{na.rm}{Remove rows with lacking ki data (i.e., where ki == NA).}
+\item{na.rm}{Boolean to define whether rows with lacking ki data are removed
+(i.e., where ki == NA).}
 }
 \value{
-Basic evaluation of CYP inhibition risk as markdown-formatted table,
-or an empty string if no CYP inhibition data available.
+A markdown-formatted table, or an empty string (if no CYP inhibition
+data are vavailable).
 }
 \description{
-Table of basic CYP inhibition risk
+This function generates a markdown-formatted table of the direct (reversible)
+CYP inhibition risk assessment. See \code{\link[=basic_cyp_inhibition_risk]{basic_cyp_inhibition_risk()}} for details
+on the calculation of the risk.
 }
 \examples{
 basic_cyp_inhibition_risk_table(examplinib_parent, examplinib_cyp_inhibition_data)
+basic_cyp_inhibition_risk_table(examplinib_parent, examplinib_cyp_inhibition_data, na.rm = TRUE)
 }
 \seealso{
 \code{\link[=basic_cyp_inhibition_risk]{basic_cyp_inhibition_risk()}}

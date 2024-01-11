@@ -10,10 +10,12 @@
 \item{perp}{The perpetrator object.}
 }
 \value{
-Key perpetrator concentrations as a markdown-formatted table.
+A markdown-formatted table.
 }
 \description{
-Table of key perpetrator concentrations
+This function generates a markdown-formatted table of the key
+concentrations used for the assessment of the DDI perpetrator potential. See
+\code{\link[=key_concentrations]{key_concentrations()}} for details on the calculation of the concentrations.
 }
 \examples{
 conc_table(examplinib_parent)

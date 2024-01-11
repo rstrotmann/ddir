@@ -2,7 +2,7 @@
 % Please edit documentation in R/cyp.R
 \name{basic_cyp_inhibition_risk}
 \alias{basic_cyp_inhibition_risk}
-\title{Basic CYP inhibition risk evaluation for a perpetrator object}
+\title{Basic CYP inhibition risk}
 \usage{
 basic_cyp_inhibition_risk(perp, cyp_inh)
 }
@@ -15,14 +15,22 @@ basic_cyp_inhibition_risk(perp, cyp_inh)
 A data frame.
 }
 \description{
-Basic CYP inhibition risk evaluation for a perpetrator object
+This function evaluates the clinical risk for direct (reversible) CYP
+inhibition according to the basic model defined in the relevant regulatory
+guideines.
 }
 \details{
 For the basic modeling of direct (reversible) CYP enzyme inhibition, the
 ratios of the relevant inhibitor concentration to the \eqn{K_i} are
 considered, i.e., \eqn{R_1} for hepatic enzymes and \eqn{R_{1,gut}} for
-intestinal enzymes (refer to the FDA guidance, FDA 2020, Fig. 1). A cut-off
+intestinal enzymes (refer to fig. 1 of  the the
+\href{https://www.fda.gov/media/134582/download}{FDA guidance}). A threshold
 of 1.02 applies.
+
+Note that section 5.3.3.1 of the
+\href{https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-drug-interactions-revision-1_en.pdf}{EMA DDI guidance}
+defines the ratio as \eqn{R_1=\frac{I_{max,ss,u}}{K_{i,u}}} and the
+threshold as 0.02.
 \subsection{Liver}{
 
 \deqn{R_1=1+\frac{I_{max,ss,u}}{K_{i,u}}}
@@ -31,9 +39,17 @@ of 1.02 applies.
 \subsection{Gut wall}{
 
 \deqn{R_{1,gut}=1+\frac{I_{gut}}{K_{i,u}}}
+
+Refer to the documentation to the \code{\link[=key_concentrations]{key_concentrations()}} function for details
+on the calculation of \eqn{I_{max,ss,u}} and \eqn{I_{gut}}.
 }
 }
 \examples{
 basic_cyp_inhibition_risk(examplinib_parent, examplinib_cyp_inhibition_data)
 
+}
+\seealso{
+\code{\link[=basic_cyp_inhibition_risk_table]{basic_cyp_inhibition_risk_table()}}
+
+\code{\link[=key_concentrations]{key_concentrations()}}
 }

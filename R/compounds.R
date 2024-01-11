@@ -388,9 +388,13 @@ conc_table <- function(perp) {
 
 #' Table of key perpetrator concentrations
 #'
+#' This function generates a markdown-formatted table of the key
+#' concentrations used for the assessment of the DDI perpetrator potential. See
+#' [key_concentrations()] for details on the calculation of the concentrations.
+#'
 #' @param perp The perpetrator object.
 #'
-#' @return Key perpetrator concentrations as a markdown-formatted table.
+#' @return A markdown-formatted table.
 #' @export
 #' @seealso [key_concentrations()]
 #' @examples
@@ -419,9 +423,15 @@ conc_table.perpetrator <- function(perp) {
 
 #' Table of key perpetrator concentrations for a list of compounds
 #'
+#' This function generates a markdown-formatted table of the key
+#' concentrations used for the assessment of the DDI perpetrator potential. See
+#' [key_concentrations()] for details on the calculation of the concentrations.
+#'
 #' @param perp The compounds as list of compound objects.
 #'
+#' @return A markdown-formatted table.
 #' @export
+#' @seealso [key_concentrations()]
 #' @examples
 #' conc_table(examplinib_compounds)
 conc_table.list <- function(perp) {
@@ -439,11 +449,14 @@ property_table <- function(obj) {
 }
 
 
-#' Table of perpetrator properties
+#' Table of perpetrator drug properties
+#'
+#' This function generates a markdown-formatted table of the key properties of
+#' a perpetrator object.
 #'
 #' @param obj The perpetrator object.
 #'
-#' @return Perpetrator properties as markdown-formatted table.
+#' @return A markdown-formatted table.
 #' @export
 #' @examples
 #' property_table(examplinib_parent)
@@ -469,10 +482,13 @@ property_table.perpetrator <- function(obj){
 }
 
 
-#' Compound properties for a list of compounds
+#' Perpetrator drug properties for a list of compounds
+#'
+#' This function generates a list of markdown-formatted table of the key
+#' properties of a list of perpetrator objects.
 #'
 #' @param obj A list of perpetrator objects.
-#'
+#' @return A list of markdown-formatted tables.
 #' @export
 #' @examples
 #' property_table(examplinib_compounds)

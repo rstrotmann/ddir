@@ -2,7 +2,7 @@
 % Please edit documentation in R/compounds.R
 \name{property_table.perpetrator}
 \alias{property_table.perpetrator}
-\title{Table of perpetrator properties}
+\title{Table of perpetrator drug properties}
 \usage{
 \method{property_table}{perpetrator}(obj)
 }
@@ -10,10 +10,11 @@
 \item{obj}{The perpetrator object.}
 }
 \value{
-Perpetrator properties as markdown-formatted table.
+A markdown-formatted table.
 }
 \description{
-Table of perpetrator properties
+This function generates a markdown-formatted table of the key properties of
+a perpetrator object.
 }
 \examples{
 property_table(examplinib_parent)

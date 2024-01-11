@@ -9,9 +9,17 @@
 \arguments{
 \item{perp}{The compounds as list of compound objects.}
 }
+\value{
+A markdown-formatted table.
+}
 \description{
-Table of key perpetrator concentrations for a list of compounds
+This function generates a markdown-formatted table of the key
+concentrations used for the assessment of the DDI perpetrator potential. See
+\code{\link[=key_concentrations]{key_concentrations()}} for details on the calculation of the concentrations.
 }
 \examples{
 conc_table(examplinib_compounds)
+}
+\seealso{
+\code{\link[=key_concentrations]{key_concentrations()}}
 }

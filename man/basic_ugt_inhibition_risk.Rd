@@ -16,19 +16,29 @@ the IC50 (!).}
 A markdown-formatted table.
 }
 \description{
-This function assumes that the UGT inhibition data is provided as ICC50.
-According to Cheng-Prusoff, Ki can be assumed to be IC50/2 at the
-usual experimental conditions where substrate concentrations close to Km
-are used.
+This function evaluates the clinical risk for reversible inhibition of UGT
+enzymes according to the relevant
+\href{https://www.fda.gov/media/134582/download}{FDA} and
+\href{https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-drug-interactions-revision-1_en.pdf}{EMA}
+guidelines.
 }
 \details{
+This function assumes that the UGT inhibition data is provided as
+\eqn{IC_{50}}. According to
+\href{https://doi.org/10.1016/0006-2952(73)90196-2}{Cheng, Prusoff 1973}),
+\eqn{K_i} can be assumed to be \eqn{IC_{50}/2} at the experimental conditions
+commonly used in the in vitro ihibition studies where substrate
+concentrations close to \eqn{K_M} are used.
+
 The relevant metric for basic modeling of the UGT inhibition risk is
 \eqn{R_1=I_{max,ss,u}/K_{i,u}}. For the clinical risk assessment, a cut-off
 of \eqn{R<1.02} applies.
 
-In in vitro UGT inhibition studies, usually \eqn{IC_{50}} rather than
-\eqn{k_i} values are determined. Assuming that a substrate concentration
-close to \eqn{K_m} is used in these studies, \eqn{K_i} is calculated as
-\eqn{K_i = IC_{50}/2}
-(refer to \href{https://doi.org/10.1016/0006-2952(73)90196-2}{Cheng, Prusoff 1973}).
+Refer to the documentation to the \code{\link[=key_concentrations]{key_concentrations()}} function for details
+on the calculation of \eqn{I_{max,ss,u}}.
+}
+\seealso{
+\code{\link[=key_concentrations]{key_concentrations()}}
+
+\code{\link[=basic_ugt_inhibition_risk_table]{basic_ugt_inhibition_risk_table()}}
 }

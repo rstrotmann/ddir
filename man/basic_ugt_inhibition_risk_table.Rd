@@ -18,7 +18,9 @@ the IC50 (!).}
 A markdown-formatted table.
 }
 \description{
-UGT inhibition risk table
+This function generates a markdown-formatted table of the reversible
+UGT inhibition risk assessment. See \code{\link[=basic_ugt_inhibition_risk]{basic_ugt_inhibition_risk()}} for details
+on the calculation of the risk.
 }
 \seealso{
 \code{\link[=basic_ugt_inhibition_risk]{basic_ugt_inhibition_risk()}}

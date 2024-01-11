@@ -1,13 +1,23 @@
 #### BASIC MODELING
 
-#' Basic CYP inhibition risk evaluation for a perpetrator object
+#' Basic CYP inhibition risk
+#'
+#' This function evaluates the clinical risk for direct (reversible) CYP
+#' inhibition according to the basic model defined in the relevant regulatory
+#' guideines.
 #'
 #' @details
 #' For the basic modeling of direct (reversible) CYP enzyme inhibition, the
 #' ratios of the relevant inhibitor concentration to the \eqn{K_i} are
 #' considered, i.e., \eqn{R_1} for hepatic enzymes and \eqn{R_{1,gut}} for
-#' intestinal enzymes (refer to the FDA guidance, FDA 2020, Fig. 1). A cut-off
+#' intestinal enzymes (refer to fig. 1 of  the the
+#' [FDA guidance](https://www.fda.gov/media/134582/download)). A threshold
 #' of 1.02 applies.
+#'
+#' Note that section 5.3.3.1 of the
+#' [EMA DDI guidance](https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-drug-interactions-revision-1_en.pdf)
+#' defines the ratio as \eqn{R_1=\frac{I_{max,ss,u}}{K_{i,u}}} and the
+#' threshold as 0.02.
 #'
 #' ## Liver
 #'
@@ -17,10 +27,15 @@
 #'
 #' \deqn{R_{1,gut}=1+\frac{I_{gut}}{K_{i,u}}}
 #'
+#' Refer to the documentation to the [key_concentrations()] function for details
+#' on the calculation of \eqn{I_{max,ss,u}} and \eqn{I_{gut}}.
+#'
 #' @param perp The perpetrator object.
 #' @param cyp_inh CYP inhibition data as data frame.
 #'
 #' @return A data frame.
+#' @seealso [basic_cyp_inhibition_risk_table()]
+#' @seealso [key_concentrations()]
 #' @export
 #' @examples
 #' basic_cyp_inhibition_risk(examplinib_parent, examplinib_cyp_inhibition_data)
@@ -49,18 +64,23 @@ basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
 }
 
 
-#' Table of basic CYP inhibition risk
+#' Basic CYP inhibition risk table
+#'
+#' This function generates a markdown-formatted table of the direct (reversible)
+#' CYP inhibition risk assessment. See [basic_cyp_inhibition_risk()] for details
+#' on the calculation of the risk.
 #'
 #' @param perp The perpetrator object.
 #' @param cyp_inh CYP inhibition data as data frame.
-#' @param na.rm Remove rows with lacking ki data (i.e., where ki == NA).
-#'
-#' @return Basic evaluation of CYP inhibition risk as markdown-formatted table,
-#'   or an empty string if no CYP inhibition data available.
+#' @param na.rm Boolean to define whether rows with lacking ki data are removed
+#' (i.e., where ki == NA).
+#' @return A markdown-formatted table, or an empty string (if no CYP inhibition
+#' data are vavailable).
 #' @export
 #' @seealso [basic_cyp_inhibition_risk()]
 #' @examples
 #' basic_cyp_inhibition_risk_table(examplinib_parent, examplinib_cyp_inhibition_data)
+#' basic_cyp_inhibition_risk_table(examplinib_parent, examplinib_cyp_inhibition_data, na.rm = TRUE)
 basic_cyp_inhibition_risk_table <- function(perp, cyp_inh, na.rm=F) {
   temp <- basic_cyp_inhibition_risk(perp, cyp_inh)
 

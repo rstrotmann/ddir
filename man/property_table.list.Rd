@@ -2,15 +2,19 @@
 % Please edit documentation in R/compounds.R
 \name{property_table.list}
 \alias{property_table.list}
-\title{Compound properties for a list of compounds}
+\title{Perpetrator drug properties for a list of compounds}
 \usage{
 \method{property_table}{list}(obj)
 }
 \arguments{
 \item{obj}{A list of perpetrator objects.}
 }
+\value{
+A list of markdown-formatted tables.
+}
 \description{
-Compound properties for a list of compounds
+This function generates a list of markdown-formatted table of the key
+properties of a list of perpetrator objects.
 }
 \examples{
 property_table(examplinib_compounds)
