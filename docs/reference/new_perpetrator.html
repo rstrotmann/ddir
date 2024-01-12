@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,12 +60,25 @@
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The input is a data frame with the columns 'name', 'param', 'value' and
-'source'.
-In all rows, 'name' must be the name of the compound, 'param' defines the
-parameter, 'value' is the respective value and 'source' is (optional) source
-information, e.g., the code of the study from which the value is taken.</p>
-<p>Rows with the following parameters ('param') are expected in the input:</p><table class="table table"><tr><td>PARAM</td><td>REQUIREMENT</td><td>DESCRIPTION</td></tr><tr><td>name</td><td>required</td><td></td></tr><tr><td>type</td><td>optional</td><td>either 'parent' (default) or 'metabolite'</td></tr><tr><td>mw</td><td>required</td><td>molar weight in g/mol</td></tr><tr><td>dose</td><td>required for parent compounds</td><td>clinical dose in mg</td></tr><tr><td>imaxss</td><td>required</td><td>total Cmax in ng/ml</td></tr><tr><td>fu</td><td>optional</td><td>fraction unbound, default is 1</td></tr><tr><td>fumic</td><td>optional</td><td>microsomal unbound fraction, dafault is 1</td></tr><tr><td>rb</td><td>optional</td><td>blood-to-plasma concentration ratio, default is 1</td></tr><tr><td>fa</td><td>optional</td><td>fraction absorbed, default is 1</td></tr><tr><td>fg</td><td>optional</td><td>fraction escaping gut metabolism, default is 1</td></tr><tr><td>ka</td><td>optional</td><td>absorption rate constant, default is 0.1 /ml</td></tr><tr><td>solubility</td><td>optional</td><td>solubility of the compound in mg/l, defaults to <code>Inf</code></td></tr></table><p>The following example is a valid input data frame:</p><table class="table table"><tr><td>name</td><td>param</td><td>value</td><td>source</td></tr><tr><td>examplinib</td><td>name</td><td>examplinib</td><td></td></tr><tr><td>examplinib</td><td>type</td><td>parent</td><td></td></tr><tr><td>examplinib</td><td>mw</td><td>492.6</td><td></td></tr><tr><td>examplinib</td><td>dose</td><td>450</td><td>clinical dose</td></tr><tr><td>examplinib</td><td>imaxss</td><td>3530</td><td>study 001</td></tr><tr><td>examplinib</td><td>fu</td><td>0.023</td><td>study 002</td></tr><tr><td>examplinib</td><td>fumic</td><td>1</td><td>default</td></tr><tr><td>examplinib</td><td>rb</td><td>1</td><td>study 003</td></tr><tr><td>examplinib</td><td>fa</td><td>0.81</td><td>study 003</td></tr><tr><td>examplinib</td><td>fg</td><td>1</td><td>default</td></tr><tr><td>examplinib</td><td>ka</td><td>0.00267</td><td>unknown</td></tr><tr><td>examplinib</td><td>solubility</td><td>Inf</td><td>default</td></tr></table></div>
+    <p>The input is a data frame with the columns 'param', 'value' and source'.</p>
+<p>Rows with the following parameters ('param') are expected in the input:</p><table class="table table"><tr><td>PARAM</td><td>REQUIREMENT</td><td>DESCRIPTION</td></tr><tr><td>name</td><td>required</td><td></td></tr><tr><td>type</td><td>optional</td><td>either 'parent' (default) or 'metabolite'</td></tr><tr><td>mw</td><td>required</td><td>molar weight in g/mol</td></tr><tr><td>dose</td><td>required for parent compounds</td><td>clinical dose in mg</td></tr><tr><td>imaxss</td><td>required</td><td>total Cmax in ng/ml</td></tr><tr><td>fu</td><td>optional</td><td>fraction unbound, default is 1</td></tr><tr><td>fumic</td><td>optional</td><td>microsomal unbound fraction, dafault is 1</td></tr><tr><td>rb</td><td>optional</td><td>blood-to-plasma concentration ratio, default is 1</td></tr><tr><td>fa</td><td>optional</td><td>fraction absorbed, default is 1</td></tr><tr><td>fg</td><td>optional</td><td>fraction escaping gut metabolism, default is 1</td></tr><tr><td>ka</td><td>optional</td><td>absorption rate constant, default is 0.1 /ml</td></tr><tr><td>solubility</td><td>optional</td><td>solubility of the compound in mg/l, defaults to <code>Inf</code></td></tr></table><p>The following example is an example for a valid input data frame:</p>
+<div class="sourceCode"><pre><code>
+        param      value        source
+1        name examplinib
+2        type     parent
+3          mw      492.6
+4        dose        450 clinical dose
+5      imaxss       3530     study 001
+6          fu      0.023     study 002
+7       fumic          1       default
+8          rb          1     study 003
+9          fa       0.81     study 003
+10         fg          1       default
+11         ka    0.00267       unknown
+12 solubility        Inf       default
+</code></pre></div>
+
+    </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="read_perpetrators.html">read_perpetrators()</a></code></p></div>
