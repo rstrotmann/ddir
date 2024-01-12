@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,8 +85,9 @@ included in the calculation (C-terms as per the FDA guideline)</p></dd>
     <p>In this approach, AUC ratios for probe substrates are calculated based on
 their known intestinal and hepatic metabolism. Both direct (competitive) and
 time-dependent inhibition are considered.</p>
-<p>The below formula given by the FDA guideline (refer to FDA 2020, Fig. 7) also
-includes intestinal and hepatic enzyme induction terms (\(C_g\) and
+<p>The below formula given by the FDA guideline (refer to
+fig. 7 of <a href="https://www.fda.gov/media/134582/download" class="external-link">FDA 2020</a>)
+also includes intestinal and hepatic enzyme induction terms (\(C_g\) and
 \(C_h\), respectively). At the same time, the guideline states that both
 inhibition and induction should be considered separately.</p>
 <p>$$AUCR = \frac{1}{A_g*B_g*C_g* \left(1-F_g \right)+F_g} * \frac{1}{A_h*B_h*C_h*f_m+\left(1-f_m\right)}$$</p>
