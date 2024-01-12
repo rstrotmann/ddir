@@ -21,17 +21,17 @@
 #'
 #'
 #'   For metabolites, the fields dose, fa, fg and ka are not relevant and should
-#'   be filled with `NA`.
+#'   be filled with `NA`. For metabolites, 'oral' must be 'FALSE'.
 #'
 #'   Note that multiple compounds, e.g., the parent and metabolites may be
 #'   included in the perpetrator file. A typical compound file could look e.g.,
 #'   like this:
 #'
-#'   ```
+#'   \preformatted{
 #'   # name, param, value, source
 #'   # parent
 #'
-#'   examplinib,  type,     parent,
+#'   examplinib,  oral,     TRUE,
 #'   examplinib,  mw,       492.6,
 #'   examplinib,  dose,     450,       clinical dose
 #'   examplinib,  imaxss,   3530,      study 001
@@ -44,7 +44,7 @@
 #'
 #'   # metabolite
 #'
-#'   M1,  type,   metabolite,
+#'   M1,  oral,   FALSE,
 #'   M1,  mw,     506.56,
 #'   M1,  dose,   NA,
 #'   M1,  imaxss, 1038,      study 001
@@ -54,7 +54,7 @@
 #'   M1,  fa,     NA,
 #'   M1,  fg,     NA,
 #'   M1,  ka,     NA,
-#'   ```
+#'   }
 #' @param source The connection to read from.
 #'
 #' @return A list of perpetrator objects.
@@ -81,7 +81,31 @@ read_perpetrators <- function(source) {
 }
 
 
-#' Read csv-formatted DMPK data
+#' Read csv-formatted CYP inhibition data
+#'
+#' This function loads CYP inhibition data from a csv file. The expected fields
+#' are (in this order) the compound name, the CYP enzyme, the Ki and the source
+#' information for the respective data. The latter field may remain empty.
+#'
+#' Comment lines must start with '#'.
+#'
+#' @details
+#' A valid source is, e.g.,
+#' \preformatted{
+#' # PARENT
+#' # name,     CYP,     Ki,   source
+#' examplinib, CYP1A2,  NA,
+#' examplinib, CYP2B6,  NA,
+#' examplinib, CYP2C8,  11,   study 001
+#' examplinib, CYP2C9,  13.5, study 001
+#' examplinib, CYP2C19, 15,   study 001
+#' examplinib, CYP2D6,  NA,
+#' examplinib, CYP3A4,  12.5, study 001
+
+#' # METABOLITE
+#' # name,     CYP,     Ki,   source
+#' M1,         CYP2C9,  4.4,  study 002
+#' }
 #'
 #' @param source The connection to read from.
 #'
@@ -91,8 +115,10 @@ read_inhibitor_data <- function(source) {
   raw <- as.data.frame(read.csv(source,
                                 col.names=c("name", "param", "value", "source"),
                                 header = F,
+                                blank.lines.skip = TRUE,
                                 comment.char = '#')) %>%
     dplyr::mutate(across(everything(), trimws)) %>%
+    dplyr::filter(name != "") %>%
     dplyr::group_by(name) %>%
     dplyr::group_modify(~ tibble::add_row(param="name",
                                           value=.y$name,
@@ -104,18 +130,38 @@ read_inhibitor_data <- function(source) {
 }
 
 
-#' #' Read CYP inhibitor data
-#' #'
-#' #' @param source The connection to read from.
-#' #'
-#' #' @return The data as data frame.
-#' #' @export
-#' read_cyp_inhibitor_data <- function(source) {
-#'   return(read_dmpk_data(source))
-#' }
-
-
 #' Read csv-formatted CYP inducer data
+#'
+#' This function loads CYP inducer data from a csv file. The expected fields are
+#' (in this order) the compound name, the CYP enzyme, the Emax, the EC50, the
+#' maximal tested concentration and the source reference. The latter field may
+#' remain empty.
+#'
+#' Comment lines must start with '#'.
+#'
+#' @details
+#' A valid source is, e.g.,
+#' \preformatted{
+#' # PARENT
+#' # compound, CYP, Emax, EC50, max c, source
+#' examplinib, CYP1A2,  1,    NA,   5,  study 007
+#' examplinib, CYP2B6,  1,    NA,   5,  study 007
+#' examplinib, CYP2C8,  NA,   NA,   NA,
+#' examplinib, CYP2C9,  NA,   NA,   NA,
+#' examplinib, CYP2C19, NA,   NA,   NA,
+#' examplinib, CYP2D6,  NA,   NA,   NA,
+#' examplinib, CYP3A4,   7.35, 1.64, 3,  study 007
+#'
+#' # METABOLITE
+#' # compound, CYP, ki, source
+#' M1, CYP1A2,  1,    NA,   5,  study 007
+#' M1, CYP2B6,  6.98, 1.86, 5,  study 007
+#' M1, CYP2C8,  NA,   NA,   NA,
+#' M1, CYP2C9,  NA,   NA,   NA,
+#' M1, CYP2C19, NA,   NA,   NA,
+#' M1, CYP2D6,  NA,   NA,   NA,
+#' M1, CYP3A4,  22.7, 1.1,  5,  study 007
+#' }
 #'
 #' @param source The connection to read from.
 #' @return The data as data frame.

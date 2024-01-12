@@ -284,7 +284,7 @@ name.perpetrator <- function(obj) {
 
 #' Test if Igut of a perpetrator is limited by its solubility
 #'
-#' If the solubility field is `Inf` (default), or the compound solubility is
+#' If the `solubility` field is `Inf` (default), or the compound solubility is
 #' larger than Igut, the function returns `FALSE`. If the solubility is lower
 #' than the theoretical Igut, i.e., lower than the dose dissolved in 250 ml,
 #' the function returns `TRUE`. Note that the solubility is expected in mg/l.
@@ -438,18 +438,21 @@ key_concentrations <- function(obj, qh=1.616, qent=18/60, molar=TRUE) {
 }
 
 
-#' Generic function to display ky perpetrator concentrations
+#' Key perpetrator concentrations
 #'
-#' @param perp The object (compund object or list thereof)
+#' @param perp The object (compound object or list thereof)
 #'
 #' @export
 #' @seealso [key_concentrations()]
+#' @examples
+#' conc_table(examplinib_parent)
+#'
 conc_table <- function(perp) {
   UseMethod("conc_table")
 }
 
 
-#' Table of key perpetrator concentrations
+#' Key perpetrator concentrations
 #'
 #' This function generates a markdown-formatted table of the key
 #' concentrations used for the assessment of the DDI perpetrator potential. See
@@ -523,6 +526,7 @@ property_table <- function(obj) {
 #' @export
 #' @examples
 #' property_table(examplinib_parent)
+#' property_table(examplinib_metabolite)
 #'
 property_table.perpetrator <- function(obj){
   labels <- data.frame(

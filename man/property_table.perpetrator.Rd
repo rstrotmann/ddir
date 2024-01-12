@@ -18,5 +18,6 @@ a perpetrator object.
 }
 \examples{
 property_table(examplinib_parent)
+property_table(examplinib_metabolite)
 
 }

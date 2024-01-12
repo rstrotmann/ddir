@@ -40,6 +40,21 @@ test_that("new_perpetrator - compatibility with old 'type' field", {
 
   new_perpetrator(test_p)
   new_perpetrator(test_m)
+})
 
 
+test_that("read CYP inhibitor data", {
+  test <- "
+    examplinib, CYP1A2,  NA, \n
+    examplinib, CYP2B6,  NA,\n
+    examplinib, CYP2C8,  11,   study 001\n
+    examplinib, CYP2C9,  13.5, study 001\n
+    examplinib, CYP2C19, 15,   study 001\n
+    examplinib, CYP2D6,  NA,\n
+    examplinib, CYP3A4,  12.5, study 001\n
+    \n
+    # METABOLITE\n
+    M1,         CYP2C9,  4.4,  study 002\n"
+
+  read_inhibitor_data(textConnection(test))
 })

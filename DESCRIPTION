@@ -20,7 +20,8 @@ Imports:
     knitr,
     assertr,
     lifecycle,
-    tidyr
+    tidyr,
+    magrittr
 Depends: 
     R (>= 2.10)
 License: MIT + file LICENSE

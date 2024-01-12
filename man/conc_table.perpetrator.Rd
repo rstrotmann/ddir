@@ -2,7 +2,7 @@
 % Please edit documentation in R/compounds.R
 \name{conc_table.perpetrator}
 \alias{conc_table.perpetrator}
-\title{Table of key perpetrator concentrations}
+\title{Key perpetrator concentrations}
 \usage{
 \method{conc_table}{perpetrator}(perp)
 }

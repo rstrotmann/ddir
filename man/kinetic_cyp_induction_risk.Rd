@@ -18,7 +18,8 @@ A data frame.
 Basic kinetic CYP induction risk
 }
 \details{
-Basic kinetic modeling of the CYP induction risk considers \eqn{R_3}:
+Basic kinetic modeling of the CYP induction risk considers \eqn{R_3} (refer
+to \href{https://www.fda.gov/media/134582/download}{FDA 2020}):
 
 \deqn{R_3 = \frac {1}{1+d* \frac {E_{max}*10*I_{max,u}}{EC_{50} + 10*I_{max,u}}}}
 

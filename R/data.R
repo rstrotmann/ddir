@@ -7,7 +7,24 @@
 
 #' CYP reference substrate data
 #'
+#' CYP reference substrates commonly used in the mechanistic static assessment
+#' of the CYP DDI perpetrator potential of drugs.
+#'
+#' @details
+#' The CYP reference substrates currently implemented include:
+#'
+#'\preformatted{
+#'       cyp   substrate fgut   fm fmcyp
+#' 1  CYP1A2  tizanidine 1.00 0.95  0.98
+#' 2  CYP2C8 repaglinide 1.00 1.00  0.61
+#' 3  CYP2C9  S-warfarin 1.00 1.00  0.91
+#' 4 CYP2C19  omeprazole 1.00 1.00  0.87
+#' 5  CYP3A4   midazolam 0.57 0.96  1.00
+#' }
+#'
 #' @source FDA and EMA guidelines.
+#' @seealso [mech_stat_cyp_risk()]
+#' @seealso [mech_stat_cyp_risk_table]
 "cyp_reference_substrates"
 
 
@@ -85,6 +102,9 @@
 
 
 #' Fictional UGT inhibition data
+#'
+#' @format ## `examplinib_ugt_inhibition_data`
+#' A data frame with the columns 'name', 'param', 'value' and 'source'
 #'
 #' @source Fictional data, made up for demo purposes.
 #' "examplinib_ugt_inhibition_data"

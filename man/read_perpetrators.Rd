@@ -29,39 +29,40 @@ that the line then ends with a comma.
 }
 
 For metabolites, the fields dose, fa, fg and ka are not relevant and should
-be filled with \code{NA}.
+be filled with \code{NA}. For metabolites, 'oral' must be 'FALSE'.
 
 Note that multiple compounds, e.g., the parent and metabolites may be
 included in the perpetrator file. A typical compound file could look e.g.,
 like this:
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{# name, param, value, source
-# parent
+\preformatted{
+  # name, param, value, source
+  # parent
 
-examplinib,  type,     parent,
-examplinib,  mw,       492.6,
-examplinib,  dose,     450,       clinical dose
-examplinib,  imaxss,   3530,      study 001
-examplinib,  fu,       0.023,     study 002
-examplinib,  fumic,    1,         default
-examplinib,  rb,       1,         study 003
-examplinib,  fa,       0.81,      study 003
-examplinib,  fg,       1,         default
-examplinib,  ka,       0.00267,   unknown
+  examplinib,  oral,     TRUE,
+  examplinib,  mw,       492.6,
+  examplinib,  dose,     450,       clinical dose
+  examplinib,  imaxss,   3530,      study 001
+  examplinib,  fu,       0.023,     study 002
+  examplinib,  fumic,    1,         default
+  examplinib,  rb,       1,         study 003
+  examplinib,  fa,       0.81,      study 003
+  examplinib,  fg,       1,         default
+  examplinib,  ka,       0.00267,   unknown
 
-# metabolite
+  # metabolite
 
-M1,  type,   metabolite,
-M1,  mw,     506.56,
-M1,  dose,   NA,
-M1,  imaxss, 1038,      study 001
-M1,  fu,     0.012,     study 002
-M1,  fumic,  1,         default
-M1,  rb,     1,         study 002
-M1,  fa,     NA,
-M1,  fg,     NA,
-M1,  ka,     NA,
-}\if{html}{\out{</div>}}
+  M1,  oral,   FALSE,
+  M1,  mw,     506.56,
+  M1,  dose,   NA,
+  M1,  imaxss, 1038,      study 001
+  M1,  fu,     0.012,     study 002
+  M1,  fumic,  1,         default
+  M1,  rb,     1,         study 002
+  M1,  fa,     NA,
+  M1,  fg,     NA,
+  M1,  ka,     NA,
+  }
 }
 \examples{
 read_perpetrators(textConnection(examplinib_compounds_string))

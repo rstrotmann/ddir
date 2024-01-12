@@ -35,8 +35,9 @@ In this approach, AUC ratios for probe substrates are calculated based on
 their known intestinal and hepatic metabolism. Both direct (competitive) and
 time-dependent inhibition are considered.
 
-The below formula given by the FDA guideline (refer to FDA 2020, Fig. 7) also
-includes intestinal and hepatic enzyme induction terms (\eqn{C_g} and
+The below formula given by the FDA guideline (refer to
+fig. 7 of \href{https://www.fda.gov/media/134582/download}{FDA 2020})
+also includes intestinal and hepatic enzyme induction terms (\eqn{C_g} and
 \eqn{C_h}, respectively). At the same time, the guideline states that both
 inhibition and induction should be considered separately.
 

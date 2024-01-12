@@ -174,7 +174,8 @@ static_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
 #' Basic kinetic CYP induction risk
 #'
 #' @details
-#' Basic kinetic modeling of the CYP induction risk considers \eqn{R_3}:
+#' Basic kinetic modeling of the CYP induction risk considers \eqn{R_3} (refer
+#' to [FDA 2020](https://www.fda.gov/media/134582/download)):
 #'
 #' \deqn{R_3 = \frac {1}{1+d* \frac {E_{max}*10*I_{max,u}}{EC_{50} + 10*I_{max,u}}}}
 #'
@@ -240,8 +241,9 @@ kinetic_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
 #' their known intestinal and hepatic metabolism. Both direct (competitive) and
 #' time-dependent inhibition are considered.
 #'
-#' The below formula given by the FDA guideline (refer to FDA 2020, Fig. 7) also
-#' includes intestinal and hepatic enzyme induction terms (\eqn{C_g} and
+#' The below formula given by the FDA guideline (refer to
+#' fig. 7 of [FDA 2020](https://www.fda.gov/media/134582/download))
+#' also includes intestinal and hepatic enzyme induction terms (\eqn{C_g} and
 #' \eqn{C_h}, respectively). At the same time, the guideline states that both
 #' inhibition and induction should be considered separately.
 #'
@@ -336,7 +338,9 @@ mech_stat_cyp_risk <- function(
 #' @seealso [mech_stat_cyp_risk()]
 #' @export
 #' @examples
-#' mech_stat_cyp_risk_table(examplinib_parent, examplinib_cyp_inhibition_data, examplinib_cyp_induction_data)
+#' mech_stat_cyp_risk_table(examplinib_parent,
+#'   examplinib_cyp_inhibition_data,
+#'   examplinib_cyp_induction_data)
 #'
 mech_stat_cyp_risk_table <- function(
     perp,

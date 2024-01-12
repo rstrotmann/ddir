@@ -2,16 +2,7 @@
 % Please edit documentation in R/data_loading.R
 \name{read_inducer_data}
 \alias{read_inducer_data}
-\title{#' Read CYP inhibitor data
-#'
-#' @param source The connection to read from.
-#'
-#' @return The data as data frame.
-#' @export
-read_cyp_inhibitor_data <- function(source) {
-return(read_dmpk_data(source))
-}
-Read csv-formatted CYP inducer data}
+\title{Read csv-formatted CYP inducer data}
 \usage{
 read_inducer_data(source)
 }
@@ -22,14 +13,34 @@ read_inducer_data(source)
 The data as data frame.
 }
 \description{
-#' Read CYP inhibitor data
-#'
-#' @param source The connection to read from.
-#'
-#' @return The data as data frame.
-#' @export
-read_cyp_inhibitor_data <- function(source) {
-return(read_dmpk_data(source))
+This function loads CYP inducer data from a csv file. The expected fields are
+(in this order) the compound name, the CYP enzyme, the Emax, the EC50, the
+maximal tested concentration and the source reference. The latter field may
+remain empty.
 }
-Read csv-formatted CYP inducer data
+\details{
+Comment lines must start with '#'.
+
+A valid source is, e.g.,
+\preformatted{
+# PARENT
+# compound, CYP, Emax, EC50, max c, source
+examplinib, CYP1A2,  1,    NA,   5,  study 007
+examplinib, CYP2B6,  1,    NA,   5,  study 007
+examplinib, CYP2C8,  NA,   NA,   NA,
+examplinib, CYP2C9,  NA,   NA,   NA,
+examplinib, CYP2C19, NA,   NA,   NA,
+examplinib, CYP2D6,  NA,   NA,   NA,
+examplinib, CYP3A4,   7.35, 1.64, 3,  study 007
+
+# METABOLITE
+# compound, CYP, ki, source
+M1, CYP1A2,  1,    NA,   5,  study 007
+M1, CYP2B6,  6.98, 1.86, 5,  study 007
+M1, CYP2C8,  NA,   NA,   NA,
+M1, CYP2C9,  NA,   NA,   NA,
+M1, CYP2C19, NA,   NA,   NA,
+M1, CYP2D6,  NA,   NA,   NA,
+M1, CYP3A4,  22.7, 1.1,  5,  study 007
+}
 }

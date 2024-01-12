@@ -14,6 +14,24 @@ FDA and EMA guidelines.
 cyp_reference_substrates
 }
 \description{
-CYP reference substrate data
+CYP reference substrates commonly used in the mechanistic static assessment
+of the CYP DDI perpetrator potential of drugs.
+}
+\details{
+The CYP reference substrates currently implemented include:
+
+\preformatted{
+      cyp   substrate fgut   fm fmcyp
+1  CYP1A2  tizanidine 1.00 0.95  0.98
+2  CYP2C8 repaglinide 1.00 1.00  0.61
+3  CYP2C9  S-warfarin 1.00 1.00  0.91
+4 CYP2C19  omeprazole 1.00 1.00  0.87
+5  CYP3A4   midazolam 0.57 0.96  1.00
+}
+}
+\seealso{
+\code{\link[=mech_stat_cyp_risk]{mech_stat_cyp_risk()}}
+
+\link{mech_stat_cyp_risk_table}
 }
 \keyword{datasets}
