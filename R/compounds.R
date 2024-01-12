@@ -89,11 +89,7 @@ compound_names_string <- function(compounds) {
 #'
 #' @details
 #'
-#' The input is a data frame with the columns 'name', 'param', 'value' and
-#' 'source'.
-#' In all rows, 'name' must be the name of the compound, 'param' defines the
-#' parameter, 'value' is the respective value and 'source' is (optional) source
-#' information, e.g., the code of the study from which the value is taken.
+#' The input is a data frame with the columns 'param', 'value' and source'.
 #'
 #' Rows with the following parameters ('param') are expected in the input:
 #'
@@ -112,22 +108,23 @@ compound_names_string <- function(compounds) {
 #' | ka | optional | absorption rate constant, default is 0.1 /ml |
 #' | solubility | optional | solubility of the compound in mg/l, defaults to `Inf` |
 #'
-#' The following example is a valid input data frame:
+#' The following example is an example for a valid input data frame:
 #'
-#' |       name |      param |      value |        source |
-#' | --- | --- | --- | --- |
-#' | examplinib |       name | examplinib |               |
-#' | examplinib |       type |     parent |               |
-#' | examplinib |         mw |      492.6 |               |
-#' | examplinib |       dose |        450 | clinical dose |
-#' | examplinib |     imaxss |       3530 |     study 001 |
-#' | examplinib |         fu |      0.023 |     study 002 |
-#' | examplinib |      fumic |          1 |       default |
-#' | examplinib |         rb |          1 |     study 003 |
-#' | examplinib |         fa |       0.81 |     study 003 |
-#' | examplinib |         fg |          1 |       default |
-#' | examplinib |         ka |    0.00267 |       unknown |
-#' | examplinib | solubility |        Inf |       default |
+#' \preformatted{
+#'         param      value        source
+#' 1        name examplinib
+#' 2        type     parent
+#' 3          mw      492.6
+#' 4        dose        450 clinical dose
+#' 5      imaxss       3530     study 001
+#' 6          fu      0.023     study 002
+#' 7       fumic          1       default
+#' 8          rb          1     study 003
+#' 9          fa       0.81     study 003
+#' 10         fg          1       default
+#' 11         ka    0.00267       unknown
+#' 12 solubility        Inf       default
+#' }
 #'
 #' @param df A data frame to be converted into a perpetrator object. See
 #' 'Details' for the expected format and fields.
@@ -154,17 +151,11 @@ new_perpetrator <- function(df) {
     "solubility", "Inf"
   )
 
-  df %>%
-    assertr::verify(assertr::has_all_names("param", "value", "source")) %>%
-    assertr::verify(c("name", "mw", "dose", "imaxss") %in% .$param)
-
-  compound_name <- df[which(df$param=="name"), "value"]
-
   out <- df %>%
+    assertr::verify(assertr::has_all_names("param", "value", "source")) %>%
+    assertr::verify(c("name", "mw", "dose", "imaxss") %in% .$param) %>%
     as.data.frame() %>%
-    assertr::verify(name == compound_name) %>%
     right_join(default_values, by="param") %>%
-    tidyr::fill(name) %>%
     mutate(source = case_when(is.na(value) & !is.na(default) ~ "default",
                               .default = source)) %>%
     mutate(value = case_when(is.na(value) & !is.na(default) ~ default,
@@ -176,6 +167,46 @@ new_perpetrator <- function(df) {
 
   class(out) <- c("perpetrator", "data.frame")
   return(out)
+}
+
+
+#' Make perpetrator object
+#'
+#' This function creates a perpetrator object from key compound data. Note that
+#' the 'source' field is empty. If you want to include source information, you
+#' can either use [new_perpetrator()] which takes as input a data that may
+#' include source information, or you can create a perpetrator object from a
+#' text input string using [read_perpetrators()].
+#'
+#' @param name The compound name as character.
+#' @param dose The clinical dose in mg.
+#' @param imaxss The (total) steady-state Cmax in ng/ml.
+#' @param mw The molar weight in g/mol.
+#' @param type The compound type as character. Must be either 'parent' or
+#' metabolite'.
+#' @param fu The fraction unbound as numeric. Defaults to 1.
+#' @param fumic The fraction unbound in the microsomes. Defaults to 1.
+#' @param rb The blood-to-plasma concentration ratio. Defaults to 1.
+#' @param fa The fraction absorbed. Defaults to 1.
+#' @param fg The fraction escaping gut metabolism. Defaults to 1.
+#' @param ka The absorption rate constant in /ml. Defaults to 0.1 /ml.
+#' @param solubility The aqueus solubility in mg/l. Defaults to Inf,
+#' @seealso [new_perpetrator()]
+#' @seealso [read_perpetrators()]
+#' @return A perpetrator object.
+#' @export
+#'
+#' @examples
+#' make_perpetrator("test", 100, 1000, 500)
+make_perpetrator <- function(name, dose, imaxss, mw, type = "parent", fu = 1,
+                             fumic = 1, rb = 1, fa = 1, fg = 1, ka = 0.1,
+                             solubility = Inf) {
+  temp <- data.frame(param = c("name", "type", "mw", "dose", "imaxss", "fu",
+                               "fumic", "rb", "fa", "fg", "ka", "solubility"),
+                     value = c(name, type, mw, dose, imaxss, fu, fumic, rb,
+                               fa, fg, ka, solubility),
+                     source = rep("", 12))
+  new_perpetrator(temp)
 }
 
 
@@ -192,7 +223,7 @@ new_perpetrator <- function(df) {
 print.perpetrator <- function(x, ...) {
   cat("== DDI perpetrator object ==\n")
   x %>%
-    dplyr::select(-name) %>%
+    # dplyr::select(-name) %>%
     df_to_string(colnames=F) %>%
     cat()
 }

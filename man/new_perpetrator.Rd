@@ -17,11 +17,7 @@ A perpetrator object.
 Perpetrator object constructor
 }
 \details{
-The input is a data frame with the columns 'name', 'param', 'value' and
-'source'.
-In all rows, 'name' must be the name of the compound, 'param' defines the
-parameter, 'value' is the respective value and 'source' is (optional) source
-information, e.g., the code of the study from which the value is taken.
+The input is a data frame with the columns 'param', 'value' and source'.
 
 Rows with the following parameters ('param') are expected in the input:\tabular{lll}{
    PARAM \tab REQUIREMENT \tab DESCRIPTION \cr
@@ -40,20 +36,22 @@ Rows with the following parameters ('param') are expected in the input:\tabular{
 }
 
 
-The following example is a valid input data frame:\tabular{llll}{
-   name \tab param \tab value \tab source \cr
-   examplinib \tab name \tab examplinib \tab  \cr
-   examplinib \tab type \tab parent \tab  \cr
-   examplinib \tab mw \tab 492.6 \tab  \cr
-   examplinib \tab dose \tab 450 \tab clinical dose \cr
-   examplinib \tab imaxss \tab 3530 \tab study 001 \cr
-   examplinib \tab fu \tab 0.023 \tab study 002 \cr
-   examplinib \tab fumic \tab 1 \tab default \cr
-   examplinib \tab rb \tab 1 \tab study 003 \cr
-   examplinib \tab fa \tab 0.81 \tab study 003 \cr
-   examplinib \tab fg \tab 1 \tab default \cr
-   examplinib \tab ka \tab 0.00267 \tab unknown \cr
-   examplinib \tab solubility \tab Inf \tab default \cr
+The following example is an example for a valid input data frame:
+
+\preformatted{
+        param      value        source
+1        name examplinib
+2        type     parent
+3          mw      492.6
+4        dose        450 clinical dose
+5      imaxss       3530     study 001
+6          fu      0.023     study 002
+7       fumic          1       default
+8          rb          1     study 003
+9          fa       0.81     study 003
+10         fg          1       default
+11         ka    0.00267       unknown
+12 solubility        Inf       default
 }
 }
 \seealso{

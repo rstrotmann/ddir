@@ -76,7 +76,7 @@ read_perpetrators <- function(source) {
     as.data.frame()
 
   data <- split(raw, raw$name)
-  out <- lapply(data, new_perpetrator)
+  out <- lapply(data, function(x) {x <- new_perpetrator(x %>% select(-name))})
   return(out)
 }
 
