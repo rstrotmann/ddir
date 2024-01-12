@@ -23,7 +23,7 @@ knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=TRUE, fig.width=4, fig.
 ```{data output.var="compounds_text"}
 # PARENT
 # compound,  param,    value,     source
-examplinib,  type,     parent,
+examplinib,  oral,     TRUE,
 examplinib,  mw,       492.6,
 examplinib,  dose,     450,       clinical dose
 examplinib,  imaxss,   3530,      study 001
@@ -36,7 +36,7 @@ examplinib,  ka,       0.00267,   unknown
 
 # METABOLITE 
 # compound,  param,    value,     source
-M1,          type,     metabolite,
+M1,          oral,     FALSE,
 M1,          mw,       506.56,
 M1,          dose,     NA,        
 M1,          imaxss,   1038,      study 001
@@ -136,8 +136,8 @@ transporter_inhibition_data <- read_inhibitor_data(textConnection(transporter_in
 ```
 
 ---
-title: "DDI assessment for `r names_string(compounds)`"
-author: "Rainer Strotmann"
+title: "DDI perpetrator risk assessment for `r compound_names_string(compounds)`"
+author: "Author name"
 date: `r format(Sys.Date(), "%d-%b-%Y")`
 ---
 
@@ -146,12 +146,12 @@ date: `r format(Sys.Date(), "%d-%b-%Y")`
 <!-- This is basic introductory text that should suffice in most cases. Feel free to change or extend but keep concise.
 The version information should not be changed as it provides a back link to the script template. -->
 
-This assessment of the perpetrator risks for xxx is based on the relevant FDA
-and EMA guidance documents (FDA 2020 and EMA 2012).
+This assessment of the perpetrator risks for `r compound_names_string(compounds)`
+is based on the relevant FDA and EMA guidance documents (refer to
+[FDA 2020](https://www.fda.gov/media/134582/download) and
+[EMA 2012](https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-drug-interactions-revision-1_en.pdf)).
 
-This output was generated using version xx (dd-dd-dddd) of the DDI assessment
-R script.
-
+This output was generated using the `ddir` package.
 
 # Drug properties
 
@@ -183,7 +183,7 @@ conc_table(m)
 
 ### Reversible inhibition
 
-As per the FDA guideline (FDA, 2020), the relevant metric for the basic modeling of the direct CYP inhibition risk is $R=1+[I]/K_{i,u}$ with the relevant inhibitor concentration $[I]$ being $I_{max,ss,u}$ for hepatic CYP enzymes and $I_{gut}$ for intestinal CYP enzymes.
+As per the FDA guideline ([FDA, 2020](https://www.fda.gov/media/134582/download)), the relevant metric for the basic modeling of the direct CYP inhibition risk is $R=1+[I]/K_{i,u}$ with the relevant inhibitor concentration $[I]$ being $I_{max,ss,u}$ for hepatic CYP enzymes and $I_{gut}$ for intestinal CYP enzymes.
 
 Thresholds of $R < 1.02$ and $R < 11$ apply for hepatic and intestinal enzymes, respectively. Note that intestinal CYP inhibition is only evaluated for CYP3A4.
 
@@ -222,11 +222,6 @@ $$R_3 = \frac {1}{1+d* \frac {E_{max}*10*I_{max,u}}{EC_{50} + 10*I_{max,u}}}$$
 kinetic_cyp_induction_risk_table(p, cyp_induction_data, na.rm=T)
 kinetic_cyp_induction_risk_table(m, cyp_induction_data, na.rm=T)
 ```
-
-```{r}
-
-```
-
 
 ## Mechanistic static modeling of CYP modulation
 

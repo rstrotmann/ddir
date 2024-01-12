@@ -79,9 +79,17 @@ names_string <- function(perps) {
 #' @examples
 #' compound_names_string(examplinib_compounds)
 compound_names_string <- function(compounds) {
-  return(paste(lapply(compounds, function(p) {
-    p[(p$param=="name"), "value"]}),
-    collapse=", "))
+  temp <- lapply(compounds, function(p) {
+    p[(p$param=="name"), "value"]})
+
+  if(length(temp) == 1) {
+    return(temp[[1]])
+  }
+
+  if(length(temp) > 1) {
+    return(paste(paste(temp[1:length(temp)-1], collapse = ", "), "and",
+           temp[length(temp)]))
+  }
 }
 
 
@@ -525,6 +533,11 @@ property_table.perpetrator <- function(obj){
                  "$f_u$", "$f_{u,mic}$", "$R_B$", "$F_a$", "$F_g$",
                  "$k_a$ (1/min)")
   )
+
+  if(as.logical(obj[which(obj$param=="oral"), "value"]) == FALSE) {
+    obj <- obj %>%
+      filter(!(param %in% c("fa", "fg", "ka")))
+  }
 
   out <- obj %>%
     as.data.frame() %>%
