@@ -10,6 +10,7 @@ make_perpetrator(
   imaxss,
   mw,
   type = "parent",
+  oral = TRUE,
   fu = 1,
   fumic = 1,
   rb = 1,
@@ -30,6 +31,8 @@ make_perpetrator(
 
 \item{type}{The compound type as character. Must be either 'parent' or
 metabolite'.}
+
+\item{oral}{Oral administration as Boolean. Defaults to \code{TRUE}.}
 
 \item{fu}{The fraction unbound as numeric. Defaults to 1.}
 

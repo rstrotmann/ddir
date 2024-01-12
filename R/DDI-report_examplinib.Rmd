@@ -10,7 +10,7 @@ library(knitr)
 library(knitrdata)
 library(ddir)
 
-knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, fig.width=4, fig.height=3, fig.align="center")
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=TRUE, fig.width=4, fig.height=3, fig.align="center")
 ```
 
 <!-- The following sections contain compound-specific data for the DDI calculations. -->

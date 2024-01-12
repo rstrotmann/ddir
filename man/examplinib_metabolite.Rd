@@ -5,7 +5,7 @@
 \alias{examplinib_metabolite}
 \title{Fictional examplinib metabolite compound data}
 \format{
-An object of class \code{perpetrator} (inherits from \code{data.frame}) with 11 rows and 4 columns.
+An object of class \code{perpetrator} (inherits from \code{data.frame}) with 12 rows and 3 columns.
 }
 \source{
 Fictional data, made up for demo purposes.

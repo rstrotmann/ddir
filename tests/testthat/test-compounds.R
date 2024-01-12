@@ -3,14 +3,35 @@ test_that("compound loading", {
 })
 
 
+test_that("new_perpetrator", {
+  temp <- tribble(
+    ~param,    ~value,     ~source,
+    "name",     "test",      "",
+    "oral",     "TRUE",      "",
+    "mw",       "492.6",     "",
+    "dose",     "450",       "clinical dose",
+    "imaxss",   "3530",      "study 001",
+    "fu",       "0.023",     "study 002",
+    "fumic",    "1",         "default",
+    "rb",       "1",         "study 003",
+    "fa",       "0.81",      "study 003",
+    "fg",       "1",         "default",
+    "ka",       "0.00267",   "unknown")
+  new_perpetrator(temp)
+})
+
 
 test_that("solubility limitation", {
-  test_compound <- examplinib_compounds[[1]] %>%
-    as.data.frame() %>%
-    add_row(name="examplinib", param="solubility", value="1000",
-            source="test")
-  row.names(test_compound) <- test_compound$param
+  test_compound <- examplinib_parent %>% as.data.frame()
+  expect_false(is_igut_solubility_limited(test_compound))
+
+  test_compound[which(test_compound$param=="solubility"), "value"] <- 100
   test_compound <- new_perpetrator(test_compound)
 
   expect_true(is_igut_solubility_limited(test_compound))
+})
+
+
+test_that("key concentrations", {
+  expect_no_error(key_concentrations(examplinib_parent))
 })

@@ -1,7 +1,7 @@
 # name, param, value, source
 # parent
 
-examplinib,  type,     parent,
+examplinib,  oral,     TRUE,
 examplinib,  mw,       492.6,
 examplinib,  dose,     450,       clinical dose
 examplinib,  imaxss,   3530,      study 001
@@ -12,16 +12,16 @@ examplinib,  fa,       0.81,      study 003
 examplinib,  fg,       1,         default
 examplinib,  ka,       0.00267,   unknown
 
-# metabolite 
+# metabolite
 
-M1,  type,   metabolite,
+M1,  oral,   FALSE,
 M1,  mw,     506.56,
-M1,  dose,   NA,        
+M1,  dose,   NA,
 M1,  imaxss, 1038,      study 001
 M1,  fu,     0.012,     study 002
 M1,  fumic,  1,         default
 M1,  rb,     1,         study 002
 M1,  fa,     NA,
 M1,  fg,     NA,
-M1,  ka,     NA,      
+M1,  ka,     NA,
 

@@ -5,7 +5,7 @@
 \alias{examplinib_parent}
 \title{Fictional examplnib parent compound data}
 \format{
-An object of class \code{perpetrator} (inherits from \code{data.frame}) with 11 rows and 4 columns.
+An object of class \code{perpetrator} (inherits from \code{data.frame}) with 13 rows and 3 columns.
 }
 \source{
 Fictional data, made up for demo purposes.
