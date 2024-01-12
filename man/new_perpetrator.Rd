@@ -14,7 +14,7 @@ new_perpetrator(df)
 A perpetrator object.
 }
 \description{
-Perpetrator object constructor
+This function converts a data frame into a perpetrator object.
 }
 \details{
 The input is a data frame with the columns 'param', 'value' and source'.

@@ -3,7 +3,7 @@
 \docType{data}
 \name{examplinib_compounds_string}
 \alias{examplinib_compounds_string}
-\title{Fictional substrate data as string}
+\title{Examplinib compound data as string}
 \format{
 An object of class \code{character} of length 1.
 }
@@ -14,7 +14,7 @@ Fictional data, made up for demo purposes.
 examplinib_compounds_string
 }
 \description{
-A text string containing data for two: \code{perpetrator} objects:
+A character string containing data for two perpetrator objects:
 \itemize{
 \item examplinib, a fictional drug.
 \item M1, a fictional metabolite of examplinib.

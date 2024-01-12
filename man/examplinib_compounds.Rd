@@ -3,7 +3,7 @@
 \docType{data}
 \name{examplinib_compounds}
 \alias{examplinib_compounds}
-\title{Fictional substrate data}
+\title{Perpetrator compound data for examplinib and its metabolite}
 \format{
 An object of class \code{list} of length 2.
 }

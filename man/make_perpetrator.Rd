@@ -2,7 +2,7 @@
 % Please edit documentation in R/compounds.R
 \name{make_perpetrator}
 \alias{make_perpetrator}
-\title{Make perpetrator object}
+\title{Make a perpetrator object from compound data}
 \usage{
 make_perpetrator(
   name,

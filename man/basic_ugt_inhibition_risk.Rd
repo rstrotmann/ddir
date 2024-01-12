@@ -10,7 +10,8 @@ basic_ugt_inhibition_risk(perp, ugt_inh)
 \item{perp}{The perpetrator object.}
 
 \item{ugt_inh}{UGT inhibition data as data frame, with 'value' representing
-the IC50 (!).}
+the respective \eqn{IC_{50}}. Refer to \link{examplinib_ugt_inhibition_data} for
+a sample UGT inhibition data set.}
 }
 \value{
 A markdown-formatted table.
@@ -41,4 +42,6 @@ on the calculation of \eqn{I_{max,ss,u}}.
 \code{\link[=key_concentrations]{key_concentrations()}}
 
 \code{\link[=basic_ugt_inhibition_risk_table]{basic_ugt_inhibition_risk_table()}}
+
+\link{examplinib_ugt_inhibition_data}
 }

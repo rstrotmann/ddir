@@ -17,20 +17,15 @@ A data frame.
 \description{
 This function evaluates the clinical risk for direct (reversible) CYP
 inhibition according to the basic model defined in the relevant regulatory
-guideines.
+guidelines.
 }
 \details{
 For the basic modeling of direct (reversible) CYP enzyme inhibition, the
-ratios of the relevant inhibitor concentration to the \eqn{K_i} are
+ratio of the relevant inhibitor concentration to the \eqn{K_i} of the
+respective CYP enzyme is
 considered, i.e., \eqn{R_1} for hepatic enzymes and \eqn{R_{1,gut}} for
 intestinal enzymes (refer to fig. 1 of  the the
-\href{https://www.fda.gov/media/134582/download}{FDA guidance}). A threshold
-of 1.02 applies.
-
-Note that section 5.3.3.1 of the
-\href{https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-drug-interactions-revision-1_en.pdf}{EMA DDI guidance}
-defines the ratio as \eqn{R_1=\frac{I_{max,ss,u}}{K_{i,u}}} and the
-threshold as 0.02.
+\href{https://www.fda.gov/media/134582/download}{FDA guidance}).
 \subsection{Liver}{
 
 \deqn{R_1=1+\frac{I_{max,ss,u}}{K_{i,u}}}
@@ -39,6 +34,18 @@ threshold as 0.02.
 \subsection{Gut wall}{
 
 \deqn{R_{1,gut}=1+\frac{I_{gut}}{K_{i,u}}}
+
+\eqn{R_1} values > 1.02, i.e., maximal unbound perpetrator concentrations
+50-fold over \eqn{K_i} are considered to indicate a clinical risk using this
+method.
+
+Note that section 5.3.3.1 of the
+\href{https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-drug-interactions-revision-1_en.pdf}{EMA DDI guidance}
+defines the relevant ratio as \eqn{R_1=\frac{I_{max,ss,u}}{K_{i,u}}} and the
+threshold as 0.02.
+
+In the output, the columns \code{risk_hep} and \code{risk_intest} indicate whether the
+regulatory threshold is reached for the respecive enzyme.
 
 Refer to the documentation to the \code{\link[=key_concentrations]{key_concentrations()}} function for details
 on the calculation of \eqn{I_{max,ss,u}} and \eqn{I_{gut}}.
@@ -52,4 +59,6 @@ basic_cyp_inhibition_risk(examplinib_parent, examplinib_cyp_inhibition_data)
 \code{\link[=basic_cyp_inhibition_risk_table]{basic_cyp_inhibition_risk_table()}}
 
 \code{\link[=key_concentrations]{key_concentrations()}}
+
+\code{\link[=mech_stat_cyp_risk]{mech_stat_cyp_risk()}}
 }

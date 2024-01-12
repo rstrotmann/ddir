@@ -4,20 +4,15 @@
 #'
 #' This function evaluates the clinical risk for direct (reversible) CYP
 #' inhibition according to the basic model defined in the relevant regulatory
-#' guideines.
+#' guidelines.
 #'
 #' @details
 #' For the basic modeling of direct (reversible) CYP enzyme inhibition, the
-#' ratios of the relevant inhibitor concentration to the \eqn{K_i} are
+#' ratio of the relevant inhibitor concentration to the \eqn{K_i} of the
+#' respective CYP enzyme is
 #' considered, i.e., \eqn{R_1} for hepatic enzymes and \eqn{R_{1,gut}} for
 #' intestinal enzymes (refer to fig. 1 of  the the
-#' [FDA guidance](https://www.fda.gov/media/134582/download)). A threshold
-#' of 1.02 applies.
-#'
-#' Note that section 5.3.3.1 of the
-#' [EMA DDI guidance](https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-drug-interactions-revision-1_en.pdf)
-#' defines the ratio as \eqn{R_1=\frac{I_{max,ss,u}}{K_{i,u}}} and the
-#' threshold as 0.02.
+#' [FDA guidance](https://www.fda.gov/media/134582/download)).
 #'
 #' ## Liver
 #'
@@ -26,6 +21,18 @@
 #' ## Gut wall
 #'
 #' \deqn{R_{1,gut}=1+\frac{I_{gut}}{K_{i,u}}}
+#'
+#' \eqn{R_1} values > 1.02, i.e., maximal unbound perpetrator concentrations
+#' 50-fold over \eqn{K_i} are considered to indicate a clinical risk using this
+#' method.
+#'
+#' Note that section 5.3.3.1 of the
+#' [EMA DDI guidance](https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-drug-interactions-revision-1_en.pdf)
+#' defines the relevant ratio as \eqn{R_1=\frac{I_{max,ss,u}}{K_{i,u}}} and the
+#' threshold as 0.02.
+#'
+#' In the output, the columns `risk_hep` and `risk_intest` indicate whether the
+#' regulatory threshold is reached for the respecive enzyme.
 #'
 #' Refer to the documentation to the [key_concentrations()] function for details
 #' on the calculation of \eqn{I_{max,ss,u}} and \eqn{I_{gut}}.
@@ -36,6 +43,7 @@
 #' @return A data frame.
 #' @seealso [basic_cyp_inhibition_risk_table()]
 #' @seealso [key_concentrations()]
+#' @seealso [mech_stat_cyp_risk()]
 #' @export
 #' @examples
 #' basic_cyp_inhibition_risk(examplinib_parent, examplinib_cyp_inhibition_data)
@@ -72,10 +80,10 @@ basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
 #'
 #' @param perp The perpetrator object.
 #' @param cyp_inh CYP inhibition data as data frame.
-#' @param na.rm Boolean to define whether rows with lacking ki data are removed
-#' (i.e., where ki == NA).
+#' @param na.rm Boolean to define whether rows with lacking \eqn{K_i} data are
+#' removed from the output (i.e., where `ki == NA`).
 #' @return A markdown-formatted table, or an empty string (if no CYP inhibition
-#' data are vavailable).
+#' data are available).
 #' @export
 #' @seealso [basic_cyp_inhibition_risk()]
 #' @examples

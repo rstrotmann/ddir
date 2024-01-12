@@ -7,14 +7,19 @@
 conc_table(perp)
 }
 \arguments{
-\item{perp}{The object (compound object or list thereof)}
+\item{perp}{The perpetrator object or a list of perpetrator objects.}
+}
+\value{
+A markdown-formatted table.
 }
 \description{
-Key perpetrator concentrations
+This function generates a markdown-formatted table of the key
+concentrations used for the assessment of the DDI perpetrator potential. See
+\code{\link[=key_concentrations]{key_concentrations()}} for details on the calculation of the concentrations.
 }
 \examples{
 conc_table(examplinib_parent)
-
+conc_table(examplinib_compounds)
 }
 \seealso{
 \code{\link[=key_concentrations]{key_concentrations()}}

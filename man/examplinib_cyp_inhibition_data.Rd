@@ -3,7 +3,7 @@
 \docType{data}
 \name{examplinib_cyp_inhibition_data}
 \alias{examplinib_cyp_inhibition_data}
-\title{Fictional CYP inhibition data}
+\title{Examplinib CYP inhibition data}
 \format{
 \subsection{\code{examplinib_cyp_inhibition_data}}{
 
@@ -25,13 +25,25 @@ examplinib_cyp_inhibition_data
 }
 \description{
 This data frame is a typical input to the following functions:
-}
-\details{
 \code{\link[=basic_cyp_inhibition_risk]{basic_cyp_inhibition_risk()}}
 \link{basic_cyp_inhibition_risk_table}
 \code{\link[=mech_stat_cyp_risk]{mech_stat_cyp_risk()}}
 \code{\link[=mech_stat_cyp_risk_table]{mech_stat_cyp_risk_table()}}
-
+}
+\details{
 CYP inhibition data can contain ki data for multiple compounds.
+\preformatted{
+      name   param      value    source
+        M1    name         M1
+        M1  CYP2C9        4.4 study 002
+examplinib    name examplinib
+examplinib  CYP1A2         NA
+examplinib  CYP2B6         NA
+examplinib  CYP2C8         11 study 001
+examplinib  CYP2C9       13.5 study 001
+examplinib CYP2C19         15 study 001
+examplinib  CYP2D6         NA
+examplinib  CYP3A4       12.5 study 001
+}
 }
 \keyword{datasets}

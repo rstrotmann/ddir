@@ -95,8 +95,9 @@ compound_names_string <- function(compounds) {
 
 #' Perpetrator object constructor
 #'
-#' @details
+#' This function converts a data frame into a perpetrator object.
 #'
+#' @details
 #' The input is a data frame with the columns 'param', 'value' and source'.
 #'
 #' Rows with the following parameters ('param') are expected in the input:
@@ -196,7 +197,7 @@ new_perpetrator <- function(df) {
 }
 
 
-#' Make perpetrator object
+#' Make a perpetrator object from compound data
 #'
 #' This function creates a perpetrator object from key compound data. Note that
 #' the 'source' field is empty. If you want to include source information, you
@@ -440,13 +441,18 @@ key_concentrations <- function(obj, qh=1.616, qent=18/60, molar=TRUE) {
 
 #' Key perpetrator concentrations
 #'
-#' @param perp The object (compound object or list thereof)
+#' This function generates a markdown-formatted table of the key
+#' concentrations used for the assessment of the DDI perpetrator potential. See
+#' [key_concentrations()] for details on the calculation of the concentrations.
 #'
+#' @param perp The perpetrator object or a list of perpetrator objects.
+#'
+#' @return A markdown-formatted table.
 #' @export
 #' @seealso [key_concentrations()]
 #' @examples
 #' conc_table(examplinib_parent)
-#'
+#' conc_table(examplinib_compounds)
 conc_table <- function(perp) {
   UseMethod("conc_table")
 }
@@ -487,13 +493,13 @@ conc_table.perpetrator <- function(perp) {
 }
 
 
-#' Table of key perpetrator concentrations for a list of compounds
+#' Key perpetrator concentrations
 #'
-#' This function generates a markdown-formatted table of the key
+#' This function generates a list of markdown-formatted tables of the key
 #' concentrations used for the assessment of the DDI perpetrator potential. See
 #' [key_concentrations()] for details on the calculation of the concentrations.
 #'
-#' @param perp The compounds as list of compound objects.
+#' @param perp A list of perpetrator objects.
 #'
 #' @return A markdown-formatted table.
 #' @export

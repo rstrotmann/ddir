@@ -2,18 +2,18 @@
 % Please edit documentation in R/compounds.R
 \name{conc_table.list}
 \alias{conc_table.list}
-\title{Table of key perpetrator concentrations for a list of compounds}
+\title{Key perpetrator concentrations}
 \usage{
 \method{conc_table}{list}(perp)
 }
 \arguments{
-\item{perp}{The compounds as list of compound objects.}
+\item{perp}{A list of perpetrator objects.}
 }
 \value{
 A markdown-formatted table.
 }
 \description{
-This function generates a markdown-formatted table of the key
+This function generates a list of markdown-formatted tables of the key
 concentrations used for the assessment of the DDI perpetrator potential. See
 \code{\link[=key_concentrations]{key_concentrations()}} for details on the calculation of the concentrations.
 }

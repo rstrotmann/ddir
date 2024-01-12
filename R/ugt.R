@@ -26,9 +26,11 @@
 #'
 #' @param perp The perpetrator object.
 #' @param ugt_inh UGT inhibition data as data frame, with 'value' representing
-#' the IC50 (!).
+#' the respective \eqn{IC_{50}}. Refer to [examplinib_ugt_inhibition_data] for
+#' a sample UGT inhibition data set.
 #' @seealso [key_concentrations()]
 #' @seealso [basic_ugt_inhibition_risk_table()]
+#' @seealso [examplinib_ugt_inhibition_data]
 #' @return A markdown-formatted table.
 #' @export
 basic_ugt_inhibition_risk <- function(perp, ugt_inh) {
@@ -58,8 +60,10 @@ basic_ugt_inhibition_risk <- function(perp, ugt_inh) {
 #'
 #' @param perp The perpetrator object.
 #' @param ugt_inh UGT inhibition data as data frame, with 'value' representing
-#' the IC50 (!).
-#' @param na.rm Remove rows with lacking ki data (i.e., where ki == NA).
+#' the respective \eqn{IC_{50}}. Refer to [examplinib_ugt_inhibition_data] for
+#' a sample UGT inhibition data set.
+#' @param na.rm Boolean to define whether rows with lacking \eqn{K_i} data are
+#' removed from the output (i.e., where `ki == NA`).
 #' @seealso [basic_ugt_inhibition_risk()]
 #' @return A markdown-formatted table.
 #' @export

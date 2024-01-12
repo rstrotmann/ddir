@@ -11,12 +11,12 @@ basic_cyp_inhibition_risk_table(perp, cyp_inh, na.rm = F)
 
 \item{cyp_inh}{CYP inhibition data as data frame.}
 
-\item{na.rm}{Boolean to define whether rows with lacking ki data are removed
-(i.e., where ki == NA).}
+\item{na.rm}{Boolean to define whether rows with lacking \eqn{K_i} data are
+removed from the output (i.e., where \code{ki == NA}).}
 }
 \value{
 A markdown-formatted table, or an empty string (if no CYP inhibition
-data are vavailable).
+data are available).
 }
 \description{
 This function generates a markdown-formatted table of the direct (reversible)
