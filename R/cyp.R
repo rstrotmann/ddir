@@ -108,6 +108,10 @@ basic_cyp_inhibition_risk_table <- function(perp, cyp_inh, na.rm=F) {
 }
 
 
+basic_cyp_tdi_risk <- function(perp, tdi) {
+
+}
+
 
 #### CYP INDUCTION
 

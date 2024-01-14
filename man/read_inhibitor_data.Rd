@@ -36,3 +36,7 @@ examplinib, CYP3A4,  12.5, study 001
 M1,         CYP2C9,  4.4,  study 002
 }
 }
+\examples{
+read_inhibitor_data(textConnection(examplinib_cyp_inhibition_string))
+
+}

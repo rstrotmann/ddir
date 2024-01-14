@@ -111,6 +111,9 @@ read_perpetrators <- function(source) {
 #'
 #' @return The data as data frame.
 #' @export
+#' @examples
+#' read_inhibitor_data(textConnection(examplinib_cyp_inhibition_string))
+#'
 read_inhibitor_data <- function(source) {
   raw <- as.data.frame(read.csv(source,
                                 col.names=c("name", "param", "value", "source"),
@@ -166,6 +169,9 @@ read_inhibitor_data <- function(source) {
 #' @param source The connection to read from.
 #' @return The data as data frame.
 #' @export
+#' @examples
+#' read_inducer_data(textConnection(examplinib_cyp_induction_string))
+#'
 read_inducer_data <- function(source) {
   raw <- as.data.frame(read.csv(source,
                                 col.names=c("name", "cyp", "emax", "ec50",

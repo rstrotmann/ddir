@@ -44,3 +44,7 @@ M1, CYP2D6,  NA,   NA,   NA,
 M1, CYP3A4,  22.7, 1.1,  5,  study 007
 }
 }
+\examples{
+read_inducer_data(textConnection(examplinib_cyp_induction_string))
+
+}

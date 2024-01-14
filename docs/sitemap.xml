@@ -70,7 +70,13 @@
     <loc>/reference/examplinib_cyp_induction_data.html</loc>
   </url>
   <url>
+    <loc>/reference/examplinib_cyp_induction_string.html</loc>
+  </url>
+  <url>
     <loc>/reference/examplinib_cyp_inhibition_data.html</loc>
+  </url>
+  <url>
+    <loc>/reference/examplinib_cyp_inhibition_string.html</loc>
   </url>
   <url>
     <loc>/reference/examplinib_metabolite.html</loc>
@@ -83,6 +89,9 @@
   </url>
   <url>
     <loc>/reference/examplinib_ugt_inhibition_data.html</loc>
+  </url>
+  <url>
+    <loc>/reference/hepatic_cyp_turnover.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>

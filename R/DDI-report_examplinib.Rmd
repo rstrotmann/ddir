@@ -63,6 +63,17 @@ examplinib, CYP3A4,  12.5, study 001
 M1,         CYP2C9,  4.4,  study 002
 ```
 
+```{data output.var="cyp_tdi_text"}
+# compound, CYP, Kiu, Kinact, source
+examplinib, CYP1A2,  NA 
+examplinib, CYP2B6,  NA,
+examplinib, CYP2C8,  11,   study 001
+examplinib, CYP2C9,  13.5, study 001
+examplinib, CYP2C19, 15,   study 001
+examplinib, CYP2D6,  NA,
+examplinib, CYP3A4,  12.5, study 001
+```
+
 ```{data output.var="cyp_induction_text"}
 # PARENT
 # compound, CYP, Emax, EC50, max c, source

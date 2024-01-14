@@ -16,7 +16,7 @@ remain empty."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/li
     
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,6 +93,27 @@ M1, CYP3A4,  22.7, 1.1,  5,  study 007
 
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">read_inducer_data</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/textconnections.html" class="external-link">textConnection</a></span><span class="op">(</span><span class="va">examplinib_cyp_induction_string</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          name     cyp  emax ec50 maxc    source</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  examplinib  CYP1A2  1.00   NA    5 study 007</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  examplinib  CYP2B6  1.00   NA    5 study 007</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  examplinib  CYP2C8    NA   NA   NA          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  examplinib  CYP2C9    NA   NA   NA          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  examplinib CYP2C19    NA   NA   NA          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  examplinib  CYP2D6    NA   NA   NA          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  examplinib  CYP3A4  7.35 1.64    3 study 007</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          M1  CYP1A2  1.00   NA    5 study 007</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          M1  CYP2B6  6.98 1.86    5 study 007</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10         M1  CYP2C8    NA   NA   NA          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11         M1  CYP2C9    NA   NA   NA          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12         M1 CYP2C19    NA   NA   NA          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13         M1  CYP2D6    NA   NA   NA          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14         M1  CYP3A4 22.70 1.10    5 study 007</span>
+<span class="r-in"><span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 

@@ -14,7 +14,7 @@ information for the respective data. The latter field may remain empty."><!-- ma
     
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -83,6 +83,23 @@ M1,         CYP2C9,  4.4,  study 002
 
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">read_inhibitor_data</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/textconnections.html" class="external-link">textConnection</a></span><span class="op">(</span><span class="va">examplinib_cyp_inhibition_string</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          name   param      value    source</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          M1    name         M1          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          M1  CYP2C9        4.4 study 002</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  examplinib    name examplinib          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  examplinib  CYP1A2         NA          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  examplinib  CYP2B6         NA          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  examplinib  CYP2C8         11 study 001</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  examplinib  CYP2C9       13.5 study 001</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  examplinib CYP2C19         15 study 001</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  examplinib  CYP2D6         NA          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 examplinib  CYP3A4       12.5 study 001</span>
+<span class="r-in"><span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 
