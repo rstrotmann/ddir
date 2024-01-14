@@ -79,6 +79,12 @@
     <loc>/reference/examplinib_cyp_inhibition_string.html</loc>
   </url>
   <url>
+    <loc>/reference/examplinib_cyp_tdi_data.html</loc>
+  </url>
+  <url>
+    <loc>/reference/examplinib_cyp_tdi_string.html</loc>
+  </url>
+  <url>
     <loc>/reference/examplinib_metabolite.html</loc>
   </url>
   <url>
@@ -161,6 +167,9 @@
   </url>
   <url>
     <loc>/reference/read_perpetrators.html</loc>
+  </url>
+  <url>
+    <loc>/reference/read_tdi_data.html</loc>
   </url>
   <url>
     <loc>/reference/static_cyp_induction_risk.html</loc>

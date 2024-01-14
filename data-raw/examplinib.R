@@ -2,6 +2,9 @@
 library(tidyverse)
 library(usethis)
 
+
+## EXAMPLINIB COMPOUNDS
+
 examplinib_compounds_string <- "
 # PARENT\n\n# compound,  param,    value,     source\n\n
 examplinib,  oral,     TRUE,\n\n
@@ -40,6 +43,8 @@ usethis::use_data(examplinib_parent, overwrite = TRUE)
 usethis::use_data(examplinib_metabolite, overwrite = TRUE)
 
 
+## REVERSIBLE CYP INHIBITION
+
 examplinib_cyp_inhibition_string <- "
 # PARENT\n\n
 # compound, CYP, ki, source\n\n
@@ -59,6 +64,23 @@ examplinib_cyp_inhibition_data <- read_inhibitor_data(textConnection(
 
 usethis::use_data(examplinib_cyp_inhibition_string, overwrite = TRUE)
 usethis::use_data(examplinib_cyp_inhibition_data, overwrite = TRUE)
+
+
+## TIME-DEPENDENT CYP INHIBITION
+
+examplinib_cyp_tdi_string <- "
+# compound, CYP,    ki,   kinact, source\n\n
+examplinib, CYP3A4, 30.7, 0.04, study 001\n\n
+"
+
+examplinib_cyp_tdi_data <- read_tdi_data(textConnection(
+  examplinib_cyp_tdi_string))
+
+usethis::use_data(examplinib_cyp_tdi_string, overwrite = TRUE)
+usethis::use_data(examplinib_cyp_tdi_data, overwrite = TRUE)
+
+
+## CYP INDUCTION
 
 examplinib_cyp_induction_string <- "
 # PARENT\n\n
@@ -87,6 +109,7 @@ examplinib_cyp_induction_data <- read_inducer_data(textConnection(
 usethis::use_data(examplinib_cyp_induction_string, overwrite = TRUE)
 usethis::use_data(examplinib_cyp_induction_data, overwrite = TRUE)
 
+## UGT INHIBITION
 
 examplinib_ugt_inhibition_string <- "
 # PARENT\n\n
@@ -114,6 +137,8 @@ examplinib_ugt_inhibition_data <- read_inhibitor_data(textConnection(
   examplinib_ugt_inhibition_string))
 
 usethis::use_data(examplinib_ugt_inhibition_data, overwrite = TRUE)
+
+## TRANSPORTER INHIBITION
 
 examplinib_transporter_inhibition_string <- "
 # PARENT\n\n

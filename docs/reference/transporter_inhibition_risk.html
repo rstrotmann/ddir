@@ -89,20 +89,34 @@ thresholds for assumed clinically relevant effects.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">transporter_inhibition_risk</span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_transporter_inhibition_data</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       param   ic50    source            r fda_thld fda_risk ema_thld ema_risk</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   Pgp_int   0.41 study 005 8.912391e+03     10.0     TRUE    10.00     TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   Pgp_sys   0.41 study 005 4.019984e-01      0.1     TRUE     0.02     TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  BCRP_int   1.90 study 005 1.923200e+03     10.0     TRUE    10.00     TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  BCRP_sys   1.90 study 005 8.674701e-02      0.1    FALSE     0.02     TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      OCT1   2.30 study 006 8.388626e-02       NA       NA     0.04     TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   OATP1B1 177.00 study 006 1.090047e-03      0.1    FALSE     0.04    FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   OATP1B3  35.00 study 006 5.512525e-03      0.1    FALSE     0.04    FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8      OAT1 271.00           6.081894e-04      0.1    FALSE     0.04    FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9      OAT3 300.00           5.493978e-04      0.1    FALSE     0.04    FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10     BSEP  12.80           1.287651e-02      0.1    FALSE     0.02    FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11     OCT2  67.00 study 006 2.459990e-03      0.1    FALSE     0.02    FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12    MATE1   3.60 study 006 4.578315e-02      0.1    FALSE     0.02     TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13   MATE2k   1.10 study 006 1.498358e-01      0.1     TRUE     0.02     TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    transporter   ic50    source            r fda_thld fda_risk ema_thld</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      Pgp_int   0.41 study 005 8.912391e+03     10.0     TRUE    10.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      Pgp_sys   0.41 study 005 4.019984e-01      0.1     TRUE     0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     BCRP_int   1.90 study 005 1.923200e+03     10.0     TRUE    10.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4     BCRP_sys   1.90 study 005 8.674701e-02      0.1    FALSE     0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5         OCT1   2.30 study 006 8.388626e-02       NA       NA     0.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6      OATP1B1 177.00 study 006 1.090047e-03      0.1    FALSE     0.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7      OATP1B3  35.00 study 006 5.512525e-03      0.1    FALSE     0.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8         OAT1 271.00           6.081894e-04      0.1    FALSE     0.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9         OAT3 300.00           5.493978e-04      0.1    FALSE     0.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        BSEP  12.80           1.287651e-02      0.1    FALSE     0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        OCT2  67.00 study 006 2.459990e-03      0.1    FALSE     0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12       MATE1   3.60 study 006 4.578315e-02      0.1    FALSE     0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13      MATE2k   1.10 study 006 1.498358e-01      0.1     TRUE     0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ema_risk</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6     FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7     FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8     FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9     FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10    FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11    FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12     TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13     TRUE</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

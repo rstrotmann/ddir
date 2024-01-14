@@ -10,7 +10,7 @@ read_inhibitor_data(source)
 \item{source}{The connection to read from.}
 }
 \value{
-The data as data frame.
+A data frame.
 }
 \description{
 This function loads CYP inhibition data from a csv file. The expected fields

@@ -34,9 +34,11 @@ transporter_inhibition_risk <- function(
     transporter_ref=transporter_reference_data) {
   ic50 <- transporter_ic50 %>%
     filter(name==name(perp)) %>%
-    filter(param!="name") %>%
-    select(-name) %>%
-    mutate(value=as.num(value))
+    mutate(ic50=ki) %>%
+    # filter(param!="name") %>%
+    mutate(transporter=item) %>%
+    select(-name, -item, -ki) %>%
+    mutate(ic50=as.num(ic50))
 
   temp <-  key_concentrations(perp, molar=TRUE)
   i <- data.frame(
@@ -46,19 +48,19 @@ transporter_inhibition_risk <- function(
   # duplicate rows Pgp and BCRP, if applicable, and assign intestinal and
   #   systemic scope
   out <- ic50 %>%
-    bind_rows(filter(ic50, param %in% c("Pgp", "BCRP")) %>%
-                mutate(param=paste0(param, "_sys"))) %>%
-    bind_rows(filter(ic50, param %in% c("Pgp", "BCRP")) %>%
-                mutate(param=paste0(param, "_int"))) %>%
-    filter(!param %in% c("Pgp", "BCRP")) %>%
-    left_join(transporter_ref, by="param") %>%
+    bind_rows(filter(ic50, transporter %in% c("Pgp", "BCRP")) %>%
+                mutate(transporter=paste0(transporter, "_sys"))) %>%
+    bind_rows(filter(ic50, transporter %in% c("Pgp", "BCRP")) %>%
+                mutate(transporter=paste0(transporter, "_int"))) %>%
+    filter(!transporter %in% c("Pgp", "BCRP")) %>%
+    left_join(transporter_ref, by="transporter") %>%
     left_join(i, by="i") %>%
-    mutate(r=case_when(is.na(value) ~ NA, .default=conc/value)) %>%
+    mutate(r=case_when(is.na(ic50) ~ NA, .default=conc/ic50)) %>%
     mutate(fda_risk=r>fda_thld) %>%
     mutate(ema_risk=r>ema_thld) %>%
-    mutate(ic50=value) %>%
+    # mutate(ic50=value) %>%
     arrange(rank) %>%
-    select(param, ic50, source, r, fda_thld, fda_risk, ema_thld, ema_risk)
+    select(transporter, ic50, source, r, fda_thld, fda_risk, ema_thld, ema_risk)
   return(out)
 }
 
@@ -94,8 +96,10 @@ if(na.rm==TRUE) {
               "thld EMA", "risk EMA")
   if(nrow(temp)!=0) {
     out <- knitr::kable(
-      temp, caption=paste("Risk for drug transporter inhibition by",
-      name(perp)), col.names=labels)
+      temp,
+      caption=paste("Risk for drug transporter inhibition by",
+                    name(perp)), col.names=labels,
+      signif=2)
     return(out)
   }
 }

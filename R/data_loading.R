@@ -109,25 +109,46 @@ read_perpetrators <- function(source) {
 #'
 #' @param source The connection to read from.
 #'
-#' @return The data as data frame.
+#' @return A data frame.
 #' @export
 #' @examples
 #' read_inhibitor_data(textConnection(examplinib_cyp_inhibition_string))
 #'
 read_inhibitor_data <- function(source) {
   raw <- as.data.frame(read.csv(source,
-                                col.names=c("name", "param", "value", "source"),
+                                # col.names=c("name", "param", "value", "source"),
+                                col.names=c("name", "item", "ki", "source"),
                                 header = F,
                                 blank.lines.skip = TRUE,
                                 comment.char = '#')) %>%
     dplyr::mutate(across(everything(), trimws)) %>%
     dplyr::filter(name != "") %>%
-    dplyr::group_by(name) %>%
-    dplyr::group_modify(~ tibble::add_row(param="name",
-                                          value=.y$name,
-                                          source="",
-                                          .x, , .before=1)) %>%
-    dplyr::ungroup() %>%
+    # dplyr::group_by(name) %>%
+    # dplyr::group_modify(~ tibble::add_row(param="name",
+    #                                       value=.y$name,
+    #                                       source="",
+    #                                       .x, , .before=1)) %>%
+    # dplyr::ungroup() %>%
+    as.data.frame()
+  return(raw)
+}
+
+
+#' Read csv-formatted CYP TDI data
+#'
+#' @param source The connection to read from.
+#'
+#' @return A data frame.
+#' @export
+#'
+read_tdi_data <- function(source) {
+  raw <- as.data.frame(read.csv(source,
+                                col.names=c("name", "cyp", "ki", "kinact", "source"),
+                                header = F,
+                                blank.lines.skip = TRUE,
+                                comment.char = '#')) %>%
+    dplyr::mutate(across(everything(), trimws)) %>%
+    dplyr::filter(name != "") %>%
     as.data.frame()
   return(raw)
 }

@@ -5,7 +5,7 @@
 \alias{transporter_reference_data}
 \title{Drug transporter reference data}
 \format{
-An object of class \code{data.frame} with 13 rows and 5 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 13 rows and 5 columns.
 }
 \source{
 FDA and EMA guidelines.
@@ -18,20 +18,20 @@ Drug transporter reference data
 }
 \details{
 \preformatted{
-#'    param rank fda_thld ema_thld          i
- Pgp_int    1     10.0    10.00       igut
- Pgp_sys    2      0.1     0.02    imaxssu
-BCRP_int    3     10.0    10.00       igut
-BCRP_sys    4      0.1     0.02    imaxssu
-    OCT1    5       NA     0.04 imaxinletu
- OATP1B1    6      0.1     0.04 imaxinletu
- OATP1B3    7      0.1     0.04 imaxinletu
-    OAT1    8      0.1     0.04    imaxssu
-    OAT3    9      0.1     0.04    imaxssu
-    BSEP   10      0.1     0.02    imaxssu
-    OCT2   11      0.1     0.02    imaxssu
-   MATE1   12      0.1     0.02    imaxssu
-  MATE2k   13      0.1     0.02    imaxssu
+transporter rank fda_thld ema_thld          i
+    Pgp_int    1     10.0    10.00       igut
+    Pgp_sys    2      0.1     0.02    imaxssu
+   BCRP_int    3     10.0    10.00       igut
+   BCRP_sys    4      0.1     0.02    imaxssu
+       OCT1    5       NA     0.04 imaxinletu
+    OATP1B1    6      0.1     0.04 imaxinletu
+    OATP1B3    7      0.1     0.04 imaxinletu
+       OAT1    8      0.1     0.04    imaxssu
+       OAT3    9      0.1     0.04    imaxssu
+       BSEP   10      0.1     0.02    imaxssu
+       OCT2   11      0.1     0.02    imaxssu
+      MATE1   12      0.1     0.02    imaxssu
+     MATE2k   13      0.1     0.02    imaxssu
 }
 }
 \keyword{datasets}

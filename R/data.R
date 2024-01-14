@@ -2,20 +2,20 @@
 #'
 #' @details
 #' \preformatted{
-#' #'    param rank fda_thld ema_thld          i
-#'  Pgp_int    1     10.0    10.00       igut
-#'  Pgp_sys    2      0.1     0.02    imaxssu
-#' BCRP_int    3     10.0    10.00       igut
-#' BCRP_sys    4      0.1     0.02    imaxssu
-#'     OCT1    5       NA     0.04 imaxinletu
-#'  OATP1B1    6      0.1     0.04 imaxinletu
-#'  OATP1B3    7      0.1     0.04 imaxinletu
-#'     OAT1    8      0.1     0.04    imaxssu
-#'     OAT3    9      0.1     0.04    imaxssu
-#'     BSEP   10      0.1     0.02    imaxssu
-#'     OCT2   11      0.1     0.02    imaxssu
-#'    MATE1   12      0.1     0.02    imaxssu
-#'   MATE2k   13      0.1     0.02    imaxssu
+#' transporter rank fda_thld ema_thld          i
+#'     Pgp_int    1     10.0    10.00       igut
+#'     Pgp_sys    2      0.1     0.02    imaxssu
+#'    BCRP_int    3     10.0    10.00       igut
+#'    BCRP_sys    4      0.1     0.02    imaxssu
+#'        OCT1    5       NA     0.04 imaxinletu
+#'     OATP1B1    6      0.1     0.04 imaxinletu
+#'     OATP1B3    7      0.1     0.04 imaxinletu
+#'        OAT1    8      0.1     0.04    imaxssu
+#'        OAT3    9      0.1     0.04    imaxssu
+#'        BSEP   10      0.1     0.02    imaxssu
+#'        OCT2   11      0.1     0.02    imaxssu
+#'       MATE1   12      0.1     0.02    imaxssu
+#'      MATE2k   13      0.1     0.02    imaxssu
 #' }
 #' @source FDA and EMA guidelines.
 "transporter_reference_data"
@@ -149,6 +149,25 @@
 #'
 #' @source Fictional data, made up for demo purposes.
 "examplinib_cyp_inhibition_data"
+
+
+#' Examplinib CYP TDI data as string
+#'
+#' A character string containing CYP TDI data for examplinib.
+#' @source Fictional data for demo purposes.
+#' @seealso [read_tdi_data()]
+"examplinib_cyp_tdi_string"
+
+
+#' Examplinib CYP TDI data
+#'
+#' @details
+#' \preformatted{
+#'       name    cyp   ki kinact    source
+#' examplinib CYP3A4 30.7   0.04 study 001
+#' }
+#' @source Fictional data, made up for demo purposes.
+"examplinib_cyp_tdi_data"
 
 
 #' Examplinib CYP induction data as string

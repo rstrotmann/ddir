@@ -36,18 +36,19 @@
 basic_ugt_inhibition_risk <- function(perp, ugt_inh) {
   ki <- ugt_inh %>%
     filter(name==name(perp)) %>%
-    filter(param!="name")
+    mutate(ugt=item)
+    # filter(param!="name")
 
   i <- key_concentrations(perp, molar=TRUE)
   fumic <- as.num(perp["fumic", "value"])
 
   out <- ki %>%
-    mutate(ki=as.num(value)/2) %>%
+    mutate(ki=as.num(ki)/2) %>%
     mutate(kiu=ki*fumic) %>%
     mutate(r1=1 + (i["imaxssu"]/kiu)) %>%
-    select(-name, -value) %>%
+    select(-name, -item) %>%
     mutate(risk=r1>1.02) %>%
-    select(param, kiu, r1, risk)
+    select(ugt, kiu, r1, risk)
   return(out)
 }
 

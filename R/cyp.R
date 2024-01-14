@@ -50,23 +50,24 @@
 #'
 basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
   ki <- cyp_inh %>%
-    filter(name==name(perp)) %>%
-    filter(param!="name")
+    filter(name==name(perp)) #%>%
+    # filter(param!="name")
 
   i <- key_concentrations(perp, molar=TRUE)
   fumic <- as.num(perp["fumic", "value"])
 
   out <- ki %>%
-    mutate(ki=as.num(value)) %>%
-    mutate(kiu=as.num(value)*fumic) %>%
+    mutate(cyp=item) %>%
+    mutate(ki=as.num(ki)) %>%
+    mutate(kiu=ki*fumic) %>%
     mutate(r1=1 + (i["imaxssu"]/kiu)) %>%
-    mutate(r1gut=case_when(param=="CYP3A4" ~ 1+(i["igut"]/ki), .default=NA)) %>%
-    select(-name, -value) %>%
+    mutate(r1gut=case_when(cyp=="CYP3A4" ~ 1+(i["igut"]/ki), .default=NA)) %>%
+    select(-name, item) %>%
     mutate(risk_hep=r1>1.02) %>%
     mutate(risk_intest=r1gut>11) %>%
     mutate(r1=format(r1, digits=4)) %>%
     mutate(r1gut=format(r1gut, digits=4)) %>%
-    select(param, ki, kiu, r1, risk_hep, r1gut, risk_intest)
+    select(cyp, ki, kiu, r1, risk_hep, r1gut, risk_intest)
 
   return(out)
 }
@@ -108,9 +109,9 @@ basic_cyp_inhibition_risk_table <- function(perp, cyp_inh, na.rm=F) {
 }
 
 
-basic_cyp_tdi_risk <- function(perp, tdi) {
-
-}
+# basic_cyp_tdi_risk <- function(perp, tdi) {
+#
+# }
 
 
 #### CYP INDUCTION
@@ -313,9 +314,9 @@ mech_stat_cyp_risk <- function(
 
   out <- cyp_inh %>%
     filter(name==name(perp)) %>%
-    filter(param!="name") %>%
-    mutate(cyp=param) %>%
-    mutate(ki=as.num(value)) %>%
+    # filter(param!="name") %>%
+    mutate(cyp=item) %>%
+    mutate(ki=as.num(ki)) %>%
     left_join(cyp_ind %>% filter(name==name(perp)), by=c("cyp", "name")) %>%
     mutate(kiu=ki*fumic) %>%
     mutate(Ag=1/(1+(Ig/kiu))) %>%
@@ -325,7 +326,7 @@ mech_stat_cyp_risk <- function(
     mutate(Cg=case_when((is.na(Cg) | include_induction==F)~1, .default=Cg)) %>%
     mutate(Ch=1+(emax*Ih/(Ih+ec50))) %>%
     mutate(Ch=case_when((is.na(Ch) | include_induction==F)~1, .default=Ch))  %>%
-    select(-name, -value, -starts_with("source"), -param) %>%
+    select(-name, -item, -starts_with("source")) %>%
     left_join(substr, by="cyp") %>%
     mutate(aucr=1/(Ag*Cg*(1-fgut)+fgut) * 1/(Ah*Ch*fm*fmcyp+(1-fm*fmcyp))) %>%
     mutate(risk=aucr>1.25 | aucr < 0.8) %>%
