@@ -428,12 +428,12 @@ mech_stat_cyp_risk <- function(
                 select(-source, -name),
               by=c("cyp")) %>%
     # mutate(Cg = 1, Ch = 1) %>% # temporary
-    mutate(Cg = 1 + (emax * Ig / (Ig + ec50))) %>%
-    mutate(Cg = case_when((is.na(Cg) | include_induction == FALSE) ~ 1,
-                          .default = 1)) %>%
-    mutate(Ch = 1 + (emax * Ih / (Ih + ec50))) %>%
-    mutate(Ch = case_when((is.na(Ch) | include_induction == FALSE) ~ 1,
-                        .default = 1))  %>%
+    # mutate(Cg = 1 + (emax * Ig / (Ig + ec50))) %>%
+    mutate(Cg = case_when((is.na(ec50) | include_induction == FALSE) ~ 1,
+                          .default = 1 + (emax * Ig / (Ig + ec50)))) %>%
+    # mutate(Ch = 1 + (emax * Ih / (Ih + ec50))) %>%
+    mutate(Ch = case_when((is.na(ec50) | include_induction == FALSE) ~ 1,
+                        .default = 1 + (emax * Ih / (Ih + ec50))))  %>%
     select(-name, -item) %>%
 
     # substrate
