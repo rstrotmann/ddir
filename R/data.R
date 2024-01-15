@@ -258,6 +258,10 @@
 
 #' Hepatic CYP turnover data based on various publications
 #'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#' Please use [`cyp_turnover`] instead.
+#'
 #' @format
 #' A data frame with 6 columns:
 #' * cyp: The CYP enzymne
@@ -299,3 +303,37 @@
 #' Curr Drug Metab. 2008 Jun;9(5):384-94.
 #' doi: 10.2174/138920008784746382. PMID: 18537575.
 "hepatic_cyp_turnover"
+
+
+#' CYP turnover rate constants
+#'
+#' @description
+#' Mean degradation constants in 1/h for hepatic and intestinal CYP enzymes.
+#' @seealso [basic_cyp_tdi_risk()]
+#' @seealso [mech_stat_cyp_risk()]
+#'
+#' @format
+#' A data frame with 3 columns
+#'
+#' @details
+#' \preformatted{
+#'     cyp kdeg_hepatic kdeg_intestinal
+#'  CYP1A1       0.0183              NA
+#'  CYP1A2       0.0183              NA
+#'  CYP2A6       0.0267              NA
+#'  CYP2B6       0.0217              NA
+#'  CYP2C8       0.0301              NA
+#'  CYP2C9       0.0067            0.03
+#' CYP2C18       0.0267              NA
+#' CYP2C19       0.0267            0.03
+#'  CYP2D6       0.0099            0.03
+#'  CYP2E1       0.0176              NA
+#'  CYP2J2       0.0194            0.03
+#'  CYP3A4       0.0193            0.03
+#'  CYP3A5       0.0193            0.03
+#'  CYP3A7       0.0193              NA
+#' }
+#' @source This data set is taken from various literature sources
+"cyp_turnover"
+
+

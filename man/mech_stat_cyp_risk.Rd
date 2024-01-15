@@ -8,21 +8,28 @@ mech_stat_cyp_risk(
   perp,
   cyp_inh,
   cyp_ind,
+  cyp_tdi = NULL,
   include_induction = T,
-  substr = cyp_reference_substrates
+  substr = cyp_reference_substrates,
+  kdeg = cyp_turnover
 )
 }
 \arguments{
 \item{perp}{The perpetrator object.}
 
-\item{cyp_inh}{CYP inhibiton data as data frame.}
+\item{cyp_inh}{CYP inhibition data as data frame.}
 
 \item{cyp_ind}{CYP induction data as data frame.}
+
+\item{cyp_tdi}{CYP TDI data as data frame.}
 
 \item{include_induction}{Boolean value to define whether induction should be
 included in the calculation (C-terms as per the FDA guideline)}
 
 \item{substr}{The CYP reference substrates to be used as data frame.}
+
+\item{kdeg}{The CYP turnover data as data frame. Defaults to the
+built-in reference data.}
 }
 \value{
 A data frame.

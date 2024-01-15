@@ -29,7 +29,8 @@ doi: 10.2174/138920008784746382. PMID: 18537575.
 hepatic_cyp_turnover
 }
 \description{
-Hepatic CYP turnover data based on various publications
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+Please use \code{\link{cyp_turnover}} instead.
 }
 \details{
 The following experimental methods were used in the original publication:

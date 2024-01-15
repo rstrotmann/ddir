@@ -70,7 +70,7 @@ usethis::use_data(examplinib_cyp_inhibition_data, overwrite = TRUE)
 
 examplinib_cyp_tdi_string <- "
 # compound, CYP,    ki,   kinact, source\n\n
-examplinib, CYP3A4, 30.7, 0.04, study 001\n\n
+examplinib, CYP3A4, 0.17, 0.04, study 001\n\n
 "
 
 examplinib_cyp_tdi_data <- read_tdi_data(textConnection(

@@ -149,6 +149,7 @@ read_tdi_data <- function(source) {
                                 comment.char = '#')) %>%
     dplyr::mutate(across(everything(), trimws)) %>%
     dplyr::filter(name != "") %>%
+    mutate(across(3:4, as.num)) %>%
     as.data.frame()
   return(raw)
 }

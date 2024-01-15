@@ -8,8 +8,10 @@ mech_stat_cyp_risk_table(
   perp,
   cyp_inh,
   cyp_ind,
+  cyp_tdi = NULL,
   include_induction = T,
   substr = cyp_reference_substrates,
+  kdeg = cyp_turnover,
   na.rm = FALSE
 )
 }
@@ -20,10 +22,15 @@ mech_stat_cyp_risk_table(
 
 \item{cyp_ind}{CYP induction data as data frame.}
 
+\item{cyp_tdi}{CYP TDI data as data frame.}
+
 \item{include_induction}{Boolean value to define whether induction should be
 included in the calculation (C-terms as per the FDA guideline)}
 
 \item{substr}{The CYP reference substrates to be used as data frame.}
+
+\item{kdeg}{The CYP turnover data as data frame. Defaults to the
+built-in reference data.}
 
 \item{na.rm}{Remove rows with lacking ki data (i.e., where ki == NA).}
 }
@@ -34,10 +41,15 @@ A markdown-formatted table.
 CYP perpetration risk table as per mechanistic-static modeling
 }
 \examples{
-mech_stat_cyp_risk_table(examplinib_parent,
+mech_stat_cyp_risk_table(
+  examplinib_parent,
   examplinib_cyp_inhibition_data,
   examplinib_cyp_induction_data)
-
+mech_stat_cyp_risk_table(
+  examplinib_parent,
+  examplinib_cyp_inhibition_data,
+  examplinib_cyp_induction_data,
+  examplinib_cyp_tdi_data)
 }
 \seealso{
 \code{\link[=mech_stat_cyp_risk]{mech_stat_cyp_risk()}}

@@ -109,9 +109,71 @@ basic_cyp_inhibition_risk_table <- function(perp, cyp_inh, na.rm=F) {
 }
 
 
-# basic_cyp_tdi_risk <- function(perp, tdi) {
-#
-# }
+#' Basic modeling of the CYP time-dependent inhibition risk
+#'
+#' In the present version, only the risk for hepatic TDI for CYP enzymes is
+#' calculated.
+#' @param perp The perpetrator object.
+#' @param tdi The CYP TDI data as data frame.
+#' @param cyp_kdeg The CYP turnover data as data frame. Defaults to the
+#' built-in reference data.
+#' @seealso [cyp_turnover]
+#' @return A data frame.
+#' @export
+#'
+#' @examples
+#' basic_cyp_tdi_risk(examplinib_parent, examplinib_cyp_tdi_data)
+basic_cyp_tdi_risk <- function(perp, tdi, cyp_kdeg=cyp_turnover) {
+  tdi <- tdi %>%
+    filter(name==name(perp))
+
+  i <- key_concentrations(perp, molar=TRUE)
+  imaxssu <- i["imaxssu"]
+  fumic <- as.num(perp["fumic", "value"])
+  fu <- as.num(perp["fu", "value"])
+
+  tdi %>%
+    mutate(kobs=kinact*50*imaxssu/(ki * fu + 50 * imaxssu)) %>%
+    mutate(fu=fu) %>%
+    left_join(cyp_kdeg, by="cyp") %>%
+    mutate(kdeg=kdeg_hepatic) %>%
+    mutate(r2=(kobs + kdeg)/kdeg) %>%
+    mutate(risk=(r2>1.25)) %>%
+    select(cyp, ki, fu, kinact, kdeg, source, r2, risk)
+}
+
+
+#' Basic CYP time-dependent inhibition risk table
+#'
+#' @param perp The perpetrator object.
+#' @param tdi The CYP TDI data as data frame.
+#' @param cyp_kdeg The CYP turnover data as data frame. Defaults to the
+#' built-in reference data.
+#' @param na.rm Boolean to define whether rows with lacking \eqn{K_I} or
+#' \eqn{k_{deg}} data are removed from the output.
+#' @return A markdown-formatted table.
+#' @export
+#'
+#' @examples
+#' basic_cyp_tdi_risk_table(examplinib_parent, examplinib_cyp_tdi_data)
+basic_cyp_tdi_risk_table <- function(perp, tdi, cyp_kdeg=cyp_turnover,
+                                     na.rm = TRUE) {
+  temp <- basic_cyp_tdi_risk(perp, tdi, cyp_kdeg)
+  if(na.rm==TRUE) {
+    temp <- temp %>%
+      filter(!is.na(ki) & !is.na(kdeg))
+  }
+
+  labels <- c("CYP", "$K_{I}$", "$f_u$", "$k_{inact}$", "$k_{deg}$", "source",
+              "$R_2$", "risk")
+  if(nrow(temp)!=0) {
+    out <- knitr::kable(temp,
+      caption=paste("Risk for CYP TDI by", name(perp), "(basic model)"),
+      digits = 2,
+      col.names=labels)
+    return(out)
+  }
+}
 
 
 #### CYP INDUCTION
@@ -290,47 +352,93 @@ kinetic_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
 #' be 1, but can be adjusted).
 #'
 #' @param perp The perpetrator object.
-#' @param cyp_inh CYP inhibiton data as data frame.
+#' @param cyp_inh CYP inhibition data as data frame.
 #' @param cyp_ind CYP induction data as data frame.
-#' @param substr The CYP reference substrates to be used as data frame.
+#' @param cyp_tdi CYP TDI data as data frame.
 #' @param include_induction Boolean value to define whether induction should be
 #'   included in the calculation (C-terms as per the FDA guideline)
+#' @param substr The CYP reference substrates to be used as data frame.
+#' @param kdeg The CYP turnover data as data frame. Defaults to the
+#' built-in reference data.
 #' @return A data frame.
 #' @export
 #' @examples
 #' mech_stat_cyp_risk(examplinib_parent, examplinib_cyp_inhibition_data, examplinib_cyp_induction_data)
-#'
+#' mech_stat_cyp_risk(examplinib_parent, examplinib_cyp_inhibition_data, examplinib_cyp_induction_data, examplinib_cyp_tdi_data)
+#' mech_stat_cyp_risk(examplinib_parent, examplinib_cyp_inhibition_data, examplinib_cyp_induction_data, examplinib_cyp_tdi_data, include_induction = F)
 mech_stat_cyp_risk <- function(
     perp,
     cyp_inh,
     cyp_ind,
-    include_induction=T,
-    substr=cyp_reference_substrates) {
+    cyp_tdi = NULL,
+    include_induction = TRUE,
+    substr=cyp_reference_substrates,
+    kdeg=cyp_turnover) {
   fumic <- as.num(perp["fumic", "value"])
 
   i <- key_concentrations(perp, molar=TRUE)
   Ig <- i["imaxintestu"]
   Ih <- i["imaxinletu"]
 
+  if(is.null(cyp_tdi)) {
+    cyp_tdi = data.frame(
+      name="",
+      cyp = "",
+      ki = NA,
+      kinact = NA,
+      source = "")}
+
   out <- cyp_inh %>%
-    filter(name==name(perp)) %>%
-    # filter(param!="name") %>%
-    mutate(cyp=item) %>%
-    mutate(ki=as.num(ki)) %>%
-    left_join(cyp_ind %>% filter(name==name(perp)), by=c("cyp", "name")) %>%
-    mutate(kiu=ki*fumic) %>%
-    mutate(Ag=1/(1+(Ig/kiu))) %>%
-    mutate(Ah=1/(1+(Ih/kiu))) %>%
-    mutate(Cg=1, Ch=1) %>% # temporary
-    mutate(Cg=1+(emax*Ig/(Ig+ec50))) %>%
-    mutate(Cg=case_when((is.na(Cg) | include_induction==F)~1, .default=Cg)) %>%
-    mutate(Ch=1+(emax*Ih/(Ih+ec50))) %>%
-    mutate(Ch=case_when((is.na(Ch) | include_induction==F)~1, .default=Ch))  %>%
-    select(-name, -item, -starts_with("source")) %>%
+    filter(name == name(perp)) %>%
+    mutate(cyp = item) %>%
+    select(-source) %>%
+
+    # direct inhibition
+    mutate(ki = as.num(ki)) %>%
+    mutate(kiu = ki * fumic) %>%
+    mutate(Ag = case_when(!is.na(ki) ~ 1 / (1 + (Ig / kiu)),
+                          .default = 1)) %>%
+    mutate(Ah = case_when(!is.na(ki) ~ 1 / (1 + (Ih / kiu)),
+                          .default = 1)) %>%
+
+    # TDI
+    left_join(
+      cyp_tdi %>%
+        filter(name == name(perp)) %>%
+        mutate(ki_tdi = ki) %>%
+        select(-ki, -name, -source),
+      by = "cyp") %>%
+    left_join(kdeg, by = "cyp") %>%
+    mutate(Bg = case_when(
+      !is.na(ki_tdi) ~ kdeg_intestinal / (kdeg_intestinal +
+                                            (Ig * kinact /(Ig + ki_tdi))),
+      .default = 1)) %>%
+    mutate(Bh = case_when(
+      !is.na(ki_tdi) ~ kdeg_hepatic / (kdeg_hepatic +
+                                         (Ih * kinact / (Ih + ki_tdi))),
+      .default = 1)) %>%
+
+    # induction
+    left_join(cyp_ind %>%
+                filter(name == name(perp)) %>%
+                select(-source, -name),
+              by=c("cyp")) %>%
+    # mutate(Cg = 1, Ch = 1) %>% # temporary
+    mutate(Cg = 1 + (emax*Ig/(Ig+ec50))) %>%
+    mutate(Cg = case_when((is.na(Cg) | include_induction == F) ~ 1,
+                          .default = 1)) %>%
+    mutate(Ch = 1 + (emax * Ih / (Ih + ec50))) %>%
+    mutate(Ch = case_when((is.na(Ch) | include_induction == F) ~ 1,
+                        .default = 1))  %>%
+    select(-name, -item) %>%
+
+    # substrate
     left_join(substr, by="cyp") %>%
-    mutate(aucr=1/(Ag*Cg*(1-fgut)+fgut) * 1/(Ah*Ch*fm*fmcyp+(1-fm*fmcyp))) %>%
-    mutate(risk=aucr>1.25 | aucr < 0.8) %>%
-    select(cyp, substrate, kiu, fgut, fm, fmcyp, Ag, Ah, Cg, Ch, aucr, risk) %>%
+    mutate(aucr = 1 / (Ag * Bg * Cg * (1 - fgut) + fgut) *
+             1 / (Ah * Bh * Ch * fm * fmcyp + (1 - fm * fmcyp))) %>%
+    mutate(risk = aucr>1.25 | aucr < 0.8) %>%
+    select(cyp, substrate, kiu, fgut, fm, fmcyp, Ag, Ah, Bg, Bh, Cg, Ch, aucr,
+           risk) %>%
     as.data.frame()
 
   return(out)
@@ -346,36 +454,49 @@ mech_stat_cyp_risk <- function(
 #'   included in the calculation (C-terms as per the FDA guideline)
 #' @param substr The CYP reference substrates to be used as data frame.
 #' @param na.rm Remove rows with lacking ki data (i.e., where ki == NA).
-#'
+#' @param cyp_tdi CYP TDI data as data frame.
+#' @param kdeg The CYP turnover data as data frame. Defaults to the
+#' built-in reference data.
 #' @return A markdown-formatted table.
 #' @seealso [mech_stat_cyp_risk()]
 #' @export
 #' @examples
-#' mech_stat_cyp_risk_table(examplinib_parent,
+#'
+#' mech_stat_cyp_risk_table(
+#'   examplinib_parent,
 #'   examplinib_cyp_inhibition_data,
 #'   examplinib_cyp_induction_data)
-#'
+#' mech_stat_cyp_risk_table(
+#'   examplinib_parent,
+#'   examplinib_cyp_inhibition_data,
+#'   examplinib_cyp_induction_data,
+#'   examplinib_cyp_tdi_data)
 mech_stat_cyp_risk_table <- function(
     perp,
     cyp_inh,
     cyp_ind,
-    include_induction=T,
-    substr=cyp_reference_substrates,
-    na.rm=FALSE) {
-  temp <- mech_stat_cyp_risk(perp, cyp_inh, cyp_ind,
+    cyp_tdi = NULL,
+    include_inductionc = TRUE,
+    substr = cyp_reference_substrates,
+    kdeg = cyp_turnover,
+    na.rm = FALSE) {
+  temp <- mech_stat_cyp_risk(perp, cyp_inh, cyp_ind, cyp_tdi,
                              include_induction=include_induction,
-                             substr=substr) %>%
-    select(cyp, kiu, substrate, fgut, fm, fmcyp, Ag, Ah, Cg, Ch, aucr, risk) %>%
-    mutate(across(Ag:Ch, ~ format(.x, digits=3))) %>%
+                             substr=substr, kdeg=kdeg) %>%
+    select(cyp, kiu, substrate, fgut, fm, fmcyp, Ag, Ah, Bg, Bh, Cg, Ch, aucr,
+           risk) %>%
+    # mutate(across(Ag:Ch, ~ format(.x, signif=2))) %>%
+    mutate(across(Ag:Ch, ~ signif(., digits=2))) %>%
     mutate(aucr=format(aucr, digits=3))
 
   if(na.rm==TRUE) {
     temp <- temp %>%
-      filter(!is.na(kiu))
+      filter(!is.na(risk))
   }
 
   labels <- c("CYP", "$K_{i,u}$", "substrate", "$F_{gut}$", "$f_m$",
-              "$f_{m,CYP}$", "$A_g$", "$A_h$", "$C_g$", "$C_h$", "AUCR", "risk")
+              "$f_{m,CYP}$", "$A_g$", "$A_h$", "$B_g$", "$B_h$", "$C_g$",
+              "$C_h$", "AUCR", "risk")
 
   if(nrow(temp)!=0) {
     out <- knitr::kable(
