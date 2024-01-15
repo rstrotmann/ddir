@@ -9,7 +9,7 @@ mech_stat_cyp_risk(
   cyp_inh,
   cyp_ind,
   cyp_tdi = NULL,
-  include_induction = T,
+  include_induction = TRUE,
   substr = cyp_reference_substrates,
   kdeg = cyp_turnover
 )
@@ -80,6 +80,11 @@ be 1, but can be adjusted).
 }
 }
 \examples{
-mech_stat_cyp_risk(examplinib_parent, examplinib_cyp_inhibition_data, examplinib_cyp_induction_data)
-
+mech_stat_cyp_risk(examplinib_parent, examplinib_cyp_inhibition_data,
+  examplinib_cyp_induction_data)
+mech_stat_cyp_risk(examplinib_parent, examplinib_cyp_inhibition_data,
+  examplinib_cyp_induction_data, examplinib_cyp_tdi_data)
+mech_stat_cyp_risk(examplinib_parent, examplinib_cyp_inhibition_data,
+  examplinib_cyp_induction_data, examplinib_cyp_tdi_data,
+  include_induction = FALSE)
 }

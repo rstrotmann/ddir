@@ -9,7 +9,7 @@ mech_stat_cyp_risk_table(
   cyp_inh,
   cyp_ind,
   cyp_tdi = NULL,
-  include_induction = T,
+  include_induction = TRUE,
   substr = cyp_reference_substrates,
   kdeg = cyp_turnover,
   na.rm = FALSE
@@ -41,6 +41,7 @@ A markdown-formatted table.
 CYP perpetration risk table as per mechanistic-static modeling
 }
 \examples{
+
 mech_stat_cyp_risk_table(
   examplinib_parent,
   examplinib_cyp_inhibition_data,

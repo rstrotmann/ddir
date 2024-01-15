@@ -363,9 +363,13 @@ kinetic_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
 #' @return A data frame.
 #' @export
 #' @examples
-#' mech_stat_cyp_risk(examplinib_parent, examplinib_cyp_inhibition_data, examplinib_cyp_induction_data)
-#' mech_stat_cyp_risk(examplinib_parent, examplinib_cyp_inhibition_data, examplinib_cyp_induction_data, examplinib_cyp_tdi_data)
-#' mech_stat_cyp_risk(examplinib_parent, examplinib_cyp_inhibition_data, examplinib_cyp_induction_data, examplinib_cyp_tdi_data, include_induction = F)
+#' mech_stat_cyp_risk(examplinib_parent, examplinib_cyp_inhibition_data,
+#'   examplinib_cyp_induction_data)
+#' mech_stat_cyp_risk(examplinib_parent, examplinib_cyp_inhibition_data,
+#'   examplinib_cyp_induction_data, examplinib_cyp_tdi_data)
+#' mech_stat_cyp_risk(examplinib_parent, examplinib_cyp_inhibition_data,
+#'   examplinib_cyp_induction_data, examplinib_cyp_tdi_data,
+#'   include_induction = FALSE)
 mech_stat_cyp_risk <- function(
     perp,
     cyp_inh,
@@ -376,7 +380,7 @@ mech_stat_cyp_risk <- function(
     kdeg=cyp_turnover) {
   fumic <- as.num(perp["fumic", "value"])
 
-  i <- key_concentrations(perp, molar=TRUE)
+  i <- key_concentrations(perp, molar = TRUE)
   Ig <- i["imaxintestu"]
   Ih <- i["imaxinletu"]
 
@@ -424,11 +428,11 @@ mech_stat_cyp_risk <- function(
                 select(-source, -name),
               by=c("cyp")) %>%
     # mutate(Cg = 1, Ch = 1) %>% # temporary
-    mutate(Cg = 1 + (emax*Ig/(Ig+ec50))) %>%
-    mutate(Cg = case_when((is.na(Cg) | include_induction == F) ~ 1,
+    mutate(Cg = 1 + (emax * Ig / (Ig + ec50))) %>%
+    mutate(Cg = case_when((is.na(Cg) | include_induction == FALSE) ~ 1,
                           .default = 1)) %>%
     mutate(Ch = 1 + (emax * Ih / (Ih + ec50))) %>%
-    mutate(Ch = case_when((is.na(Ch) | include_induction == F) ~ 1,
+    mutate(Ch = case_when((is.na(Ch) | include_induction == FALSE) ~ 1,
                         .default = 1))  %>%
     select(-name, -item) %>%
 
@@ -476,7 +480,7 @@ mech_stat_cyp_risk_table <- function(
     cyp_inh,
     cyp_ind,
     cyp_tdi = NULL,
-    include_inductionc = TRUE,
+    include_induction = TRUE,
     substr = cyp_reference_substrates,
     kdeg = cyp_turnover,
     na.rm = FALSE) {
