@@ -18,7 +18,7 @@ guidelines."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs
     
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.11.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.11.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,8 +64,12 @@ guidelines.</p>
 
 
 <dt>ugt_inh</dt>
-<dd><p>UGT inhibition data as data frame, with 'value' representing
-the respective \(IC_{50}\).</p></dd>
+<dd><p>UGT inhibition data as data frame, The following fields are
+expected:</p><ul><li><p>'name' The name of the perpetrator compound.</p></li>
+<li><p>'ugt' The UGT enzyme as (upper case) character.</p></li>
+<li><p>'ic50' The \(IC_{50}\) in \(\mu M\) as numeric.</p></li>
+<li><p>'source' Optional source information as character.</p></li>
+</ul></dd>
 
 </dl></div>
     <div class="section level2">
@@ -81,19 +85,35 @@ the respective \(IC_{50}\).</p></dd>
 <a href="https://doi.org/10.1016/0006-2952(73)90196-2" class="external-link">Cheng, Prusoff 1973</a>),
 \(K_i\) can be assumed to be \(IC_{50}/2\) at the experimental conditions
 commonly used in the in vitro ihibition studies where substrate
-concentrations close to \(K_M\) are used.</p>
+concentrations are close to \(K_M\).</p>
 <p>The relevant metric for basic modeling of the UGT inhibition risk is
-\(R_1=I_{max,ss,u}/K_{i,u}\). For the clinical risk assessment, a cut-off
-of \(R&lt;1.02\) applies.</p>
+\(R_1=I_{max,ss,u}/K_{i,u}\) (refer to fig. 1 of  the the
+<a href="https://www.fda.gov/media/134582/download" class="external-link">FDA guidance</a>).</p>
+<p>\(R_1&gt;1.02\) are considered to indicate a potential UGT inhibition risk.</p>
 <p>Refer to the documentation to the <code><a href="key_concentrations.html">key_concentrations()</a></code> function for details
 on the calculation of \(I_{max,ss,u}\).</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="key_concentrations.html">key_concentrations()</a></code></p>
-<p><code><a href="basic_ugt_inhibition_risk_table.html">basic_ugt_inhibition_risk_table()</a></code></p></div>
+<p><code><a href="basic_ugt_inhibition_risk_table.html">basic_ugt_inhibition_risk_table()</a></code></p>
+<p><code><a href="read_ugt_inhibitor_data.html">read_ugt_inhibitor_data()</a></code></p></div>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">basic_ugt_inhibition_risk</span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_ugt_inhibition_data</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       ugt  kiu       r1 risk</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  UGT1A1 7.50 1.021976 TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  UGT1A3 7.50 1.021976 TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  UGT1A4 7.50 1.021976 TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  UGT1A6 7.50 1.021976 TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  UGT1A9 1.90 1.086747 TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  UGT2B7 7.50 1.021976 TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 UGT2B15 7.50 1.021976 TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8 UGT2B17 3.05 1.054039 TRUE</span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 

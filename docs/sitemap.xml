@@ -181,6 +181,12 @@
     <loc>/reference/read_tdi_data.html</loc>
   </url>
   <url>
+    <loc>/reference/read_transporter_inhibitor_data.html</loc>
+  </url>
+  <url>
+    <loc>/reference/read_ugt_inhibitor_data.html</loc>
+  </url>
+  <url>
     <loc>/reference/static_cyp_induction_risk.html</loc>
   </url>
   <url>

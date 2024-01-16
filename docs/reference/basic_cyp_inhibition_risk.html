@@ -14,7 +14,7 @@ guidelines."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs
     
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.11.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.11.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,7 +58,12 @@ guidelines.</p>
 
 
 <dt>cyp_inh</dt>
-<dd><p>CYP inhibition data as data frame.</p></dd>
+<dd><p>CYP inhibition data as data frame. The following fields are
+expected:</p><ul><li><p>'name' The name of the perpetrator compound.</p></li>
+<li><p>'cyp' The CYP enzyme as (upper case) character.</p></li>
+<li><p>'ki' The \(k_i\) in \(\mu M\) as numeric.</p></li>
+<li><p>'source' Optional source information as character.</p></li>
+</ul></dd>
 
 </dl></div>
     <div class="section level2">
@@ -118,7 +123,6 @@ on the calculation of \(I_{max,ss,u}\) and \(I_{gut}\).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 CYP2C19 15.0 15.0 1.011    FALSE    NA          NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6  CYP2D6   NA   NA    NA       NA    NA          NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7  CYP3A4 12.5 12.5 1.013    FALSE 293.3        TRUE</span>
-<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
