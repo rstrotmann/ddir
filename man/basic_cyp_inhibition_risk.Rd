@@ -9,7 +9,14 @@ basic_cyp_inhibition_risk(perp, cyp_inh)
 \arguments{
 \item{perp}{The perpetrator object.}
 
-\item{cyp_inh}{CYP inhibition data as data frame.}
+\item{cyp_inh}{CYP inhibition data as data frame. The following fields are
+expected:
+\itemize{
+\item 'name' The name of the perpetrator compound.
+\item 'cyp' The CYP enzyme as (upper case) character.
+\item 'ki' The \eqn{k_i} in \eqn{\mu M} as numeric.
+\item 'source' Optional source information as character.
+}}
 }
 \value{
 A data frame.
@@ -53,7 +60,6 @@ on the calculation of \eqn{I_{max,ss,u}} and \eqn{I_{gut}}.
 }
 \examples{
 basic_cyp_inhibition_risk(examplinib_parent, examplinib_cyp_inhibition_data)
-
 }
 \seealso{
 \code{\link[=basic_cyp_inhibition_risk_table]{basic_cyp_inhibition_risk_table()}}

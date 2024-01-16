@@ -20,24 +20,20 @@
 #' thresholds for assumed clinically relevant effects.
 #'
 #' @param perp The perpetrator object.
-#' @param transporter_ic50 Transporter inhibition IC50 as data frame.
+#' @param transporter_inh Transporter inhibition data as data frame.
 #' @param transporter_ref Transporter reference data.
 #'
 #' @return A data frame.
 #' @export
 #' @examples
 #' transporter_inhibition_risk(examplinib_parent, examplinib_transporter_inhibition_data)
-#'
 transporter_inhibition_risk <- function(
     perp,
-    transporter_ic50,
-    transporter_ref=transporter_reference_data) {
-  ic50 <- transporter_ic50 %>%
+    transporter_inh,
+    transporter_ref = transporter_reference_data) {
+  ic50 <- transporter_inh %>%
     filter(name==name(perp)) %>%
-    mutate(ic50=ki) %>%
-    # filter(param!="name") %>%
-    mutate(transporter=item) %>%
-    select(-name, -item, -ki) %>%
+    select(-name) %>%
     mutate(ic50=as.num(ic50))
 
   temp <-  key_concentrations(perp, molar=TRUE)
@@ -58,7 +54,6 @@ transporter_inhibition_risk <- function(
     mutate(r=case_when(is.na(ic50) ~ NA, .default=conc/ic50)) %>%
     mutate(fda_risk=r>fda_thld) %>%
     mutate(ema_risk=r>ema_thld) %>%
-    # mutate(ic50=value) %>%
     arrange(rank) %>%
     select(transporter, ic50, source, r, fda_thld, fda_risk, ema_thld, ema_risk)
   return(out)

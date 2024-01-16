@@ -59,7 +59,9 @@ examplinib, CYP3A4,  12.5, study 001\n\n
 # METABOLITE\n\n
 M1,         CYP2C9,  4.4,  study 002\n\n"
 
-examplinib_cyp_inhibition_data <- read_inhibitor_data(textConnection(
+# examplinib_cyp_inhibition_data <- read_inhibitor_data(textConnection(
+#   examplinib_cyp_inhibition_string))
+examplinib_cyp_inhibition_data <- read_cyp_inhibitor_data(textConnection(
   examplinib_cyp_inhibition_string))
 
 usethis::use_data(examplinib_cyp_inhibition_string, overwrite = TRUE)
@@ -133,9 +135,13 @@ M1, UGT1A9, 3.6, study 009\n\n
 M1, UGT2B7, 15, study 009\n\n
 M1, UGT2B15, 9.6, study 009\n\n"
 
-examplinib_ugt_inhibition_data <- read_inhibitor_data(textConnection(
+# examplinib_ugt_inhibition_data <- read_inhibitor_data(textConnection(
+#   examplinib_ugt_inhibition_string))
+
+examplinib_ugt_inhibition_data <- read_ugt_inhibitor_data(textConnection(
   examplinib_ugt_inhibition_string))
 
+usethis::use_data(examplinib_ugt_inhibition_string, overwrite = TRUE)
 usethis::use_data(examplinib_ugt_inhibition_data, overwrite = TRUE)
 
 ## TRANSPORTER INHIBITION
@@ -155,11 +161,11 @@ examplinib, OCT2,      67,    study 006\n\n
 examplinib, MATE1,     3.6,    study 006\n\n
 examplinib, MATE2k,    1.1,    study 006\n\n"
 
-examplinib_transporter_inhibition_data <- read_inhibitor_data(textConnection(
-  examplinib_transporter_inhibition_string))
+examplinib_transporter_inhibition_data <- read_transporter_inhibitor_data(
+  textConnection(examplinib_transporter_inhibition_string))
 
+usethis::use_data(examplinib_transporter_inhibition_string, overwrite = TRUE)
 usethis::use_data(examplinib_transporter_inhibition_data, overwrite = TRUE)
-
 
 
 

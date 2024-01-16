@@ -9,8 +9,14 @@ basic_ugt_inhibition_risk(perp, ugt_inh)
 \arguments{
 \item{perp}{The perpetrator object.}
 
-\item{ugt_inh}{UGT inhibition data as data frame, with 'value' representing
-the respective \eqn{IC_{50}}.}
+\item{ugt_inh}{UGT inhibition data as data frame, The following fields are
+expected:
+\itemize{
+\item 'name' The name of the perpetrator compound.
+\item 'ugt' The UGT enzyme as (upper case) character.
+\item 'ic50' The \eqn{IC_{50}} in \eqn{\mu M} as numeric.
+\item 'source' Optional source information as character.
+}}
 }
 \value{
 A markdown-formatted table.
@@ -28,17 +34,24 @@ This function assumes that the UGT inhibition data is provided as
 \href{https://doi.org/10.1016/0006-2952(73)90196-2}{Cheng, Prusoff 1973}),
 \eqn{K_i} can be assumed to be \eqn{IC_{50}/2} at the experimental conditions
 commonly used in the in vitro ihibition studies where substrate
-concentrations close to \eqn{K_M} are used.
+concentrations are close to \eqn{K_M}.
 
 The relevant metric for basic modeling of the UGT inhibition risk is
-\eqn{R_1=I_{max,ss,u}/K_{i,u}}. For the clinical risk assessment, a cut-off
-of \eqn{R<1.02} applies.
+\eqn{R_1=I_{max,ss,u}/K_{i,u}} (refer to fig. 1 of  the the
+\href{https://www.fda.gov/media/134582/download}{FDA guidance}).
+
+\eqn{R_1>1.02} are considered to indicate a potential UGT inhibition risk.
 
 Refer to the documentation to the \code{\link[=key_concentrations]{key_concentrations()}} function for details
 on the calculation of \eqn{I_{max,ss,u}}.
+}
+\examples{
+basic_ugt_inhibition_risk(examplinib_parent, examplinib_ugt_inhibition_data)
 }
 \seealso{
 \code{\link[=key_concentrations]{key_concentrations()}}
 
 \code{\link[=basic_ugt_inhibition_risk_table]{basic_ugt_inhibition_risk_table()}}
+
+\code{\link[=read_ugt_inhibitor_data]{read_ugt_inhibitor_data()}}
 }

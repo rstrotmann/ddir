@@ -38,8 +38,12 @@
 #' on the calculation of \eqn{I_{max,ss,u}} and \eqn{I_{gut}}.
 #'
 #' @param perp The perpetrator object.
-#' @param cyp_inh CYP inhibition data as data frame.
-#'
+#' @param cyp_inh CYP inhibition data as data frame. The following fields are
+#' expected:
+#' * 'name' The name of the perpetrator compound.
+#' * 'cyp' The CYP enzyme as (upper case) character.
+#' * 'ki' The \eqn{k_i} in \eqn{\mu M} as numeric.
+#' * 'source' Optional source information as character.
 #' @return A data frame.
 #' @seealso [basic_cyp_inhibition_risk_table()]
 #' @seealso [key_concentrations()]
@@ -47,7 +51,6 @@
 #' @export
 #' @examples
 #' basic_cyp_inhibition_risk(examplinib_parent, examplinib_cyp_inhibition_data)
-#'
 basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
   ki <- cyp_inh %>%
     filter(name==name(perp)) #%>%
@@ -57,12 +60,12 @@ basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
   fumic <- as.num(perp["fumic", "value"])
 
   out <- ki %>%
-    mutate(cyp=item) %>%
+    # mutate(cyp=item) %>%
     mutate(ki=as.num(ki)) %>%
     mutate(kiu=ki*fumic) %>%
     mutate(r1=1 + (i["imaxssu"]/kiu)) %>%
     mutate(r1gut=case_when(cyp=="CYP3A4" ~ 1+(i["igut"]/ki), .default=NA)) %>%
-    select(-name, item) %>%
+    select(-name) %>%
     mutate(risk_hep=r1>1.02) %>%
     mutate(risk_intest=r1gut>11) %>%
     mutate(r1=format(r1, digits=4)) %>%
@@ -414,8 +417,8 @@ mech_stat_cyp_risk <- function(
     cyp_tdi = NULL,
     d = 1,
     include_induction = TRUE,
-    substr=cyp_reference_substrates,
-    kdeg=cyp_turnover) {
+    substr = cyp_reference_substrates,
+    kdeg = cyp_turnover) {
   fumic <- as.num(perp["fumic", "value"])
 
   i <- key_concentrations(perp, molar = TRUE)
@@ -432,7 +435,7 @@ mech_stat_cyp_risk <- function(
 
   out <- cyp_inh %>%
     filter(name == name(perp)) %>%
-    mutate(cyp = item) %>%
+    # mutate(cyp = item) %>%
     select(-source) %>%
 
     # direct inhibition
@@ -469,7 +472,7 @@ mech_stat_cyp_risk <- function(
                           .default = 1 + (d * emax * Ig / (Ig + ec50)))) %>%
     mutate(Ch = case_when((is.na(ec50) | include_induction == FALSE) ~ 1,
                         .default = 1 + (d * emax * Ih / (Ih + ec50))))  %>%
-    select(-name, -item) %>%
+    select(-name) %>%
 
     # substrate
     left_join(substr, by="cyp") %>%

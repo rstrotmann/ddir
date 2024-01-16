@@ -113,23 +113,102 @@ read_perpetrators <- function(source) {
 #' @export
 #' @examples
 #' read_inhibitor_data(textConnection(examplinib_cyp_inhibition_string))
-#'
 read_inhibitor_data <- function(source) {
   raw <- as.data.frame(read.csv(source,
-                                # col.names=c("name", "param", "value", "source"),
                                 col.names=c("name", "item", "ki", "source"),
                                 header = F,
                                 blank.lines.skip = TRUE,
                                 comment.char = '#')) %>%
     dplyr::mutate(across(everything(), trimws)) %>%
     dplyr::filter(name != "") %>%
-    # dplyr::group_by(name) %>%
-    # dplyr::group_modify(~ tibble::add_row(param="name",
-    #                                       value=.y$name,
-    #                                       source="",
-    #                                       .x, , .before=1)) %>%
-    # dplyr::ungroup() %>%
     as.data.frame()
+  return(raw)
+}
+
+
+#' Read UGT inhibition data
+#'
+#' Read UGT inhibition data from a file or text connection.
+#' @details
+#' The following, comma-separated fields are expected in the input:
+#' * 'name' The perpetrator compound name
+#' * 'ugt' The UGT enzyme as (upper case) character.
+#' * 'ic50' The \eqn{IC_{50}}
+#' * 'source' Optional source information as character.
+#'
+#' Lines starting with '#' are considered comments and are not evaluated.
+#' @details
+#' The following is an example of a valid input:
+#' \preformatted{
+#' # PARENT
+#' # compound, enzyme, IC50, source
+#' examplinib, UGT1A1, 15, study 009
+#' examplinib, UGT1A3, 15, study 009
+#' examplinib, UGT1A4, 15, study 009
+#' examplinib, UGT1A6, 15, study 009
+#' examplinib, UGT1A9, 3.8, study 009
+#' examplinib, UGT2B7, 15, study 009
+#' examplinib, UGT2B15, 15, study 009
+#' examplinib, UGT2B17, 6.1, study 009
+#' # METABOLITE
+#' # compound, enzyme, IC50, source
+#' M1, UGT1A1, 1.1, study 009
+#' M1, UGT1A3, 5.8, study 009
+#' M1, UGT1A4, 6.2, study 009
+#' M1, UGT1A6, 15, study 009
+#' M1, UGT1A9, 3.6, study 009
+#' M1, UGT2B7, 15, study 009
+#' M1, UGT2B15, 9.6, study 009
+#' }
+#' @param source The file or text connection to read from.
+#'
+#' @return A data frame.
+#' @export
+#'
+#' @examples
+#' read_ugt_inhibitor_data(textConnection(examplinib_ugt_inhibition_string))
+read_ugt_inhibitor_data <- function(source) {
+  raw <- read_inhibitor_data(source)
+  colnames(raw) <- c("name", "ugt", "ic50", "source")
+  return(raw)
+}
+
+
+#' Read CYP inhibition data
+#'
+#' Read CYP inhibition data from a file or text connection.
+#' @details
+#' The following, comma-separated fields are expected (in this order):
+#' * 'name' The perpetrator compound name
+#' * 'cyp' The UGT enzyme as (upper case) character.
+#' * 'ki' The \eqn{k_i}
+#' * 'source' Optional source information as character.
+#'
+#' Lines starting with '#' are considered comments and are not evaluated.
+#' @details
+#' The following is an example of a valid input:
+#' \preformatted{
+#' # PARENT
+#' # compound, CYP, ki, source
+#' examplinib, CYP1A2,  NA,
+#' examplinib, CYP2B6,  NA,
+#' examplinib, CYP2C8,  11,   study 001
+#' examplinib, CYP2C9,  13.5, study 001
+#' examplinib, CYP2C19, 15,   study 001
+#' examplinib, CYP2D6,  NA,
+#' examplinib, CYP3A4,  12.5, study 001
+#' # METABOLITE
+#' M1,         CYP2C9,  4.4,  study 002
+#' }
+#' @param source The file or text connection to read from.
+#' @return A data frame.
+#' @export
+#' @noRd
+#' @examples
+#' read_cyp_inhibitor_data(textConnection(examplinib_cyp_inhibition_string))
+read_cyp_inhibitor_data <- function(source) {
+  raw <- read_inhibitor_data(source)
+  colnames(raw) <- c("name", "cyp", "ki", "source")
   return(raw)
 }
 
@@ -223,4 +302,43 @@ read_inducer_data <- function(source) {
 }
 
 
+#' Read transporter inhibition data
+#'
+#' Read transporter inhibition data from a file or text connection.
+#' @details
+#' The following, comma-separated fields are expected (in this order):
+#' * 'name' The perpetrator compound name
+#' * 'cyp' The UGT enzyme as (upper case) character.
+#' * 'ki' The \eqn{k_i}
+#' * 'source' Optional source information as character.
+#'
+#' Lines starting with '#' are considered comments and are not evaluated.
+#' @details
+#' The following is an example of a valid input:
+#' \preformatted{
+#' # PARENT
+#' # name,     transporter, IC50, source
+#' examplinib, Pgp,         0.41, study 005
+#' examplinib, BCRP,        1.9,  study 005
+#' examplinib, OCT1,        2.3,  study 006
+#' examplinib, OATP1B1,     177,  study 006
+#' examplinib, OATP1B3,     35,   study 006
+#' examplinib, OAT1,        271,
+#' examplinib, OAT3,        300,
+#' examplinib, BSEP,        12.8,
+#' examplinib, OCT2,        67,   study 006
+#' examplinib, MATE1,       3.6,  study 006
+#' examplinib, MATE2k,      1.1,  study 006
+#' }
+#' @param source The file or text connection to read from.
+#' @return A data frame.
+#' @export
+#'
+#' @examples
+#' read_transporter_inhibitor_data(textConnection(examplinib_transporter_inhibition_string))
+read_transporter_inhibitor_data <- function(source) {
+  raw <- read_inhibitor_data(source)
+  colnames(raw) <- c("name", "transporter", "ic50", "source")
+  return(raw)
+}
 

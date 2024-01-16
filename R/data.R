@@ -205,6 +205,15 @@
 "examplinib_cyp_induction_data"
 
 
+#' Examplinib transporter inhibition data as string
+#'
+#' A character string containing transporter inhibition data for examplinib and M1.
+#' @source Fictional data for demo purposes.
+#' @seealso [read_transporter_inhibitor_data()]
+#' @noRd
+"examplinib_transporter_inhibition_string"
+
+
 #' Examplinib transporter inhibition data
 #'
 #' @details
@@ -225,6 +234,15 @@
 #' }
 #' @source Fictional data, made up for demo purposes.
 "examplinib_transporter_inhibition_data"
+
+
+#' Examplinib UGT inhibition data as string
+#'
+#' A character string containing UGT inhibition data for examplinib and M1.
+#' @source Fictional data for demo purposes.
+#' @seealso [read_ugt_inhibitor_data()]
+#' @noRd
+"examplinib_ugt_inhibition_string"
 
 
 #' Examplinib UGT inhibition data
