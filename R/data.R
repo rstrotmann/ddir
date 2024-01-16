@@ -21,7 +21,6 @@
 "transporter_reference_data"
 
 
-
 #' CYP reference substrate data
 #'
 #' CYP reference substrates commonly used in the mechanistic static assessment
@@ -50,7 +49,6 @@
 #' * M1, a fictional metabolite of examplinib.
 #'
 #' @source Fictional data, made up for demo purposes.
-#' @noRd
 "examplinib_compounds"
 
 
@@ -73,7 +71,6 @@
 #' solubility solubility        Inf       default
 #' }
 #' @source Fictional data, made up for demo purposes.
-#' @noRd
 "examplinib_parent"
 
 
@@ -96,7 +93,6 @@
 #' solubility solubility    Inf   default
 #' }
 #' @source Fictional data, made up for demo purposes.
-#' @noRd
 "examplinib_metabolite"
 
 
@@ -153,7 +149,6 @@
 #'     the name of the DMPK study. This entry is optional.
 #'
 #' @source Fictional data, made up for demo purposes.
-#' @noRd
 "examplinib_cyp_inhibition_data"
 
 
@@ -174,7 +169,6 @@
 #' examplinib CYP3A4 30.7   0.04 study 001
 #' }
 #' @source Fictional data, made up for demo purposes.
-#' @noRd
 "examplinib_cyp_tdi_data"
 
 
@@ -208,7 +202,6 @@
 #'         M1  CYP3A4 22.70 1.10    5 study 007
 #' }
 #' @source Fictional data, made up for demo purposes.
-#' @noRd
 "examplinib_cyp_induction_data"
 
 
@@ -231,7 +224,6 @@
 #' examplinib  MATE2k        1.1 study 006
 #' }
 #' @source Fictional data, made up for demo purposes.
-#' @noRd
 "examplinib_transporter_inhibition_data"
 
 
@@ -262,7 +254,6 @@
 #' examplinib UGT2B17        6.1 study 009
 #' }
 #' @source Fictional data, made up for demo purposes.
-#' @noRd
 "examplinib_ugt_inhibition_data"
 
 
