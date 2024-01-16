@@ -4,12 +4,14 @@
 \alias{kinetic_cyp_induction_risk}
 \title{Basic kinetic CYP induction risk}
 \usage{
-kinetic_cyp_induction_risk(perp, cyp_ind)
+kinetic_cyp_induction_risk(perp, cyp_ind, d = 1)
 }
 \arguments{
 \item{perp}{The perpetrator object.}
 
 \item{cyp_ind}{The CYP induction data as data frame.}
+
+\item{d}{Scaling factor, defaults to 1.}
 }
 \value{
 A data frame.
@@ -19,11 +21,14 @@ Basic kinetic CYP induction risk
 }
 \details{
 Basic kinetic modeling of the CYP induction risk considers \eqn{R_3} (refer
-to \href{https://www.fda.gov/media/134582/download}{FDA 2020}):
+to fig. 4 of the \href{https://www.fda.gov/media/134582/download}{FDA guideline}):
 
 \deqn{R_3 = \frac {1}{1+d* \frac {E_{max}*10*I_{max,u}}{EC_{50} + 10*I_{max,u}}}}
 
-For the risk assessment, a threshold of 0.8 applies to \eqn{R_3}.
+\eqn{d} is a scaling factor with a standard value of 1. A different value can
+be used if warranted by prior experience with the experimental setup.
+
+\eqn{R_3 \le 0.8} suggests a relevant in vivo induction potential.
 }
 \examples{
 kinetic_cyp_induction_risk(examplinib_parent, examplinib_cyp_induction_data)

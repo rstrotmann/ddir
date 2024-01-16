@@ -10,15 +10,22 @@ is_igut_solubility_limited(obj)
 \item{obj}{The perpetrator object.}
 }
 \value{
-A boolean value.
+A Boolean value.
 }
 \description{
-If the \code{solubility} field is \code{Inf} (default), or the compound solubility is
-larger than Igut, the function returns \code{FALSE}. If the solubility is lower
-than the theoretical Igut, i.e., lower than the dose dissolved in 250 ml,
-the function returns \code{TRUE}. Note that the solubility is expected in mg/l.
+This function tests whether the solubility of a perpetrator compound is
+limiting its intestinal concentration.
+}
+\details{
+If the 'solubility' field is \code{Inf} (default), or the compound solubility is
+larger than \eqn{I_{gut}}, the function returns \code{FALSE}. If the solubility
+is lower than the theoretical \eqn{I_{gut}}, i.e., lower than the dose
+dissolved in 250 ml, the function returns \code{TRUE}. Note that the solubility
+is expected in mg/l.
 }
 \examples{
 is_igut_solubility_limited(examplinib_parent)
-
+}
+\seealso{
+\code{\link[=key_concentrations]{key_concentrations()}}
 }

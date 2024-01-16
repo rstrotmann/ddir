@@ -10,8 +10,7 @@ basic_ugt_inhibition_risk_table(perp, ugt_inh, na.rm = F)
 \item{perp}{The perpetrator object.}
 
 \item{ugt_inh}{UGT inhibition data as data frame, with 'value' representing
-the respective \eqn{IC_{50}}. Refer to \link{examplinib_ugt_inhibition_data} for
-a sample UGT inhibition data set.}
+the respective \eqn{IC_{50}}.}
 
 \item{na.rm}{Boolean to define whether rows with lacking \eqn{K_i} data are
 removed from the output (i.e., where \code{ki == NA}).}

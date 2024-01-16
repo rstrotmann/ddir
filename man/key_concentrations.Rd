@@ -13,29 +13,34 @@ key_concentrations(obj, qh = 1.616, qent = 18/60, molar = TRUE)
 
 \item{qent}{Enteric blood flow in l/min, defaults to 0.3 l/min = 18 l/h.}
 
-\item{molar}{Boolean value to select output in molar concentrations.}
+\item{molar}{Switch to select output in molar concentrations.}
 }
 \value{
-Key perpetrator concentrations as a named vector.
+Key perpetrator concentrations in uM (default) or ng/ml as a named
+vector.
 }
 \description{
-Key perpetrator concentrations
+This function calculates the relevant perpetrator concentrations in
+\eqn{\mu M} (default) or ng/ml for a DDI perpetrator compound.
 }
 \details{
 \subsection{Gut concentration}{
 
 \deqn{I_{gut} = \frac{D} {250}}
+
+If the above exceeds the aqueous solubility of the drug, \eqn{I_{gut}} is set
+to its solubility.
 }
 
-\subsection{Systemic concentration}{
+\subsection{Unbound systemic concentration}{
 
 \deqn{I_{max,ss,u}=I_{max,ss} * f_u}
 }
 
-\subsection{Hepatic inlet concentration}{
+\subsection{Unbound hepatic inlet concentration}{
 
 For orally administered (parent) compounds, the hepatic inlet concentration
-is the sytemic concentration plus a portal term:
+is the systemic concentration plus a portal term:
 
 \deqn{portal\ term = D*\frac{F_a*F_g*k_a}{Q_h*R_B}*1000\ ng/ml}
 
@@ -51,7 +56,7 @@ sum of the maximal systemic plasma concentration and the portal contribution:
 \deqn{I_{max,inlet,u}=(I_{max,ss} + portal\ term) * f_u}
 }
 
-\subsection{Enteric concentration}{
+\subsection{Unbound enteric concentration}{
 
 For orally administered (parent) compounds, the villous concentration in the
 gut (\eqn{I_{enteric}}, also called \eqn{I_g} in the mechanistic static
@@ -70,6 +75,7 @@ binding of the drug are ignored.
 }
 \examples{
 key_concentrations(examplinib_parent)
+key_concentrations(examplinib_parent, molar = FALSE)
 key_concentrations(examplinib_metabolite)
 
 }

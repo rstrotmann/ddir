@@ -2,7 +2,7 @@
 #'
 #' This function renders a data frame into a string object.
 #'
-#' @param df The datavframe.
+#' @param df The data frame.
 #' @param indent A string that defines the left indentation of the rendered
 #' output.
 #' @param colnames Boolean value to indicate whether column names are to be
@@ -13,6 +13,7 @@
 #' @return The data frame representation as character.
 #' @import stringr
 #' @import utils
+#' @noRd
 df_to_string <- function(df, indent="", n=NULL, colnames=TRUE){
   df <- as.data.frame(df)
   max.widths <- as.numeric(
@@ -42,6 +43,12 @@ df_to_string <- function(df, indent="", n=NULL, colnames=TRUE){
 }
 
 
+#' Convert field to numeric with NA translated to 0
+#'
+#' @param x The input as character.
+#' @param na.strings Strings representing NA values.
+#' @return Numeric.
+#' @noRd
 as.num = function(x, na.strings = "NA") {
   stopifnot(is.character(x))
   na = x %in% na.strings
@@ -56,10 +63,12 @@ as.num = function(x, na.strings = "NA") {
 #'
 #' @description
 #' `r lifecycle::badge("deprecated")`
+#'
 #' @param perps perpetrator objects as a list.
 #' @import lifecycle
 #' @return The output as string.
 #' @export
+#' @noRd
 names_string <- function(perps) {
   lifecycle::deprecate_warn("0.8.1", "names_string()", "compound_names_string()")
   return(paste(lapply(perps, function(p) {p[(p$param=="name"), "value"]}), collapse=", "))
@@ -68,14 +77,11 @@ names_string <- function(perps) {
 
 #' Compound names as single string
 #'
-#' This function returns a single string with the comma-separated names of the
-#' compounds included in the list of compunds.
-#'
+#' This function returns a single string with the names of the perpetrator
+#' compounds listed nicely.
 #' @param compounds A list of perpetrator objects
-#'
 #' @return A character string.
 #' @export
-#'
 #' @examples
 #' compound_names_string(examplinib_compounds)
 compound_names_string <- function(compounds) {
@@ -246,9 +252,9 @@ make_perpetrator <- function(name, dose, imaxss, mw, type = "parent",
 #'
 #' @export
 #' @import dplyr
+#' @noRd
 #' @examples
 #' print(examplinib_parent)
-#'
 print.perpetrator <- function(x, ...) {
   cat("== DDI perpetrator object ==\n")
   x %>%
@@ -264,12 +270,13 @@ print.perpetrator <- function(x, ...) {
 #'
 #' @return The name of the perpetrator as character.
 #' @export
+#' @noRd
 name <- function(obj) {
   UseMethod("name")
 }
 
 
-#' Name of a perpetrator
+#' Name of a perpetrator compound
 #'
 #' @param obj The perpetrator object.
 #'
@@ -277,7 +284,6 @@ name <- function(obj) {
 #' @export
 #' @examples
 #' name(examplinib_parent)
-#'
 name.perpetrator <- function(obj) {
   return(obj["name", "value"])
 }
@@ -285,20 +291,22 @@ name.perpetrator <- function(obj) {
 
 #' Test if Igut of a perpetrator is limited by its solubility
 #'
-#' If the `solubility` field is `Inf` (default), or the compound solubility is
-#' larger than Igut, the function returns `FALSE`. If the solubility is lower
-#' than the theoretical Igut, i.e., lower than the dose dissolved in 250 ml,
-#' the function returns `TRUE`. Note that the solubility is expected in mg/l.
+#' This function tests whether the solubility of a perpetrator compound is
+#' limiting its intestinal concentration.
+#'
+#' If the 'solubility' field is `Inf` (default), or the compound solubility is
+#' larger than \eqn{I_{gut}}, the function returns `FALSE`. If the solubility
+#' is lower than the theoretical \eqn{I_{gut}}, i.e., lower than the dose
+#' dissolved in 250 ml, the function returns `TRUE`. Note that the solubility
+#' is expected in mg/l.
 #'
 #' @param obj The perpetrator object.
-#'
-#' @return A boolean value.
+#' @return A Boolean value.
+#' @seealso [key_concentrations()]
 #' @export
 #' @examples
 #' is_igut_solubility_limited(examplinib_parent)
-#'
 is_igut_solubility_limited <- function(obj) {
-  # type <- obj[which(obj$param=="type"), "value"]
   oral <- as.logical(obj[which(obj$param=="oral"), "value"])
   dose <- as.num(obj[which(obj$param=="dose"), "value"])
 
@@ -323,20 +331,25 @@ is_igut_solubility_limited <- function(obj) {
 
 #' Key perpetrator concentrations
 #'
-#' @details
+#' This function calculates the relevant perpetrator concentrations in
+#' \eqn{\mu M} (default) or ng/ml for a DDI perpetrator compound.
 #'
+#' @details
 #' ## Gut concentration
 #'
 #' \deqn{I_{gut} = \frac{D} {250}}
 #'
-#' ## Systemic concentration
+#' If the above exceeds the aqueous solubility of the drug, \eqn{I_{gut}} is set
+#' to its solubility.
+#'
+#' ## Unbound systemic concentration
 #'
 #' \deqn{I_{max,ss,u}=I_{max,ss} * f_u}
 #'
-#' ## Hepatic inlet concentration
+#' ## Unbound hepatic inlet concentration
 #'
 #' For orally administered (parent) compounds, the hepatic inlet concentration
-#' is the sytemic concentration plus a portal term:
+#' is the systemic concentration plus a portal term:
 #'
 #' \deqn{portal\ term = D*\frac{F_a*F_g*k_a}{Q_h*R_B}*1000\ ng/ml}
 #'
@@ -351,7 +364,7 @@ is_igut_solubility_limited <- function(obj) {
 #'
 #' \deqn{I_{max,inlet,u}=(I_{max,ss} + portal\ term) * f_u}
 #'
-#' ## Enteric concentration
+#' ## Unbound enteric concentration
 #'
 #' For orally administered (parent) compounds, the villous concentration in the
 #' gut (\eqn{I_{enteric}}, also called \eqn{I_g} in the mechanistic static
@@ -369,14 +382,16 @@ is_igut_solubility_limited <- function(obj) {
 #'
 #' @param qh Hepatic blood flow in l/min, defaults to 1.616 l/min.
 #' @param qent Enteric blood flow in l/min, defaults to 0.3 l/min = 18 l/h.
-#' @param molar Boolean value to select output in molar concentrations.
+#' @param molar Switch to select output in molar concentrations.
 #' @param obj A perpetrator object.
 #' @seealso [conc_table()]
 #' @seealso [property_table()]
-#' @return Key perpetrator concentrations as a named vector.
+#' @return Key perpetrator concentrations in uM (default) or ng/ml as a named
+#' vector.
 #' @export
 #' @examples
 #' key_concentrations(examplinib_parent)
+#' key_concentrations(examplinib_parent, molar = FALSE)
 #' key_concentrations(examplinib_metabolite)
 #'
 key_concentrations <- function(obj, qh=1.616, qent=18/60, molar=TRUE) {
@@ -392,7 +407,6 @@ key_concentrations <- function(obj, qh=1.616, qent=18/60, molar=TRUE) {
   imaxss <- as.num(obj["imaxss", "value"])
 
   # total gut concentration in ng/ml
-  # if(type=="metabolite") {
   if(oral == FALSE) {
     igut <- 0
   } else {
@@ -407,7 +421,6 @@ key_concentrations <- function(obj, qh=1.616, qent=18/60, molar=TRUE) {
   }
 
   # total portal contribution to hepatic inlet concentration
-  # if(type=="metabolite"){
   if(oral == FALSE) {
     portal_term <- 0
   } else {
@@ -421,7 +434,6 @@ key_concentrations <- function(obj, qh=1.616, qent=18/60, molar=TRUE) {
   imaxinletu <- (imaxss + portal_term) * fu
 
   # unbound intestinal concentration in ng/ml
-  # if(type=="metabolite") {
   if(oral == FALSE) {
     imaxintestu <- imaxssu
   } else {
@@ -439,11 +451,11 @@ key_concentrations <- function(obj, qh=1.616, qent=18/60, molar=TRUE) {
 }
 
 
-#' Key perpetrator concentrations
+#' Table of key perpetrator concentrations
 #'
-#' This function generates a markdown-formatted table of the key
+#' This function generates a markdown-formatted table of the key perpetrator
 #' concentrations used for the assessment of the DDI perpetrator potential. See
-#' [key_concentrations()] for details on the calculation of the concentrations.
+#' [key_concentrations()] for details on their calculation.
 #'
 #' @param perp The perpetrator object or a list of perpetrator objects.
 #'
@@ -460,12 +472,11 @@ conc_table <- function(perp) {
 
 #' Key perpetrator concentrations
 #'
-#' This function generates a markdown-formatted table of the key
+#' This function generates a markdown-formatted table of the key perpetrator
 #' concentrations used for the assessment of the DDI perpetrator potential. See
-#' [key_concentrations()] for details on the calculation of the concentrations.
+#' [key_concentrations()] for details on their calculation.
 #'
 #' @param perp The perpetrator object.
-#'
 #' @return A markdown-formatted table.
 #' @export
 #' @seealso [key_concentrations()]
@@ -476,9 +487,12 @@ conc_table.perpetrator <- function(perp) {
 
   name <- perp["name", "value"]
   temp <- data.frame(
-    parameter = c("$I_{gut}$", "$I_{max,ss,u}$", "$I_{max,inlet,u}$", "$I_{max,intestinal,u}$"),
-    mass_conc = format(key_concentrations(perp, molar=F), scientific=F, digits=3),
-    molar_conc = format(key_concentrations(perp, molar=T), scientific=F, digits=3)
+    parameter = c("$I_{gut}$", "$I_{max,ss,u}$", "$I_{max,inlet,u}$",
+                  "$I_{max,intestinal,u}$"),
+    mass_conc = format(key_concentrations(perp, molar=F), scientific=F,
+                       digits=3),
+    molar_conc = format(key_concentrations(perp, molar=T), scientific=F,
+                        digits=3)
   )
 
   if (sol_limit) {
@@ -488,7 +502,9 @@ conc_table.perpetrator <- function(perp) {
   colnames(temp) <- c("parameter", "value (ng/ml)", "value (uM)")
   rownames(temp) <- NULL
 
-  out <- knitr::kable(temp, caption = paste("Key perpetrator concentrations for", name))
+  out <- knitr::kable(
+    temp,
+    caption = paste("Key perpetrator concentrations for", name))
   return(out)
 }
 
@@ -514,8 +530,9 @@ conc_table.list <- function(perp) {
 #' Generic function to display compound properties
 #'
 #' @param obj The object (compund object or list thereof)
-#'
 #' @export
+#' @seealso [property_table.perpetrator()]
+#' @seealso [property_table.list()]
 property_table <- function(obj) {
   UseMethod("property_table")
 }

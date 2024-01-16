@@ -13,9 +13,9 @@
 A markdown-formatted table.
 }
 \description{
-This function generates a markdown-formatted table of the key
+This function generates a markdown-formatted table of the key perpetrator
 concentrations used for the assessment of the DDI perpetrator potential. See
-\code{\link[=key_concentrations]{key_concentrations()}} for details on the calculation of the concentrations.
+\code{\link[=key_concentrations]{key_concentrations()}} for details on their calculation.
 }
 \examples{
 conc_table(examplinib_parent)

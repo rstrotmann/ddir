@@ -136,11 +136,27 @@ read_inhibitor_data <- function(source) {
 
 #' Read csv-formatted CYP TDI data
 #'
+#' This function reads comma-separated CYP TDI data from a file or text
+#' connection.
+#' @details
+#' The following fields are expected (in this order):
+#' * 'name' The perpetrator compound name as character.
+#' * 'cyp' The CYP enzyme as character.
+#' * 'ki' The \eqn{K_I} in \eqn{\mu M} as numeric.
+#' * 'kinact' The \eqn{k_{inact}} in \eqn{1/h} as numeric.
+#' * 'source' Optional source information as character.
+#' Lines starting with '#' are interpreted as comments and are not evaluated.
+#'
+#' A valid data set is, e.g.,
+#' \preformatted{
+#' # compound, CYP,    ki,   kinact, source
+#' examplinib, CYP3A4, 0.17, 0.04, study 001
+#' }
+#'
 #' @param source The connection to read from.
 #'
 #' @return A data frame.
 #' @export
-#'
 read_tdi_data <- function(source) {
   raw <- as.data.frame(read.csv(source,
                                 col.names=c("name", "cyp", "ki", "kinact", "source"),

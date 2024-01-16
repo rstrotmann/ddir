@@ -9,15 +9,41 @@ basic_cyp_tdi_risk(perp, tdi, cyp_kdeg = cyp_turnover)
 \arguments{
 \item{perp}{The perpetrator object.}
 
-\item{tdi}{The CYP TDI data as data frame.}
+\item{tdi}{The CYP TDI data as data frame. The following fields are expected:
+\itemize{
+\item 'name' The perpetrator compound name as character.
+\item 'cyp' The CYP enzyme as character.
+\item 'ki' The \eqn{K_I} in \eqn{\mu M} as numeric.
+\item 'kinact' The \eqn{k_{inact}} in 1/h as numeric.
+\item 'source' Optional source information as character,
+}}
 
 \item{cyp_kdeg}{The CYP turnover data as data frame. Defaults to the
-built-in reference data.}
+built-in reference data, \link{cyp_turnover}.}
 }
 \value{
 A data frame.
 }
 \description{
+This function calculates the risk for time-dependent inhibition of CYP
+enzymes.
+}
+\details{
+The relevant metric is \eqn{R_2} as defined in fig. 2 of the
+\href{https://www.fda.gov/media/134582/download}{FDA guidance}:
+
+\deqn{R_2=\frac {k_{obs} + k_{deg}}{k_{deg}}}
+
+where
+
+\deqn{k_{obs}=\frac {50*k_{inact}*I_{max,u}}{K_{I,u} + 50*I_{max,u}}}
+
+Values of \eqn{R_2 > 1.25} suggest a relevant TDI potential.
+
+The CYP degradation rates, \eqn{k_{deg}} are physiological constants that
+should be derived from the scientific literature. This package provides
+standard values for \eqn{k_{deg}} in \link{cyp_turnover} that are commonly used.
+
 In the present version, only the risk for hepatic TDI for CYP enzymes is
 calculated.
 }
@@ -26,4 +52,6 @@ basic_cyp_tdi_risk(examplinib_parent, examplinib_cyp_tdi_data)
 }
 \seealso{
 \link{cyp_turnover}
+
+\code{\link[=read_tdi_data]{read_tdi_data()}}
 }

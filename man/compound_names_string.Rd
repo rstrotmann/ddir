@@ -13,8 +13,8 @@ compound_names_string(compounds)
 A character string.
 }
 \description{
-This function returns a single string with the comma-separated names of the
-compounds included in the list of compunds.
+This function returns a single string with the names of the perpetrator
+compounds listed nicely.
 }
 \examples{
 compound_names_string(examplinib_compounds)

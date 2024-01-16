@@ -81,16 +81,15 @@ basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
 #'
 #' @param perp The perpetrator object.
 #' @param cyp_inh CYP inhibition data as data frame.
-#' @param na.rm Boolean to define whether rows with lacking \eqn{K_i} data are
-#' removed from the output (i.e., where `ki == NA`).
-#' @return A markdown-formatted table, or an empty string (if no CYP inhibition
-#' data are available).
+#' @param na.rm Switch to define whether rows with lacking \eqn{K_i} data are
+#' removed from the output (i.e., where `ki == NA`). Defaults to `FALSE`.
+#' @return A markdown-formatted table, or an empty string.
 #' @export
 #' @seealso [basic_cyp_inhibition_risk()]
 #' @examples
 #' basic_cyp_inhibition_risk_table(examplinib_parent, examplinib_cyp_inhibition_data)
 #' basic_cyp_inhibition_risk_table(examplinib_parent, examplinib_cyp_inhibition_data, na.rm = TRUE)
-basic_cyp_inhibition_risk_table <- function(perp, cyp_inh, na.rm=F) {
+basic_cyp_inhibition_risk_table <- function(perp, cyp_inh, na.rm = FALSE) {
   temp <- basic_cyp_inhibition_risk(perp, cyp_inh)
 
   if(na.rm==TRUE) {
@@ -111,16 +110,39 @@ basic_cyp_inhibition_risk_table <- function(perp, cyp_inh, na.rm=F) {
 
 #' Basic modeling of the CYP time-dependent inhibition risk
 #'
+#' This function calculates the risk for time-dependent inhibition of CYP
+#' enzymes.
+#' @details
+#' The relevant metric is \eqn{R_2} as defined in fig. 2 of the
+#' [FDA guidance](https://www.fda.gov/media/134582/download):
+#'
+#' \deqn{R_2=\frac {k_{obs} + k_{deg}}{k_{deg}}}
+#'
+#' where
+#'
+#' \deqn{k_{obs}=\frac {50*k_{inact}*I_{max,u}}{K_{I,u} + 50*I_{max,u}}}
+#'
+#' Values of \eqn{R_2 > 1.25} suggest a relevant TDI potential.
+#'
+#' The CYP degradation rates, \eqn{k_{deg}} are physiological constants that
+#' should be derived from the scientific literature. This package provides
+#' standard values for \eqn{k_{deg}} in [cyp_turnover] that are commonly used.
+#'
 #' In the present version, only the risk for hepatic TDI for CYP enzymes is
 #' calculated.
 #' @param perp The perpetrator object.
-#' @param tdi The CYP TDI data as data frame.
+#' @param tdi The CYP TDI data as data frame. The following fields are expected:
+#' * 'name' The perpetrator compound name as character.
+#' * 'cyp' The CYP enzyme as character.
+#' * 'ki' The \eqn{K_I} in \eqn{\mu M} as numeric.
+#' * 'kinact' The \eqn{k_{inact}} in 1/h as numeric.
+#' * 'source' Optional source information as character,
 #' @param cyp_kdeg The CYP turnover data as data frame. Defaults to the
-#' built-in reference data.
+#' built-in reference data, [cyp_turnover].
 #' @seealso [cyp_turnover]
+#' @seealso [read_tdi_data()]
 #' @return A data frame.
 #' @export
-#'
 #' @examples
 #' basic_cyp_tdi_risk(examplinib_parent, examplinib_cyp_tdi_data)
 basic_cyp_tdi_risk <- function(perp, tdi, cyp_kdeg=cyp_turnover) {
@@ -146,14 +168,15 @@ basic_cyp_tdi_risk <- function(perp, tdi, cyp_kdeg=cyp_turnover) {
 #' Basic CYP time-dependent inhibition risk table
 #'
 #' @param perp The perpetrator object.
-#' @param tdi The CYP TDI data as data frame.
+#' @param tdi The CYP TDI data as data frame. See [basic_cyp_tdi_risk()] for
+#' details.
 #' @param cyp_kdeg The CYP turnover data as data frame. Defaults to the
-#' built-in reference data.
-#' @param na.rm Boolean to define whether rows with lacking \eqn{K_I} or
+#' built-in reference data, [cyp_turnover].
+#' @param na.rm Switch to define whether rows with lacking \eqn{K_I} or
 #' \eqn{k_{deg}} data are removed from the output.
 #' @return A markdown-formatted table.
+#' @seealso [basic_cyp_tdi_risk()]
 #' @export
-#'
 #' @examples
 #' basic_cyp_tdi_risk_table(examplinib_parent, examplinib_cyp_tdi_data)
 basic_cyp_tdi_risk_table <- function(perp, tdi, cyp_kdeg=cyp_turnover,
@@ -250,26 +273,31 @@ static_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
 #'
 #' @details
 #' Basic kinetic modeling of the CYP induction risk considers \eqn{R_3} (refer
-#' to [FDA 2020](https://www.fda.gov/media/134582/download)):
+#' to fig. 4 of the [FDA guideline](https://www.fda.gov/media/134582/download)):
 #'
 #' \deqn{R_3 = \frac {1}{1+d* \frac {E_{max}*10*I_{max,u}}{EC_{50} + 10*I_{max,u}}}}
 #'
-#' For the risk assessment, a threshold of 0.8 applies to \eqn{R_3}.
+#' \eqn{d} is a scaling factor with a standard value of 1. A different value can
+#' be used if warranted by prior experience with the experimental setup.
+#'
+#' \eqn{R_3 \le 0.8} suggests a relevant in vivo induction potential.
 #'
 #' @param perp The perpetrator object.
 #' @param cyp_ind The CYP induction data as data frame.
+#' @param d Scaling factor, defaults to 1.
 #'
 #' @return A data frame.
 #' @export
 #' @examples
 #' kinetic_cyp_induction_risk(examplinib_parent, examplinib_cyp_induction_data)
-kinetic_cyp_induction_risk <- function(perp, cyp_ind) {
+kinetic_cyp_induction_risk <- function(perp, cyp_ind, d = 1) {
   i <- key_concentrations(perp, molar=TRUE)
 
   out <- cyp_ind %>%
     filter(name==name(perp)) %>%
-    mutate(r3=(1/(1 + emax*10*i["imaxssu"]/(ec50 + 10*i["imaxssu"])))) %>%
-    mutate(risk=r3<=0.8) %>%
+    mutate(r3=(1/(1 + d * emax * 10 * i["imaxssu"] /
+                    (ec50 + 10 * i["imaxssu"])))) %>%
+    mutate(risk = r3 <= 0.8) %>%
     select(-name)
   return(out)
 }
@@ -348,18 +376,27 @@ kinetic_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
 #' intestinal concentration \eqn{I_g=I_{enteric,u}}, see
 #' [`key_concentrations()`].
 #'
-#' \eqn{d} is an induction scaling factor (assumed to
-#' be 1, but can be adjusted).
+#' \eqn{d} is a scaling factor for the CYP induction term with a standard value
+#' of 1. A different value can be used if warranted by prior experience with the
+#' experimental setup.
 #'
 #' @param perp The perpetrator object.
 #' @param cyp_inh CYP inhibition data as data frame.
 #' @param cyp_ind CYP induction data as data frame.
 #' @param cyp_tdi CYP TDI data as data frame.
-#' @param include_induction Boolean value to define whether induction should be
-#'   included in the calculation (C-terms as per the FDA guideline)
-#' @param substr The CYP reference substrates to be used as data frame.
+#' @param include_induction Switch to define whether induction should be
+#' included in the calculation (C-terms as per the FDA guideline)
+#' @param substr The CYP probe substrates to be used as data frame, defaults to
+#' [cyp_reference_substrates]. The data frame is expected to have the following
+#' fields:
+#' * 'cyp' The CYP enzyme as (upper case) character.
+#' * 'substrate' The substrate name as character.
+#' * 'fgut' The fraction of the drug escaping gut metabolism.
+#' * 'fm' The fraction of the drug that undergoes hepatic metabolism.
+#' * 'fmcyp' The fraction metabolized by the respective CYP enzyme.
 #' @param kdeg The CYP turnover data as data frame. Defaults to the
-#' built-in reference data.
+#' built-in reference data, [cyp_turnover]
+#' @param d Induction scaling factor, defaults to 1.
 #' @return A data frame.
 #' @export
 #' @examples
@@ -375,6 +412,7 @@ mech_stat_cyp_risk <- function(
     cyp_inh,
     cyp_ind,
     cyp_tdi = NULL,
+    d = 1,
     include_induction = TRUE,
     substr=cyp_reference_substrates,
     kdeg=cyp_turnover) {
@@ -427,13 +465,10 @@ mech_stat_cyp_risk <- function(
                 filter(name == name(perp)) %>%
                 select(-source, -name),
               by=c("cyp")) %>%
-    # mutate(Cg = 1, Ch = 1) %>% # temporary
-    # mutate(Cg = 1 + (emax * Ig / (Ig + ec50))) %>%
     mutate(Cg = case_when((is.na(ec50) | include_induction == FALSE) ~ 1,
-                          .default = 1 + (emax * Ig / (Ig + ec50)))) %>%
-    # mutate(Ch = 1 + (emax * Ih / (Ih + ec50))) %>%
+                          .default = 1 + (d * emax * Ig / (Ig + ec50)))) %>%
     mutate(Ch = case_when((is.na(ec50) | include_induction == FALSE) ~ 1,
-                        .default = 1 + (emax * Ih / (Ih + ec50))))  %>%
+                        .default = 1 + (d * emax * Ih / (Ih + ec50))))  %>%
     select(-name, -item) %>%
 
     # substrate
@@ -452,17 +487,20 @@ mech_stat_cyp_risk <- function(
 #' CYP perpetration risk table as per mechanistic-static modeling
 #'
 #' @param perp The perpetrator object.
-#' @param cyp_inh CYP inhibiton data as data frame.
+#' @param cyp_inh CYP inhibition data as data frame.
 #' @param cyp_ind CYP induction data as data frame.
-#' @param include_induction Boolean value to define whether induction should be
-#'   included in the calculation (C-terms as per the FDA guideline)
-#' @param substr The CYP reference substrates to be used as data frame.
-#' @param na.rm Remove rows with lacking ki data (i.e., where ki == NA).
+#' @param include_induction Switch to define whether induction should be
+#' included in the calculation (i.e., the C-terms as per the FDA guideline)
+#' @param substr The CYP reference substrates to be used as data frame, defaults
+#' to [cyp_reference_substrates].
+#' @param na.rm Switch whether to remove rows with lacking ki data from the
+#' output, i.e., where ki == NA.
 #' @param cyp_tdi CYP TDI data as data frame.
 #' @param kdeg The CYP turnover data as data frame. Defaults to the
 #' built-in reference data.
 #' @return A markdown-formatted table.
 #' @seealso [mech_stat_cyp_risk()]
+#' @seealso [cyp_reference_substrates]
 #' @export
 #' @examples
 #'
@@ -489,7 +527,6 @@ mech_stat_cyp_risk_table <- function(
                              substr=substr, kdeg=kdeg) %>%
     select(cyp, kiu, substrate, fgut, fm, fmcyp, Ag, Ah, Bg, Bh, Cg, Ch, aucr,
            risk) %>%
-    # mutate(across(Ag:Ch, ~ format(.x, signif=2))) %>%
     mutate(across(Ag:Ch, ~ signif(., digits=2))) %>%
     mutate(aucr=format(aucr, digits=3))
 

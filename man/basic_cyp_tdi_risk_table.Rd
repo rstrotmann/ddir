@@ -9,12 +9,13 @@ basic_cyp_tdi_risk_table(perp, tdi, cyp_kdeg = cyp_turnover, na.rm = TRUE)
 \arguments{
 \item{perp}{The perpetrator object.}
 
-\item{tdi}{The CYP TDI data as data frame.}
+\item{tdi}{The CYP TDI data as data frame. See \code{\link[=basic_cyp_tdi_risk]{basic_cyp_tdi_risk()}} for
+details.}
 
 \item{cyp_kdeg}{The CYP turnover data as data frame. Defaults to the
-built-in reference data.}
+built-in reference data, \link{cyp_turnover}.}
 
-\item{na.rm}{Boolean to define whether rows with lacking \eqn{K_I} or
+\item{na.rm}{Switch to define whether rows with lacking \eqn{K_I} or
 \eqn{k_{deg}} data are removed from the output.}
 }
 \value{
@@ -25,4 +26,7 @@ Basic CYP time-dependent inhibition risk table
 }
 \examples{
 basic_cyp_tdi_risk_table(examplinib_parent, examplinib_cyp_tdi_data)
+}
+\seealso{
+\code{\link[=basic_cyp_tdi_risk]{basic_cyp_tdi_risk()}}
 }

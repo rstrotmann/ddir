@@ -50,6 +50,7 @@
 #' * M1, a fictional metabolite of examplinib.
 #'
 #' @source Fictional data, made up for demo purposes.
+#' @noRd
 "examplinib_compounds"
 
 
@@ -72,6 +73,7 @@
 #' solubility solubility        Inf       default
 #' }
 #' @source Fictional data, made up for demo purposes.
+#' @noRd
 "examplinib_parent"
 
 
@@ -94,6 +96,7 @@
 #' solubility solubility    Inf   default
 #' }
 #' @source Fictional data, made up for demo purposes.
+#' @noRd
 "examplinib_metabolite"
 
 
@@ -105,6 +108,7 @@
 #'
 #' @source Fictional data, made up for demo purposes.
 #' @seealso [read_perpetrators()]
+#' @noRd
 "examplinib_compounds_string"
 
 
@@ -113,6 +117,7 @@
 #' A character string containing CYP inhibition data for examplinib and M1.
 #' @source Fictional data for demo purposes.
 #' @seealso [read_inhibitor_data()]
+#' @noRd
 "examplinib_cyp_inhibition_string"
 
 
@@ -148,6 +153,7 @@
 #'     the name of the DMPK study. This entry is optional.
 #'
 #' @source Fictional data, made up for demo purposes.
+#' @noRd
 "examplinib_cyp_inhibition_data"
 
 
@@ -156,6 +162,7 @@
 #' A character string containing CYP TDI data for examplinib.
 #' @source Fictional data for demo purposes.
 #' @seealso [read_tdi_data()]
+#' @noRd
 "examplinib_cyp_tdi_string"
 
 
@@ -167,6 +174,7 @@
 #' examplinib CYP3A4 30.7   0.04 study 001
 #' }
 #' @source Fictional data, made up for demo purposes.
+#' @noRd
 "examplinib_cyp_tdi_data"
 
 
@@ -175,6 +183,7 @@
 #' A character string containing CYP induction data for examplinib and M1.
 #' @source Fictional data for demo purposes.
 #' @seealso [read_inducer_data()]
+#' @noRd
 "examplinib_cyp_induction_string"
 
 
@@ -199,6 +208,7 @@
 #'         M1  CYP3A4 22.70 1.10    5 study 007
 #' }
 #' @source Fictional data, made up for demo purposes.
+#' @noRd
 "examplinib_cyp_induction_data"
 
 
@@ -221,6 +231,7 @@
 #' examplinib  MATE2k        1.1 study 006
 #' }
 #' @source Fictional data, made up for demo purposes.
+#' @noRd
 "examplinib_transporter_inhibition_data"
 
 
@@ -251,15 +262,15 @@
 #' examplinib UGT2B17        6.1 study 009
 #' }
 #' @source Fictional data, made up for demo purposes.
+#' @noRd
 "examplinib_ugt_inhibition_data"
-
-
 
 
 #' Hepatic CYP turnover data based on various publications
 #'
 #' @description
 #' `r lifecycle::badge("deprecated")`
+#'
 #' Please use [`cyp_turnover`] instead.
 #'
 #' @format
@@ -280,7 +291,6 @@
 #' * in vivo method 2: Recovery of enzyme activity after mechanism-based
 #' inhibition (MBI)
 #' * in vivo method 3: Pharmacokinetic modeling of auto-induction
-#'
 #' @details
 #' These are the first few lines of the data frame:
 #' \preformatted{
@@ -292,8 +302,6 @@
 #' CYP1A2  In vivo Method 3     105    TRUE    DOI: 10.1038/sj.clpt.6100431 0.0066
 #' CYP2A6 In vitro Method 2     226   FALSE                  PMID: 10997941 0.0031
 #' }
-#'
-#'
 #' @source This data set is taken from:
 #'
 #' Yang J, Liao M, Shou M, Jamei M, Yeo KR, Tucker GT, Rostami-Hodjegan A.

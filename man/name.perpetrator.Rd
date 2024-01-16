@@ -2,7 +2,7 @@
 % Please edit documentation in R/compounds.R
 \name{name.perpetrator}
 \alias{name.perpetrator}
-\title{Name of a perpetrator}
+\title{Name of a perpetrator compound}
 \usage{
 \method{name}{perpetrator}(obj)
 }
@@ -13,9 +13,8 @@
 The name of the perpetrator as character.
 }
 \description{
-Name of a perpetrator
+Name of a perpetrator compound
 }
 \examples{
 name(examplinib_parent)
-
 }

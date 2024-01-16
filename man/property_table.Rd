@@ -12,3 +12,8 @@ property_table(obj)
 \description{
 Generic function to display compound properties
 }
+\seealso{
+\code{\link[=property_table.perpetrator]{property_table.perpetrator()}}
+
+\code{\link[=property_table.list]{property_table.list()}}
+}

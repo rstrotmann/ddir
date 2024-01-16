@@ -4,19 +4,18 @@
 \alias{basic_cyp_inhibition_risk_table}
 \title{Basic CYP inhibition risk table}
 \usage{
-basic_cyp_inhibition_risk_table(perp, cyp_inh, na.rm = F)
+basic_cyp_inhibition_risk_table(perp, cyp_inh, na.rm = FALSE)
 }
 \arguments{
 \item{perp}{The perpetrator object.}
 
 \item{cyp_inh}{CYP inhibition data as data frame.}
 
-\item{na.rm}{Boolean to define whether rows with lacking \eqn{K_i} data are
-removed from the output (i.e., where \code{ki == NA}).}
+\item{na.rm}{Switch to define whether rows with lacking \eqn{K_i} data are
+removed from the output (i.e., where \code{ki == NA}). Defaults to \code{FALSE}.}
 }
 \value{
-A markdown-formatted table, or an empty string (if no CYP inhibition
-data are available).
+A markdown-formatted table, or an empty string.
 }
 \description{
 This function generates a markdown-formatted table of the direct (reversible)

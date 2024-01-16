@@ -9,6 +9,7 @@ mech_stat_cyp_risk(
   cyp_inh,
   cyp_ind,
   cyp_tdi = NULL,
+  d = 1,
   include_induction = TRUE,
   substr = cyp_reference_substrates,
   kdeg = cyp_turnover
@@ -23,13 +24,24 @@ mech_stat_cyp_risk(
 
 \item{cyp_tdi}{CYP TDI data as data frame.}
 
-\item{include_induction}{Boolean value to define whether induction should be
+\item{d}{Induction scaling factor, defaults to 1.}
+
+\item{include_induction}{Switch to define whether induction should be
 included in the calculation (C-terms as per the FDA guideline)}
 
-\item{substr}{The CYP reference substrates to be used as data frame.}
+\item{substr}{The CYP probe substrates to be used as data frame, defaults to
+\link{cyp_reference_substrates}. The data frame is expected to have the following
+fields:
+\itemize{
+\item 'cyp' The CYP enzyme as (upper case) character.
+\item 'substrate' The substrate name as character.
+\item 'fgut' The fraction of the drug escaping gut metabolism.
+\item 'fm' The fraction of the drug that undergoes hepatic metabolism.
+\item 'fmcyp' The fraction metabolized by the respective CYP enzyme.
+}}
 
 \item{kdeg}{The CYP turnover data as data frame. Defaults to the
-built-in reference data.}
+built-in reference data, \link{cyp_turnover}}
 }
 \value{
 A data frame.
@@ -75,8 +87,9 @@ with the hepatic inlet concentration \eqn{I_h=I_{max,inlet,u}} and the
 intestinal concentration \eqn{I_g=I_{enteric,u}}, see
 \code{\link[=key_concentrations]{key_concentrations()}}.
 
-\eqn{d} is an induction scaling factor (assumed to
-be 1, but can be adjusted).
+\eqn{d} is a scaling factor for the CYP induction term with a standard value
+of 1. A different value can be used if warranted by prior experience with the
+experimental setup.
 }
 }
 \examples{

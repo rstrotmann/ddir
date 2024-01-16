@@ -47,6 +47,7 @@
 <span>  <span class="va">cyp_inh</span>,</span>
 <span>  <span class="va">cyp_ind</span>,</span>
 <span>  cyp_tdi <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  d <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  include_induction <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  substr <span class="op">=</span> <span class="va">cyp_reference_substrates</span>,</span>
 <span>  kdeg <span class="op">=</span> <span class="va">cyp_turnover</span></span>
@@ -71,18 +72,29 @@
 <dd><p>CYP TDI data as data frame.</p></dd>
 
 
+<dt>d</dt>
+<dd><p>Induction scaling factor, defaults to 1.</p></dd>
+
+
 <dt>include_induction</dt>
-<dd><p>Boolean value to define whether induction should be
+<dd><p>Switch to define whether induction should be
 included in the calculation (C-terms as per the FDA guideline)</p></dd>
 
 
 <dt>substr</dt>
-<dd><p>The CYP reference substrates to be used as data frame.</p></dd>
+<dd><p>The CYP probe substrates to be used as data frame, defaults to
+<a href="cyp_reference_substrates.html">cyp_reference_substrates</a>. The data frame is expected to have the following
+fields:</p><ul><li><p>'cyp' The CYP enzyme as (upper case) character.</p></li>
+<li><p>'substrate' The substrate name as character.</p></li>
+<li><p>'fgut' The fraction of the drug escaping gut metabolism.</p></li>
+<li><p>'fm' The fraction of the drug that undergoes hepatic metabolism.</p></li>
+<li><p>'fmcyp' The fraction metabolized by the respective CYP enzyme.</p></li>
+</ul></dd>
 
 
 <dt>kdeg</dt>
 <dd><p>The CYP turnover data as data frame. Defaults to the
-built-in reference data.</p></dd>
+built-in reference data, <a href="cyp_turnover.html">cyp_turnover</a></p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -127,8 +139,9 @@ inhibition and induction should be considered separately.</p>
 <p>with the hepatic inlet concentration \(I_h=I_{max,inlet,u}\) and the
 intestinal concentration \(I_g=I_{enteric,u}\), see
 <code><a href="key_concentrations.html">key_concentrations()</a></code>.</p>
-<p>\(d\) is an induction scaling factor (assumed to
-be 1, but can be adjusted).</p>
+<p>\(d\) is a scaling factor for the CYP induction term with a standard value
+of 1. A different value can be used if warranted by prior experience with the
+experimental setup.</p>
 </div>
 
     </div>

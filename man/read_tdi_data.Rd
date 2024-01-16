@@ -13,5 +13,23 @@ read_tdi_data(source)
 A data frame.
 }
 \description{
-Read csv-formatted CYP TDI data
+This function reads comma-separated CYP TDI data from a file or text
+connection.
+}
+\details{
+The following fields are expected (in this order):
+\itemize{
+\item 'name' The perpetrator compound name as character.
+\item 'cyp' The CYP enzyme as character.
+\item 'ki' The \eqn{K_I} in \eqn{\mu M} as numeric.
+\item 'kinact' The \eqn{k_{inact}} in \eqn{1/h} as numeric.
+\item 'source' Optional source information as character.
+Lines starting with '#' are interpreted as comments and are not evaluated.
+}
+
+A valid data set is, e.g.,
+\preformatted{
+# compound, CYP,    ki,   kinact, source
+examplinib, CYP3A4, 0.17, 0.04, study 001
+}
 }

@@ -30,6 +30,7 @@ hepatic_cyp_turnover
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 Please use \code{\link{cyp_turnover}} instead.
 }
 \details{

@@ -18,21 +18,23 @@ mech_stat_cyp_risk_table(
 \arguments{
 \item{perp}{The perpetrator object.}
 
-\item{cyp_inh}{CYP inhibiton data as data frame.}
+\item{cyp_inh}{CYP inhibition data as data frame.}
 
 \item{cyp_ind}{CYP induction data as data frame.}
 
 \item{cyp_tdi}{CYP TDI data as data frame.}
 
-\item{include_induction}{Boolean value to define whether induction should be
-included in the calculation (C-terms as per the FDA guideline)}
+\item{include_induction}{Switch to define whether induction should be
+included in the calculation (i.e., the C-terms as per the FDA guideline)}
 
-\item{substr}{The CYP reference substrates to be used as data frame.}
+\item{substr}{The CYP reference substrates to be used as data frame, defaults
+to \link{cyp_reference_substrates}.}
 
 \item{kdeg}{The CYP turnover data as data frame. Defaults to the
 built-in reference data.}
 
-\item{na.rm}{Remove rows with lacking ki data (i.e., where ki == NA).}
+\item{na.rm}{Switch whether to remove rows with lacking ki data from the
+output, i.e., where ki == NA.}
 }
 \value{
 A markdown-formatted table.
@@ -54,4 +56,6 @@ mech_stat_cyp_risk_table(
 }
 \seealso{
 \code{\link[=mech_stat_cyp_risk]{mech_stat_cyp_risk()}}
+
+\link{cyp_reference_substrates}
 }

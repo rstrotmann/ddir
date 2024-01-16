@@ -48,7 +48,7 @@ on the calculation of the risk.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">basic_cyp_inhibition_risk_table</span><span class="op">(</span><span class="va">perp</span>, <span class="va">cyp_inh</span>, na.rm <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">basic_cyp_inhibition_risk_table</span><span class="op">(</span><span class="va">perp</span>, <span class="va">cyp_inh</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -62,16 +62,15 @@ on the calculation of the risk.</p>
 
 
 <dt>na.rm</dt>
-<dd><p>Boolean to define whether rows with lacking \(K_i\) data are
-removed from the output (i.e., where <code>ki == NA</code>).</p></dd>
+<dd><p>Switch to define whether rows with lacking \(K_i\) data are
+removed from the output (i.e., where <code>ki == NA</code>). Defaults to <code>FALSE</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>A markdown-formatted table, or an empty string (if no CYP inhibition
-data are available).</p>
+<p>A markdown-formatted table, or an empty string.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
