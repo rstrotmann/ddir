@@ -54,13 +54,11 @@
 basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
   ki <- cyp_inh %>%
     filter(name==name(perp)) #%>%
-    # filter(param!="name")
 
   i <- key_concentrations(perp, molar=TRUE)
   fumic <- as.num(perp["fumic", "value"])
 
   out <- ki %>%
-    # mutate(cyp=item) %>%
     mutate(ki=as.num(ki)) %>%
     mutate(kiu=ki*fumic) %>%
     mutate(r1=1 + (i["imaxssu"]/kiu)) %>%
@@ -435,7 +433,6 @@ mech_stat_cyp_risk <- function(
 
   out <- cyp_inh %>%
     filter(name == name(perp)) %>%
-    # mutate(cyp = item) %>%
     select(-source) %>%
 
     # direct inhibition

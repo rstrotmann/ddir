@@ -13,14 +13,20 @@ read_inhibitor_data(source)
 A data frame.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+This function is deprecated in favor of \code{\link[=read_cyp_inhibitor_data]{read_cyp_inhibitor_data()}},
+\code{\link[=read_ugt_inhibitor_data]{read_ugt_inhibitor_data()}} or \code{\link[=read_transporter_inhibitor_data]{read_transporter_inhibitor_data()}}.
+}
+\details{
 This function loads CYP inhibition data from a csv file. The expected fields
 are (in this order) the compound name, the CYP enzyme, the Ki and the source
 information for the respective data. The latter field may remain empty.
-}
-\details{
+
 Comment lines must start with '#'.
 
 A valid source is, e.g.,
+
 \preformatted{
 # PARENT
 # name,     CYP,     Ki,   source
@@ -35,7 +41,4 @@ examplinib, CYP3A4,  12.5, study 001
 # name,     CYP,     Ki,   source
 M1,         CYP2C9,  4.4,  study 002
 }
-}
-\examples{
-read_inhibitor_data(textConnection(examplinib_cyp_inhibition_string))
 }

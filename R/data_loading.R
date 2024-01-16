@@ -89,8 +89,14 @@ read_perpetrators <- function(source) {
 #'
 #' Comment lines must start with '#'.
 #'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' This function is deprecated in favor of [read_cyp_inhibitor_data()],
+#' [read_ugt_inhibitor_data()] or [read_transporter_inhibitor_data()].
 #' @details
 #' A valid source is, e.g.,
+#'
 #' \preformatted{
 #' # PARENT
 #' # name,     CYP,     Ki,   source
@@ -110,9 +116,6 @@ read_perpetrators <- function(source) {
 #' @param source The connection to read from.
 #'
 #' @return A data frame.
-#' @export
-#' @examples
-#' read_inhibitor_data(textConnection(examplinib_cyp_inhibition_string))
 read_inhibitor_data <- function(source) {
   raw <- as.data.frame(read.csv(source,
                                 col.names=c("name", "item", "ki", "source"),
@@ -164,7 +167,6 @@ read_inhibitor_data <- function(source) {
 #'
 #' @return A data frame.
 #' @export
-#'
 #' @examples
 #' read_ugt_inhibitor_data(textConnection(examplinib_ugt_inhibition_string))
 read_ugt_inhibitor_data <- function(source) {
@@ -203,7 +205,6 @@ read_ugt_inhibitor_data <- function(source) {
 #' @param source The file or text connection to read from.
 #' @return A data frame.
 #' @export
-#' @noRd
 #' @examples
 #' read_cyp_inhibitor_data(textConnection(examplinib_cyp_inhibition_string))
 read_cyp_inhibitor_data <- function(source) {
@@ -333,7 +334,6 @@ read_inducer_data <- function(source) {
 #' @param source The file or text connection to read from.
 #' @return A data frame.
 #' @export
-#'
 #' @examples
 #' read_transporter_inhibitor_data(textConnection(examplinib_transporter_inhibition_string))
 read_transporter_inhibitor_data <- function(source) {
