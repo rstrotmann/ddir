@@ -98,7 +98,7 @@ basic_cyp_inhibition_risk_table <- function(perp, cyp_inh, na.rm = FALSE) {
       filter(!is.na(ki))
   }
 
-  labels <- c("CYP", "$K_{i}$", "$K_{i,u}$", "$R_1$",
+  labels <- c("CYP", "$K_{i}$ (µM)", "$K_{i,u}$ (µM)", "$R_1$",
               "risk (hepatic)", "$R_{1,gut}$", "risk (intestinal)")
   if(nrow(temp)!=0) {
     out <- knitr::kable(temp,
@@ -135,7 +135,7 @@ basic_cyp_inhibition_risk_table <- function(perp, cyp_inh, na.rm = FALSE) {
 #' @param tdi The CYP TDI data as data frame. The following fields are expected:
 #' * 'name' The perpetrator compound name as character.
 #' * 'cyp' The CYP enzyme as character.
-#' * 'ki' The \eqn{K_I} in \eqn{\mu M} as numeric.
+#' * 'ki' The \eqn{K_I} in µM as numeric.
 #' * 'kinact' The \eqn{k_{inact}} in 1/h as numeric.
 #' * 'source' Optional source information as character,
 #' @param cyp_kdeg The CYP turnover data as data frame. Defaults to the
@@ -188,8 +188,8 @@ basic_cyp_tdi_risk_table <- function(perp, tdi, cyp_kdeg=cyp_turnover,
       filter(!is.na(ki) & !is.na(kdeg))
   }
 
-  labels <- c("CYP", "$K_{I}$", "$f_u$", "$k_{inact}$", "$k_{deg}$", "source",
-              "$R_2$", "risk")
+  labels <- c("CYP", "$K_{I} (µM)$", "$f_u$", "$k_{inact}$ (1/h)",
+              "$k_{deg}$ (1/h)", "source", "$R_2$", "risk")
   if(nrow(temp)!=0) {
     out <- knitr::kable(temp,
       caption=paste("Risk for CYP TDI by", name(perp), "(basic model)"),
@@ -215,10 +215,17 @@ basic_cyp_tdi_risk_table <- function(perp, tdi, cyp_kdeg=cyp_turnover,
 #' CYP enzyme induction. It is expected that the concentrations in the
 #' respective in vitro assays cover these concentrations.
 #'
-#'
 #' @param perp The perpetrator object or a list thereof.
-#' @param cyp_ind The CYP induction data as data frame.
-#'
+#' @param cyp_ind The CYP induction data as data frame. The following fields
+#' are expected:
+#' * 'name' The name of the perpetrator compound as character.
+#' * 'cyp' The CYP enzyme as (upper case) character.
+#' * 'emax' The \eqn{E_{max}}, i.e., the maximum induction effect determined in
+#' vitro as numeric.
+#' * 'ec50' The \eqn{EC_{50}} in µM as numeric.
+#' * 'maxc' The maximal concentration in µM tested in the in vitro assay as
+#' numeric.
+#' * 'source' Optional source information as character.
 #' @return A data frame.
 #' @export
 #' @examples
@@ -241,9 +248,9 @@ static_cyp_induction_risk <- function(perp, cyp_ind)  {
 #' Table of the basic static CYP induction risk
 #'
 #' @param perp The perpetrator object.
-#' @param cyp_ind The CYP induction data as data frame.
+#' @param cyp_ind The CYP induction data as data frame. See
+#' [static_cyp_induction_risk()] for details.
 #' @param na.rm Remove rows with lacking ki data (i.e., where ki == NA).
-#'
 #' @return A markdown-formatted table.
 #' @export
 #' @seealso [static_cyp_induction_risk()]
@@ -257,7 +264,7 @@ static_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
       filter(!is.na(emax))
   }
 
-  labels <- c("CYP", "$E_{max}$", "$max c$", "source", "$max c/I_{max,ss,u}$",
+  labels <- c("CYP", "$E_{max}$", "$max c$ (µM)", "source", "$max c/I_{max,ss,u}$",
               "risk", "notes")
 
   if(nrow(temp)!=0) {
@@ -284,9 +291,17 @@ static_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
 #' \eqn{R_3 \le 0.8} suggests a relevant in vivo induction potential.
 #'
 #' @param perp The perpetrator object.
-#' @param cyp_ind The CYP induction data as data frame.
+#' @param cyp_ind The CYP induction data as data frame. The following fields
+#' are expected:
+#' * 'name' The name of the perpetrator compound as character.
+#' * 'cyp' The CYP enzyme as (upper case) character.
+#' * 'emax' The \eqn{E_{max}}, i.e., the maximum induction effect determined in
+#' vitro as numeric.
+#' * 'ec50' The \eqn{EC_{50}} in µM as numeric.
+#' * 'maxc' The maximal concentration in µM tested in the in vitro assay as
+#' numeric.
+#' * 'source' Optional source information as character.
 #' @param d Scaling factor, defaults to 1.
-#'
 #' @return A data frame.
 #' @export
 #' @examples
@@ -307,7 +322,8 @@ kinetic_cyp_induction_risk <- function(perp, cyp_ind, d = 1) {
 #' Table of the basic kinetc CYP induction risk
 #'
 #' @param perp The perpetrator object.
-#' @param cyp_ind The CYP induction data as data frame.
+#' @param cyp_ind The CYP induction data as data frame. See
+#' [kinetic_cyp_induction_risk()] for details.
 #' @param na.rm Remove rows with lacking ki data (i.e., where ki == NA).
 #'
 #' @return A markdown-formatted table.
@@ -324,7 +340,7 @@ kinetic_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
       filter(!is.na(emax))
   }
 
-  labels <- c("CYP", "$E_{max}$", "$EC_{50}$", "$max c$",
+  labels <- c("CYP", "$E_{max}$", "$EC_{50}$ (µM)", "$max c$ (µM)",
               "source", "$R_3$", "risk")
   if(nrow(temp)!=0) {
     out <- knitr::kable(temp,
@@ -346,7 +362,7 @@ kinetic_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
 #' time-dependent inhibition are considered.
 #'
 #' The below formula given by the FDA guideline (refer to
-#' fig. 7 of [FDA 2020](https://www.fda.gov/media/134582/download))
+#' fig. 7 of [FDA, 2020](https://www.fda.gov/media/134582/download))
 #' also includes intestinal and hepatic enzyme induction terms (\eqn{C_g} and
 #' \eqn{C_h}, respectively). At the same time, the guideline states that both
 #' inhibition and induction should be considered separately.
@@ -382,10 +398,13 @@ kinetic_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
 #' experimental setup.
 #'
 #' @param perp The perpetrator object.
-#' @param cyp_inh CYP inhibition data as data frame.
-#' @param cyp_ind CYP induction data as data frame.
-#' @param cyp_tdi CYP TDI data as data frame.
-#' @param include_induction Switch to define whether induction should be
+#' @param cyp_inh CYP inhibition data as data frame, see
+#' [basic_cyp_inhibition_risk] for details.
+#' @param cyp_ind CYP induction data as data frame. See
+#' [kinetic_cyp_induction_risk] for details.
+#' @param cyp_tdi CYP TDI data as data frame. See [basic_cyp_tdi_risk]
+#' for details.
+#' @param include_induction Switch to define whether induction effects should be
 #' included in the calculation (C-terms as per the FDA guideline)
 #' @param substr The CYP probe substrates to be used as data frame, defaults to
 #' [cyp_reference_substrates]. The data frame is expected to have the following
@@ -400,6 +419,9 @@ kinetic_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
 #' @param d Induction scaling factor, defaults to 1.
 #' @return A data frame.
 #' @export
+#' @seealso [mech_stat_cyp_risk_table()]
+#' @seealso [cyp_reference_substrates]
+#' @seealso [cyp_turnover]
 #' @examples
 #' mech_stat_cyp_risk(examplinib_parent, examplinib_cyp_inhibition_data,
 #'   examplinib_cyp_induction_data)

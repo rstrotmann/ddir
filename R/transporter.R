@@ -20,10 +20,16 @@
 #' thresholds for assumed clinically relevant effects.
 #'
 #' @param perp The perpetrator object.
-#' @param transporter_inh Transporter inhibition data as data frame.
+#' @param transporter_inh Transporter inhibition data as data frame. The
+#' following fields are expected:
+#' * 'name' The perpetrator compound name
+#' * 'cyp' The UGT enzyme as (upper case) character.
+#' * 'ic50' The \eqn{IC_{50}} of the inhibition in μM.
+#' * 'source' Optional source information as character.
 #' @param transporter_ref Transporter reference data.
-#'
 #' @return A data frame.
+#' @seealso [transporter_inhibition_risk_table()]
+#' @seealso [read_transporter_inhibition_data()]
 #' @export
 #' @examples
 #' transporter_inhibition_risk(examplinib_parent, examplinib_transporter_inhibition_data)
@@ -49,7 +55,8 @@ transporter_inhibition_risk <- function(
     bind_rows(filter(ic50, transporter %in% c("Pgp", "BCRP")) %>%
                 mutate(transporter=paste0(transporter, "_int"))) %>%
     filter(!transporter %in% c("Pgp", "BCRP")) %>%
-    left_join(transporter_ref, by="transporter") %>%
+    left_join(transporter_ref %>% mutate(rank = row_number()),
+              by="transporter") %>%
     left_join(i, by="i") %>%
     mutate(r=case_when(is.na(ic50) ~ NA, .default=conc/ic50)) %>%
     mutate(fda_risk=r>fda_thld) %>%
@@ -63,9 +70,10 @@ transporter_inhibition_risk <- function(
 #' Table of drug transporter inhibition risks
 #'
 #' @param perp The perpetrator object.
-#' @param transporter_ic50 Transporter inhibition IC50 as data frame.
-#' @param na.rm Boolean to indicate whether rows with lacking ki data should be
-#' removed from the output (i.e., where ki == NA).
+#' @param transporter_inh Transporter inhibition data as data frame. See
+#' [transporter_inhibition_risk()] for details.
+#' @param na.rm Switch to exlcude rows with lacking \eqn{IC_{50}} data from the
+#' output.
 #' @param transporter_ref Transporter reference data.
 #' @seealso [transporter_inhibition_risk()]
 #' @return A markdown-formatted table.
@@ -74,11 +82,11 @@ transporter_inhibition_risk <- function(
 #' transporter_inhibition_risk_table(examplinib_parent, examplinib_transporter_inhibition_data)
 transporter_inhibition_risk_table <- function(
     perp,
-    transporter_ic50,
+    transporter_inh,
     transporter_ref=transporter_reference_data,
     na.rm=F) {
   temp <- transporter_inhibition_risk(
-      perp, transporter_ic50,
+      perp, transporter_inh,
       transporter_ref=transporter_reference_data) %>%
     mutate(r=round(r, 3))
 

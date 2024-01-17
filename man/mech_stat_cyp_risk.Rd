@@ -18,15 +18,18 @@ mech_stat_cyp_risk(
 \arguments{
 \item{perp}{The perpetrator object.}
 
-\item{cyp_inh}{CYP inhibition data as data frame.}
+\item{cyp_inh}{CYP inhibition data as data frame, see
+\link{basic_cyp_inhibition_risk} for details.}
 
-\item{cyp_ind}{CYP induction data as data frame.}
+\item{cyp_ind}{CYP induction data as data frame. See
+\link{kinetic_cyp_induction_risk} for details.}
 
-\item{cyp_tdi}{CYP TDI data as data frame.}
+\item{cyp_tdi}{CYP TDI data as data frame. See \link{basic_cyp_tdi_risk}
+for details.}
 
 \item{d}{Induction scaling factor, defaults to 1.}
 
-\item{include_induction}{Switch to define whether induction should be
+\item{include_induction}{Switch to define whether induction effects should be
 included in the calculation (C-terms as per the FDA guideline)}
 
 \item{substr}{The CYP probe substrates to be used as data frame, defaults to
@@ -55,7 +58,7 @@ their known intestinal and hepatic metabolism. Both direct (competitive) and
 time-dependent inhibition are considered.
 
 The below formula given by the FDA guideline (refer to
-fig. 7 of \href{https://www.fda.gov/media/134582/download}{FDA 2020})
+fig. 7 of \href{https://www.fda.gov/media/134582/download}{FDA, 2020})
 also includes intestinal and hepatic enzyme induction terms (\eqn{C_g} and
 \eqn{C_h}, respectively). At the same time, the guideline states that both
 inhibition and induction should be considered separately.
@@ -100,4 +103,11 @@ mech_stat_cyp_risk(examplinib_parent, examplinib_cyp_inhibition_data,
 mech_stat_cyp_risk(examplinib_parent, examplinib_cyp_inhibition_data,
   examplinib_cyp_induction_data, examplinib_cyp_tdi_data,
   include_induction = FALSE)
+}
+\seealso{
+\code{\link[=mech_stat_cyp_risk_table]{mech_stat_cyp_risk_table()}}
+
+\link{cyp_reference_substrates}
+
+\link{cyp_turnover}
 }

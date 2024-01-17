@@ -1,23 +1,34 @@
 #' Drug transporter reference data
 #'
+#' @format
+#' * 'transporter' The name of the drug transporter protein.
+#' * 'fda_thld' The threshold for relevant interactions as defined by the
+#' [FDA guidance](https://www.fda.gov/media/134582/download).
+#' * 'ema_thld' the threshold for relevant interactions as defined in the
+#' [EMA guidance](https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-drug-interactions-revision-1_en.pdf).
+#' * 'i' The perpetrator concentration applicable for the interaction.
 #' @details
 #' \preformatted{
-#' transporter rank fda_thld ema_thld          i
-#'     Pgp_int    1     10.0    10.00       igut
-#'     Pgp_sys    2      0.1     0.02    imaxssu
-#'    BCRP_int    3     10.0    10.00       igut
-#'    BCRP_sys    4      0.1     0.02    imaxssu
-#'        OCT1    5       NA     0.04 imaxinletu
-#'     OATP1B1    6      0.1     0.04 imaxinletu
-#'     OATP1B3    7      0.1     0.04 imaxinletu
-#'        OAT1    8      0.1     0.04    imaxssu
-#'        OAT3    9      0.1     0.04    imaxssu
-#'        BSEP   10      0.1     0.02    imaxssu
-#'        OCT2   11      0.1     0.02    imaxssu
-#'       MATE1   12      0.1     0.02    imaxssu
-#'      MATE2k   13      0.1     0.02    imaxssu
+#' transporter   fda_thld   ema_thld    i
+#' "Pgp_int",    10.0,      10.00,     "igut",
+#' "Pgp_sys",    0.1,       0.02,      "imaxssu",
+#' "BCRP_int",   10.0,      10.00,     "igut",
+#' "BCRP_sys",   0.1,       0.02,      "imaxssu",
+#' "OCT1",       NA,        0.04,      "imaxinletu",
+#' "OATP1B1",    0.1,       0.04,      "imaxinletu",
+#' "OATP1B3",    0.1,       0.04,      "imaxinletu",
+#' "OAT1",       0.1,       0.04,      "imaxssu",
+#' "OAT3",       0.1,       0.04,      "imaxssu",
+#' "BSEP",       0.1,       0.02,      "imaxssu",
+#' "OCT2",       0.1,       0.02,      "imaxssu",
+#' "MATE1",      0.1,       0.02,      "imaxssu",
+#' "MATE2k",     0.1,       0.02,      "imaxssu"
 #' }
-#' @source FDA and EMA guidelines.
+#' @source [FDA guideline: In Vitro Drug Interaction Studies — Cytochrome P450
+#' Enzyme- and Transporter-Mediated Drug Interactions, 2020](https://www.fda.gov/media/134582/download).
+#' @source [EMA Guideline on the investigation of drug interactions, 2012](https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-drug-interactions-revision-1_en.pdf)
+#' @seealso [key_concentrations()]
+#' @seealso [transporter_inhibition_risk()]
 "transporter_reference_data"
 
 

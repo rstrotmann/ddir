@@ -9,7 +9,8 @@ kinetic_cyp_induction_risk_table(perp, cyp_ind, na.rm = F)
 \arguments{
 \item{perp}{The perpetrator object.}
 
-\item{cyp_ind}{The CYP induction data as data frame.}
+\item{cyp_ind}{The CYP induction data as data frame. See
+\code{\link[=kinetic_cyp_induction_risk]{kinetic_cyp_induction_risk()}} for details.}
 
 \item{na.rm}{Remove rows with lacking ki data (i.e., where ki == NA).}
 }

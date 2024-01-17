@@ -20,7 +20,7 @@ The following, comma-separated fields are expected (in this order):
 \itemize{
 \item 'name' The perpetrator compound name
 \item 'cyp' The UGT enzyme as (upper case) character.
-\item 'ki' The \eqn{k_i}
+\item 'ic50' The \eqn{IC_{50}} of the inhibition in μM.
 \item 'source' Optional source information as character.
 }
 

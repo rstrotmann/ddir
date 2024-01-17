@@ -13,10 +13,18 @@ read_inducer_data(source)
 The data as data frame.
 }
 \description{
-This function loads CYP inducer data from a csv file. The expected fields are
-(in this order) the compound name, the CYP enzyme, the Emax, the EC50, the
-maximal tested concentration and the source reference. The latter field may
-remain empty.
+This function loads CYP inducer data from a csv file. The following fields
+are expected:
+\itemize{
+\item 'name' The name of the perpetrator compound as character.
+\item 'cyp' The CYP enzyme as (upper case) character.
+\item 'emax' The \eqn{E_{max}}, i.e., the maximum induction effect determined in
+vitro as numeric.
+\item 'ec50' The \eqn{EC_{50}} in µM as numeric.
+\item 'maxc' The maximal concentration in µM tested in the in vitro assay as
+numeric.
+\item 'source' Optional source information as character.
+}
 }
 \details{
 Comment lines must start with '#'.
@@ -24,17 +32,16 @@ Comment lines must start with '#'.
 A valid source is, e.g.,
 \preformatted{
 # PARENT
-# compound, CYP, Emax, EC50, max c, source
-examplinib, CYP1A2,  1,    NA,   5,  study 007
-examplinib, CYP2B6,  1,    NA,   5,  study 007
+# compound, CYP,     Emax, EC50, max c, source
+examplinib, CYP1A2,  1,    NA,   5,     study 007
+examplinib, CYP2B6,  1,    NA,   5,     study 007
 examplinib, CYP2C8,  NA,   NA,   NA,
 examplinib, CYP2C9,  NA,   NA,   NA,
 examplinib, CYP2C19, NA,   NA,   NA,
 examplinib, CYP2D6,  NA,   NA,   NA,
-examplinib, CYP3A4,   7.35, 1.64, 3,  study 007
+examplinib, CYP3A4,   7.35, 1.64, 3,    study 007
 
 # METABOLITE
-# compound, CYP, ki, source
 M1, CYP1A2,  1,    NA,   5,  study 007
 M1, CYP2B6,  6.98, 1.86, 5,  study 007
 M1, CYP2C8,  NA,   NA,   NA,

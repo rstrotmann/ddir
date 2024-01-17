@@ -6,7 +6,7 @@
 \usage{
 transporter_inhibition_risk_table(
   perp,
-  transporter_ic50,
+  transporter_inh,
   transporter_ref = transporter_reference_data,
   na.rm = F
 )
@@ -14,12 +14,13 @@ transporter_inhibition_risk_table(
 \arguments{
 \item{perp}{The perpetrator object.}
 
-\item{transporter_ic50}{Transporter inhibition IC50 as data frame.}
+\item{transporter_inh}{Transporter inhibition data as data frame. See
+\code{\link[=transporter_inhibition_risk]{transporter_inhibition_risk()}} for details.}
 
 \item{transporter_ref}{Transporter reference data.}
 
-\item{na.rm}{Boolean to indicate whether rows with lacking ki data should be
-removed from the output (i.e., where ki == NA).}
+\item{na.rm}{Switch to exlcude rows with lacking \eqn{IC_{50}} data from the
+output.}
 }
 \value{
 A markdown-formatted table.

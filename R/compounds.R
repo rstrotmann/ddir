@@ -529,7 +529,7 @@ conc_table.list <- function(perp) {
 
 #' Generic function to display compound properties
 #'
-#' @param obj The object (compund object or list thereof)
+#' @param obj The object (compound object or list thereof)
 #' @export
 #' @seealso [property_table.perpetrator()]
 #' @seealso [property_table.list()]
@@ -579,7 +579,7 @@ property_table.perpetrator <- function(obj){
 
 #' Perpetrator drug properties for a list of compounds
 #'
-#' This function generates a list of markdown-formatted table of the key
+#' This function generates a list of markdown-formatted tables of the key
 #' properties of a list of perpetrator objects.
 #'
 #' @param obj A list of perpetrator objects.

@@ -5,10 +5,19 @@
 \alias{transporter_reference_data}
 \title{Drug transporter reference data}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 13 rows and 5 columns.
+\itemize{
+\item 'transporter' The name of the drug transporter protein.
+\item 'fda_thld' The threshold for relevant interactions as defined by the
+\href{https://www.fda.gov/media/134582/download}{FDA guidance}.
+\item 'ema_thld' the threshold for relevant interactions as defined in the
+\href{https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-drug-interactions-revision-1_en.pdf}{EMA guidance}.
+\item 'i' The perpetrator concentration applicable for the interaction.
+}
 }
 \source{
-FDA and EMA guidelines.
+\href{https://www.fda.gov/media/134582/download}{FDA guideline: In Vitro Drug Interaction Studies — Cytochrome P450 Enzyme- and Transporter-Mediated Drug Interactions, 2020}.
+
+\href{https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-drug-interactions-revision-1_en.pdf}{EMA Guideline on the investigation of drug interactions, 2012}
 }
 \usage{
 transporter_reference_data
@@ -18,20 +27,25 @@ Drug transporter reference data
 }
 \details{
 \preformatted{
-transporter rank fda_thld ema_thld          i
-    Pgp_int    1     10.0    10.00       igut
-    Pgp_sys    2      0.1     0.02    imaxssu
-   BCRP_int    3     10.0    10.00       igut
-   BCRP_sys    4      0.1     0.02    imaxssu
-       OCT1    5       NA     0.04 imaxinletu
-    OATP1B1    6      0.1     0.04 imaxinletu
-    OATP1B3    7      0.1     0.04 imaxinletu
-       OAT1    8      0.1     0.04    imaxssu
-       OAT3    9      0.1     0.04    imaxssu
-       BSEP   10      0.1     0.02    imaxssu
-       OCT2   11      0.1     0.02    imaxssu
-      MATE1   12      0.1     0.02    imaxssu
-     MATE2k   13      0.1     0.02    imaxssu
+transporter   fda_thld   ema_thld    i
+"Pgp_int",    10.0,      10.00,     "igut",
+"Pgp_sys",    0.1,       0.02,      "imaxssu",
+"BCRP_int",   10.0,      10.00,     "igut",
+"BCRP_sys",   0.1,       0.02,      "imaxssu",
+"OCT1",       NA,        0.04,      "imaxinletu",
+"OATP1B1",    0.1,       0.04,      "imaxinletu",
+"OATP1B3",    0.1,       0.04,      "imaxinletu",
+"OAT1",       0.1,       0.04,      "imaxssu",
+"OAT3",       0.1,       0.04,      "imaxssu",
+"BSEP",       0.1,       0.02,      "imaxssu",
+"OCT2",       0.1,       0.02,      "imaxssu",
+"MATE1",      0.1,       0.02,      "imaxssu",
+"MATE2k",     0.1,       0.02,      "imaxssu"
 }
+}
+\seealso{
+\code{\link[=key_concentrations]{key_concentrations()}}
+
+\code{\link[=transporter_inhibition_risk]{transporter_inhibition_risk()}}
 }
 \keyword{datasets}

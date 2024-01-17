@@ -7,7 +7,7 @@
 property_table(obj)
 }
 \arguments{
-\item{obj}{The object (compund object or list thereof)}
+\item{obj}{The object (compound object or list thereof)}
 }
 \description{
 Generic function to display compound properties

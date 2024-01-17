@@ -13,7 +13,14 @@ transporter_inhibition_risk(
 \arguments{
 \item{perp}{The perpetrator object.}
 
-\item{transporter_inh}{Transporter inhibition data as data frame.}
+\item{transporter_inh}{Transporter inhibition data as data frame. The
+following fields are expected:
+\itemize{
+\item 'name' The perpetrator compound name
+\item 'cyp' The UGT enzyme as (upper case) character.
+\item 'ic50' The \eqn{IC_{50}} of the inhibition in μM.
+\item 'source' Optional source information as character.
+}}
 
 \item{transporter_ref}{Transporter reference data.}
 }
@@ -45,4 +52,9 @@ thresholds for assumed clinically relevant effects.
 }
 \examples{
 transporter_inhibition_risk(examplinib_parent, examplinib_transporter_inhibition_data)
+}
+\seealso{
+\code{\link[=transporter_inhibition_risk_table]{transporter_inhibition_risk_table()}}
+
+\code{\link[=read_transporter_inhibition_data]{read_transporter_inhibition_data()}}
 }

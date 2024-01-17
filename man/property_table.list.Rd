@@ -13,7 +13,7 @@
 A list of markdown-formatted tables.
 }
 \description{
-This function generates a list of markdown-formatted table of the key
+This function generates a list of markdown-formatted tables of the key
 properties of a list of perpetrator objects.
 }
 \examples{
