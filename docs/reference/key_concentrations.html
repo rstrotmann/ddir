@@ -12,7 +12,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.12.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.13.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -122,7 +122,7 @@ the absorption rate, \(Q_{ent}\) the enteric villous blood flow and
 \(R_B\) the blood-to-plasma distribution ratio of the compound.</p>
 <p>Note that as per the FDA guideline (refer to FDA, 2020, Fig. 7, and
 Rostami-Hodjegan and Tucker, 2004) the blood-to-plasma ratio and the plasma
-binding of the drug are ignored.</p>
+binding of the drug are not applicable.</p>
 </div>
 
     </div>
@@ -136,10 +136,10 @@ binding of the drug are ignored.</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">key_concentrations</span><span class="op">(</span><span class="va">examplinib_parent</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         igut      imaxssu   imaxinletu  imaxintestu </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3654.0803898    0.1648193    0.1929384    0.1514680 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3654.0803898    0.1648193    0.1929384    6.5855664 </span>
 <span class="r-in"><span><span class="fu">key_concentrations</span><span class="op">(</span><span class="va">examplinib_parent</span>, molar <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         igut      imaxssu   imaxinletu  imaxintestu </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1.800000e+06 8.119000e+01 9.504145e+01 7.461315e+01 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1.800000e+06 8.119000e+01 9.504145e+01 3.244050e+03 </span>
 <span class="r-in"><span><span class="fu">key_concentrations</span><span class="op">(</span><span class="va">examplinib_metabolite</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        igut     imaxssu  imaxinletu imaxintestu </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  0.00000000  0.02458939  0.02458939  0.02458939 </span>

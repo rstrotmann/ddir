@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.12.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.13.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -159,14 +159,14 @@ experimental setup.</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">mech_stat_cyp_risk</span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_inhibition_data</span>,</span></span>
 <span class="r-in"><span>  <span class="va">examplinib_cyp_induction_data</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       cyp   substrate  kiu fgut   fm fmcyp        Ag        Ah Bg Bh      Cg</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  CYP1A2  tizanidine   NA 1.00 0.95  0.98 1.0000000 1.0000000  1  1 1.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  CYP2B6        &lt;NA&gt;   NA   NA   NA    NA 1.0000000 1.0000000  1  1 1.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  CYP2C8 repaglinide 11.0 1.00 1.00  0.61 0.9864172 0.9827625  1  1 1.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  CYP2C9  S-warfarin 13.5 1.00 1.00  0.91 0.9889046 0.9859096  1  1 1.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 CYP2C19  omeprazole 15.0 1.00 1.00  0.87 0.9900031 0.9873008  1  1 1.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  CYP2D6        &lt;NA&gt;   NA   NA   NA    NA 1.0000000 1.0000000  1  1 1.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  CYP3A4   midazolam 12.5 0.57 0.96  1.00 0.9880276 0.9847995  1  1 1.62144</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       cyp   substrate  kiu fgut   fm fmcyp        Ag        Ah Bg Bh       Cg</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  CYP1A2  tizanidine   NA 1.00 0.95  0.98 1.0000000 1.0000000  1  1 1.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  CYP2B6        &lt;NA&gt;   NA   NA   NA    NA 1.0000000 1.0000000  1  1 1.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  CYP2C8 repaglinide 11.0 1.00 1.00  0.61 0.6255130 0.9827625  1  1 1.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  CYP2C9  S-warfarin 13.5 1.00 1.00  0.91 0.6721244 0.9859096  1  1 1.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 CYP2C19  omeprazole 15.0 1.00 1.00  0.87 0.6949088 0.9873008  1  1 1.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  CYP2D6        &lt;NA&gt;   NA   NA   NA    NA 1.0000000 1.0000000  1  1 1.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  CYP3A4   midazolam 12.5 0.57 0.96  1.00 0.6549452 0.9847995  1  1 6.884569</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Ch      aucr  risk</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 1.000000 1.0000000 FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 1.000000        NA    NA</span>
@@ -174,36 +174,36 @@ experimental setup.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 1.000000 1.0129888 FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 1.000000 1.0111717 FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 1.000000        NA    NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7 1.773674 0.4626871  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 1.773674 0.2321612  TRUE</span>
 <span class="r-in"><span><span class="fu">mech_stat_cyp_risk</span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_inhibition_data</span>,</span></span>
 <span class="r-in"><span>  <span class="va">examplinib_cyp_induction_data</span>, <span class="va">examplinib_cyp_tdi_data</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       cyp   substrate  kiu fgut   fm fmcyp        Ag        Ah        Bg</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  CYP1A2  tizanidine   NA 1.00 0.95  0.98 1.0000000 1.0000000 1.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  CYP2B6        &lt;NA&gt;   NA   NA   NA    NA 1.0000000 1.0000000 1.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  CYP2C8 repaglinide 11.0 1.00 1.00  0.61 0.9864172 0.9827625 1.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  CYP2C9  S-warfarin 13.5 1.00 1.00  0.91 0.9889046 0.9859096 1.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 CYP2C19  omeprazole 15.0 1.00 1.00  0.87 0.9900031 0.9873008 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  CYP2C8 repaglinide 11.0 1.00 1.00  0.61 0.6255130 0.9827625 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  CYP2C9  S-warfarin 13.5 1.00 1.00  0.91 0.6721244 0.9859096 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 CYP2C19  omeprazole 15.0 1.00 1.00  0.87 0.6949088 0.9873008 1.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6  CYP2D6        &lt;NA&gt;   NA   NA   NA    NA 1.0000000 1.0000000 1.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  CYP3A4   midazolam 12.5 0.57 0.96  1.00 0.9880276 0.9847995 0.6141621</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Bh      Cg       Ch     aucr  risk</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1.0000000 1.00000 1.000000 1.000000 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 1.0000000 1.00000 1.000000       NA    NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 1.0000000 1.00000 1.000000 1.010627 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 1.0000000 1.00000 1.000000 1.012989 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 1.0000000 1.00000 1.000000 1.011172 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 1.0000000 1.00000 1.000000       NA    NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7 0.4757909 1.62144 1.773674 1.201881 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  CYP3A4   midazolam 12.5 0.57 0.96  1.00 0.6549452 0.9847995 0.4348241</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Bh       Cg       Ch      aucr  risk</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1.0000000 1.000000 1.000000 1.0000000 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 1.0000000 1.000000 1.000000        NA    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 1.0000000 1.000000 1.000000 1.0106266 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 1.0000000 1.000000 1.000000 1.0129888 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 1.0000000 1.000000 1.000000 1.0111717 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 1.0000000 1.000000 1.000000        NA    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 0.4757909 6.884569 1.773674 0.8446594 FALSE</span>
 <span class="r-in"><span><span class="fu">mech_stat_cyp_risk</span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_inhibition_data</span>,</span></span>
 <span class="r-in"><span>  <span class="va">examplinib_cyp_induction_data</span>, <span class="va">examplinib_cyp_tdi_data</span>,</span></span>
 <span class="r-in"><span>  include_induction <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       cyp   substrate  kiu fgut   fm fmcyp        Ag        Ah        Bg</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  CYP1A2  tizanidine   NA 1.00 0.95  0.98 1.0000000 1.0000000 1.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  CYP2B6        &lt;NA&gt;   NA   NA   NA    NA 1.0000000 1.0000000 1.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  CYP2C8 repaglinide 11.0 1.00 1.00  0.61 0.9864172 0.9827625 1.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  CYP2C9  S-warfarin 13.5 1.00 1.00  0.91 0.9889046 0.9859096 1.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 CYP2C19  omeprazole 15.0 1.00 1.00  0.87 0.9900031 0.9873008 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  CYP2C8 repaglinide 11.0 1.00 1.00  0.61 0.6255130 0.9827625 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  CYP2C9  S-warfarin 13.5 1.00 1.00  0.91 0.6721244 0.9859096 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 CYP2C19  omeprazole 15.0 1.00 1.00  0.87 0.6949088 0.9873008 1.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6  CYP2D6        &lt;NA&gt;   NA   NA   NA    NA 1.0000000 1.0000000 1.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  CYP3A4   midazolam 12.5 0.57 0.96  1.00 0.9880276 0.9847995 0.6141621</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  CYP3A4   midazolam 12.5 0.57 0.96  1.00 0.6549452 0.9847995 0.4348241</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Bh Cg Ch     aucr  risk</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 1.0000000  1  1 1.000000 FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 1.0000000  1  1       NA    NA</span>
@@ -211,7 +211,7 @@ experimental setup.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 1.0000000  1  1 1.012989 FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 1.0000000  1  1 1.011172 FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 1.0000000  1  1       NA    NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7 0.4757909  1  1 2.456990  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 0.4757909  1  1 2.948311  TRUE</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
