@@ -58,7 +58,8 @@
 #' M1,  ka,     NA,
 #' }
 #' @param source The file name or text connection to read from.
-#' @return A list of perpetrator objects.
+#' @return A perpetrator object if only one compound in the input source, or
+#' list of perpetrator objects.
 #' @import dplyr
 #' @export
 #'
@@ -78,7 +79,11 @@ read_perpetrators <- function(source) {
 
   data <- split(raw, raw$name)
   out <- lapply(data, function(x) {x <- new_perpetrator(x %>% select(-name))})
-  return(out)
+  if(length(out) == 1) {
+    return(out[[1]])
+  } else {
+    return(out)
+  }
 }
 
 

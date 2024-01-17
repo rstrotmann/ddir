@@ -10,7 +10,8 @@ read_perpetrators(source)
 \item{source}{The file name or text connection to read from.}
 }
 \value{
-A list of perpetrator objects.
+A perpetrator object if only one compound in the input source, or
+list of perpetrator objects.
 }
 \description{
 The input source can either be a file name as string or a text connection.
