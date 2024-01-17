@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.12.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.12.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,7 +52,16 @@
 
 
 <dt>cyp_ind</dt>
-<dd><p>The CYP induction data as data frame.</p></dd>
+<dd><p>The CYP induction data as data frame. The following fields
+are expected:</p><ul><li><p>'name' The name of the perpetrator compound as character.</p></li>
+<li><p>'cyp' The CYP enzyme as (upper case) character.</p></li>
+<li><p>'emax' The \(E_{max}\), i.e., the maximum induction effect determined in
+vitro as numeric.</p></li>
+<li><p>'ec50' The \(EC_{50}\) in µM as numeric.</p></li>
+<li><p>'maxc' The maximal concentration in µM tested in the in vitro assay as
+numeric.</p></li>
+<li><p>'source' Optional source information as character.</p></li>
+</ul></dd>
 
 
 <dt>d</dt>

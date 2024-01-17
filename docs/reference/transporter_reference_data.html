@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.12.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.12.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,32 +47,44 @@
 
     <div class="section level2">
     <h2 id="format">Format<a class="anchor" aria-label="anchor" href="#format"></a></h2>
-    <p>An object of class <code>tbl_df</code> (inherits from <code>tbl</code>, <code>data.frame</code>) with 13 rows and 5 columns.</p>
-    </div>
+    
+<ul><li><p>'transporter' The name of the drug transporter protein.</p></li>
+<li><p>'fda_thld' The threshold for relevant interactions as defined by the
+<a href="https://www.fda.gov/media/134582/download" class="external-link">FDA guidance</a>.</p></li>
+<li><p>'ema_thld' the threshold for relevant interactions as defined in the
+<a href="https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-drug-interactions-revision-1_en.pdf" class="external-link">EMA guidance</a>.</p></li>
+<li><p>'i' The perpetrator concentration applicable for the interaction.</p></li>
+</ul></div>
     <div class="section level2">
     <h2 id="source">Source<a class="anchor" aria-label="anchor" href="#source"></a></h2>
-    <p>FDA and EMA guidelines.</p>
+    <p><a href="https://www.fda.gov/media/134582/download" class="external-link">FDA guideline: In Vitro Drug Interaction Studies — Cytochrome P450 Enzyme- and Transporter-Mediated Drug Interactions, 2020</a>.</p>
+<p><a href="https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-drug-interactions-revision-1_en.pdf" class="external-link">EMA Guideline on the investigation of drug interactions, 2012</a></p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     
 <div class="sourceCode"><pre><code>
-transporter rank fda_thld ema_thld          i
-    Pgp_int    1     10.0    10.00       igut
-    Pgp_sys    2      0.1     0.02    imaxssu
-   BCRP_int    3     10.0    10.00       igut
-   BCRP_sys    4      0.1     0.02    imaxssu
-       OCT1    5       NA     0.04 imaxinletu
-    OATP1B1    6      0.1     0.04 imaxinletu
-    OATP1B3    7      0.1     0.04 imaxinletu
-       OAT1    8      0.1     0.04    imaxssu
-       OAT3    9      0.1     0.04    imaxssu
-       BSEP   10      0.1     0.02    imaxssu
-       OCT2   11      0.1     0.02    imaxssu
-      MATE1   12      0.1     0.02    imaxssu
-     MATE2k   13      0.1     0.02    imaxssu
+transporter   fda_thld   ema_thld    i
+"Pgp_int",    10.0,      10.00,     "igut",
+"Pgp_sys",    0.1,       0.02,      "imaxssu",
+"BCRP_int",   10.0,      10.00,     "igut",
+"BCRP_sys",   0.1,       0.02,      "imaxssu",
+"OCT1",       NA,        0.04,      "imaxinletu",
+"OATP1B1",    0.1,       0.04,      "imaxinletu",
+"OATP1B3",    0.1,       0.04,      "imaxinletu",
+"OAT1",       0.1,       0.04,      "imaxssu",
+"OAT3",       0.1,       0.04,      "imaxssu",
+"BSEP",       0.1,       0.02,      "imaxssu",
+"OCT2",       0.1,       0.02,      "imaxssu",
+"MATE1",      0.1,       0.02,      "imaxssu",
+"MATE2k",     0.1,       0.02,      "imaxssu"
 </code></pre></div>
 
+    </div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p><code><a href="key_concentrations.html">key_concentrations()</a></code></p>
+<p><code><a href="transporter_inhibition_risk.html">transporter_inhibition_risk()</a></code></p></div>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

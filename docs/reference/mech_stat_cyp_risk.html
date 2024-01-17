@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.12.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.12.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,15 +61,18 @@
 
 
 <dt>cyp_inh</dt>
-<dd><p>CYP inhibition data as data frame.</p></dd>
+<dd><p>CYP inhibition data as data frame, see
+<a href="basic_cyp_inhibition_risk.html">basic_cyp_inhibition_risk</a> for details.</p></dd>
 
 
 <dt>cyp_ind</dt>
-<dd><p>CYP induction data as data frame.</p></dd>
+<dd><p>CYP induction data as data frame. See
+<a href="kinetic_cyp_induction_risk.html">kinetic_cyp_induction_risk</a> for details.</p></dd>
 
 
 <dt>cyp_tdi</dt>
-<dd><p>CYP TDI data as data frame.</p></dd>
+<dd><p>CYP TDI data as data frame. See <a href="basic_cyp_tdi_risk.html">basic_cyp_tdi_risk</a>
+for details.</p></dd>
 
 
 <dt>d</dt>
@@ -77,7 +80,7 @@
 
 
 <dt>include_induction</dt>
-<dd><p>Switch to define whether induction should be
+<dd><p>Switch to define whether induction effects should be
 included in the calculation (C-terms as per the FDA guideline)</p></dd>
 
 
@@ -109,7 +112,7 @@ built-in reference data, <a href="cyp_turnover.html">cyp_turnover</a></p></dd>
 their known intestinal and hepatic metabolism. Both direct (competitive) and
 time-dependent inhibition are considered.</p>
 <p>The below formula given by the FDA guideline (refer to
-fig. 7 of <a href="https://www.fda.gov/media/134582/download" class="external-link">FDA 2020</a>)
+fig. 7 of <a href="https://www.fda.gov/media/134582/download" class="external-link">FDA, 2020</a>)
 also includes intestinal and hepatic enzyme induction terms (\(C_g\) and
 \(C_h\), respectively). At the same time, the guideline states that both
 inhibition and induction should be considered separately.</p>
@@ -144,6 +147,12 @@ of 1. A different value can be used if warranted by prior experience with the
 experimental setup.</p>
 </div>
 
+    </div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p><code><a href="mech_stat_cyp_risk_table.html">mech_stat_cyp_risk_table()</a></code></p>
+<p><a href="cyp_reference_substrates.html">cyp_reference_substrates</a></p>
+<p><a href="cyp_turnover.html">cyp_turnover</a></p></div>
     </div>
 
     <div class="section level2">

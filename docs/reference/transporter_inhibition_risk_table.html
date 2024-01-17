@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.12.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.12.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,7 +44,7 @@
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">transporter_inhibition_risk_table</span><span class="op">(</span></span>
 <span>  <span class="va">perp</span>,</span>
-<span>  <span class="va">transporter_ic50</span>,</span>
+<span>  <span class="va">transporter_inh</span>,</span>
 <span>  transporter_ref <span class="op">=</span> <span class="va">transporter_reference_data</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">F</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -56,8 +56,9 @@
 <dd><p>The perpetrator object.</p></dd>
 
 
-<dt>transporter_ic50</dt>
-<dd><p>Transporter inhibition IC50 as data frame.</p></dd>
+<dt>transporter_inh</dt>
+<dd><p>Transporter inhibition data as data frame. See
+<code><a href="transporter_inhibition_risk.html">transporter_inhibition_risk()</a></code> for details.</p></dd>
 
 
 <dt>transporter_ref</dt>
@@ -65,8 +66,8 @@
 
 
 <dt>na.rm</dt>
-<dd><p>Boolean to indicate whether rows with lacking ki data should be
-removed from the output (i.e., where ki == NA).</p></dd>
+<dd><p>Switch to exlcude rows with lacking \(IC_{50}\) data from the
+output.</p></dd>
 
 </dl></div>
     <div class="section level2">
