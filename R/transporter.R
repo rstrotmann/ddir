@@ -29,7 +29,7 @@
 #' @param transporter_ref Transporter reference data.
 #' @return A data frame.
 #' @seealso [transporter_inhibition_risk_table()]
-#' @seealso [read_transporter_inhibition_data()]
+#' @seealso [read_transporter_inhibitor_data()]
 #' @export
 #' @examples
 #' transporter_inhibition_risk(examplinib_parent, examplinib_transporter_inhibition_data)

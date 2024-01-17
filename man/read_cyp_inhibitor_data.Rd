@@ -16,11 +16,12 @@ A data frame.
 Read CYP inhibition data from a file or text connection.
 }
 \details{
-The following, comma-separated fields are expected (in this order):
+The following, comma-separated fields are expected in the input (in this
+order):
 \itemize{
-\item 'name' The perpetrator compound name
+\item 'name' The perpetrator compound name as character.
 \item 'cyp' The UGT enzyme as (upper case) character.
-\item 'ki' The \eqn{k_i}
+\item 'ki' The \eqn{k_i} in µM as numeric.
 \item 'source' Optional source information as character.
 }
 

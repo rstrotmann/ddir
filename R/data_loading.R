@@ -4,59 +4,60 @@
 #' This can be used to read the compound data from a string.
 #'
 #' @details
+#' The following fields are expected in the input (in this order):
+#' * 'name' The compound name as character.
+#' * 'parameter' The parameter as character.
+#' * 'value' The respective value as character.
+#' * 'source' Optional source information as character.
 #'
-#' The file is expected to comply with the following:
+#' The following parameters are expected:
+#' * 'oral' A Boolean (i.e., `TRUE` or `FALSE`) to indicate whether the drug is
+#' subject to first-pass effects.
+#' * 'mw' The molar weight in g/mol as numeric.
+#' * 'dose' The clinically administered dose in mg as numeric.
+#' * 'imaxss' The (total) \eqn{C_{max}} in ng/ml after administration of the
+#' clinical dose.
+#' * 'fu' The free unbound) fraction of the drug in plasma.
+#' * 'fumic' The free (unbound) fraction in microsomal preparations.
+#' * 'rb' The blood-to-plasma concentration ratio.
+#' * 'fa' The fraction absorbed of the drug.
+#' * 'fg' The fraction of the administered dose escaping gut metabolism.
+#' * 'ka' The absorption rate constant in 1/min.
+#' * 'solubility' The aqueous solubility of the compound in mg/l.
 #'
-#'   * Comments start with '#' and go until the end of the line
+#' Lines starting with '#' are considered comments and are not evaluated.
 #'
-#'   * lines have the format: __drug__, __parameter__, __value__, __source__
+#' Note that multiple compounds, e.g., the parent and metabolites may be
+#' included in the perpetrator file. The below is an example of a valid compound
+#' file:
 #'
-#'   * fields within a line are comma-separated
+#' \preformatted{
+#' # name, param, value, source
+#' # parent
+#' examplinib,  oral,     TRUE,
+#' examplinib,  mw,       492.6,
+#' examplinib,  dose,     450,       clinical dose
+#' examplinib,  imaxss,   3530,      study 001
+#' examplinib,  fu,       0.023,     study 002
+#' examplinib,  fumic,    1,         default
+#' examplinib,  rb,       1,         study 003
+#' examplinib,  fa,       0.81,      study 003
+#' examplinib,  fg,       1,         default
+#' examplinib,  ka,       0.00267,   unknown
 #'
-#'   * fields are plain text without enclosing ""
-#'
-#'   * the source field is only for reference and usually refers to a clinical
-#'     or non-clinical study report. The source field may remain empty. Note
-#'     that the line then ends with a comma.
-#'
-#'
-#'   For metabolites, the fields dose, fa, fg and ka are not relevant and should
-#'   be filled with `NA`. For metabolites, 'oral' must be 'FALSE'.
-#'
-#'   Note that multiple compounds, e.g., the parent and metabolites may be
-#'   included in the perpetrator file. A typical compound file could look e.g.,
-#'   like this:
-#'
-#'   \preformatted{
-#'   # name, param, value, source
-#'   # parent
-#'
-#'   examplinib,  oral,     TRUE,
-#'   examplinib,  mw,       492.6,
-#'   examplinib,  dose,     450,       clinical dose
-#'   examplinib,  imaxss,   3530,      study 001
-#'   examplinib,  fu,       0.023,     study 002
-#'   examplinib,  fumic,    1,         default
-#'   examplinib,  rb,       1,         study 003
-#'   examplinib,  fa,       0.81,      study 003
-#'   examplinib,  fg,       1,         default
-#'   examplinib,  ka,       0.00267,   unknown
-#'
-#'   # metabolite
-#'
-#'   M1,  oral,   FALSE,
-#'   M1,  mw,     506.56,
-#'   M1,  dose,   NA,
-#'   M1,  imaxss, 1038,      study 001
-#'   M1,  fu,     0.012,     study 002
-#'   M1,  fumic,  1,         default
-#'   M1,  rb,     1,         study 002
-#'   M1,  fa,     NA,
-#'   M1,  fg,     NA,
-#'   M1,  ka,     NA,
-#'   }
-#' @param source The connection to read from.
-#'
+#' # metabolite
+#' M1,  oral,   FALSE,
+#' M1,  mw,     506.56,
+#' M1,  dose,   NA,
+#' M1,  imaxss, 1038,      study 001
+#' M1,  fu,     0.012,     study 002
+#' M1,  fumic,  1,         default
+#' M1,  rb,     1,         study 002
+#' M1,  fa,     NA,
+#' M1,  fg,     NA,
+#' M1,  ka,     NA,
+#' }
+#' @param source The file name or text connection to read from.
 #' @return A list of perpetrator objects.
 #' @import dplyr
 #' @export
@@ -134,9 +135,9 @@ read_inhibitor_data <- function(source) {
 #' Read UGT inhibition data from a file or text connection.
 #' @details
 #' The following, comma-separated fields are expected in the input:
-#' * 'name' The perpetrator compound name
+#' * 'name' The perpetrator compound name as character.
 #' * 'ugt' The UGT enzyme as (upper case) character.
-#' * 'ic50' The \eqn{IC_{50}}
+#' * 'ic50' The \eqn{IC_{50}} in µM as numeric.
 #' * 'source' Optional source information as character.
 #'
 #' Lines starting with '#' are considered comments and are not evaluated.
@@ -180,10 +181,11 @@ read_ugt_inhibitor_data <- function(source) {
 #'
 #' Read CYP inhibition data from a file or text connection.
 #' @details
-#' The following, comma-separated fields are expected (in this order):
-#' * 'name' The perpetrator compound name
+#' The following, comma-separated fields are expected in the input (in this
+#' order):
+#' * 'name' The perpetrator compound name as character.
 #' * 'cyp' The UGT enzyme as (upper case) character.
-#' * 'ki' The \eqn{k_i}
+#' * 'ki' The \eqn{k_i} in µM as numeric.
 #' * 'source' Optional source information as character.
 #'
 #' Lines starting with '#' are considered comments and are not evaluated.
@@ -221,8 +223,8 @@ read_cyp_inhibitor_data <- function(source) {
 #' @details
 #' The following fields are expected (in this order):
 #' * 'name' The perpetrator compound name as character.
-#' * 'cyp' The CYP enzyme as character.
-#' * 'ki' The \eqn{K_I} in \eqn{\mu M} as numeric.
+#' * 'cyp' The CYP enzyme as (upper case) character.
+#' * 'ki' The \eqn{K_I} in µM as numeric.
 #' * 'kinact' The \eqn{k_{inact}} in \eqn{1/h} as numeric.
 #' * 'source' Optional source information as character.
 #' Lines starting with '#' are interpreted as comments and are not evaluated.
@@ -312,7 +314,7 @@ read_inducer_data <- function(source) {
 #' Read transporter inhibition data from a file or text connection.
 #' @details
 #' The following, comma-separated fields are expected (in this order):
-#' * 'name' The perpetrator compound name
+#' * 'name' The perpetrator compound name as character.
 #' * 'cyp' The UGT enzyme as (upper case) character.
 #' * 'ic50' The \eqn{IC_{50}} of the inhibition in μM.
 #' * 'source' Optional source information as character.

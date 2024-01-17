@@ -7,7 +7,7 @@
 read_perpetrators(source)
 }
 \arguments{
-\item{source}{The connection to read from.}
+\item{source}{The file name or text connection to read from.}
 }
 \value{
 A list of perpetrator objects.
@@ -17,52 +17,63 @@ The input source can either be a file name as string or a text connection.
 This can be used to read the compound data from a string.
 }
 \details{
-The file is expected to comply with the following:
+The following fields are expected in the input (in this order):
 \itemize{
-\item Comments start with '#' and go until the end of the line
-\item lines have the format: \strong{drug}, \strong{parameter}, \strong{value}, \strong{source}
-\item fields within a line are comma-separated
-\item fields are plain text without enclosing ""
-\item the source field is only for reference and usually refers to a clinical
-or non-clinical study report. The source field may remain empty. Note
-that the line then ends with a comma.
+\item 'name' The compound name as character.
+\item 'parameter' The parameter as character.
+\item 'value' The respective value as character.
+\item 'source' Optional source information as character.
 }
 
-For metabolites, the fields dose, fa, fg and ka are not relevant and should
-be filled with \code{NA}. For metabolites, 'oral' must be 'FALSE'.
+The following parameters are expected:
+\itemize{
+\item 'oral' A Boolean (i.e., \code{TRUE} or \code{FALSE}) to indicate whether the drug is
+subject to first-pass effects.
+\item 'mw' The molar weight in g/mol as numeric.
+\item 'dose' The clinically administered dose in mg as numeric.
+\item 'imaxss' The (total) \eqn{C_{max}} in ng/ml after administration of the
+clinical dose.
+\item 'fu' The free unbound) fraction of the drug in plasma.
+\item 'fumic' The free (unbound) fraction in microsomal preparations.
+\item 'rb' The blood-to-plasma concentration ratio.
+\item 'fa' The fraction absorbed of the drug.
+\item 'fg' The fraction of the administered dose escaping gut metabolism.
+\item 'ka' The absorption rate constant in 1/min.
+\item 'solubility' The aqueous solubility of the compound in mg/l.
+}
+
+Lines starting with '#' are considered comments and are not evaluated.
 
 Note that multiple compounds, e.g., the parent and metabolites may be
-included in the perpetrator file. A typical compound file could look e.g.,
-like this:
+included in the perpetrator file. The below is an example of a valid compound
+file:
 
 \preformatted{
-  # name, param, value, source
-  # parent
+# name, param, value, source
+# parent
+examplinib,  oral,     TRUE,
+examplinib,  mw,       492.6,
+examplinib,  dose,     450,       clinical dose
+examplinib,  imaxss,   3530,      study 001
+examplinib,  fu,       0.023,     study 002
+examplinib,  fumic,    1,         default
+examplinib,  rb,       1,         study 003
+examplinib,  fa,       0.81,      study 003
+examplinib,  fg,       1,         default
+examplinib,  ka,       0.00267,   unknown
 
-  examplinib,  oral,     TRUE,
-  examplinib,  mw,       492.6,
-  examplinib,  dose,     450,       clinical dose
-  examplinib,  imaxss,   3530,      study 001
-  examplinib,  fu,       0.023,     study 002
-  examplinib,  fumic,    1,         default
-  examplinib,  rb,       1,         study 003
-  examplinib,  fa,       0.81,      study 003
-  examplinib,  fg,       1,         default
-  examplinib,  ka,       0.00267,   unknown
-
-  # metabolite
-
-  M1,  oral,   FALSE,
-  M1,  mw,     506.56,
-  M1,  dose,   NA,
-  M1,  imaxss, 1038,      study 001
-  M1,  fu,     0.012,     study 002
-  M1,  fumic,  1,         default
-  M1,  rb,     1,         study 002
-  M1,  fa,     NA,
-  M1,  fg,     NA,
-  M1,  ka,     NA,
-  }
+# metabolite
+M1,  oral,   FALSE,
+M1,  mw,     506.56,
+M1,  dose,   NA,
+M1,  imaxss, 1038,      study 001
+M1,  fu,     0.012,     study 002
+M1,  fumic,  1,         default
+M1,  rb,     1,         study 002
+M1,  fa,     NA,
+M1,  fg,     NA,
+M1,  ka,     NA,
+}
 }
 \examples{
 read_perpetrators(textConnection(examplinib_compounds_string))

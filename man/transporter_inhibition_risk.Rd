@@ -56,5 +56,5 @@ transporter_inhibition_risk(examplinib_parent, examplinib_transporter_inhibition
 \seealso{
 \code{\link[=transporter_inhibition_risk_table]{transporter_inhibition_risk_table()}}
 
-\code{\link[=read_transporter_inhibition_data]{read_transporter_inhibition_data()}}
+\code{\link[=read_transporter_inhibitor_data]{read_transporter_inhibitor_data()}}
 }

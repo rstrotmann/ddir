@@ -18,9 +18,9 @@ Read UGT inhibition data from a file or text connection.
 \details{
 The following, comma-separated fields are expected in the input:
 \itemize{
-\item 'name' The perpetrator compound name
+\item 'name' The perpetrator compound name as character.
 \item 'ugt' The UGT enzyme as (upper case) character.
-\item 'ic50' The \eqn{IC_{50}}
+\item 'ic50' The \eqn{IC_{50}} in µM as numeric.
 \item 'source' Optional source information as character.
 }
 

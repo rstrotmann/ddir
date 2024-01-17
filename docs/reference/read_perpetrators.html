@@ -51,7 +51,7 @@ This can be used to read the compound data from a string.</p>
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>source</dt>
-<dd><p>The connection to read from.</p></dd>
+<dd><p>The file name or text connection to read from.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -62,46 +62,53 @@ This can be used to read the compound data from a string.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The file is expected to comply with the following:</p><ul><li><p>Comments start with '#' and go until the end of the line</p></li>
-<li><p>lines have the format: <strong>drug</strong>, <strong>parameter</strong>, <strong>value</strong>, <strong>source</strong></p></li>
-<li><p>fields within a line are comma-separated</p></li>
-<li><p>fields are plain text without enclosing ""</p></li>
-<li><p>the source field is only for reference and usually refers to a clinical
-or non-clinical study report. The source field may remain empty. Note
-that the line then ends with a comma.</p></li>
-</ul><p>For metabolites, the fields dose, fa, fg and ka are not relevant and should
-be filled with <code>NA</code>. For metabolites, 'oral' must be 'FALSE'.</p>
+    <p>The following fields are expected in the input (in this order):</p><ul><li><p>'name' The compound name as character.</p></li>
+<li><p>'parameter' The parameter as character.</p></li>
+<li><p>'value' The respective value as character.</p></li>
+<li><p>'source' Optional source information as character.</p></li>
+</ul><p>The following parameters are expected:</p><ul><li><p>'oral' A Boolean (i.e., <code>TRUE</code> or <code>FALSE</code>) to indicate whether the drug is
+subject to first-pass effects.</p></li>
+<li><p>'mw' The molar weight in g/mol as numeric.</p></li>
+<li><p>'dose' The clinically administered dose in mg as numeric.</p></li>
+<li><p>'imaxss' The (total) \(C_{max}\) in ng/ml after administration of the
+clinical dose.</p></li>
+<li><p>'fu' The free unbound) fraction of the drug in plasma.</p></li>
+<li><p>'fumic' The free (unbound) fraction in microsomal preparations.</p></li>
+<li><p>'rb' The blood-to-plasma concentration ratio.</p></li>
+<li><p>'fa' The fraction absorbed of the drug.</p></li>
+<li><p>'fg' The fraction of the administered dose escaping gut metabolism.</p></li>
+<li><p>'ka' The absorption rate constant in 1/min.</p></li>
+<li><p>'solubility' The aqueous solubility of the compound in mg/l.</p></li>
+</ul><p>Lines starting with '#' are considered comments and are not evaluated.</p>
 <p>Note that multiple compounds, e.g., the parent and metabolites may be
-included in the perpetrator file. A typical compound file could look e.g.,
-like this:</p>
+included in the perpetrator file. The below is an example of a valid compound
+file:</p>
 <div class="sourceCode"><pre><code>
-  # name, param, value, source
-  # parent
+# name, param, value, source
+# parent
+examplinib,  oral,     TRUE,
+examplinib,  mw,       492.6,
+examplinib,  dose,     450,       clinical dose
+examplinib,  imaxss,   3530,      study 001
+examplinib,  fu,       0.023,     study 002
+examplinib,  fumic,    1,         default
+examplinib,  rb,       1,         study 003
+examplinib,  fa,       0.81,      study 003
+examplinib,  fg,       1,         default
+examplinib,  ka,       0.00267,   unknown
 
-  examplinib,  oral,     TRUE,
-  examplinib,  mw,       492.6,
-  examplinib,  dose,     450,       clinical dose
-  examplinib,  imaxss,   3530,      study 001
-  examplinib,  fu,       0.023,     study 002
-  examplinib,  fumic,    1,         default
-  examplinib,  rb,       1,         study 003
-  examplinib,  fa,       0.81,      study 003
-  examplinib,  fg,       1,         default
-  examplinib,  ka,       0.00267,   unknown
-
-  # metabolite
-
-  M1,  oral,   FALSE,
-  M1,  mw,     506.56,
-  M1,  dose,   NA,
-  M1,  imaxss, 1038,      study 001
-  M1,  fu,     0.012,     study 002
-  M1,  fumic,  1,         default
-  M1,  rb,     1,         study 002
-  M1,  fa,     NA,
-  M1,  fg,     NA,
-  M1,  ka,     NA,
-  </code></pre></div>
+# metabolite
+M1,  oral,   FALSE,
+M1,  mw,     506.56,
+M1,  dose,   NA,
+M1,  imaxss, 1038,      study 001
+M1,  fu,     0.012,     study 002
+M1,  fumic,  1,         default
+M1,  rb,     1,         study 002
+M1,  fa,     NA,
+M1,  fg,     NA,
+M1,  ka,     NA,
+</code></pre></div>
 
     </div>
 

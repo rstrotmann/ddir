@@ -31,7 +31,7 @@ Rows with the following parameters ('param') are expected in the input:\tabular{
    rb \tab optional \tab blood-to-plasma concentration ratio, default is 1 \cr
    fa \tab optional \tab fraction absorbed, default is 1 \cr
    fg \tab optional \tab fraction escaping gut metabolism, default is 1 \cr
-   ka \tab optional \tab absorption rate constant, default is 0.1 /ml \cr
+   ka \tab optional \tab absorption rate constant, default is 0.1 /min \cr
    solubility \tab optional \tab solubility of the compound in mg/l, defaults to \code{Inf} \cr
 }
 

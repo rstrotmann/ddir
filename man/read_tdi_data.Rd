@@ -20,8 +20,8 @@ connection.
 The following fields are expected (in this order):
 \itemize{
 \item 'name' The perpetrator compound name as character.
-\item 'cyp' The CYP enzyme as character.
-\item 'ki' The \eqn{K_I} in \eqn{\mu M} as numeric.
+\item 'cyp' The CYP enzyme as (upper case) character.
+\item 'ki' The \eqn{K_I} in µM as numeric.
 \item 'kinact' The \eqn{k_{inact}} in \eqn{1/h} as numeric.
 \item 'source' Optional source information as character.
 Lines starting with '#' are interpreted as comments and are not evaluated.

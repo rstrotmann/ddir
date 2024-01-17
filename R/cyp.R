@@ -42,7 +42,7 @@
 #' expected:
 #' * 'name' The name of the perpetrator compound.
 #' * 'cyp' The CYP enzyme as (upper case) character.
-#' * 'ki' The \eqn{k_i} in \eqn{\mu M} as numeric.
+#' * 'ki' The \eqn{k_i} in µM as numeric.
 #' * 'source' Optional source information as character.
 #' @return A data frame.
 #' @seealso [basic_cyp_inhibition_risk_table()]

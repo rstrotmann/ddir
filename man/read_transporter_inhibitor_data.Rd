@@ -18,7 +18,7 @@ Read transporter inhibition data from a file or text connection.
 \details{
 The following, comma-separated fields are expected (in this order):
 \itemize{
-\item 'name' The perpetrator compound name
+\item 'name' The perpetrator compound name as character.
 \item 'cyp' The UGT enzyme as (upper case) character.
 \item 'ic50' The \eqn{IC_{50}} of the inhibition in μM.
 \item 'source' Optional source information as character.

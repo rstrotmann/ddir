@@ -120,7 +120,7 @@ compound_names_string <- function(compounds) {
 #' | rb | optional | blood-to-plasma concentration ratio, default is 1 |
 #' | fa | optional | fraction absorbed, default is 1 |
 #' | fg | optional | fraction escaping gut metabolism, default is 1 |
-#' | ka | optional | absorption rate constant, default is 0.1 /ml |
+#' | ka | optional | absorption rate constant, default is 0.1 /min |
 #' | solubility | optional | solubility of the compound in mg/l, defaults to `Inf` |
 #'
 #' The following example is an example for a valid input data frame:
