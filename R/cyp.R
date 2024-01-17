@@ -549,7 +549,8 @@ mech_stat_cyp_risk_table <- function(
                              substr=substr, kdeg=kdeg) %>%
     select(cyp, kiu, substrate, fgut, fm, fmcyp, Ag, Ah, Bg, Bh, Cg, Ch, aucr,
            risk) %>%
-    mutate(across(Ag:Ch, ~ signif(., digits=2))) %>%
+    # mutate(across(Ag:Ch, ~ signif(., digits=2))) %>%
+    mutate(across(Ag:Ch, ~ format(., digits=3, nsmall=3))) %>%
     mutate(aucr=format(aucr, digits=3))
 
   if(na.rm==TRUE) {

@@ -378,7 +378,7 @@ is_igut_solubility_limited <- function(obj) {
 #'
 #' Note that as per the FDA guideline (refer to FDA, 2020, Fig. 7, and
 #' Rostami-Hodjegan and Tucker, 2004) the blood-to-plasma ratio and the plasma
-#' binding of the drug are ignored.
+#' binding of the drug are not applicable.
 #'
 #' @param qh Hepatic blood flow in l/min, defaults to 1.616 l/min.
 #' @param qent Enteric blood flow in l/min, defaults to 0.3 l/min = 18 l/h.
@@ -437,7 +437,8 @@ key_concentrations <- function(obj, qh=1.616, qent=18/60, molar=TRUE) {
   if(oral == FALSE) {
     imaxintestu <- imaxssu
   } else {
-    imaxintestu <- dose * fa * ka / qent / rb * fu * 1000
+    # imaxintestu <- dose * fa * ka / qent / rb * fu * 1000
+    imaxintestu <- dose * fa * ka / qent * 1000
   }
 
   # output vector
@@ -488,7 +489,7 @@ conc_table.perpetrator <- function(perp) {
   name <- perp["name", "value"]
   temp <- data.frame(
     parameter = c("$I_{gut}$", "$I_{max,ss,u}$", "$I_{max,inlet,u}$",
-                  "$I_{max,intestinal,u}$"),
+                  "$I_{max,intestinal}$"),
     mass_conc = format(key_concentrations(perp, molar=F), scientific=F,
                        digits=3),
     molar_conc = format(key_concentrations(perp, molar=T), scientific=F,
@@ -553,9 +554,9 @@ property_table <- function(obj) {
 #'
 property_table.perpetrator <- function(obj){
   labels <- data.frame(
-    param=c("mw", "dose", "solubility", "imaxss", "fu", "fumic", "rb", "fa",
+    param=c("oral", "mw", "dose", "solubility", "imaxss", "fu", "fumic", "rb", "fa",
             "fg", "ka"),
-    parameter =c("$MW$ (g/mol)", "$dose$ (mg)", "$solubility$ (mg/l)",
+    parameter =c("oral", "$MW$ (g/mol)", "$dose$ (mg)", "$solubility$ (mg/l)",
                  "$C_{max,ss}$ (ng/ml)",
                  "$f_u$", "$f_{u,mic}$", "$R_B$", "$F_a$", "$F_g$",
                  "$k_a$ (1/min)")
@@ -568,7 +569,8 @@ property_table.perpetrator <- function(obj){
 
   out <- obj %>%
     as.data.frame() %>%
-    dplyr::slice(3:n()) %>%
+    dplyr::slice(2:n()) %>%
+    dplyr::filter(param %in% labels$param) %>%
     dplyr::left_join(labels, by="param") %>%
     dplyr::select(parameter, value, source) %>%
     knitr::kable(caption=paste("Compound parameters for", obj["name", "value"]))

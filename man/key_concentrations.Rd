@@ -70,7 +70,7 @@ the absorption rate, \eqn{Q_{ent}} the enteric villous blood flow and
 
 Note that as per the FDA guideline (refer to FDA, 2020, Fig. 7, and
 Rostami-Hodjegan and Tucker, 2004) the blood-to-plasma ratio and the plasma
-binding of the drug are ignored.
+binding of the drug are not applicable.
 }
 }
 \examples{

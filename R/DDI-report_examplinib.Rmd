@@ -205,7 +205,8 @@ basic_cyp_inhibition_risk_table(p, cyp_inhibition_data)
 basic_cyp_inhibition_risk_table(m, cyp_inhibition_data)
 ```
 
-Note that the ratios used in the EMA guidance correspond to the FDA ratios listed above minus 1.
+Note that the ratios used in the EMA guidance correspond to the FDA ratios
+listed above minus 1.
 
 ### Time-dependent inhibition
 
@@ -224,9 +225,15 @@ basic_cyp_tdi_risk_table(m, cyp_tdi_data, na.rm=T)
 
 ### Basic static/fold-change method
 
-The basic static (EMA) or fold-change (FDA) methods evaluate whether the maximal fold-change in mRNA expression is > 2-fold at the expected unbound hepatic concentration of the drug.
+The basic static (EMA) or fold-change (FDA) methods evaluate whether the maximal
+fold-change in mRNA expression is > 2-fold at the expected unbound hepatic
+concentration of the drug.
 
-For the relevant maximal drug concentrations to be tested in vitro ($maxc$), the FDA guidance suggests considering $30*I_{max,ss,u}$ while the EMA guidance considers $50*I_{max,ss,u}$ for hepatic and $0.1*I_{gut}$ for intestinal induction. It is expected that the concentrations in the respective in vitro assays cover these concentrations.
+For the relevant maximal drug concentrations to be tested in vitro ($maxc$), the
+FDA guidance suggests considering $30*I_{max,ss,u}$ while the EMA guidance
+considers $50*I_{max,ss,u}$ for hepatic and $0.1*I_{gut}$ for intestinal
+induction. It is expected that the concentrations in the respective in vitro
+assays cover these concentrations.
 
 Basic modeling as per the FDA guideline results in the following risk assessment:
 
@@ -248,9 +255,12 @@ kinetic_cyp_induction_risk_table(m, cyp_induction_data, na.rm=T)
 
 ## Mechanistic static modeling of CYP modulation
 
-As per the FDA guideline (FDA 2020), the relevant metric for mechanistic static modeling of the CYP inhibition potential is the predicted AUC ratio ($AUCR$) for specific probe substrates. A cut-off of $R<1.25$ applies.
+As per the FDA guideline (FDA 2020), the relevant metric for mechanistic static
+modeling of the CYP inhibition potential is the predicted AUC ratio ($AUCR$) for
+specific probe substrates. A cut-off of $R<1.25$ applies.
  
-In the current implementation of this tool (and listed in the table below), only reversible inhibition and induction (as reflected in the A- and C-terms of the AUCR formula, see Appendix) is included. In general, the FDA guidelines advises to investigate mechanistic static models of inhibition (reversible and mechanism-dependent) and induction separately.
+In general, the FDA guidelines advises to investigate mechanistic static models
+of inhibition (reversible and mechanism-dependent) and induction separately.
 
 ### CYP inhibition only
 
@@ -272,11 +282,16 @@ mech_stat_cyp_risk_table(m, cyp_inhibition_data, cyp_induction_data,
 
 ## Basic modeling of UGT inhibition
 
-The relevant metric for basic modeling of the UGT inhibition risk is $R_1=I_{max,ss,u}/K_{i,u}$. For the clinical risk assessment, a cut-off of $R<1.02$ applies.
+The relevant metric for basic modeling of the UGT inhibition risk is
+$R_1=I_{max,ss,u}/K_{i,u}$. For the clinical risk assessment, a cut-off of
+$R<1.02$ applies.
 
-In in vitro UGT inhibition studies, ususally $IC_{50}$ rather than $k_i$ values are determined. Assuming that a substrate concentration close to $K_m$ is used, $K_i$ is calculated as $K_i = IC_{50}/2$ (refer to Cheng, Prusoff 1973).
+In in vitro UGT inhibition studies, ususally $IC_{50}$ rather than $k_i$ values
+are determined. Assuming that a substrate concentration close to $K_m$ is used,
+$K_i$ is calculated as $K_i = IC_{50}/2$ (refer to Cheng, Prusoff 1973).
  
-Basic modeling as per the FDA guideline (FDA 2020) results in the following risk assessment:
+Basic modeling as per the FDA guideline (FDA 2020) results in the following
+risk assessment:
 
 ```{r}
 basic_ugt_inhibition_risk_table(p, ugt_inhibition_data)
@@ -286,11 +301,20 @@ basic_ugt_inhibition_risk_table(m, ugt_inhibition_data)
 
 ## Inhibition of drug transporters
 
-The relevant metric for the assessment of transporter interactions is $R=[I]/K_i$. In in vitro transporter inhibition studies, $IC_{50}$ values are experimentally determined. Since the transporter substrate concentration is ususally kept very low in relation to $K_m$ in order to minimze passive permeation, $K_i = IC_{50}$ can be assumed.
+The relevant metric for the assessment of transporter interactions is
+$R=[I]/K_i$. In in vitro transporter inhibition studies, $IC_{50}$ values are
+experimentally determined. Since the transporter substrate concentration is
+ususally kept very low in relation to $K_m$ in order to minimze passive
+permeation, $K_i = IC_{50}$ can be assumed.
 
-The relevant perpetrator concentrations $[I]$ are: $I_{gut}$ for intestinal P-gp and BRCR, $I_{max,inlet,u}$ for the hepatic basolateral transporters OCT1, OATP1B1 and OATP1B3, and $I_{max,ss,u}$ for the renal basolateral transporters OAT1, OAT3 and OCT2, as well as the apical transporters outside the intestinal mucosa, i.e., hepatic P-gp and BCRP, and MATE1, MATE2-k.
+The relevant perpetrator concentrations $[I]$ are: $I_{gut}$ for intestinal
+P-gp and BRCR, $I_{max,inlet,u}$ for the hepatic basolateral transporters OCT1,
+OATP1B1 and OATP1B3, and $I_{max,ss,u}$ for the renal basolateral transporters
+OAT1, OAT3 and OCT2, as well as the apical transporters outside the intestinal
+mucosa, i.e., hepatic P-gp and BCRP, and MATE1, MATE2-k.
 
-The FDA and EMA guidelines differ in their threshold definitions. The risk assessments according to both guidelines are presented below:
+The FDA and EMA guidelines differ in their threshold definitions. The risk
+assessments according to both guidelines are presented below:
 
 ```{r}
 transporter_inhibition_risk_table(p, transporter_inhibition_data)
@@ -304,37 +328,51 @@ transporter_inhibition_risk_table(m, transporter_inhibition_data)
 
 ### Gut concentration {-}
 
-As per the FDA guideline, the maximal gut concentration ($I_{gut}$) for the parent compound is to be assumed the administered dose dissolved in 250 ml.
+As per the FDA guideline, the maximal gut concentration ($I_{gut}$) for the
+parent compound is to be assumed the administered dose dissolved in 250 ml.
 
 $$I_{gut} = \frac{D} {250}$$
 
 ### Systemic concentration {-}
 
-The unbound systemic ($I_{max,ss,u}$) concentrations of the parent compound and the metabolites that are relevant for the DDI potential are derived from the total maximal plasma concentration and the respective unbound fractions:
+The unbound systemic ($I_{max,ss,u}$) concentrations of the parent compound and
+the metabolites that are relevant for the DDI potential are derived from the
+total maximal plasma concentration and the respective unbound fractions:
 
 $$I_{max,ss,u}=I_{max,ss} * f_u$$
 
 ### Hepatic inlet concentration {-}
 
-For the parent compound, the portal contribution to the hepatic inlet concentration is calculated as:
+For the parent compound, the portal contribution to the hepatic inlet
+concentration is calculated as:
 
 $$portal\ term = D*\frac{F_a*F_g*k_a}{Q_h*R_B}*1000\ ng/ml$$
-With $D$ the administered dose in mg, $F_a$ the fraction absorbed after oral administration, $F_g$ the fraction available after gut metabolism, $k_a$ the absorption rate, $Q_h$ the hepatic blood flow and $R_B$ the blood-to-plasma ratio.
+With $D$ the administered dose in mg, $F_a$ the fraction absorbed after oral
+administration, $F_g$ the fraction available after gut metabolism, $k_a$ the
+absorption rate, $Q_h$ the hepatic blood flow and $R_B$ the blood-to-plasma
+ratio.
 
 The standard hepatic blood flow is 97 l/h/70 kg or 1.61 l/min/70 kg.
 
-The relevant hepatic inlet ($I_{max,inlet,u}$, also called $I_h$ in the mechanistic static modeling equations) concentration is the sum of the maximal systemic plasma concentration and the portal contribution:
+The relevant hepatic inlet ($I_{max,inlet,u}$, also called $I_h$ in the
+mechanistic static modeling equations) concentration is the sum of the maximal
+systemic plasma concentration and the portal contribution:
 
 $$I_{max,inlet,u}=(I_{max,ss} + portal\ term) * f_u$$
 
 ### Enteric concentration {-}
 
-For the parent compound, the villous concentration in the gut ($I_{enteric}$, also called $I_g$ in the mechanistic static modeling equations) is calculated as: 
+For the parent compound, the villous concentration in the gut ($I_{enteric}$,
+also called $I_g$ in the mechanistic static modeling equations) is calculated
+as: 
 
 $$I_{enteric,u} = D * \frac{F_a*k_a}{Q_{ent}} *1000\ ng/ml$$
-with $F_a$ the fraction absorbed after oral administration, $k_a$ the absorption rate, $Q_{ent}$ the enteric villous blood flow and $R_B$ the blood-to-plasma ratio.
+with $F_a$ the fraction absorbed after oral administration, $k_a$ the absorption
+rate, and $Q_{ent}$ the enteric villous blood flow.
 
-Note that as per the FDA guideline (refer to FDA, 2020, Fig. 7, and Rostami-Hodjegan and Tucker, 2004) the blood-to-plasma ratio and the plasma binding of the drug are ignored.
+Note that as per the FDA and EMA guidelines and [Rostami-Hodjegan and Tucker,
+2004](https://doi.org/10.1016/j.ddtec.2004.10.002) the blood-to-plasma ratio and
+the plasma binding of the drug are not applicable for the villous concentration.
 
 The standard villous blood flow is 18 l/h/70 kg or 0.3 l/min/70 kg.
 
@@ -383,10 +421,27 @@ $$R_3 = \frac {1}{1+d* \frac {E_{max}*10*I_{max,u}}{EC_{50} + 10*I_{max,u}}}$$
 
 ## Static mechanistic modeling of CYP inhibition/induction
 
-In this approach, AUC ratios for probe substrates are calculated based on their known intestinal and hepatic metabolism. Both direct (competitive) and time-dependent inhibition are considered. The below formula given by the FDA guideline (refer to FDA 2020, Fig. 7) also includes intestinal and hepatic enzyme induction terms ($C_g$ and $C_h$, respectively). At the same time, the guideline states that both inhibition and induction should be considered separately. For the purpose of modeling used here the induction terms are ignored.
+In this approach, AUC ratios for probe substrates are calculated based on their
+known intestinal and hepatic metabolism. Both direct (competitive) and
+time-dependent inhibition are considered. The below formula given by the FDA
+guideline (refer to FDA 2020, Fig. 7) also includes intestinal and hepatic
+enzyme induction terms ($C_g$ and $C_h$, respectively). At the same time, the
+guideline states that both inhibition and induction should be considered
+separately.
 
 $$AUCR = \frac{1}{A_g*B_g*C_g*\left(1-F_g\right)+F_g} * \frac{1}{A_h*B_h*C_h*f_m+\left(1-f_m\right)}$$
-The invidual terms are:
+
+This calculation is applied for typical probe substrates for which $F_g$, i.e., 
+the fraction escaping gut metabolism and $f_m$, i.e., the fraction metabolized 
+are known.
+
+Note that the $f_m$ is composed of the overall fraction metabolized for the
+respective probe substrate, and the fraction metabolized by the CYP enzyme in
+questions:
+
+$$f_m=f_{m,overall} * f_{m,CYP}$$
+
+The individual terms in the AUC calculation are:
 
 ### Reversible inhibition {-}
 
@@ -406,7 +461,9 @@ $$C_g = 1 + \frac{d*E_{max}*I_g}{I_g+EC_{50}}$$
 
 $$C_h = 1 + \frac{d*E_{max}*I_h}{I_h+EC_{50}}$$
 
-with the hepatic inlet concentration $I_h=I_{max,inlet,u}$ and the intestinal concentration $I_g=I_{enteric,u}$ (see above). $d$ is an induction scaling factor (assumed to be 1 but can be adjusted).
+with the hepatic inlet concentration $I_h=I_{max,inlet,u}$ and the intestinal
+concentration $I_g=I_{enteric}$ (see above). $d$ is an induction scaling factor
+(assumed to be 1 but can be adjusted).
 
 \newpage
 # Appendix 2: R Session Info
