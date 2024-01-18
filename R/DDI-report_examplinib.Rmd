@@ -155,18 +155,19 @@ date: `r format(Sys.Date(), "%d-%b-%Y")`
 <!-- This is basic introductory text that should suffice in most cases. Feel free to change or extend but keep concise.
 The version information should not be changed as it provides a back link to the script template. -->
 
-This assessment of the perpetrator risks for `r compound_names_string(compounds)`
-is based on the relevant FDA and EMA guidance documents (refer to
+This assessment of the drug-drug interaction (DDI) perpetrator risks for
+`r compound_names_string(compounds)` is based on the relevant FDA and EMA
+guidance documents (refer to
 [FDA 2020](https://www.fda.gov/media/134582/download) and
 [EMA 2012](https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-drug-interactions-revision-1_en.pdf)).
 
-This output was generated using the `ddir` package.
+All calculations were done using the
+[`ddir`](https://github.com/rstrotmann/ddir) package.
 
 # Drug properties
 
-The following physico-chemical, ADME and clinical exposure data were used for the
-calculation of the maximal gut and portal vein concentrations, and the unbound
-systemic concentrations. 
+The following physico-chemical, ADME and clinical exposure data were used for
+the calculation of the relevant drug concentrations:
 
 ```{r perpetrator_properties}
 p <- compounds[[1]]
@@ -178,8 +179,8 @@ property_table(m)
 
 # Key perpetrator concentrations
 
-The relevant perpetrator concentrations are calculated as outlined in the
-Appendix:
+The following perpetrator concentrations were calculated as described in 
+Appendix 1:
 
 ```{r}
 conc_table(p)
@@ -192,13 +193,14 @@ conc_table(m)
 
 ### Reversible inhibition
 
-As per the FDA guideline ([FDA, 2020](https://www.fda.gov/media/134582/download)),
-the relevant metric for the basic modeling of the direct CYP inhibition risk is
-$R=1+[I]/K_{i,u}$ with the relevant inhibitor concentration $[I]$ being
-$I_{max,ss,u}$ for hepatic CYP enzymes and $I_{gut}$ for intestinal CYP enzymes.
+Following the basic modeling approach (refer to the
+[FDA guideline](https://www.fda.gov/media/134582/download)), the relevant metric
+for the assessment of the direct CYP inhibition risk is $R=1+[I]/K_{i,u}$ with
+the inhibitor concentration $[I]$ being $I_{max,ss,u}$ for hepatic CYP enzymes
+and $I_{gut}$ for intestinal CYP enzymes.
 
 Thresholds of $R < 1.02$ and $R < 11$ apply for hepatic and intestinal enzymes,
-respectively. Note that intestinal CYP inhibition is only evaluated for CYP3A4.
+respectively. Intestinal CYP inhibition is only evaluated for CYP3A4.
 
 ```{r}
 basic_cyp_inhibition_risk_table(p, cyp_inhibition_data)
@@ -211,7 +213,7 @@ listed above minus 1.
 ### Time-dependent inhibition
 
 As per the FDA guideline, the risk for time-dependent inhbition (TDI) of CYP
-enzymes is assessed based on $R_2$ (see appendix), where $R_2 \geq 1.25$ suggest
+enzymes is assessed based on $R_2$ (see Appendix 1), where $R_2 \geq 1.25$ suggest
 a clinically relevant DDI potential that requires further investigation.
 
 ```{r}
@@ -226,12 +228,12 @@ basic_cyp_tdi_risk_table(m, cyp_tdi_data, na.rm=T)
 ### Basic static/fold-change method
 
 The basic static (EMA) or fold-change (FDA) methods evaluate whether the maximal
-fold-change in mRNA expression is > 2-fold at the expected unbound hepatic
-concentration of the drug.
+change in mRNA expression after incubation of hepatocytes with the drug
+is > 2-fold at the expected unbound hepatic concentration of the drug.
 
-For the relevant maximal drug concentrations to be tested in vitro ($maxc$), the
-FDA guidance suggests considering $30*I_{max,ss,u}$ while the EMA guidance
-considers $50*I_{max,ss,u}$ for hepatic and $0.1*I_{gut}$ for intestinal
+Regarding the relevant maximal drug concentrations to be tested in vitro
+($maxc$), the FDA guidance suggests considering $30*I_{max,ss,u}$ while the EMA
+guidance considers $50*I_{max,ss,u}$ for hepatic and $0.1*I_{gut}$ for intestinal
 induction. It is expected that the concentrations in the respective in vitro
 assays cover these concentrations.
 
@@ -244,9 +246,11 @@ static_cyp_induction_risk_table(m, cyp_induction_data, na.rm=T)
 
 ### Basic kinetic method
 
-In the basic kinetic method, $R_3$ is calculated according to the equation given
-in the appendix. For $R_3 > 0.8$, a potential in vivo induction risk is
-assumed that needs furher investigation
+In the basic kinetic method for the assessment of CYP induction, the relevant
+metric is $R_3$ (see fig. 4 of the
+[FDA guidance](https://www.fda.gov/media/134582/download) and Appendix 1). For
+$R_3 > 0.8$, a potential in vivo induction risk is assumed that needs furher
+investigation.
 
 ```{r}
 kinetic_cyp_induction_risk_table(p, cyp_induction_data, na.rm=T)
@@ -255,9 +259,10 @@ kinetic_cyp_induction_risk_table(m, cyp_induction_data, na.rm=T)
 
 ## Mechanistic static modeling of CYP modulation
 
-As per the FDA guideline (FDA 2020), the relevant metric for mechanistic static
+As per the FDA guideline, the relevant metric for mechanistic static
 modeling of the CYP inhibition potential is the predicted AUC ratio ($AUCR$) for
-specific probe substrates. A cut-off of $R<1.25$ applies.
+specific probe substrates (refer to fig. 7 of the FDA guidance and Appendix 1).
+$AUCR \ge 1.25$ are considered relevant and may require clinical DDI assessment.
  
 In general, the FDA guidelines advises to investigate mechanistic static models
 of inhibition (reversible and mechanism-dependent) and induction separately.

@@ -56,7 +56,7 @@ sum of the maximal systemic plasma concentration and the portal contribution:
 \deqn{I_{max,inlet,u}=(I_{max,ss} + portal\ term) * f_u}
 }
 
-\subsection{Unbound enteric concentration}{
+\subsection{Enteric (villous) concentration}{
 
 For orally administered (parent) compounds, the villous concentration in the
 gut (\eqn{I_{enteric}}, also called \eqn{I_g} in the mechanistic static

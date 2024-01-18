@@ -442,7 +442,7 @@ mech_stat_cyp_risk <- function(
   fumic <- as.num(perp["fumic", "value"])
 
   i <- key_concentrations(perp, molar = TRUE)
-  Ig <- i["imaxintestu"]
+  Ig <- i["imaxintest"]
   Ih <- i["imaxinletu"]
 
   if(is.null(cyp_tdi)) {

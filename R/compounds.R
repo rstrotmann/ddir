@@ -435,15 +435,14 @@ key_concentrations <- function(obj, qh=1.616, qent=18/60, molar=TRUE) {
 
   # unbound intestinal concentration in ng/ml
   if(oral == FALSE) {
-    imaxintestu <- imaxssu
+    imaxintest <- imaxssu
   } else {
-    # imaxintestu <- dose * fa * ka / qent / rb * fu * 1000
-    imaxintestu <- dose * fa * ka / qent * 1000
+    imaxintest <- dose * fa * ka / qent * 1000
   }
 
   # output vector
   temp <- c(igut=igut, imaxssu=imaxssu, imaxinletu=imaxinletu,
-            imaxintestu=imaxintestu)
+            imaxintest=imaxintest)
 
   if(molar) {
     temp <- temp/mw
