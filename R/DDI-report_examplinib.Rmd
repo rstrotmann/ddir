@@ -249,7 +249,7 @@ static_cyp_induction_risk_table(m, cyp_induction_data, na.rm=T)
 In the basic kinetic method for the assessment of CYP induction, the relevant
 metric is $R_3$ (see fig. 4 of the
 [FDA guidance](https://www.fda.gov/media/134582/download) and Appendix 1). For
-$R_3 > 0.8$, a potential in vivo induction risk is assumed that needs furher
+$R_3 < 0.8$, a potential in vivo induction risk is assumed that needs further
 investigation.
 
 ```{r}
@@ -412,7 +412,7 @@ and
 
 $$k_{obs}=\frac {50*k_{inact}*I_{max,u}}{K_{I,u} + 50*I_{max,u}}$$
 
-The CYP degradation constant, $k_{deg} is a physiological constant that should
+The CYP degradation constant, $k_{deg}$ is a physiological constant that should
 be derived from the scientific literature. In this DDI assessment report,
 standard values are used unless otherwise indicated.
 
