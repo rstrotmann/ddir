@@ -1,9 +1,5 @@
-test_that("multiplication works", {
-  expect_equal(2 * 2, 4)
-})
 
-
-test_that("compound imports from text", {
+test_that("compound imports from textwithout error", {
   compounds <- read_perpetrators(textConnection(examplinib_compounds_string))
   expect_equal(length(compounds), 2)
 })
@@ -43,7 +39,7 @@ test_that("new_perpetrator - compatibility with old 'type' field", {
 })
 
 
-test_that("read CYP inhibitor data", {
+test_that("read CYP inhibitor data without error", {
   test <- "
     examplinib, CYP1A2,  NA, \n
     examplinib, CYP2B6,  NA,\n

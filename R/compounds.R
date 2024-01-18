@@ -82,19 +82,25 @@ names_string <- function(perps) {
 #' @param compounds A list of perpetrator objects
 #' @return A character string.
 #' @export
+#' @importFrom methods is
 #' @examples
 #' compound_names_string(examplinib_compounds)
 compound_names_string <- function(compounds) {
-  temp <- lapply(compounds, function(p) {
-    p[(p$param=="name"), "value"]})
-
-  if(length(temp) == 1) {
-    return(temp[[1]])
+  if(is(compounds, "perpetrator")) {
+    return(name(compounds))
   }
+  if(is(compounds, "list")) {
+    temp <- lapply(compounds, function(p) {
+      p[(p$param=="name"), "value"]})
 
-  if(length(temp) > 1) {
-    return(paste(paste(temp[1:length(temp)-1], collapse = ", "), "and",
-           temp[length(temp)]))
+    if(length(temp) == 1) {
+      return(temp[[1]])
+    }
+
+    if(length(temp) > 1) {
+      return(paste(paste(temp[1:length(temp)-1], collapse = ", "), "and",
+             temp[length(temp)]))
+    }
   }
 }
 

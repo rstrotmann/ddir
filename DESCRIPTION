@@ -21,7 +21,8 @@ Imports:
     assertr,
     lifecycle,
     tidyr,
-    magrittr
+    magrittr,
+    methods
 Depends: 
     R (>= 2.10)
 License: MIT + file LICENSE

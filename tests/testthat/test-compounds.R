@@ -1,5 +1,6 @@
-test_that("compound loading", {
-  cpds <- read_perpetrators(test_path("fixtures", "compounds.csv"))
+test_that("compounds load without error", {
+  expect_no_error(
+    read_perpetrators(test_path("fixtures", "examplinib_compounds.csv")))
 })
 
 
@@ -21,7 +22,7 @@ test_that("new_perpetrator", {
 })
 
 
-test_that("solubility limitation", {
+test_that("solubility limitation works", {
   test_compound <- examplinib_parent %>% as.data.frame()
   expect_false(is_igut_solubility_limited(test_compound))
 
