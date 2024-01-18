@@ -57,12 +57,17 @@
 
 
 <dt>transporter_inh</dt>
-<dd><p>Transporter inhibition data as data frame. See
-<code><a href="transporter_inhibition_risk.html">transporter_inhibition_risk()</a></code> for details.</p></dd>
+<dd><p>Transporter inhibition data as data frame. The
+following fields are expected:</p><ul><li><p>'name' The perpetrator compound name</p></li>
+<li><p>'cyp' The UGT enzyme as (upper case) character.</p></li>
+<li><p>'ic50' The \(IC_{50}\) of the inhibition in μM.</p></li>
+<li><p>'source' Optional source information as character.</p></li>
+</ul></dd>
 
 
 <dt>transporter_ref</dt>
-<dd><p>Transporter reference data.</p></dd>
+<dd><p>Transporter reference data, see
+<a href="transporter_reference_data.html">transporter_reference_data</a> for details.</p></dd>
 
 
 <dt>na.rm</dt>

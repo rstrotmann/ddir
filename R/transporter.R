@@ -26,7 +26,8 @@
 #' * 'cyp' The UGT enzyme as (upper case) character.
 #' * 'ic50' The \eqn{IC_{50}} of the inhibition in μM.
 #' * 'source' Optional source information as character.
-#' @param transporter_ref Transporter reference data.
+#' @param transporter_ref Transporter reference data, see
+#' [transporter_reference_data] for details.
 #' @return A data frame.
 #' @seealso [transporter_inhibition_risk_table()]
 #' @seealso [read_transporter_inhibitor_data()]
@@ -69,12 +70,9 @@ transporter_inhibition_risk <- function(
 
 #' Table of drug transporter inhibition risks
 #'
-#' @param perp The perpetrator object.
-#' @param transporter_inh Transporter inhibition data as data frame. See
-#' [transporter_inhibition_risk()] for details.
+#' @inheritParams transporter_inhibition_risk
 #' @param na.rm Switch to exlcude rows with lacking \eqn{IC_{50}} data from the
 #' output.
-#' @param transporter_ref Transporter reference data.
 #' @seealso [transporter_inhibition_risk()]
 #' @return A markdown-formatted table.
 #' @export

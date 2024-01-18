@@ -22,7 +22,8 @@ following fields are expected:
 \item 'source' Optional source information as character.
 }}
 
-\item{transporter_ref}{Transporter reference data.}
+\item{transporter_ref}{Transporter reference data, see
+\link{transporter_reference_data} for details.}
 }
 \value{
 A data frame.

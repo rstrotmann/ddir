@@ -14,10 +14,17 @@ transporter_inhibition_risk_table(
 \arguments{
 \item{perp}{The perpetrator object.}
 
-\item{transporter_inh}{Transporter inhibition data as data frame. See
-\code{\link[=transporter_inhibition_risk]{transporter_inhibition_risk()}} for details.}
+\item{transporter_inh}{Transporter inhibition data as data frame. The
+following fields are expected:
+\itemize{
+\item 'name' The perpetrator compound name
+\item 'cyp' The UGT enzyme as (upper case) character.
+\item 'ic50' The \eqn{IC_{50}} of the inhibition in μM.
+\item 'source' Optional source information as character.
+}}
 
-\item{transporter_ref}{Transporter reference data.}
+\item{transporter_ref}{Transporter reference data, see
+\link{transporter_reference_data} for details.}
 
 \item{na.rm}{Switch to exlcude rows with lacking \eqn{IC_{50}} data from the
 output.}
