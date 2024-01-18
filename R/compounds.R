@@ -364,7 +364,7 @@ is_igut_solubility_limited <- function(obj) {
 #'
 #' \deqn{I_{max,inlet,u}=(I_{max,ss} + portal\ term) * f_u}
 #'
-#' ## Unbound enteric concentration
+#' ## Enteric (villous) concentration
 #'
 #' For orally administered (parent) compounds, the villous concentration in the
 #' gut (\eqn{I_{enteric}}, also called \eqn{I_g} in the mechanistic static

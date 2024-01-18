@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2021.1.26)  17 JAN 2024 18:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2021.1.26)  17 JAN 2024 18:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -540,104 +540,94 @@ LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 9
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 116.
+(Font)              <10> on input line 117.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 116.
+(Font)              <7> on input line 117.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 116.
+(Font)              <5> on input line 117.
 [1
 
 {/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 2
-28.
+30.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-Overfull \hbox (1.65538pt too wide) in paragraph at lines 262--262
+Overfull \hbox (1.65538pt too wide) in paragraph at lines 264--264
 []|\T1/lmr/m/n/10 (-20) CYP1A2|  
  []
 
 
-Overfull \hbox (1.2467pt too wide) in paragraph at lines 263--263
+Overfull \hbox (1.2467pt too wide) in paragraph at lines 265--265
 []|\T1/lmr/m/n/10 (-20) CYP2B6|  
  []
 
 
-Overfull \hbox (1.38293pt too wide) in paragraph at lines 264--264
+Overfull \hbox (1.38293pt too wide) in paragraph at lines 266--266
 []|\T1/lmr/m/n/10 (-20) CYP2C8|  
  []
 
 
-Overfull \hbox (1.38293pt too wide) in paragraph at lines 265--265
+Overfull \hbox (1.38293pt too wide) in paragraph at lines 267--267
 []|\T1/lmr/m/n/10 (-20) CYP2C9|  
  []
 
 
-Overfull \hbox (6.28293pt too wide) in paragraph at lines 266--266
+Overfull \hbox (6.28293pt too wide) in paragraph at lines 268--268
 []|\T1/lmr/m/n/10 (-20) CYP2C19|  
  []
 
 
-Overfull \hbox (1.7916pt too wide) in paragraph at lines 267--267
+Overfull \hbox (1.7916pt too wide) in paragraph at lines 269--269
 []|\T1/lmr/m/n/10 (-20) CYP2D6|  
  []
 
 
-Overfull \hbox (1.65538pt too wide) in paragraph at lines 268--268
+Overfull \hbox (1.65538pt too wide) in paragraph at lines 270--270
 []|\T1/lmr/m/n/10 (-20) CYP3A4|  
  []
 
 
-Overfull \hbox (5.595pt too wide) in paragraph at lines 319--319
+Overfull \hbox (5.595pt too wide) in paragraph at lines 321--321
 []|\T1/lmr/m/n/10 (-20) CYP2C9|  
  []
 
 [2]
 
-LaTeX Warning: Command \textmu invalid in math mode on input line 348.
+LaTeX Warning: Command \textmu invalid in math mode on input line 350.
 
 
-LaTeX Warning: Command \textmu invalid in math mode on input line 348.
+LaTeX Warning: Command \textmu invalid in math mode on input line 350.
 
 
-LaTeX Warning: Command \textmu invalid in math mode on input line 368.
+LaTeX Warning: Command \textmu invalid in math mode on input line 370.
 
 
-LaTeX Warning: Command \textmu invalid in math mode on input line 368.
+LaTeX Warning: Command \textmu invalid in math mode on input line 370.
 
 
-Overfull \hbox (4.91956pt too wide) in paragraph at lines 386--386
+Overfull \hbox (4.91956pt too wide) in paragraph at lines 388--388
 []|\T1/lmr/m/n/10 (-20) CYP3A4|  
  []
 
 
-Overfull \hbox (4.22934pt too wide) in paragraph at lines 386--387
+Overfull \hbox (4.22934pt too wide) in paragraph at lines 388--389
 []|\T1/lmr/m/n/10 (-20) TRUE|  
  []
 
 
-Overfull \hbox (0.69325pt too wide) in paragraph at lines 430--431
+Overfull \hbox (0.69325pt too wide) in paragraph at lines 432--433
  []$\OML/lmm/m/it/10 maxc=I[]$
  []
 
 
-Overfull \hbox (0.69325pt too wide) in paragraph at lines 448--449
+Overfull \hbox (0.69325pt too wide) in paragraph at lines 450--451
  []$\OML/lmm/m/it/10 maxc=I[]$
  []
 
 
-Overfull \hbox (16.13057pt too wide) in paragraph at lines 458--458
+Overfull \hbox (16.13057pt too wide) in paragraph at lines 460--460
 []|\T1/lmr/m/n/10 (-20) CYP1A2|  
- []
-
-
-Overfull \hbox (11.939pt too wide) in paragraph at lines 458--458
-[]|\T1/lmr/m/n/10 (-20) FALSE|  
- []
-
-
-Overfull \hbox (15.7219pt too wide) in paragraph at lines 460--460
-[]|\T1/lmr/m/n/10 (-20) CYP2B6|  
  []
 
 
@@ -646,93 +636,53 @@ Overfull \hbox (11.939pt too wide) in paragraph at lines 460--460
  []
 
 
-Overfull \hbox (16.13057pt too wide) in paragraph at lines 462--462
-[]|\T1/lmr/m/n/10 (-20) CYP3A4|  
- []
-
-
-Overfull \hbox (9.09686pt too wide) in paragraph at lines 462--462
-[]|\T1/lmr/m/n/10 (-20) TRUE|  
- []
-
-[3]
-Overfull \hbox (3.47307pt too wide) in paragraph at lines 671--672
-[]\T1/lmr/m/n/10 (-20) substrate  
- []
-
-
-Overfull \hbox (13.3965pt too wide) in paragraph at lines 691--692
-[]\T1/lmr/m/n/10 (-20) AUCR  
- []
-
-
-Overfull \hbox (3.47307pt too wide) in paragraph at lines 703--704
-[]\T1/lmr/m/n/10 (-20) substrate  
- []
-
-
-Overfull \hbox (13.3965pt too wide) in paragraph at lines 723--724
-[]\T1/lmr/m/n/10 (-20) AUCR  
- []
-
-
-Overfull \hbox (14.33807pt too wide) in paragraph at lines 731--731
-[]|\T1/lmr/m/n/10 (-20) CYP1A2|  
- []
-
-
-Overfull \hbox (6.0589pt too wide) in paragraph at lines 731--731
-[]|\T1/lmr/m/n/10 (-20) tizanidine|  
- []
-
-
-Overfull \hbox (4.40727pt too wide) in paragraph at lines 731--731
-[]|\T1/lmr/m/n/10 (-20) 1.000|  
- []
-
-
-Overfull \hbox (4.40727pt too wide) in paragraph at lines 731--731
-[]|\T1/lmr/m/n/10 (-20) 1.000|  
- []
-
-
-Overfull \hbox (4.40727pt too wide) in paragraph at lines 731--731
-[]|\T1/lmr/m/n/10 (-20) 1.000|  
- []
-
-
-Overfull \hbox (4.40727pt too wide) in paragraph at lines 732--732
-[]|\T1/lmr/m/n/10 (-20) 1.000|  
- []
-
-
-Overfull \hbox (4.40727pt too wide) in paragraph at lines 732--732
-[]|\T1/lmr/m/n/10 (-20) 1.000|  
- []
-
-
-Overfull \hbox (4.40727pt too wide) in paragraph at lines 732--732
-[]|\T1/lmr/m/n/10 (-20) 1.000|  
- []
-
-
-Overfull \hbox (2.48512pt too wide) in paragraph at lines 732--732
-[]|\T1/lmr/m/n/10 (-20) 1.00|  
- []
-
-
-Overfull \hbox (12.96017pt too wide) in paragraph at lines 732--733
-[]|\T1/lmr/m/n/10 (-20) FALSE|  
- []
-
-
-Overfull \hbox (13.9294pt too wide) in paragraph at lines 733--733
+Overfull \hbox (15.7219pt too wide) in paragraph at lines 462--462
 []|\T1/lmr/m/n/10 (-20) CYP2B6|  
  []
 
 
-Overfull \hbox (4.40727pt too wide) in paragraph at lines 733--733
-[]|\T1/lmr/m/n/10 (-20) 1.000|  
+Overfull \hbox (11.939pt too wide) in paragraph at lines 462--462
+[]|\T1/lmr/m/n/10 (-20) FALSE|  
+ []
+
+
+Overfull \hbox (16.13057pt too wide) in paragraph at lines 464--464
+[]|\T1/lmr/m/n/10 (-20) CYP3A4|  
+ []
+
+
+Overfull \hbox (9.09686pt too wide) in paragraph at lines 464--464
+[]|\T1/lmr/m/n/10 (-20) TRUE|  
+ []
+
+[3]
+Overfull \hbox (3.47307pt too wide) in paragraph at lines 673--674
+[]\T1/lmr/m/n/10 (-20) substrate  
+ []
+
+
+Overfull \hbox (13.3965pt too wide) in paragraph at lines 693--694
+[]\T1/lmr/m/n/10 (-20) AUCR  
+ []
+
+
+Overfull \hbox (3.47307pt too wide) in paragraph at lines 705--706
+[]\T1/lmr/m/n/10 (-20) substrate  
+ []
+
+
+Overfull \hbox (13.3965pt too wide) in paragraph at lines 725--726
+[]\T1/lmr/m/n/10 (-20) AUCR  
+ []
+
+
+Overfull \hbox (14.33807pt too wide) in paragraph at lines 733--733
+[]|\T1/lmr/m/n/10 (-20) CYP1A2|  
+ []
+
+
+Overfull \hbox (6.0589pt too wide) in paragraph at lines 733--733
+[]|\T1/lmr/m/n/10 (-20) tizanidine|  
  []
 
 
@@ -747,11 +697,6 @@ Overfull \hbox (4.40727pt too wide) in paragraph at lines 733--733
 
 
 Overfull \hbox (4.40727pt too wide) in paragraph at lines 733--733
-[]|\T1/lmr/m/n/10 (-20) 1.000|  
- []
-
-
-Overfull \hbox (4.40727pt too wide) in paragraph at lines 733--734
 []|\T1/lmr/m/n/10 (-20) 1.000|  
  []
 
@@ -761,23 +706,48 @@ Overfull \hbox (4.40727pt too wide) in paragraph at lines 734--734
  []
 
 
-Overfull \hbox (14.06563pt too wide) in paragraph at lines 735--735
-[]|\T1/lmr/m/n/10 (-20) CYP2C8|  
+Overfull \hbox (4.40727pt too wide) in paragraph at lines 734--734
+[]|\T1/lmr/m/n/10 (-20) 1.000|  
  []
 
 
-Overfull \hbox (10.986pt too wide) in paragraph at lines 735--735
-[]|\T1/lmr/m/n/10 (-20) repaglinide|  
+Overfull \hbox (4.40727pt too wide) in paragraph at lines 734--734
+[]|\T1/lmr/m/n/10 (-20) 1.000|  
+ []
+
+
+Overfull \hbox (2.48512pt too wide) in paragraph at lines 734--734
+[]|\T1/lmr/m/n/10 (-20) 1.00|  
+ []
+
+
+Overfull \hbox (12.96017pt too wide) in paragraph at lines 734--735
+[]|\T1/lmr/m/n/10 (-20) FALSE|  
+ []
+
+
+Overfull \hbox (13.9294pt too wide) in paragraph at lines 735--735
+[]|\T1/lmr/m/n/10 (-20) CYP2B6|  
  []
 
 
 Overfull \hbox (4.40727pt too wide) in paragraph at lines 735--735
-[]|\T1/lmr/m/n/10 (-20) 0.626|  
+[]|\T1/lmr/m/n/10 (-20) 1.000|  
  []
 
 
 Overfull \hbox (4.40727pt too wide) in paragraph at lines 735--735
-[]|\T1/lmr/m/n/10 (-20) 0.983|  
+[]|\T1/lmr/m/n/10 (-20) 1.000|  
+ []
+
+
+Overfull \hbox (4.40727pt too wide) in paragraph at lines 735--735
+[]|\T1/lmr/m/n/10 (-20) 1.000|  
+ []
+
+
+Overfull \hbox (4.40727pt too wide) in paragraph at lines 735--735
+[]|\T1/lmr/m/n/10 (-20) 1.000|  
  []
 
 
@@ -791,38 +761,23 @@ Overfull \hbox (4.40727pt too wide) in paragraph at lines 736--736
  []
 
 
-Overfull \hbox (4.40727pt too wide) in paragraph at lines 736--736
-[]|\T1/lmr/m/n/10 (-20) 1.000|  
- []
-
-
-Overfull \hbox (4.40727pt too wide) in paragraph at lines 736--736
-[]|\T1/lmr/m/n/10 (-20) 1.000|  
- []
-
-
-Overfull \hbox (2.48512pt too wide) in paragraph at lines 736--736
-[]|\T1/lmr/m/n/10 (-20) 1.01|  
- []
-
-
-Overfull \hbox (12.96017pt too wide) in paragraph at lines 736--737
-[]|\T1/lmr/m/n/10 (-20) FALSE|  
- []
-
-
 Overfull \hbox (14.06563pt too wide) in paragraph at lines 737--737
-[]|\T1/lmr/m/n/10 (-20) CYP2C9|  
+[]|\T1/lmr/m/n/10 (-20) CYP2C8|  
+ []
+
+
+Overfull \hbox (10.986pt too wide) in paragraph at lines 737--737
+[]|\T1/lmr/m/n/10 (-20) repaglinide|  
  []
 
 
 Overfull \hbox (4.40727pt too wide) in paragraph at lines 737--737
-[]|\T1/lmr/m/n/10 (-20) 0.672|  
+[]|\T1/lmr/m/n/10 (-20) 0.626|  
  []
 
 
 Overfull \hbox (4.40727pt too wide) in paragraph at lines 737--737
-[]|\T1/lmr/m/n/10 (-20) 0.986|  
+[]|\T1/lmr/m/n/10 (-20) 0.983|  
  []
 
 
@@ -856,23 +811,18 @@ Overfull \hbox (12.96017pt too wide) in paragraph at lines 738--739
  []
 
 
-Overfull \hbox (18.96562pt too wide) in paragraph at lines 739--739
-[]|\T1/lmr/m/n/10 (-20) CYP2C19|  
- []
-
-
-Overfull \hbox (12.07478pt too wide) in paragraph at lines 739--739
-[]|\T1/lmr/m/n/10 (-20) omeprazole|  
+Overfull \hbox (14.06563pt too wide) in paragraph at lines 739--739
+[]|\T1/lmr/m/n/10 (-20) CYP2C9|  
  []
 
 
 Overfull \hbox (4.40727pt too wide) in paragraph at lines 739--739
-[]|\T1/lmr/m/n/10 (-20) 0.695|  
+[]|\T1/lmr/m/n/10 (-20) 0.672|  
  []
 
 
 Overfull \hbox (4.40727pt too wide) in paragraph at lines 739--739
-[]|\T1/lmr/m/n/10 (-20) 0.987|  
+[]|\T1/lmr/m/n/10 (-20) 0.986|  
  []
 
 
@@ -906,28 +856,23 @@ Overfull \hbox (12.96017pt too wide) in paragraph at lines 740--741
  []
 
 
-Overfull \hbox (14.47429pt too wide) in paragraph at lines 741--741
-[]|\T1/lmr/m/n/10 (-20) CYP2D6|  
+Overfull \hbox (18.96562pt too wide) in paragraph at lines 741--741
+[]|\T1/lmr/m/n/10 (-20) CYP2C19|  
+ []
+
+
+Overfull \hbox (12.07478pt too wide) in paragraph at lines 741--741
+[]|\T1/lmr/m/n/10 (-20) omeprazole|  
  []
 
 
 Overfull \hbox (4.40727pt too wide) in paragraph at lines 741--741
-[]|\T1/lmr/m/n/10 (-20) 1.000|  
+[]|\T1/lmr/m/n/10 (-20) 0.695|  
  []
 
 
 Overfull \hbox (4.40727pt too wide) in paragraph at lines 741--741
-[]|\T1/lmr/m/n/10 (-20) 1.000|  
- []
-
-
-Overfull \hbox (4.40727pt too wide) in paragraph at lines 741--741
-[]|\T1/lmr/m/n/10 (-20) 1.000|  
- []
-
-
-Overfull \hbox (4.40727pt too wide) in paragraph at lines 741--741
-[]|\T1/lmr/m/n/10 (-20) 1.000|  
+[]|\T1/lmr/m/n/10 (-20) 0.987|  
  []
 
 
@@ -941,237 +886,242 @@ Overfull \hbox (4.40727pt too wide) in paragraph at lines 742--742
  []
 
 
-Overfull \hbox (14.33807pt too wide) in paragraph at lines 743--743
-[]|\T1/lmr/m/n/10 (-20) CYP3A4|  
- []
-
-
-Overfull \hbox (10.41374pt too wide) in paragraph at lines 743--743
-[]|\T1/lmr/m/n/10 (-20) midazolam|  
- []
-
-
-Overfull \hbox (4.40727pt too wide) in paragraph at lines 743--743
-[]|\T1/lmr/m/n/10 (-20) 0.655|  
- []
-
-
-Overfull \hbox (4.40727pt too wide) in paragraph at lines 743--743
-[]|\T1/lmr/m/n/10 (-20) 0.985|  
- []
-
-
-Overfull \hbox (4.40727pt too wide) in paragraph at lines 743--743
-[]|\T1/lmr/m/n/10 (-20) 0.435|  
- []
-
-
-Overfull \hbox (4.40727pt too wide) in paragraph at lines 744--744
-[]|\T1/lmr/m/n/10 (-20) 0.476|  
- []
-
-
-Overfull \hbox (4.40727pt too wide) in paragraph at lines 744--744
+Overfull \hbox (4.40727pt too wide) in paragraph at lines 742--742
 []|\T1/lmr/m/n/10 (-20) 1.000|  
  []
 
 
-Overfull \hbox (4.40727pt too wide) in paragraph at lines 744--744
+Overfull \hbox (4.40727pt too wide) in paragraph at lines 742--742
 []|\T1/lmr/m/n/10 (-20) 1.000|  
  []
 
 
-Overfull \hbox (2.48512pt too wide) in paragraph at lines 744--744
-[]|\T1/lmr/m/n/10 (-20) 2.95|  
- []
-
-
-Overfull \hbox (10.11804pt too wide) in paragraph at lines 744--745
-[]|\T1/lmr/m/n/10 (-20) TRUE|  
- []
-
-
-Overfull \hbox (5.82852pt too wide) in paragraph at lines 770--771
-[]\T1/lmr/m/n/10 (-20) substrate  
- []
-
-
-Overfull \hbox (13.11882pt too wide) in paragraph at lines 790--791
-[]\T1/lmr/m/n/10 (-20) AUCR  
- []
-
-
-Overfull \hbox (0.13388pt too wide) in alignment at lines 761--795
- [] [] [] [] [] [] [] [] [] [] [] [] [] [] 
- []
-
-
-Overfull \hbox (5.82852pt too wide) in paragraph at lines 802--803
-[]\T1/lmr/m/n/10 (-20) substrate  
- []
-
-
-Overfull \hbox (13.11882pt too wide) in paragraph at lines 822--823
-[]\T1/lmr/m/n/10 (-20) AUCR  
- []
-
-
-Overfull \hbox (0.13388pt too wide) in alignment at lines 795--827
- [] [] [] [] [] [] [] [] [] [] [] [] [] [] 
- []
-
-
-Overfull \hbox (0.13388pt too wide) in alignment at lines 827--829
- [] [] [] [] [] [] [] [] [] [] [] [] [] [] 
- []
-
-
-Overfull \hbox (16.64131pt too wide) in paragraph at lines 830--830
-[]|\T1/lmr/m/n/10 (-20) CYP2C9|  
- []
-
-
-Overfull \hbox (1.56953pt too wide) in paragraph at lines 830--830
-\T1/lmr/m/n/10 (-20) warfarin|  
- []
-
-
-Overfull \hbox (4.02907pt too wide) in paragraph at lines 830--830
-[]|\T1/lmr/m/n/10 (-20) 0.994|  
- []
-
-
-Overfull \hbox (4.02907pt too wide) in paragraph at lines 830--830
-[]|\T1/lmr/m/n/10 (-20) 0.994|  
- []
-
-
-Overfull \hbox (4.02907pt too wide) in paragraph at lines 830--830
-[]|\T1/lmr/m/n/10 (-20) 1.000|  
- []
-
-
-Overfull \hbox (4.02907pt too wide) in paragraph at lines 830--831
-[]|\T1/lmr/m/n/10 (-20) 1.000|  
- []
-
-
-Overfull \hbox (4.02907pt too wide) in paragraph at lines 831--831
-[]|\T1/lmr/m/n/10 (-20) 1.000|  
- []
-
-
-Overfull \hbox (4.02907pt too wide) in paragraph at lines 831--831
-[]|\T1/lmr/m/n/10 (-20) 1.000|  
- []
-
-
-Overfull \hbox (2.20744pt too wide) in paragraph at lines 831--831
+Overfull \hbox (2.48512pt too wide) in paragraph at lines 742--742
 []|\T1/lmr/m/n/10 (-20) 1.01|  
  []
 
 
-Overfull \hbox (12.58197pt too wide) in paragraph at lines 831--832
+Overfull \hbox (12.96017pt too wide) in paragraph at lines 742--743
 []|\T1/lmr/m/n/10 (-20) FALSE|  
  []
 
 
-Overfull \hbox (0.13388pt too wide) in alignment at lines 829--832
+Overfull \hbox (14.47429pt too wide) in paragraph at lines 743--743
+[]|\T1/lmr/m/n/10 (-20) CYP2D6|  
+ []
+
+
+Overfull \hbox (4.40727pt too wide) in paragraph at lines 743--743
+[]|\T1/lmr/m/n/10 (-20) 1.000|  
+ []
+
+
+Overfull \hbox (4.40727pt too wide) in paragraph at lines 743--743
+[]|\T1/lmr/m/n/10 (-20) 1.000|  
+ []
+
+
+Overfull \hbox (4.40727pt too wide) in paragraph at lines 743--743
+[]|\T1/lmr/m/n/10 (-20) 1.000|  
+ []
+
+
+Overfull \hbox (4.40727pt too wide) in paragraph at lines 743--743
+[]|\T1/lmr/m/n/10 (-20) 1.000|  
+ []
+
+
+Overfull \hbox (4.40727pt too wide) in paragraph at lines 743--744
+[]|\T1/lmr/m/n/10 (-20) 1.000|  
+ []
+
+
+Overfull \hbox (4.40727pt too wide) in paragraph at lines 744--744
+[]|\T1/lmr/m/n/10 (-20) 1.000|  
+ []
+
+
+Overfull \hbox (14.33807pt too wide) in paragraph at lines 745--745
+[]|\T1/lmr/m/n/10 (-20) CYP3A4|  
+ []
+
+
+Overfull \hbox (10.41374pt too wide) in paragraph at lines 745--745
+[]|\T1/lmr/m/n/10 (-20) midazolam|  
+ []
+
+
+Overfull \hbox (4.40727pt too wide) in paragraph at lines 745--745
+[]|\T1/lmr/m/n/10 (-20) 0.655|  
+ []
+
+
+Overfull \hbox (4.40727pt too wide) in paragraph at lines 745--745
+[]|\T1/lmr/m/n/10 (-20) 0.985|  
+ []
+
+
+Overfull \hbox (4.40727pt too wide) in paragraph at lines 745--745
+[]|\T1/lmr/m/n/10 (-20) 0.435|  
+ []
+
+
+Overfull \hbox (4.40727pt too wide) in paragraph at lines 746--746
+[]|\T1/lmr/m/n/10 (-20) 0.476|  
+ []
+
+
+Overfull \hbox (4.40727pt too wide) in paragraph at lines 746--746
+[]|\T1/lmr/m/n/10 (-20) 1.000|  
+ []
+
+
+Overfull \hbox (4.40727pt too wide) in paragraph at lines 746--746
+[]|\T1/lmr/m/n/10 (-20) 1.000|  
+ []
+
+
+Overfull \hbox (2.48512pt too wide) in paragraph at lines 746--746
+[]|\T1/lmr/m/n/10 (-20) 2.95|  
+ []
+
+
+Overfull \hbox (10.11804pt too wide) in paragraph at lines 746--747
+[]|\T1/lmr/m/n/10 (-20) TRUE|  
+ []
+
+
+Overfull \hbox (5.82852pt too wide) in paragraph at lines 772--773
+[]\T1/lmr/m/n/10 (-20) substrate  
+ []
+
+
+Overfull \hbox (13.11882pt too wide) in paragraph at lines 792--793
+[]\T1/lmr/m/n/10 (-20) AUCR  
+ []
+
+
+Overfull \hbox (0.13388pt too wide) in alignment at lines 763--797
  [] [] [] [] [] [] [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (3.81776pt too wide) in paragraph at lines 861--862
+Overfull \hbox (5.82852pt too wide) in paragraph at lines 804--805
 []\T1/lmr/m/n/10 (-20) substrate  
  []
 
 
-Overfull \hbox (10.57664pt too wide) in paragraph at lines 881--882
+Overfull \hbox (13.11882pt too wide) in paragraph at lines 824--825
 []\T1/lmr/m/n/10 (-20) AUCR  
  []
 
 
-Overfull \hbox (3.81776pt too wide) in paragraph at lines 893--894
-[]\T1/lmr/m/n/10 (-20) substrate  
+Overfull \hbox (0.13388pt too wide) in alignment at lines 797--829
+ [] [] [] [] [] [] [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (10.57664pt too wide) in paragraph at lines 913--914
-[]\T1/lmr/m/n/10 (-20) AUCR  
+Overfull \hbox (0.13388pt too wide) in alignment at lines 829--831
+ [] [] [] [] [] [] [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (14.5583pt too wide) in paragraph at lines 921--921
-[]|\T1/lmr/m/n/10 (-20) CYP1A2|  
+Overfull \hbox (16.64131pt too wide) in paragraph at lines 832--832
+[]|\T1/lmr/m/n/10 (-20) CYP2C9|  
  []
 
 
-Overfull \hbox (6.4036pt too wide) in paragraph at lines 921--921
-[]|\T1/lmr/m/n/10 (-20) tizanidine|  
+Overfull \hbox (1.56953pt too wide) in paragraph at lines 832--832
+\T1/lmr/m/n/10 (-20) warfarin|  
  []
 
 
-Overfull \hbox (4.56526pt too wide) in paragraph at lines 921--921
+Overfull \hbox (4.02907pt too wide) in paragraph at lines 832--832
+[]|\T1/lmr/m/n/10 (-20) 0.994|  
+ []
+
+
+Overfull \hbox (4.02907pt too wide) in paragraph at lines 832--832
+[]|\T1/lmr/m/n/10 (-20) 0.994|  
+ []
+
+
+Overfull \hbox (4.02907pt too wide) in paragraph at lines 832--832
 []|\T1/lmr/m/n/10 (-20) 1.000|  
  []
 
 
-Overfull \hbox (4.56526pt too wide) in paragraph at lines 921--921
+Overfull \hbox (4.02907pt too wide) in paragraph at lines 832--833
 []|\T1/lmr/m/n/10 (-20) 1.000|  
  []
 
 
-Overfull \hbox (4.56526pt too wide) in paragraph at lines 921--921
+Overfull \hbox (4.02907pt too wide) in paragraph at lines 833--833
 []|\T1/lmr/m/n/10 (-20) 1.000|  
  []
 
 
-Overfull \hbox (4.56526pt too wide) in paragraph at lines 922--922
+Overfull \hbox (4.02907pt too wide) in paragraph at lines 833--833
 []|\T1/lmr/m/n/10 (-20) 1.000|  
  []
 
 
-Overfull \hbox (4.56526pt too wide) in paragraph at lines 922--922
-[]|\T1/lmr/m/n/10 (-20) 1.000|  
+Overfull \hbox (2.20744pt too wide) in paragraph at lines 833--833
+[]|\T1/lmr/m/n/10 (-20) 1.01|  
  []
 
 
-Overfull \hbox (4.56526pt too wide) in paragraph at lines 922--922
-[]|\T1/lmr/m/n/10 (-20) 1.000|  
- []
-
-
-Overfull \hbox (4.56526pt too wide) in paragraph at lines 922--922
-[]|\T1/lmr/m/n/10 (-20) 1.000|  
- []
-
-
-Overfull \hbox (13.11816pt too wide) in paragraph at lines 922--923
+Overfull \hbox (12.58197pt too wide) in paragraph at lines 833--834
 []|\T1/lmr/m/n/10 (-20) FALSE|  
  []
 
 
-Overfull \hbox (14.28586pt too wide) in paragraph at lines 923--923
-[]|\T1/lmr/m/n/10 (-20) CYP2C8|  
+Overfull \hbox (0.13388pt too wide) in alignment at lines 831--834
+ [] [] [] [] [] [] [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (11.33069pt too wide) in paragraph at lines 923--923
-[]|\T1/lmr/m/n/10 (-20) repaglinide|  
+Overfull \hbox (3.81776pt too wide) in paragraph at lines 863--864
+[]\T1/lmr/m/n/10 (-20) substrate  
+ []
+
+
+Overfull \hbox (10.57664pt too wide) in paragraph at lines 883--884
+[]\T1/lmr/m/n/10 (-20) AUCR  
+ []
+
+
+Overfull \hbox (3.81776pt too wide) in paragraph at lines 895--896
+[]\T1/lmr/m/n/10 (-20) substrate  
+ []
+
+
+Overfull \hbox (10.57664pt too wide) in paragraph at lines 915--916
+[]\T1/lmr/m/n/10 (-20) AUCR  
+ []
+
+
+Overfull \hbox (14.5583pt too wide) in paragraph at lines 923--923
+[]|\T1/lmr/m/n/10 (-20) CYP1A2|  
+ []
+
+
+Overfull \hbox (6.4036pt too wide) in paragraph at lines 923--923
+[]|\T1/lmr/m/n/10 (-20) tizanidine|  
  []
 
 
 Overfull \hbox (4.56526pt too wide) in paragraph at lines 923--923
-[]|\T1/lmr/m/n/10 (-20) 0.626|  
+[]|\T1/lmr/m/n/10 (-20) 1.000|  
  []
 
 
 Overfull \hbox (4.56526pt too wide) in paragraph at lines 923--923
-[]|\T1/lmr/m/n/10 (-20) 0.983|  
+[]|\T1/lmr/m/n/10 (-20) 1.000|  
  []
 
 
-Overfull \hbox (4.56526pt too wide) in paragraph at lines 923--924
+Overfull \hbox (4.56526pt too wide) in paragraph at lines 923--923
 []|\T1/lmr/m/n/10 (-20) 1.000|  
  []
 
@@ -1192,7 +1142,7 @@ Overfull \hbox (4.56526pt too wide) in paragraph at lines 924--924
 
 
 Overfull \hbox (4.56526pt too wide) in paragraph at lines 924--924
-[]|\T1/lmr/m/n/10 (-20) 1.011|  
+[]|\T1/lmr/m/n/10 (-20) 1.000|  
  []
 
 
@@ -1202,17 +1152,22 @@ Overfull \hbox (13.11816pt too wide) in paragraph at lines 924--925
 
 
 Overfull \hbox (14.28586pt too wide) in paragraph at lines 925--925
-[]|\T1/lmr/m/n/10 (-20) CYP2C9|  
+[]|\T1/lmr/m/n/10 (-20) CYP2C8|  
+ []
+
+
+Overfull \hbox (11.33069pt too wide) in paragraph at lines 925--925
+[]|\T1/lmr/m/n/10 (-20) repaglinide|  
  []
 
 
 Overfull \hbox (4.56526pt too wide) in paragraph at lines 925--925
-[]|\T1/lmr/m/n/10 (-20) 0.672|  
+[]|\T1/lmr/m/n/10 (-20) 0.626|  
  []
 
 
 Overfull \hbox (4.56526pt too wide) in paragraph at lines 925--925
-[]|\T1/lmr/m/n/10 (-20) 0.986|  
+[]|\T1/lmr/m/n/10 (-20) 0.983|  
  []
 
 
@@ -1237,7 +1192,7 @@ Overfull \hbox (4.56526pt too wide) in paragraph at lines 926--926
 
 
 Overfull \hbox (4.56526pt too wide) in paragraph at lines 926--926
-[]|\T1/lmr/m/n/10 (-20) 1.013|  
+[]|\T1/lmr/m/n/10 (-20) 1.011|  
  []
 
 
@@ -1246,23 +1201,18 @@ Overfull \hbox (13.11816pt too wide) in paragraph at lines 926--927
  []
 
 
-Overfull \hbox (19.18585pt too wide) in paragraph at lines 927--927
-[]|\T1/lmr/m/n/10 (-20) CYP2C19|  
- []
-
-
-Overfull \hbox (12.41948pt too wide) in paragraph at lines 927--927
-[]|\T1/lmr/m/n/10 (-20) omeprazole|  
+Overfull \hbox (14.28586pt too wide) in paragraph at lines 927--927
+[]|\T1/lmr/m/n/10 (-20) CYP2C9|  
  []
 
 
 Overfull \hbox (4.56526pt too wide) in paragraph at lines 927--927
-[]|\T1/lmr/m/n/10 (-20) 0.695|  
+[]|\T1/lmr/m/n/10 (-20) 0.672|  
  []
 
 
 Overfull \hbox (4.56526pt too wide) in paragraph at lines 927--927
-[]|\T1/lmr/m/n/10 (-20) 0.987|  
+[]|\T1/lmr/m/n/10 (-20) 0.986|  
  []
 
 
@@ -1287,7 +1237,7 @@ Overfull \hbox (4.56526pt too wide) in paragraph at lines 928--928
 
 
 Overfull \hbox (4.56526pt too wide) in paragraph at lines 928--928
-[]|\T1/lmr/m/n/10 (-20) 1.011|  
+[]|\T1/lmr/m/n/10 (-20) 1.013|  
  []
 
 
@@ -1296,48 +1246,48 @@ Overfull \hbox (13.11816pt too wide) in paragraph at lines 928--929
  []
 
 
-Overfull \hbox (14.5583pt too wide) in paragraph at lines 929--929
-[]|\T1/lmr/m/n/10 (-20) CYP3A4|  
+Overfull \hbox (19.18585pt too wide) in paragraph at lines 929--929
+[]|\T1/lmr/m/n/10 (-20) CYP2C19|  
  []
 
 
-Overfull \hbox (10.75844pt too wide) in paragraph at lines 929--929
-[]|\T1/lmr/m/n/10 (-20) midazolam|  
- []
-
-
-Overfull \hbox (4.56526pt too wide) in paragraph at lines 929--929
-[]|\T1/lmr/m/n/10 (-20) 0.655|  
+Overfull \hbox (12.41948pt too wide) in paragraph at lines 929--929
+[]|\T1/lmr/m/n/10 (-20) omeprazole|  
  []
 
 
 Overfull \hbox (4.56526pt too wide) in paragraph at lines 929--929
-[]|\T1/lmr/m/n/10 (-20) 0.985|  
+[]|\T1/lmr/m/n/10 (-20) 0.695|  
  []
 
 
 Overfull \hbox (4.56526pt too wide) in paragraph at lines 929--929
-[]|\T1/lmr/m/n/10 (-20) 0.435|  
+[]|\T1/lmr/m/n/10 (-20) 0.987|  
+ []
+
+
+Overfull \hbox (4.56526pt too wide) in paragraph at lines 929--930
+[]|\T1/lmr/m/n/10 (-20) 1.000|  
  []
 
 
 Overfull \hbox (4.56526pt too wide) in paragraph at lines 930--930
-[]|\T1/lmr/m/n/10 (-20) 0.476|  
+[]|\T1/lmr/m/n/10 (-20) 1.000|  
  []
 
 
 Overfull \hbox (4.56526pt too wide) in paragraph at lines 930--930
-[]|\T1/lmr/m/n/10 (-20) 6.885|  
+[]|\T1/lmr/m/n/10 (-20) 1.000|  
  []
 
 
 Overfull \hbox (4.56526pt too wide) in paragraph at lines 930--930
-[]|\T1/lmr/m/n/10 (-20) 1.774|  
+[]|\T1/lmr/m/n/10 (-20) 1.000|  
  []
 
 
 Overfull \hbox (4.56526pt too wide) in paragraph at lines 930--930
-[]|\T1/lmr/m/n/10 (-20) 0.845|  
+[]|\T1/lmr/m/n/10 (-20) 1.011|  
  []
 
 
@@ -1345,108 +1295,158 @@ Overfull \hbox (13.11816pt too wide) in paragraph at lines 930--931
 []|\T1/lmr/m/n/10 (-20) FALSE|  
  []
 
+
+Overfull \hbox (14.5583pt too wide) in paragraph at lines 931--931
+[]|\T1/lmr/m/n/10 (-20) CYP3A4|  
+ []
+
+
+Overfull \hbox (10.75844pt too wide) in paragraph at lines 931--931
+[]|\T1/lmr/m/n/10 (-20) midazolam|  
+ []
+
+
+Overfull \hbox (4.56526pt too wide) in paragraph at lines 931--931
+[]|\T1/lmr/m/n/10 (-20) 0.655|  
+ []
+
+
+Overfull \hbox (4.56526pt too wide) in paragraph at lines 931--931
+[]|\T1/lmr/m/n/10 (-20) 0.985|  
+ []
+
+
+Overfull \hbox (4.56526pt too wide) in paragraph at lines 931--931
+[]|\T1/lmr/m/n/10 (-20) 0.435|  
+ []
+
+
+Overfull \hbox (4.56526pt too wide) in paragraph at lines 932--932
+[]|\T1/lmr/m/n/10 (-20) 0.476|  
+ []
+
+
+Overfull \hbox (4.56526pt too wide) in paragraph at lines 932--932
+[]|\T1/lmr/m/n/10 (-20) 6.885|  
+ []
+
+
+Overfull \hbox (4.56526pt too wide) in paragraph at lines 932--932
+[]|\T1/lmr/m/n/10 (-20) 1.774|  
+ []
+
+
+Overfull \hbox (4.56526pt too wide) in paragraph at lines 932--932
+[]|\T1/lmr/m/n/10 (-20) 0.845|  
+ []
+
+
+Overfull \hbox (13.11816pt too wide) in paragraph at lines 932--933
+[]|\T1/lmr/m/n/10 (-20) FALSE|  
+ []
+
 [4]
-Overfull \hbox (5.82852pt too wide) in paragraph at lines 956--957
+Overfull \hbox (5.82852pt too wide) in paragraph at lines 958--959
 []\T1/lmr/m/n/10 (-20) substrate  
  []
 
 
-Overfull \hbox (13.11882pt too wide) in paragraph at lines 976--977
+Overfull \hbox (13.11882pt too wide) in paragraph at lines 978--979
 []\T1/lmr/m/n/10 (-20) AUCR  
  []
 
 
-Overfull \hbox (0.13388pt too wide) in alignment at lines 947--981
+Overfull \hbox (0.13388pt too wide) in alignment at lines 949--983
  [] [] [] [] [] [] [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (5.82852pt too wide) in paragraph at lines 988--989
+Overfull \hbox (5.82852pt too wide) in paragraph at lines 990--991
 []\T1/lmr/m/n/10 (-20) substrate  
  []
 
 
-Overfull \hbox (13.11882pt too wide) in paragraph at lines 1008--1009
+Overfull \hbox (13.11882pt too wide) in paragraph at lines 1010--1011
 []\T1/lmr/m/n/10 (-20) AUCR  
  []
 
 
-Overfull \hbox (0.13388pt too wide) in alignment at lines 981--1013
+Overfull \hbox (0.13388pt too wide) in alignment at lines 983--1015
  [] [] [] [] [] [] [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (0.13388pt too wide) in alignment at lines 1013--1015
+Overfull \hbox (0.13388pt too wide) in alignment at lines 1015--1017
  [] [] [] [] [] [] [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (16.64131pt too wide) in paragraph at lines 1016--1016
+Overfull \hbox (16.64131pt too wide) in paragraph at lines 1018--1018
 []|\T1/lmr/m/n/10 (-20) CYP2C9|  
  []
 
 
-Overfull \hbox (1.56953pt too wide) in paragraph at lines 1016--1016
+Overfull \hbox (1.56953pt too wide) in paragraph at lines 1018--1018
 \T1/lmr/m/n/10 (-20) warfarin|  
  []
 
 
-Overfull \hbox (4.02907pt too wide) in paragraph at lines 1016--1016
+Overfull \hbox (4.02907pt too wide) in paragraph at lines 1018--1018
 []|\T1/lmr/m/n/10 (-20) 0.994|  
  []
 
 
-Overfull \hbox (4.02907pt too wide) in paragraph at lines 1016--1016
+Overfull \hbox (4.02907pt too wide) in paragraph at lines 1018--1018
 []|\T1/lmr/m/n/10 (-20) 0.994|  
  []
 
 
-Overfull \hbox (4.02907pt too wide) in paragraph at lines 1016--1016
+Overfull \hbox (4.02907pt too wide) in paragraph at lines 1018--1018
 []|\T1/lmr/m/n/10 (-20) 1.000|  
  []
 
 
-Overfull \hbox (4.02907pt too wide) in paragraph at lines 1016--1017
+Overfull \hbox (4.02907pt too wide) in paragraph at lines 1018--1019
 []|\T1/lmr/m/n/10 (-20) 1.000|  
  []
 
 
-Overfull \hbox (4.02907pt too wide) in paragraph at lines 1017--1017
+Overfull \hbox (4.02907pt too wide) in paragraph at lines 1019--1019
 []|\T1/lmr/m/n/10 (-20) 1.000|  
  []
 
 
-Overfull \hbox (4.02907pt too wide) in paragraph at lines 1017--1017
+Overfull \hbox (4.02907pt too wide) in paragraph at lines 1019--1019
 []|\T1/lmr/m/n/10 (-20) 1.000|  
  []
 
 
-Overfull \hbox (2.20744pt too wide) in paragraph at lines 1017--1017
+Overfull \hbox (2.20744pt too wide) in paragraph at lines 1019--1019
 []|\T1/lmr/m/n/10 (-20) 1.01|  
  []
 
 
-Overfull \hbox (12.58197pt too wide) in paragraph at lines 1017--1018
+Overfull \hbox (12.58197pt too wide) in paragraph at lines 1019--1020
 []|\T1/lmr/m/n/10 (-20) FALSE|  
  []
 
 
-Overfull \hbox (0.13388pt too wide) in alignment at lines 1015--1018
+Overfull \hbox (0.13388pt too wide) in alignment at lines 1017--1020
  [] [] [] [] [] [] [] [] [] [] [] [] [] [] 
  []
 
 [5] [6] [7] [8] [9]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1364.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1377.
 [10]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1364.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1377.
 (./DDI-report_examplinib.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1364.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1364.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1377.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1377.
  ) 
 Here is how much of TeX's memory you used:
  13417 strings out of 480608
  196783 string characters out of 5903630
- 531160 words of memory out of 5000000
+ 530160 words of memory out of 5000000
  28935 multiletter control sequences out of 15000+600000
  581331 words of font info for 92 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1467,7 +1467,7 @@ b></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmr7.pfb></usr/loca
 l/texlive/2020/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/
 2020/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/local/texlive/2020/texmf-
 dist/fonts/type1/public/lm/lmtt10.pfb>
-Output written on DDI-report_examplinib.pdf (10 pages, 249844 bytes).
+Output written on DDI-report_examplinib.pdf (10 pages, 250425 bytes).
 PDF statistics:
  311 PDF objects out of 1000 (max. 8388607)
  283 compressed objects within 3 object streams
