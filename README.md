@@ -34,4 +34,5 @@ See also:
 `basic_ugt_inhibition_risk_table()`,
 `transporter_inhibition_risk_table()`
 
-Full documentation can be found on [github](https://rstrotmann.github.io/ddir).
+Full documentation can be found together with the source code on
+[github](https://github.com/rstrotmann/ddir).

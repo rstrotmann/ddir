@@ -57,6 +57,7 @@
 #' M1,  fg,     NA,
 #' M1,  ka,     NA,
 #' }
+#'
 #' @param source The file name or text connection to read from.
 #' @return A perpetrator object if only one compound in the input source, or
 #' list of perpetrator objects.

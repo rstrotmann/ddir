@@ -6,30 +6,31 @@ library(usethis)
 ## EXAMPLINIB COMPOUNDS
 
 examplinib_compounds_string <- "
-# PARENT\n\n# compound,  param,    value,     source\n\n
-examplinib,  oral,     TRUE,\n\n
-examplinib,  mw,       492.6,\n\n
-examplinib,  dose,     450,       clinical dose\n\n
-examplinib,  imaxss,   3530,      study 001\n\n
-examplinib,  fu,       0.023,     study 002\n\n
-examplinib,  fumic,    1,         default\n\n
-examplinib,  rb,       1,         study 003\n\n
-examplinib,  fa,       0.81,      study 003\n\n
-examplinib,  fg,       1,         default\n\n
-examplinib,  ka,       0.00267,   unknown\n\n
-\n\n
-# METABOLITE \n\n
-# compound,  param,    value,     source\n\n
-M1,          oral,     FALSE,\n\n
-M1,          mw,       506.56,\n\n
-M1,          dose,     NA,        \n\n
-M1,          imaxss,   1038,      study 001\n\n
-M1,          fu,       0.012,     study 002\n\n
-M1,          fumic,    1,         default\n\n
-M1,          rb,       1,         study 002\n\n
-M1,          fa,       NA,\n\n
-M1,          fg,       NA,\n\n
-M1,          ka,       NA"
+# PARENT\n\n# compound,  param,    value,     source
+examplinib,  oral,     TRUE,
+examplinib,  mw,       492.6,
+examplinib,  dose,     450,       clinical dose
+examplinib,  imaxss,   3530,      study 001
+examplinib,  fu,       0.023,     study 002
+examplinib,  fumic,    1,         default
+examplinib,  rb,       1,         study 003
+examplinib,  fa,       0.81,      study 003
+examplinib,  fg,       1,         default
+examplinib,  ka,       0.00267,   unknown
+
+# METABOLITE
+# compound,  param,    value,     source
+M1,          oral,     FALSE,
+M1,          mw,       506.56,
+M1,          dose,     NA,
+M1,          imaxss,   1038,      study 001
+M1,          fu,       0.012,     study 002
+M1,          fumic,    1,         default
+M1,          rb,       1,         study 002
+M1,          fa,       NA,
+M1,          fg,       NA,
+M1,          ka,
+"
 
 examplinib_compounds <- read_perpetrators(textConnection(
   examplinib_compounds_string))
