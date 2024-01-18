@@ -12,22 +12,44 @@ mech_stat_cyp_risk(
   d = 1,
   include_induction = TRUE,
   substr = cyp_reference_substrates,
-  kdeg = cyp_turnover
+  cyp_kdeg = cyp_turnover
 )
 }
 \arguments{
 \item{perp}{The perpetrator object.}
 
-\item{cyp_inh}{CYP inhibition data as data frame, see
-\link{basic_cyp_inhibition_risk} for details.}
+\item{cyp_inh}{CYP inhibition data as data frame. The following fields are
+expected:
+\itemize{
+\item 'name' The name of the perpetrator compound.
+\item 'cyp' The CYP enzyme as (upper case) character.
+\item 'ki' The \eqn{k_i} in µM as numeric.
+\item 'source' Optional source information as character.
+}}
 
-\item{cyp_ind}{CYP induction data as data frame. See
-\link{kinetic_cyp_induction_risk} for details.}
+\item{cyp_ind}{The CYP induction data as data frame. The following fields
+are expected:
+\itemize{
+\item 'name' The name of the perpetrator compound as character.
+\item 'cyp' The CYP enzyme as (upper case) character.
+\item 'emax' The \eqn{E_{max}}, i.e., the maximum induction effect determined in
+vitro as numeric.
+\item 'ec50' The \eqn{EC_{50}} in µM as numeric.
+\item 'maxc' The maximal concentration in µM tested in the in vitro assay as
+numeric.
+\item 'source' Optional source information as character.
+}}
 
-\item{cyp_tdi}{CYP TDI data as data frame. See \link{basic_cyp_tdi_risk}
-for details.}
+\item{cyp_tdi}{The CYP TDI data as data frame. The following fields are expected:
+\itemize{
+\item 'name' The perpetrator compound name as character.
+\item 'cyp' The CYP enzyme as character.
+\item 'ki' The \eqn{K_I} in µM as numeric.
+\item 'kinact' The \eqn{k_{inact}} in 1/h as numeric.
+\item 'source' Optional source information as character,
+}}
 
-\item{d}{Induction scaling factor, defaults to 1.}
+\item{d}{Scaling factor, defaults to 1.}
 
 \item{include_induction}{Switch to define whether induction effects should be
 included in the calculation (C-terms as per the FDA guideline)}
@@ -43,8 +65,8 @@ fields:
 \item 'fmcyp' The fraction metabolized by the respective CYP enzyme.
 }}
 
-\item{kdeg}{The CYP turnover data as data frame. Defaults to the
-built-in reference data, \link{cyp_turnover}}
+\item{cyp_kdeg}{The CYP turnover data as data frame. Defaults to the
+built-in reference data, \link{cyp_turnover}.}
 }
 \value{
 A data frame.

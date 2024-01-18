@@ -64,9 +64,7 @@ basic_ugt_inhibition_risk <- function(perp, ugt_inh) {
 #' UGT inhibition risk assessment. See [basic_ugt_inhibition_risk()] for details
 #' on the calculation of the risk.
 #'
-#' @param perp The perpetrator object.
-#' @param ugt_inh UGT inhibition data as data frame, with 'value' representing
-#' the respective \eqn{IC_{50}}.
+#' @inheritParams basic_ugt_inhibition_risk
 #' @param na.rm Boolean to define whether rows with lacking \eqn{K_i} data are
 #' removed from the output (i.e., where `ki == NA`).
 #' @seealso [basic_ugt_inhibition_risk()]

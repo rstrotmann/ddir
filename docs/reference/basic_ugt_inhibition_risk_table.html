@@ -14,7 +14,7 @@ on the calculation of the risk."><!-- mathjax --><script src="https://cdnjs.clou
     
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.13.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.13.2.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,8 +58,12 @@ on the calculation of the risk.</p>
 
 
 <dt>ugt_inh</dt>
-<dd><p>UGT inhibition data as data frame, with 'value' representing
-the respective \(IC_{50}\).</p></dd>
+<dd><p>UGT inhibition data as data frame, The following fields are
+expected:</p><ul><li><p>'name' The name of the perpetrator compound.</p></li>
+<li><p>'ugt' The UGT enzyme as (upper case) character.</p></li>
+<li><p>'ic50' The \(IC_{50}\) in \(\mu M\) as numeric.</p></li>
+<li><p>'source' Optional source information as character.</p></li>
+</ul></dd>
 
 
 <dt>na.rm</dt>

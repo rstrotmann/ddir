@@ -7,12 +7,23 @@
 static_cyp_induction_risk_table(perp, cyp_ind, na.rm = F)
 }
 \arguments{
-\item{perp}{The perpetrator object.}
+\item{perp}{The perpetrator object or a list thereof.}
 
-\item{cyp_ind}{The CYP induction data as data frame. See
-\code{\link[=static_cyp_induction_risk]{static_cyp_induction_risk()}} for details.}
+\item{cyp_ind}{The CYP induction data as data frame. The following fields
+are expected:
+\itemize{
+\item 'name' The name of the perpetrator compound as character.
+\item 'cyp' The CYP enzyme as (upper case) character.
+\item 'emax' The \eqn{E_{max}}, i.e., the maximum induction effect determined in
+vitro as numeric.
+\item 'ec50' The \eqn{EC_{50}} in µM as numeric.
+\item 'maxc' The maximal concentration in µM tested in the in vitro assay as
+numeric.
+\item 'source' Optional source information as character.
+}}
 
-\item{na.rm}{Remove rows with lacking ki data (i.e., where ki == NA).}
+\item{na.rm}{Switch to define whether rows with lacking \eqn{E_{max}} data
+are removed from the output. Defaults to \code{FALSE}.}
 }
 \value{
 A markdown-formatted table.

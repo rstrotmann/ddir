@@ -11,30 +11,63 @@ mech_stat_cyp_risk_table(
   cyp_tdi = NULL,
   include_induction = TRUE,
   substr = cyp_reference_substrates,
-  kdeg = cyp_turnover,
+  cyp_kdeg = cyp_turnover,
   na.rm = FALSE
 )
 }
 \arguments{
 \item{perp}{The perpetrator object.}
 
-\item{cyp_inh}{CYP inhibition data as data frame.}
+\item{cyp_inh}{CYP inhibition data as data frame. The following fields are
+expected:
+\itemize{
+\item 'name' The name of the perpetrator compound.
+\item 'cyp' The CYP enzyme as (upper case) character.
+\item 'ki' The \eqn{k_i} in µM as numeric.
+\item 'source' Optional source information as character.
+}}
 
-\item{cyp_ind}{CYP induction data as data frame.}
+\item{cyp_ind}{The CYP induction data as data frame. The following fields
+are expected:
+\itemize{
+\item 'name' The name of the perpetrator compound as character.
+\item 'cyp' The CYP enzyme as (upper case) character.
+\item 'emax' The \eqn{E_{max}}, i.e., the maximum induction effect determined in
+vitro as numeric.
+\item 'ec50' The \eqn{EC_{50}} in µM as numeric.
+\item 'maxc' The maximal concentration in µM tested in the in vitro assay as
+numeric.
+\item 'source' Optional source information as character.
+}}
 
-\item{cyp_tdi}{CYP TDI data as data frame.}
+\item{cyp_tdi}{The CYP TDI data as data frame. The following fields are expected:
+\itemize{
+\item 'name' The perpetrator compound name as character.
+\item 'cyp' The CYP enzyme as character.
+\item 'ki' The \eqn{K_I} in µM as numeric.
+\item 'kinact' The \eqn{k_{inact}} in 1/h as numeric.
+\item 'source' Optional source information as character,
+}}
 
-\item{include_induction}{Switch to define whether induction should be
-included in the calculation (i.e., the C-terms as per the FDA guideline)}
+\item{include_induction}{Switch to define whether induction effects should be
+included in the calculation (C-terms as per the FDA guideline)}
 
-\item{substr}{The CYP reference substrates to be used as data frame, defaults
-to \link{cyp_reference_substrates}.}
+\item{substr}{The CYP probe substrates to be used as data frame, defaults to
+\link{cyp_reference_substrates}. The data frame is expected to have the following
+fields:
+\itemize{
+\item 'cyp' The CYP enzyme as (upper case) character.
+\item 'substrate' The substrate name as character.
+\item 'fgut' The fraction of the drug escaping gut metabolism.
+\item 'fm' The fraction of the drug that undergoes hepatic metabolism.
+\item 'fmcyp' The fraction metabolized by the respective CYP enzyme.
+}}
 
-\item{kdeg}{The CYP turnover data as data frame. Defaults to the
-built-in reference data.}
+\item{cyp_kdeg}{The CYP turnover data as data frame. Defaults to the
+built-in reference data, \link{cyp_turnover}.}
 
-\item{na.rm}{Switch whether to remove rows with lacking ki data from the
-output, i.e., where ki == NA.}
+\item{na.rm}{Switch to define whether rows with lacking \eqn{K_I} or
+\eqn{k_{deg}} data are removed from the output.}
 }
 \value{
 A markdown-formatted table.
@@ -43,7 +76,6 @@ A markdown-formatted table.
 CYP perpetration risk table as per mechanistic-static modeling
 }
 \examples{
-
 mech_stat_cyp_risk_table(
   examplinib_parent,
   examplinib_cyp_inhibition_data,

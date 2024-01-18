@@ -4,19 +4,25 @@
 \alias{basic_cyp_tdi_risk_table}
 \title{Basic CYP time-dependent inhibition risk table}
 \usage{
-basic_cyp_tdi_risk_table(perp, tdi, cyp_kdeg = cyp_turnover, na.rm = TRUE)
+basic_cyp_tdi_risk_table(perp, cyp_tdi, cyp_kdeg = cyp_turnover, na.rm = TRUE)
 }
 \arguments{
 \item{perp}{The perpetrator object.}
 
-\item{tdi}{The CYP TDI data as data frame. See \code{\link[=basic_cyp_tdi_risk]{basic_cyp_tdi_risk()}} for
-details.}
+\item{cyp_tdi}{The CYP TDI data as data frame. The following fields are expected:
+\itemize{
+\item 'name' The perpetrator compound name as character.
+\item 'cyp' The CYP enzyme as character.
+\item 'ki' The \eqn{K_I} in µM as numeric.
+\item 'kinact' The \eqn{k_{inact}} in 1/h as numeric.
+\item 'source' Optional source information as character,
+}}
 
 \item{cyp_kdeg}{The CYP turnover data as data frame. Defaults to the
 built-in reference data, \link{cyp_turnover}.}
 
-\item{na.rm}{Switch to define whether rows with lacking \eqn{K_I} or
-\eqn{k_{deg}} data are removed from the output.}
+\item{na.rm}{Switch to define whether rows with lacking \eqn{K_i} data are
+removed from the output. Defaults to \code{FALSE}.}
 }
 \value{
 A markdown-formatted table.

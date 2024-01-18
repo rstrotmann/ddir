@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.13.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.13.2.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,16 +48,25 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>perp</dt>
-<dd><p>The perpetrator object.</p></dd>
+<dd><p>The perpetrator object or a list thereof.</p></dd>
 
 
 <dt>cyp_ind</dt>
-<dd><p>The CYP induction data as data frame. See
-<code><a href="kinetic_cyp_induction_risk.html">kinetic_cyp_induction_risk()</a></code> for details.</p></dd>
+<dd><p>The CYP induction data as data frame. The following fields
+are expected:</p><ul><li><p>'name' The name of the perpetrator compound as character.</p></li>
+<li><p>'cyp' The CYP enzyme as (upper case) character.</p></li>
+<li><p>'emax' The \(E_{max}\), i.e., the maximum induction effect determined in
+vitro as numeric.</p></li>
+<li><p>'ec50' The \(EC_{50}\) in µM as numeric.</p></li>
+<li><p>'maxc' The maximal concentration in µM tested in the in vitro assay as
+numeric.</p></li>
+<li><p>'source' Optional source information as character.</p></li>
+</ul></dd>
 
 
 <dt>na.rm</dt>
-<dd><p>Remove rows with lacking ki data (i.e., where ki == NA).</p></dd>
+<dd><p>Switch to define whether rows with lacking \(E_{max}\) data
+are removed from the output. Defaults to <code>FALSE</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">

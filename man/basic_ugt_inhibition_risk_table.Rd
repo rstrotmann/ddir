@@ -9,8 +9,14 @@ basic_ugt_inhibition_risk_table(perp, ugt_inh, na.rm = F)
 \arguments{
 \item{perp}{The perpetrator object.}
 
-\item{ugt_inh}{UGT inhibition data as data frame, with 'value' representing
-the respective \eqn{IC_{50}}.}
+\item{ugt_inh}{UGT inhibition data as data frame, The following fields are
+expected:
+\itemize{
+\item 'name' The name of the perpetrator compound.
+\item 'ugt' The UGT enzyme as (upper case) character.
+\item 'ic50' The \eqn{IC_{50}} in \eqn{\mu M} as numeric.
+\item 'source' Optional source information as character.
+}}
 
 \item{na.rm}{Boolean to define whether rows with lacking \eqn{K_i} data are
 removed from the output (i.e., where \code{ki == NA}).}

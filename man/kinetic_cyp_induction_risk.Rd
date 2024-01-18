@@ -7,7 +7,7 @@
 kinetic_cyp_induction_risk(perp, cyp_ind, d = 1)
 }
 \arguments{
-\item{perp}{The perpetrator object.}
+\item{perp}{The perpetrator object or a list thereof.}
 
 \item{cyp_ind}{The CYP induction data as data frame. The following fields
 are expected:
