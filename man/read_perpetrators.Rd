@@ -49,9 +49,9 @@ Note that multiple compounds, e.g., the parent and metabolites may be
 included in the perpetrator file. The below is an example of a valid compound
 file:
 
-\preformatted{
-# name, param, value, source
-# parent
+\if{html}{\out{<div class="sourceCode">}}\preformatted{
+# PARENT
+# compound,  param,    value,     source
 examplinib,  oral,     TRUE,
 examplinib,  mw,       492.6,
 examplinib,  dose,     450,       clinical dose
@@ -63,18 +63,19 @@ examplinib,  fa,       0.81,      study 003
 examplinib,  fg,       1,         default
 examplinib,  ka,       0.00267,   unknown
 
-# metabolite
-M1,  oral,   FALSE,
-M1,  mw,     506.56,
-M1,  dose,   NA,
-M1,  imaxss, 1038,      study 001
-M1,  fu,     0.012,     study 002
-M1,  fumic,  1,         default
-M1,  rb,     1,         study 002
-M1,  fa,     NA,
-M1,  fg,     NA,
-M1,  ka,     NA,
-}
+# METABOLITE
+# compound,  param,    value,     source
+M1,          oral,     FALSE,
+M1,          mw,       506.56,
+M1,          dose,     NA,
+M1,          imaxss,   1038,      study 001
+M1,          fu,       0.012,     study 002
+M1,          fumic,    1,         default
+M1,          rb,       1,         study 002
+M1,          fa,       NA,
+M1,          fg,       NA,
+M1,          ka,       NA,
+}\if{html}{\out{</div>}}
 }
 \examples{
 read_perpetrators(textConnection(examplinib_compounds_string))

@@ -107,7 +107,7 @@ compound_names_string <- function(compounds) {
 
 #' Perpetrator object constructor
 #'
-#' This function converts a data frame into a perpetrator object.
+#' Convert a data frame into a perpetrator object.
 #'
 #' @details
 #' The input is a data frame with the columns 'param', 'value' and source'.
@@ -131,21 +131,11 @@ compound_names_string <- function(compounds) {
 #'
 #' The following example is an example for a valid input data frame:
 #'
-#' \preformatted{
-#'         param      value        source
-#' 1        name examplinib
-#' 2        type     parent
-#' 3          mw      492.6
-#' 4        dose        450 clinical dose
-#' 5      imaxss       3530     study 001
-#' 6          fu      0.023     study 002
-#' 7       fumic          1       default
-#' 8          rb          1     study 003
-#' 9          fa       0.81     study 003
-#' 10         fg          1       default
-#' 11         ka    0.00267       unknown
-#' 12 solubility        Inf       default
-#' }
+#' ```{r echo=F, comment=""}
+#' temp <- examplinib_parent %>% as.data.frame()
+#' rownames(temp) <- NULL
+#' temp
+#' ```
 #'
 #' @param df A data frame to be converted into a perpetrator object. See
 #' 'Details' for the expected format and fields.

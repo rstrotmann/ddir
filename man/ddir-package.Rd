@@ -4,8 +4,8 @@
 \name{ddir-package}
 \alias{ddir}
 \alias{ddir-package}
-\title{ddir: Assessment of the clinical DDI risk for drug compounds}
+\title{ddir: Assess the Clinical Drug-Drug Interaction Risk for Drug Compounds}
 \description{
-The goal of ddir is to facilitate the analysis of the drug-drug interaction risk for drug compounds as per the relevant FDA and EMA guidelines.
+The goal of ddir is to facilitate the analysis of the drug-drug interaction risk for drugs as per the relevant FDA and EMA guidelines.
 }
 \keyword{internal}

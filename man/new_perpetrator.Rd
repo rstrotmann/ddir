@@ -14,7 +14,7 @@ new_perpetrator(df)
 A perpetrator object.
 }
 \description{
-This function converts a data frame into a perpetrator object.
+Convert a data frame into a perpetrator object.
 }
 \details{
 The input is a data frame with the columns 'param', 'value' and source'.
@@ -38,11 +38,10 @@ Rows with the following parameters ('param') are expected in the input:\tabular{
 
 The following example is an example for a valid input data frame:
 
-\preformatted{
-        param      value        source
-1        name examplinib
-2        type     parent
-3          mw      492.6
+\if{html}{\out{<div class="sourceCode">}}\preformatted{        param      value        source
+1        name examplinib              
+2        oral       TRUE              
+3          mw      492.6              
 4        dose        450 clinical dose
 5      imaxss       3530     study 001
 6          fu      0.023     study 002
@@ -52,7 +51,7 @@ The following example is an example for a valid input data frame:
 10         fg          1       default
 11         ka    0.00267       unknown
 12 solubility        Inf       default
-}
+}\if{html}{\out{</div>}}
 }
 \seealso{
 \code{\link[=read_perpetrators]{read_perpetrators()}}

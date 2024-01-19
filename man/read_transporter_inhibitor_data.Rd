@@ -27,7 +27,8 @@ The following, comma-separated fields are expected (in this order):
 Lines starting with '#' are considered comments and are not evaluated.
 
 The following is an example of a valid input:
-\preformatted{
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{
 # PARENT
 # name,     transporter, IC50, source
 examplinib, Pgp,         0.41, study 005
@@ -41,7 +42,7 @@ examplinib, BSEP,        12.8,
 examplinib, OCT2,        67,   study 006
 examplinib, MATE1,       3.6,  study 006
 examplinib, MATE2k,      1.1,  study 006
-}
+}\if{html}{\out{</div>}}
 }
 \examples{
 read_transporter_inhibitor_data(textConnection(examplinib_transporter_inhibition_string))

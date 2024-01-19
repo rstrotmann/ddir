@@ -20,7 +20,7 @@ The following, comma-separated fields are expected in the input (in this
 order):
 \itemize{
 \item 'name' The perpetrator compound name as character.
-\item 'cyp' The UGT enzyme as (upper case) character.
+\item 'cyp' The CYP enzyme as (upper case) character.
 \item 'ki' The \eqn{k_i} in µM as numeric.
 \item 'source' Optional source information as character.
 }
@@ -28,7 +28,8 @@ order):
 Lines starting with '#' are considered comments and are not evaluated.
 
 The following is an example of a valid input:
-\preformatted{
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{
 # PARENT
 # compound, CYP, ki, source
 examplinib, CYP1A2,  NA,
@@ -38,9 +39,10 @@ examplinib, CYP2C9,  13.5, study 001
 examplinib, CYP2C19, 15,   study 001
 examplinib, CYP2D6,  NA,
 examplinib, CYP3A4,  12.5, study 001
+
 # METABOLITE
 M1,         CYP2C9,  4.4,  study 002
-}
+}\if{html}{\out{</div>}}
 }
 \examples{
 read_cyp_inhibitor_data(textConnection(examplinib_cyp_inhibition_string))

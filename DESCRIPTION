@@ -1,29 +1,29 @@
-Package: ddir
 Type: Package
-Title: Assessment of the clinical DDI risk for drug compounds
+Package: ddir
+Title: Assess the Clinical Drug-Drug Interaction Risk for Drug Compounds
 Version: 0.13.2.9000
 Author: Rainer Strotmann
 Maintainer: Rainer Strotmann <rainer.strotmann@mailbox.org>
-Description: The goal of ddir is to facilitate the analysis of the drug-drug
-    interaction risk for drug compounds as per the relevant FDA and EMA
+Description: The goal of ddir is to facilitate the analysis of the
+    drug-drug interaction risk for drugs as per the relevant FDA and EMA
     guidelines.
-Encoding: UTF-8
-LazyData: true
+License: MIT + file LICENSE
+Depends: 
+    R (>= 2.10)
+Imports:
+    assertr,
+    dplyr,
+    knitr,
+    lifecycle,
+    magrittr,
+    methods,
+    stringr,
+    tibble,
+    tidyr
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
-RoxygenNote: 7.2.3
-Imports:
-    dplyr,
-    stringr,
-    tibble,
-    knitr,
-    assertr,
-    lifecycle,
-    tidyr,
-    magrittr,
-    methods
-Depends: 
-    R (>= 2.10)
-License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
 Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3

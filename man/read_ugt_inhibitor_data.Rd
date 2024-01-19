@@ -27,27 +27,29 @@ The following, comma-separated fields are expected in the input:
 Lines starting with '#' are considered comments and are not evaluated.
 
 The following is an example of a valid input:
-\preformatted{
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{
 # PARENT
-# compound, enzyme, IC50, source
-examplinib, UGT1A1, 15, study 009
-examplinib, UGT1A3, 15, study 009
-examplinib, UGT1A4, 15, study 009
-examplinib, UGT1A6, 15, study 009
-examplinib, UGT1A9, 3.8, study 009
-examplinib, UGT2B7, 15, study 009
-examplinib, UGT2B15, 15, study 009
-examplinib, UGT2B17, 6.1, study 009
+# compound, enzyme,  IC50, source
+examplinib, UGT1A1,  15,   study 009
+examplinib, UGT1A3,  15,   study 009
+examplinib, UGT1A4,  15,   study 009
+examplinib, UGT1A6,  15,   study 009
+examplinib, UGT1A9,  3.8,  study 009
+examplinib, UGT2B7,  15,   study 009
+examplinib, UGT2B15, 15,   study 009
+examplinib, UGT2B17, 6.1,  study 009
+
 # METABOLITE
-# compound, enzyme, IC50, source
-M1, UGT1A1, 1.1, study 009
-M1, UGT1A3, 5.8, study 009
-M1, UGT1A4, 6.2, study 009
-M1, UGT1A6, 15, study 009
-M1, UGT1A9, 3.6, study 009
-M1, UGT2B7, 15, study 009
-M1, UGT2B15, 9.6, study 009
-}
+# compound, enzyme,  IC50, source
+M1,         UGT1A1,  1.1,  study 009
+M1,         UGT1A3,  5.8,  study 009
+M1,         UGT1A4,  6.2,  study 009
+M1,         UGT1A6,  15,   study 009
+M1,         UGT1A9,  3.6,  study 009
+M1,         UGT2B7,  15,   study 009
+M1,         UGT2B15, 9.6,  study 009
+}\if{html}{\out{</div>}}
 }
 \examples{
 read_ugt_inhibitor_data(textConnection(examplinib_ugt_inhibition_string))

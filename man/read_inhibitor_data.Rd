@@ -27,9 +27,9 @@ Comment lines must start with '#'.
 
 A valid source is, e.g.,
 
-\preformatted{
+\if{html}{\out{<div class="sourceCode">}}\preformatted{
 # PARENT
-# name,     CYP,     Ki,   source
+# compound, CYP, ki, source
 examplinib, CYP1A2,  NA,
 examplinib, CYP2B6,  NA,
 examplinib, CYP2C8,  11,   study 001
@@ -37,8 +37,8 @@ examplinib, CYP2C9,  13.5, study 001
 examplinib, CYP2C19, 15,   study 001
 examplinib, CYP2D6,  NA,
 examplinib, CYP3A4,  12.5, study 001
+
 # METABOLITE
-# name,     CYP,     Ki,   source
 M1,         CYP2C9,  4.4,  study 002
-}
+}\if{html}{\out{</div>}}
 }

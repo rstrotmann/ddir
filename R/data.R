@@ -116,6 +116,7 @@
 #' @source Fictional data, made up for demo purposes.
 #' @seealso [read_perpetrators()]
 #' @noRd
+#' @keywords internal
 "examplinib_compounds_string"
 
 

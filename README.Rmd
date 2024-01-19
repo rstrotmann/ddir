@@ -1,0 +1,52 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# ddir
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+This package provides functions for the calculation and documentation of the
+potential of drugs to act as perpetrators of clinically relevant drug-drug
+interaction (DDI).
+
+## Installation
+
+You can install the development version of ddir like so:
+
+``` r
+devtools::install_github("rstrotmann/ddir")
+```
+
+## Example
+
+The package provides sample data for a fictional drug, `examplinib`. The
+following code shows the relevant drug properties for examplinib, and calculates
+the perpetrator DDI risk for direct CYP inhibition (basic method). Both are
+provided as markdown-formatted output tables:
+
+```{r example}
+library(ddir)
+
+p <- examplinib_parent
+property_table(p)
+basic_cyp_inhibition_risk_table(p, examplinib_cyp_inhibition_data)
+```
+
+See also: `kinetic_cyp_induction_risk_table()`, `mech_stat_cyp_risk_table()`,
+`basic_ugt_inhibition_risk_table()`, `transporter_inhibition_risk_table()`
+
+Full documentation can be found together with the source code on
+[github](https://github.com/rstrotmann/ddir).
