@@ -2,18 +2,21 @@
 % Please edit documentation in R/compounds.R
 \name{property_table}
 \alias{property_table}
-\title{Generic function to display compound properties}
+\title{Table of perpetrator drug properties}
 \usage{
 property_table(obj)
 }
 \arguments{
-\item{obj}{The object (compound object or list thereof)}
+\item{obj}{The perpetrator object or a list of perpetrator objects.}
+}
+\value{
+A markdown-formatted table.
 }
 \description{
-Generic function to display compound properties
+This function generates a markdown-formatted table of the key properties of
+a perpetrator object.
 }
-\seealso{
-\code{\link[=property_table.perpetrator]{property_table.perpetrator()}}
-
-\code{\link[=property_table.list]{property_table.list()}}
+\examples{
+property_table(examplinib_parent)
+property_table(examplinib_compounds)
 }

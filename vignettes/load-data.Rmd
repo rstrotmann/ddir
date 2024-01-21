@@ -1,0 +1,169 @@
+---
+title: "Load compound-specific data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{load-data} %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This vignette describes how the compound-specific data can be provided for the
+calculation of the DDI pepetrator risk.
+
+```{r setup, message = FALSE, warning = FALSE}
+library(ddir)
+library(tidyverse)
+```
+
+# Drug properties
+
+All functions of the `ddir` package that evaluate the different DDI risks expect
+as their first argument a `perpetrator` object that contains all compound
+properties needed to calculate the relevant perpetrator concentrations.
+
+The following parameters are needed:
+
+| PARAM | REQUIREMENT | DESCRIPTION |
+| --- | --- | --- |
+| name | required | The name of the compound |
+| oral | required | Logical value (`TRUE` or `FALSE`) to indicate whether the compound is administered orally |
+| mw | required | molar weight in g/mol |
+| dose | required for oral compounds | clinical dose in mg |
+| imaxss | required | total Cmax in ng/ml |
+| fu | optional | fraction unbound, default is 1 |
+| fumic | optional | microsomal unbound fraction, dafault is 1 |
+| rb | optional | blood-to-plasma concentration ratio, default is 1 |
+| fa | optional | fraction absorbed, default is 1 |
+| fg | optional | fraction escaping gut metabolism, default is 1 |
+| ka | optional | absorption rate constant, default is 0.1 /min |
+| solubility | optional | solubility of the compound in mg/l, defaults to `Inf` |
+
+## Input as data frame
+
+As the most basic option, the compound property data can be hard-coded into a
+R script as a data frame and then converted into a perpetrator object. The 
+constructor function for perpetrator objects expects all values to be of
+character type:
+
+```{r}
+parent_data_frame <- data.frame(
+  param = c("name", "oral", "mw", "dose", "imaxss"),
+  value = c("examplinib", "TRUE", "492.6", "450", "3530"),
+  source = c("", "", "", "", "")
+)
+
+parent <- new_perpetrator(parent_data_frame)
+parent
+```
+
+Note that in the above code, only the strictly required fields were provided,
+the other fields were automatically set to their respective default values.
+
+## Input as tribble
+
+The `tibble` package that is included in the `tidyverse` meta-package provides a
+very convenient function, [tribble()], to construct data frames in a row-wise
+fashion:
+
+```{r}
+parent_tribble <- tribble(
+  ~param,   ~value,       ~source,
+  "name",   "examplinib", "",
+  "oral",   "TRUE",       "",
+  "mw",     "492.6",     "",
+  "dose",   "450",        "",
+  "imaxss", "3530",       "" 
+)
+parent <- new_perpetrator(parent_tribble)
+parent
+```
+
+## Read from a csv file
+
+Alternatively, the data can also be provided as comma-separated values (csv) in 
+an external data file and read using `read_perpetrators()`. The csv file
+'examplinib_compounds_single.csv' is provided for demonstration purposes as part
+of this package:
+
+```{r eval=FALSE}
+parent_perpetrator <- read_perpetrators(
+  fs::path_package("extdata/examplinib_compounds_single.csv", package = "ddir")
+)
+parent_perpetrator %>%
+  class()
+```
+
+## Read from a data chunk within an R notebook
+
+When programming in an R notebook, which we highly recommend to keep the data,
+the code and text blocks together in one document, the compound properties can
+also be provided in a code chunk. This is a feature introduced by the
+`knitrdata` package:
+
+```{r}
+library(knitrdata)
+```
+
+Chunks with the type 'data' will be assigned as is to the variable provided by
+'output.var':
+
+```{data output.var = "compounds_text"}
+# PARENT
+# compound,  param,    value,     source
+examplinib,  oral,     TRUE,
+examplinib,  mw,       492.6,
+examplinib,  dose,     450,       clinical dose
+examplinib,  imaxss,   3530,      study 001
+examplinib,  fu,       0.023,     study 002
+examplinib,  fumic,    1,         default
+examplinib,  rb,       1,         study 003
+examplinib,  fa,       0.81,      study 003
+examplinib,  fg,       1,         default
+examplinib,  ka,       0.00267,   unknown
+
+# METABOLITE 
+# compound,  param,    value,     source
+M1,          oral,     FALSE,
+M1,          mw,       506.56,
+M1,          dose,     NA,        
+M1,          imaxss,   1038,      study 001
+M1,          fu,       0.012,     study 002
+M1,          fumic,    1,         default
+M1,          rb,       1,         study 002
+M1,          fa,       NA,
+M1,          fg,       NA,
+M1,          ka,       NA,    
+```
+
+Like in the above example, this variable can then be used to create perpetrator
+objects:
+
+```{r}
+compounds <- read_perpetrators(
+  textConnection(compounds_text))
+compounds
+```
+
+Note that since the data is not in a file but in a character variable, a
+`textConnection()` construct must be used here.
+
+Also note that the above data chunk contains data for two different compounds,
+'examplinib' and 'M1'. The output of the `read_perpetrators()` function is 
+therefore a list of perpetrator objects.
+
+You will find that the sample DDI report provided as part of the `ddir` package
+uses this concept. Feel free to use this report file and merely exchange the
+compound-specific data to create a standard DDI report.
+
+
+
+
+
+
+

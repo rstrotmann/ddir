@@ -31,7 +31,7 @@ on the calculation of the risk.
 }
 \examples{
 basic_cyp_inhibition_risk_table(examplinib_parent, examplinib_cyp_inhibition_data)
-basic_cyp_inhibition_risk_table(examplinib_parent, examplinib_cyp_inhibition_data, na.rm = TRUE)
+basic_cyp_inhibition_risk_table(examplinib_compounds, examplinib_cyp_inhibition_data, na.rm = TRUE)
 }
 \seealso{
 \code{\link[=basic_cyp_inhibition_risk]{basic_cyp_inhibition_risk()}}

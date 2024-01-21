@@ -21,8 +21,8 @@ The input is a data frame with the columns 'param', 'value' and source'.
 
 Rows with the following parameters ('param') are expected in the input:\tabular{lll}{
    PARAM \tab REQUIREMENT \tab DESCRIPTION \cr
-   name \tab required \tab  \cr
-   type \tab optional \tab either 'parent' (default) or 'metabolite' \cr
+   name \tab required \tab the name of the compound \cr
+   oral \tab required \tab logical value (\code{TRUE} or \code{FALSE}) to indicate whether the compound is administered orally \cr
    mw \tab required \tab molar weight in g/mol \cr
    dose \tab required for parent compounds \tab clinical dose in mg \cr
    imaxss \tab required \tab total Cmax in ng/ml \cr
@@ -36,7 +36,7 @@ Rows with the following parameters ('param') are expected in the input:\tabular{
 }
 
 
-The following example is an example for a valid input data frame:
+The following is an example for a valid input data frame:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{        param      value        source
 1        name examplinib              

@@ -25,6 +25,12 @@ on the calculation of the risk."><!-- mathjax --><script src="https://cdnjs.clou
       <ul class="navbar-nav me-auto"><li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/load-data.html">Load compound-specific data</a>
+  </div>
+</li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -98,7 +104,8 @@ removed from the output (i.e., where <code>ki == NA</code>). Defaults to <code>F
 <span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C19 |         15.0|           15.0|1.011 |FALSE          |NA          |NA                |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2D6  |           NA|             NA|NA    |NA             |NA          |NA                |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |CYP3A4  |         12.5|           12.5|1.013 |FALSE          |293.3       |TRUE              |</span>
-<span class="r-in"><span><span class="fu">basic_cyp_inhibition_risk_table</span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_inhibition_data</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">basic_cyp_inhibition_risk_table</span><span class="op">(</span><span class="va">examplinib_compounds</span>, <span class="va">examplinib_cyp_inhibition_data</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $examplinib</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Table: Risk for direct CYP inhibition by examplinib (basic model)</span>
@@ -109,6 +116,16 @@ removed from the output (i.e., where <code>ki == NA</code>). Defaults to <code>F
 <span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9  |         13.5|           13.5|1.012 |FALSE          |NA          |NA                |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C19 |         15.0|           15.0|1.011 |FALSE          |NA          |NA                |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |CYP3A4  |         12.5|           12.5|1.013 |FALSE          |293.3       |TRUE              |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $M1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Table: Risk for direct CYP inhibition by M1 (basic model)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP    | $K_{i}$ (µM)| $K_{i,u}$ (µM)|$R_1$ |risk (hepatic) |$R_{1,gut}$ |risk (intestinal) |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |:------|------------:|--------------:|:-----|:--------------|:-----------|:-----------------|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9 |          4.4|            4.4|1.006 |FALSE          |NA          |NA                |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

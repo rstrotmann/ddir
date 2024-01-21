@@ -49,6 +49,7 @@ calculated.
 }
 \examples{
 basic_cyp_tdi_risk(examplinib_parent, examplinib_cyp_tdi_data)
+basic_cyp_tdi_risk(examplinib_compounds, examplinib_cyp_tdi_data)
 }
 \seealso{
 \link{cyp_turnover}

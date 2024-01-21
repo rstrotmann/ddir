@@ -116,8 +116,8 @@ compound_names_string <- function(compounds) {
 #'
 #' | PARAM | REQUIREMENT | DESCRIPTION |
 #' | --- | --- | --- |
-#' | name | required |  |
-#' | type | optional | either 'parent' (default) or 'metabolite' |
+#' | name | required | the name of the compound |
+#' | oral | required | logical value (`TRUE` or `FALSE`) to indicate whether the compound is administered orally |
 #' | mw | required | molar weight in g/mol |
 #' | dose | required for parent compounds | clinical dose in mg |
 #' | imaxss | required | total Cmax in ng/ml |
@@ -129,7 +129,7 @@ compound_names_string <- function(compounds) {
 #' | ka | optional | absorption rate constant, default is 0.1 /min |
 #' | solubility | optional | solubility of the compound in mg/l, defaults to `Inf` |
 #'
-#' The following example is an example for a valid input data frame:
+#' The following is an example for a valid input data frame:
 #'
 #' ```{r echo=F, comment=""}
 #' temp <- examplinib_parent %>% as.data.frame()
@@ -452,9 +452,7 @@ key_concentrations <- function(obj, qh=1.616, qent=18/60, molar=TRUE) {
 #' This function generates a markdown-formatted table of the key perpetrator
 #' concentrations used for the assessment of the DDI perpetrator potential. See
 #' [key_concentrations()] for details on their calculation.
-#'
 #' @param perp The perpetrator object or a list of perpetrator objects.
-#'
 #' @return A markdown-formatted table.
 #' @export
 #' @seealso [key_concentrations()]
@@ -475,6 +473,7 @@ conc_table <- function(perp) {
 #' @param perp The perpetrator object.
 #' @return A markdown-formatted table.
 #' @export
+#' @noRd
 #' @seealso [key_concentrations()]
 #' @examples
 #' conc_table(examplinib_parent)
@@ -512,9 +511,9 @@ conc_table.perpetrator <- function(perp) {
 #' [key_concentrations()] for details on the calculation of the concentrations.
 #'
 #' @param perp A list of perpetrator objects.
-#'
 #' @return A markdown-formatted table.
 #' @export
+#' @noRd
 #' @seealso [key_concentrations()]
 #' @examples
 #' conc_table(examplinib_compounds)
@@ -523,12 +522,16 @@ conc_table.list <- function(perp) {
 }
 
 
-#' Generic function to display compound properties
+#' Table of perpetrator drug properties
 #'
-#' @param obj The object (compound object or list thereof)
+#' This function generates a markdown-formatted table of the key properties of
+#' a perpetrator object.
+#' @param obj The perpetrator object or a list of perpetrator objects.
+#' @return A markdown-formatted table.
 #' @export
-#' @seealso [property_table.perpetrator()]
-#' @seealso [property_table.list()]
+#' @examples
+#' property_table(examplinib_parent)
+#' property_table(examplinib_compounds)
 property_table <- function(obj) {
   UseMethod("property_table")
 }
@@ -540,13 +543,12 @@ property_table <- function(obj) {
 #' a perpetrator object.
 #'
 #' @param obj The perpetrator object.
-#'
 #' @return A markdown-formatted table.
+#' @noRd
 #' @export
 #' @examples
 #' property_table(examplinib_parent)
 #' property_table(examplinib_metabolite)
-#'
 property_table.perpetrator <- function(obj){
   labels <- data.frame(
     param=c("oral", "mw", "dose", "solubility", "imaxss", "fu", "fumic", "rb", "fa",
@@ -581,6 +583,7 @@ property_table.perpetrator <- function(obj){
 #'
 #' @param obj A list of perpetrator objects.
 #' @return A list of markdown-formatted tables.
+#' @noRd
 #' @export
 #' @examples
 #' property_table(examplinib_compounds)

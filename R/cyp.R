@@ -88,8 +88,29 @@ basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
 #' @seealso [basic_cyp_inhibition_risk()]
 #' @examples
 #' basic_cyp_inhibition_risk_table(examplinib_parent, examplinib_cyp_inhibition_data)
-#' basic_cyp_inhibition_risk_table(examplinib_parent, examplinib_cyp_inhibition_data, na.rm = TRUE)
+#' basic_cyp_inhibition_risk_table(examplinib_compounds, examplinib_cyp_inhibition_data, na.rm = TRUE)
 basic_cyp_inhibition_risk_table <- function(perp, cyp_inh, na.rm = FALSE) {
+  UseMethod("basic_cyp_inhibition_risk_table")
+}
+
+
+#' Basic CYP inhibition risk table
+#'
+#' This function generates a markdown-formatted table of the direct (reversible)
+#' CYP inhibition risk assessment. See [basic_cyp_inhibition_risk()] for details
+#' on the calculation of the risk.
+#'
+#' @inheritParams basic_cyp_inhibition_risk
+#' @param na.rm Switch to define whether rows with lacking \eqn{K_i} data are
+#' removed from the output (i.e., where `ki == NA`). Defaults to `FALSE`.
+#' @return A markdown-formatted table, or an empty string.
+#' @export
+#' @noRd
+#' @seealso [basic_cyp_inhibition_risk()]
+#' @examples
+#' basic_cyp_inhibition_risk_table(examplinib_parent, examplinib_cyp_inhibition_data)
+basic_cyp_inhibition_risk_table.perpetrator <- function(
+    perp, cyp_inh, na.rm = FALSE) {
   temp <- basic_cyp_inhibition_risk(perp, cyp_inh)
 
   if(na.rm==TRUE) {
@@ -105,6 +126,28 @@ basic_cyp_inhibition_risk_table <- function(perp, cyp_inh, na.rm = FALSE) {
       col.names=labels)
     return(out)
   }
+}
+
+
+#' Basic CYP inhibition risk table
+#'
+#' This function generates a markdown-formatted table of the direct (reversible)
+#' CYP inhibition risk assessment. See [basic_cyp_inhibition_risk()] for details
+#' on the calculation of the risk.
+#'
+#' @inheritParams basic_cyp_inhibition_risk
+#' @param na.rm Switch to define whether rows with lacking \eqn{K_i} data are
+#' removed from the output (i.e., where `ki == NA`). Defaults to `FALSE`.
+#' @return A markdown-formatted table, or an empty string.
+#' @export
+#' @noRd
+#' @seealso [basic_cyp_inhibition_risk()]
+#' @examples
+#' basic_cyp_inhibition_risk_table(examplinib_compounds, examplinib_cyp_inhibition_data)
+#' basic_cyp_inhibition_risk_table(examplinib_parent, examplinib_cyp_inhibition_data, na.rm = TRUE)
+basic_cyp_inhibition_risk_table.list <- function(
+    perp, cyp_inh, na.rm = FALSE) {
+  lapply(perp, basic_cyp_inhibition_risk_table, cyp_inh=cyp_inh, na.rm=na.rm)
 }
 
 
@@ -145,7 +188,20 @@ basic_cyp_inhibition_risk_table <- function(perp, cyp_inh, na.rm = FALSE) {
 #' @export
 #' @examples
 #' basic_cyp_tdi_risk(examplinib_parent, examplinib_cyp_tdi_data)
+#' basic_cyp_tdi_risk(examplinib_compounds, examplinib_cyp_tdi_data)
 basic_cyp_tdi_risk <- function(perp, cyp_tdi, cyp_kdeg=cyp_turnover) {
+  UseMethod("basic_cyp_tdi_risk")
+}
+
+
+#' Basic modeling of the CYP time-dependent inhibition risk
+#'
+#' @inheritParams basic_cyp_tdi_risk
+#' @export
+#' @noRd
+#' @examples
+#' basic_cyp_tdi_risk(examplinib_parent, examplinib_cyp_tdi_data)
+basic_cyp_tdi_risk.perpetrator <- function(perp, cyp_tdi, cyp_kdeg=cyp_turnover) {
   cyp_tdi <- cyp_tdi %>%
     filter(name==name(perp))
 
@@ -162,6 +218,18 @@ basic_cyp_tdi_risk <- function(perp, cyp_tdi, cyp_kdeg=cyp_turnover) {
     mutate(r2=(kobs + kdeg)/kdeg) %>%
     mutate(risk=(r2>1.25)) %>%
     select(cyp, ki, fu, kinact, kdeg, source, r2, risk)
+}
+
+
+#' Basic modeling of the CYP time-dependent inhibition risk
+#'
+#' @inheritParams basic_cyp_tdi_risk
+#' @export
+#' @noRd
+#' @examples
+#' basic_cyp_tdi_risk(examplinib_parent, examplinib_cyp_tdi_data)
+basic_cyp_tdi_risk.list <- function(perp, cyp_tdi, cyp_kdeg=cyp_turnover) {
+  lapply(perp, basic_cyp_tdi_risk, cyp_tdi=cyp_tdi, cyp_kdeg=cyp_kdeg)
 }
 
 
