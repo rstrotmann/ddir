@@ -78,17 +78,38 @@ transporter_inhibition_risk <- function(
 #' @export
 #' @examples
 #' transporter_inhibition_risk_table(examplinib_parent, examplinib_transporter_inhibition_data)
+#' transporter_inhibition_risk_table(examplinib_compounds, examplinib_transporter_inhibition_data)
 transporter_inhibition_risk_table <- function(
     perp,
     transporter_inh,
     transporter_ref=transporter_reference_data,
     na.rm=F) {
+  UseMethod("transporter_inhibition_risk_table")
+}
+
+
+#' Table of drug transporter inhibition risks
+#'
+#' @inheritParams transporter_inhibition_risk
+#' @param na.rm Switch to exlcude rows with lacking \eqn{IC_{50}} data from the
+#' output.
+#' @seealso [transporter_inhibition_risk()]
+#' @return A markdown-formatted table.
+#' @export
+#' @noRd
+#' @examples
+#' transporter_inhibition_risk_table(examplinib_parent, examplinib_transporter_inhibition_data)
+transporter_inhibition_risk_table.perpetrator <- function(
+    perp,
+    transporter_inh,
+    transporter_ref=transporter_reference_data,
+    na.rm=F) {
   temp <- transporter_inhibition_risk(
-      perp, transporter_inh,
-      transporter_ref=transporter_reference_data) %>%
+    perp, transporter_inh,
+    transporter_ref=transporter_reference_data) %>%
     mutate(r=round(r, 3))
 
-if(na.rm==TRUE) {
+  if(na.rm==TRUE) {
     temp <- temp %>%
       filter(!is.na(ic50))
   }
@@ -102,5 +123,32 @@ if(na.rm==TRUE) {
                     name(perp)), col.names=labels,
       signif=2)
     return(out)
+  }
+}
+
+
+#' Table of drug transporter inhibition risks
+#'
+#' @inheritParams transporter_inhibition_risk
+#' @param na.rm Switch to exlcude rows with lacking \eqn{IC_{50}} data from the
+#' output.
+#' @seealso [transporter_inhibition_risk()]
+#' @return A markdown-formatted table.
+#' @export
+#' @noRd
+#' @examples
+#' transporter_inhibition_risk_table(examplinib_parent, examplinib_transporter_inhibition_data)
+transporter_inhibition_risk_table.list <- function(
+    perp,
+    transporter_inh,
+    transporter_ref=transporter_reference_data,
+    na.rm=F) {
+  for(i in perp) {
+    temp <- transporter_inhibition_risk_table.perpetrator( i,
+           transporter_inh=transporter_inh, transporter_ref=transporter_ref,
+           na.rm=na.rm)
+    if(!is.null(temp)) {
+      print(temp)
+    }
   }
 }

@@ -37,6 +37,7 @@ Table of drug transporter inhibition risks
 }
 \examples{
 transporter_inhibition_risk_table(examplinib_parent, examplinib_transporter_inhibition_data)
+transporter_inhibition_risk_table(examplinib_compounds, examplinib_transporter_inhibition_data)
 }
 \seealso{
 \code{\link[=transporter_inhibition_risk]{transporter_inhibition_risk()}}

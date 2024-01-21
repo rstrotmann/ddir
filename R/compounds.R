@@ -278,6 +278,7 @@ name <- function(obj) {
 #'
 #' @return The name of the perpetrator as character.
 #' @export
+#' @noRd
 #' @examples
 #' name(examplinib_parent)
 name.perpetrator <- function(obj) {
@@ -516,9 +517,11 @@ conc_table.perpetrator <- function(perp) {
 #' @noRd
 #' @seealso [key_concentrations()]
 #' @examples
-#' conc_table(examplinib_compounds)
+#' conc_table.list(examplinib_compounds)
 conc_table.list <- function(perp) {
-  lapply(perp, conc_table)
+  for(i in perp) {
+    print(conc_table.perpetrator(i))
+  }
 }
 
 
@@ -572,7 +575,11 @@ property_table.perpetrator <- function(obj){
     dplyr::select(parameter, value, source) %>%
     knitr::kable(caption=paste("Compound parameters for", obj["name", "value"]))
 
-  return(out)
+  if(nrow(out) == 0){
+    return("out")
+  } else {
+    return(out)
+  }
 }
 
 

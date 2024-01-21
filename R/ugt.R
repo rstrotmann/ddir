@@ -72,7 +72,28 @@ basic_ugt_inhibition_risk <- function(perp, ugt_inh) {
 #' @export
 #' @examples
 #' basic_ugt_inhibition_risk_table(examplinib_parent, examplinib_ugt_inhibition_data)
+#' basic_ugt_inhibition_risk_table(examplinib_compounds, examplinib_ugt_inhibition_data)
 basic_ugt_inhibition_risk_table <- function(perp, ugt_inh, na.rm=F) {
+  UseMethod("basic_ugt_inhibition_risk_table")
+}
+
+
+#' UGT inhibition risk table
+#'
+#' This function generates a markdown-formatted table of the reversible
+#' UGT inhibition risk assessment. See [basic_ugt_inhibition_risk()] for details
+#' on the calculation of the risk.
+#'
+#' @inheritParams basic_ugt_inhibition_risk
+#' @param na.rm Boolean to define whether rows with lacking \eqn{K_i} data are
+#' removed from the output (i.e., where `ki == NA`).
+#' @seealso [basic_ugt_inhibition_risk()]
+#' @return A markdown-formatted table.
+#' @export
+#' @noRd
+#' @examples
+#' basic_ugt_inhibition_risk_table(examplinib_parent, examplinib_ugt_inhibition_data)
+basic_ugt_inhibition_risk_table.perpetrator <- function(perp, ugt_inh, na.rm=F) {
   temp <- basic_ugt_inhibition_risk(perp, ugt_inh)
 
   if(na.rm==TRUE) {
@@ -88,5 +109,31 @@ basic_ugt_inhibition_risk_table <- function(perp, ugt_inh, na.rm=F) {
                                  name(perp), "(basic model)"),
                    col.names=labels)
     return(out)
+  }
+}
+
+
+#' UGT inhibition risk table
+#'
+#' This function generates a markdown-formatted table of the reversible
+#' UGT inhibition risk assessment. See [basic_ugt_inhibition_risk()] for details
+#' on the calculation of the risk.
+#'
+#' @inheritParams basic_ugt_inhibition_risk
+#' @param na.rm Boolean to define whether rows with lacking \eqn{K_i} data are
+#' removed from the output (i.e., where `ki == NA`).
+#' @seealso [basic_ugt_inhibition_risk()]
+#' @return A markdown-formatted table.
+#' @export
+#' @noRd
+#' @examples
+#' basic_ugt_inhibition_risk_table(examplinib_parent, examplinib_ugt_inhibition_data)
+basic_ugt_inhibition_risk_table.list <- function(perp, ugt_inh, na.rm=F) {
+  for(i in perp) {
+    temp <- basic_ugt_inhibition_risk_table.perpetrator(i, ugt_inh=ugt_inh,
+           na.rm=na.rm)
+    if(!is.null(temp)) {
+      print(temp)
+    }
   }
 }

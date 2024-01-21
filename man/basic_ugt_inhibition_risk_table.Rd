@@ -31,6 +31,7 @@ on the calculation of the risk.
 }
 \examples{
 basic_ugt_inhibition_risk_table(examplinib_parent, examplinib_ugt_inhibition_data)
+basic_ugt_inhibition_risk_table(examplinib_compounds, examplinib_ugt_inhibition_data)
 }
 \seealso{
 \code{\link[=basic_ugt_inhibition_risk]{basic_ugt_inhibition_risk()}}

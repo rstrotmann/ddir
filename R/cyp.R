@@ -147,8 +147,15 @@ basic_cyp_inhibition_risk_table.perpetrator <- function(
 #' basic_cyp_inhibition_risk_table(examplinib_parent, examplinib_cyp_inhibition_data, na.rm = TRUE)
 basic_cyp_inhibition_risk_table.list <- function(
     perp, cyp_inh, na.rm = FALSE) {
-  lapply(perp, basic_cyp_inhibition_risk_table, cyp_inh=cyp_inh, na.rm=na.rm)
+  for(i in perp) {
+    temp = basic_cyp_inhibition_risk_table.perpetrator(
+      i, cyp_inh=cyp_inh, na.rm=na.rm)
+    if(!is.null(temp)){
+      print(temp)
+    }
+  }
 }
+
 
 
 #' Basic modeling of the CYP time-dependent inhibition risk
@@ -188,20 +195,7 @@ basic_cyp_inhibition_risk_table.list <- function(
 #' @export
 #' @examples
 #' basic_cyp_tdi_risk(examplinib_parent, examplinib_cyp_tdi_data)
-#' basic_cyp_tdi_risk(examplinib_compounds, examplinib_cyp_tdi_data)
-basic_cyp_tdi_risk <- function(perp, cyp_tdi, cyp_kdeg=cyp_turnover) {
-  UseMethod("basic_cyp_tdi_risk")
-}
-
-
-#' Basic modeling of the CYP time-dependent inhibition risk
-#'
-#' @inheritParams basic_cyp_tdi_risk
-#' @export
-#' @noRd
-#' @examples
-#' basic_cyp_tdi_risk(examplinib_parent, examplinib_cyp_tdi_data)
-basic_cyp_tdi_risk.perpetrator <- function(perp, cyp_tdi, cyp_kdeg=cyp_turnover) {
+basic_cyp_tdi_risk<- function(perp, cyp_tdi, cyp_kdeg=cyp_turnover) {
   cyp_tdi <- cyp_tdi %>%
     filter(name==name(perp))
 
@@ -221,15 +215,20 @@ basic_cyp_tdi_risk.perpetrator <- function(perp, cyp_tdi, cyp_kdeg=cyp_turnover)
 }
 
 
-#' Basic modeling of the CYP time-dependent inhibition risk
+#' Basic CYP time-dependent inhibition risk table
 #'
 #' @inheritParams basic_cyp_tdi_risk
+#' @param na.rm Switch to define whether rows with lacking \eqn{K_i} data are
+#' removed from the output. Defaults to `FALSE`.
+#' @return A markdown-formatted table.
+#' @seealso [basic_cyp_tdi_risk()]
 #' @export
-#' @noRd
 #' @examples
-#' basic_cyp_tdi_risk(examplinib_parent, examplinib_cyp_tdi_data)
-basic_cyp_tdi_risk.list <- function(perp, cyp_tdi, cyp_kdeg=cyp_turnover) {
-  lapply(perp, basic_cyp_tdi_risk, cyp_tdi=cyp_tdi, cyp_kdeg=cyp_kdeg)
+#' basic_cyp_tdi_risk_table(examplinib_parent, examplinib_cyp_tdi_data)
+#' basic_cyp_tdi_risk_table(examplinib_compounds, examplinib_cyp_tdi_data)
+basic_cyp_tdi_risk_table <- function(perp, cyp_tdi, cyp_kdeg=cyp_turnover,
+                                     na.rm = TRUE) {
+  UseMethod("basic_cyp_tdi_risk_table")
 }
 
 
@@ -241,9 +240,11 @@ basic_cyp_tdi_risk.list <- function(perp, cyp_tdi, cyp_kdeg=cyp_turnover) {
 #' @return A markdown-formatted table.
 #' @seealso [basic_cyp_tdi_risk()]
 #' @export
+#' @noRd
 #' @examples
 #' basic_cyp_tdi_risk_table(examplinib_parent, examplinib_cyp_tdi_data)
-basic_cyp_tdi_risk_table <- function(perp, cyp_tdi, cyp_kdeg=cyp_turnover,
+#' basic_cyp_tdi_risk_table(examplinib_metabolite, examplinib_cyp_tdi_data)
+basic_cyp_tdi_risk_table.perpetrator <- function(perp, cyp_tdi, cyp_kdeg=cyp_turnover,
                                      na.rm = TRUE) {
   temp <- basic_cyp_tdi_risk(perp, cyp_tdi, cyp_kdeg)
   if(na.rm==TRUE) {
@@ -255,12 +256,36 @@ basic_cyp_tdi_risk_table <- function(perp, cyp_tdi, cyp_kdeg=cyp_turnover,
               "$k_{deg}$ (1/h)", "source", "$R_2$", "risk")
   if(nrow(temp)!=0) {
     out <- knitr::kable(temp,
-      caption=paste("Risk for CYP TDI by", name(perp), "(basic model)"),
-      digits = 2,
-      col.names=labels)
+                        caption=paste("Risk for CYP TDI by", name(perp), "(basic model)"),
+                        digits = 2,
+                        col.names=labels)
     return(out)
   }
 }
+
+
+#' Basic CYP time-dependent inhibition risk table
+#'
+#' @inheritParams basic_cyp_tdi_risk
+#' @param na.rm Switch to define whether rows with lacking \eqn{K_i} data are
+#' removed from the output. Defaults to `FALSE`.
+#' @return A markdown-formatted table.
+#' @seealso [basic_cyp_tdi_risk()]
+#' @export
+#' @noRd
+#' @examples
+#' basic_cyp_tdi_risk_table(examplinib_compounds, examplinib_cyp_tdi_data)
+basic_cyp_tdi_risk_table.list <- function(perp, cyp_tdi, cyp_kdeg=cyp_turnover,
+                                                 na.rm = TRUE) {
+  for(i in perp) {
+    temp <- basic_cyp_tdi_risk_table.perpetrator(
+        i, cyp_tdi=cyp_tdi, cyp_kdeg=cyp_kdeg, na.rm=na.rm)
+    if(!is.null(temp)) {
+      print(temp)
+    }
+  }
+}
+
 
 
 #### CYP INDUCTION
@@ -318,7 +343,23 @@ static_cyp_induction_risk <- function(perp, cyp_ind)  {
 #' @seealso [static_cyp_induction_risk()]
 #' @examples
 #' static_cyp_induction_risk_table(examplinib_parent, examplinib_cyp_induction_data)
+#' static_cyp_induction_risk_table(examplinib_compounds, examplinib_cyp_induction_data)
 static_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
+  UseMethod("static_cyp_induction_risk_table")
+}
+
+
+#' Table of the basic static CYP induction risk
+#'
+#' @inheritParams static_cyp_induction_risk
+#' @param na.rm Switch to define whether rows with lacking \eqn{E_{max}} data
+#' are removed from the output. Defaults to `FALSE`.
+#' @return A markdown-formatted table.
+#' @export
+#' @noRd
+#' @seealso [static_cyp_induction_risk()]
+static_cyp_induction_risk_table.perpetrator <- function(perp, cyp_ind,
+                                                        na.rm=F) {
   temp <- static_cyp_induction_risk(perp, cyp_ind)
 
   if(na.rm==TRUE) {
@@ -332,11 +373,33 @@ static_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
   if(nrow(temp)!=0) {
     out <- knitr::kable(
       temp, caption=paste("Risk for hepatic CYP induction by", name(perp),
-        "(basic static model)"),
+                          "(basic static model)"),
       col.names=labels)
     return(out)
   }
 }
+
+
+#' Table of the basic static CYP induction risk
+#'
+#' @inheritParams static_cyp_induction_risk
+#' @param na.rm Switch to define whether rows with lacking \eqn{E_{max}} data
+#' are removed from the output. Defaults to `FALSE`.
+#' @return A markdown-formatted table.
+#' @export
+#' @noRd
+#' @seealso [static_cyp_induction_risk()]
+static_cyp_induction_risk_table.list <- function(perp, cyp_ind, na.rm=F) {
+  for(i in perp) {
+    temp <- static_cyp_induction_risk_table.perpetrator(i, cyp_ind=cyp_ind,
+                                                        na.rm=na.rm)
+    if(!is.null(temp)) {
+      print(temp)
+    }
+  }
+}
+
+
 
 
 #' Basic kinetic CYP induction risk
@@ -371,7 +434,7 @@ kinetic_cyp_induction_risk <- function(perp, cyp_ind, d = 1) {
 }
 
 
-#' Table of the basic kinetc CYP induction risk
+#' Table of the basic kinetic CYP induction risk
 #'
 #' @inheritParams kinetic_cyp_induction_risk
 #' @param na.rm Switch to define whether rows with lacking \eqn{E_{max}} data
@@ -381,7 +444,24 @@ kinetic_cyp_induction_risk <- function(perp, cyp_ind, d = 1) {
 #' @seealso [kinetic_cyp_induction_risk()]
 #' @examples
 #' kinetic_cyp_induction_risk_table(examplinib_parent, examplinib_cyp_induction_data)
+#' kinetic_cyp_induction_risk_table(examplinib_compounds, examplinib_cyp_induction_data)
 kinetic_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
+  UseMethod("kinetic_cyp_induction_risk_table")
+}
+
+
+#' Table of the basic kinetic CYP induction risk
+#'
+#' @inheritParams kinetic_cyp_induction_risk
+#' @param na.rm Switch to define whether rows with lacking \eqn{E_{max}} data
+#' are removed from the output. Defaults to `FALSE`.
+#' @return A markdown-formatted table.
+#' @export
+#' @noRd
+#' @seealso [kinetic_cyp_induction_risk()]
+#' @examples
+#' kinetic_cyp_induction_risk_table(examplinib_parent, examplinib_cyp_induction_data)
+kinetic_cyp_induction_risk_table.perpetrator <- function(perp, cyp_ind, na.rm=F) {
   temp <- kinetic_cyp_induction_risk(perp, cyp_ind) %>%
     mutate(r3=format(r3, digit=3))
 
@@ -400,6 +480,29 @@ kinetic_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
     return(out)
   }
 }
+
+
+#' Table of the basic kinetic CYP induction risk
+#'
+#' @inheritParams kinetic_cyp_induction_risk
+#' @param na.rm Switch to define whether rows with lacking \eqn{E_{max}} data
+#' are removed from the output. Defaults to `FALSE`.
+#' @return A markdown-formatted table.
+#' @export
+#' @noRd
+#' @seealso [kinetic_cyp_induction_risk()]
+#' @examples
+#' kinetic_cyp_induction_risk_table(examplinib_compounds, examplinib_cyp_induction_data)
+kinetic_cyp_induction_risk_table.list <- function(perp, cyp_ind, na.rm=F) {
+  for(i in perp) {
+    temp <- kinetic_cyp_induction_risk_table.perpetrator(i, cyp_ind=cyp_ind,
+                                                         na.rm=na.rm)
+    if(!is.null(temp)) {
+      print(temp)
+    }
+  }
+}
+
 
 
 #### MECHANISTIC STATIC MODELING
@@ -564,11 +667,39 @@ mech_stat_cyp_risk <- function(
 #'   examplinib_cyp_inhibition_data,
 #'   examplinib_cyp_induction_data)
 #' mech_stat_cyp_risk_table(
-#'   examplinib_parent,
+#'   examplinib_compounds,
 #'   examplinib_cyp_inhibition_data,
 #'   examplinib_cyp_induction_data,
 #'   examplinib_cyp_tdi_data)
 mech_stat_cyp_risk_table <- function(
+    perp,
+    cyp_inh,
+    cyp_ind,
+    cyp_tdi = NULL,
+    include_induction = TRUE,
+    substr = cyp_reference_substrates,
+    cyp_kdeg = cyp_turnover,
+    na.rm = FALSE) {
+  UseMethod("mech_stat_cyp_risk_table")
+}
+
+
+#' CYP perpetration risk table as per mechanistic-static modeling
+#'
+#' @inheritParams mech_stat_cyp_risk
+#' @param na.rm Switch to define whether rows with lacking \eqn{K_I} or
+#' \eqn{k_{deg}} data are removed from the output.
+#' @return A markdown-formatted table.
+#' @seealso [mech_stat_cyp_risk()]
+#' @seealso [cyp_reference_substrates]
+#' @export
+#' @noRd
+#' @examples
+#' mech_stat_cyp_risk_table(
+#'   examplinib_parent,
+#'   examplinib_cyp_inhibition_data,
+#'   examplinib_cyp_induction_data)
+mech_stat_cyp_risk_table.perpetrator <- function(
     perp,
     cyp_inh,
     cyp_ind,
@@ -598,7 +729,7 @@ mech_stat_cyp_risk_table <- function(
   if(nrow(temp)!=0) {
     out <- knitr::kable(
       temp,
-      caption=paste("Mechanistic static modeling of CYP inhibition risk for ",
+      caption=paste0("Mechanistic static modeling of the CYP inhibition risk for ",
                     name(perp)),
       col.names=labels)
     return(out)
@@ -606,6 +737,40 @@ mech_stat_cyp_risk_table <- function(
 }
 
 
+#' CYP perpetration risk table as per mechanistic-static modeling
+#'
+#' @inheritParams mech_stat_cyp_risk
+#' @param na.rm Switch to define whether rows with lacking \eqn{K_I} or
+#' \eqn{k_{deg}} data are removed from the output.
+#' @return A markdown-formatted table.
+#' @seealso [mech_stat_cyp_risk()]
+#' @seealso [cyp_reference_substrates]
+#' @export
+#' @noRd
+#' @examples
+#' mech_stat_cyp_risk_table(
+#'   examplinib_compounds,
+#'   examplinib_cyp_inhibition_data,
+#'   examplinib_cyp_induction_data,
+#'   examplinib_cyp_tdi_data)
+mech_stat_cyp_risk_table.list <- function(
+    perp,
+    cyp_inh,
+    cyp_ind,
+    cyp_tdi = NULL,
+    include_induction = TRUE,
+    substr = cyp_reference_substrates,
+    cyp_kdeg = cyp_turnover,
+    na.rm = FALSE) {
+  for(i in perp) {
+    temp <- mech_stat_cyp_risk_table.perpetrator(i, cyp_inh=cyp_inh,
+           cyp_ind=cyp_ind, cyp_tdi=cyp_tdi, include_induction=include_induction,
+           substr=substr, cyp_kdeg=cyp_kdeg, na.rm=na.rm)
+    if(!is.null(temp)) {
+      print(temp)
+    }
+  }
+}
 
 
 

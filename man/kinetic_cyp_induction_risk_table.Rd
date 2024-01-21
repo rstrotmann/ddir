@@ -2,7 +2,7 @@
 % Please edit documentation in R/cyp.R
 \name{kinetic_cyp_induction_risk_table}
 \alias{kinetic_cyp_induction_risk_table}
-\title{Table of the basic kinetc CYP induction risk}
+\title{Table of the basic kinetic CYP induction risk}
 \usage{
 kinetic_cyp_induction_risk_table(perp, cyp_ind, na.rm = F)
 }
@@ -29,10 +29,11 @@ are removed from the output. Defaults to \code{FALSE}.}
 A markdown-formatted table.
 }
 \description{
-Table of the basic kinetc CYP induction risk
+Table of the basic kinetic CYP induction risk
 }
 \examples{
 kinetic_cyp_induction_risk_table(examplinib_parent, examplinib_cyp_induction_data)
+kinetic_cyp_induction_risk_table(examplinib_compounds, examplinib_cyp_induction_data)
 }
 \seealso{
 \code{\link[=kinetic_cyp_induction_risk]{kinetic_cyp_induction_risk()}}

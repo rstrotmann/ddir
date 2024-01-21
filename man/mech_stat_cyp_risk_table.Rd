@@ -81,7 +81,7 @@ mech_stat_cyp_risk_table(
   examplinib_cyp_inhibition_data,
   examplinib_cyp_induction_data)
 mech_stat_cyp_risk_table(
-  examplinib_parent,
+  examplinib_compounds,
   examplinib_cyp_inhibition_data,
   examplinib_cyp_induction_data,
   examplinib_cyp_tdi_data)

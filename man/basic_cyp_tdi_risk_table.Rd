@@ -32,6 +32,7 @@ Basic CYP time-dependent inhibition risk table
 }
 \examples{
 basic_cyp_tdi_risk_table(examplinib_parent, examplinib_cyp_tdi_data)
+basic_cyp_tdi_risk_table(examplinib_compounds, examplinib_cyp_tdi_data)
 }
 \seealso{
 \code{\link[=basic_cyp_tdi_risk]{basic_cyp_tdi_risk()}}

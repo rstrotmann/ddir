@@ -1,7 +1,7 @@
 test_that("integrated ddi assessment for single drug runs without error", {
   expect_no_error({
     compounds <- read_perpetrators(
-      test_path("fixtures", "examplinib_compounds_single.csv"))
+      testthat::test_path("fixtures", "examplinib_compounds_single.csv"))
 
     cyp_inhibition_data <- read_cyp_inhibitor_data(
       test_path("fixtures", "examplinib_cyp_inhibition.csv"))
