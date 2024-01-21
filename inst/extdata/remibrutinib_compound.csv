@@ -1,0 +1,5 @@
+# name        param    value         source
+remibrutinib, oral,    TRUE,                   
+remibrutinib, mw,      507.53,                   
+remibrutinib, dose,    100,          Schiller et al. 2020          
+remibrutinib, imaxss,  17.76,        Schiller et al. 2020           

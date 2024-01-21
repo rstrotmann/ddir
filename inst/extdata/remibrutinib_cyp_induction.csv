@@ -1,0 +1,5 @@
+# name.       cyp      emax  ec50  maxc  source
+remibrutinib, CYP1A2,  5.47, 4.55, 100, Schiller et al. 2020
+remibrutinib, CYP2B6,  5.47, 5.45, 100, Schiller et al. 2020
+remibrutinib, CYP2C9,  3.02, 5.10, 100, Schiller et al. 2020
+remibrutinib, CYP3A4,  28.1, 5.08, 100, Schiller et al. 2020

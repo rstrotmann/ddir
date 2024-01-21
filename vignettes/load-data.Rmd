@@ -35,7 +35,6 @@ The following parameters are required to create a perpetrator object:
 
 | PARAM | REQUIREMENT | DESCRIPTION |
 | --- | --- | --- |
-| name | required | The name of the compound |
 | oral | required | Logical value (`TRUE` or `FALSE`) to indicate whether the compound is administered orally |
 | mw | required | molar weight in g/mol |
 | dose | required for oral compounds | clinical dose in mg |
