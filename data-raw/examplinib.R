@@ -1,32 +1,36 @@
 ## EXAMPLINIB COMPOUNDS
 
-examplinib_compounds_string <- "
-# PARENT
-# compound,  param,    value,     source
-examplinib,  oral,     TRUE,
-examplinib,  mw,       492.6,
-examplinib,  dose,     450,       clinical dose
-examplinib,  imaxss,   3530,      study 001
-examplinib,  fu,       0.023,     study 002
-examplinib,  fumic,    1,         default
-examplinib,  rb,       1,         study 003
-examplinib,  fa,       0.81,      study 003
-examplinib,  fg,       1,         default
-examplinib,  ka,       0.00267,   unknown
+# examplinib_compounds_string <- "
+# # PARENT
+# # compound,  param,    value,     source
+# examplinib,  oral,     TRUE,
+# examplinib,  mw,       492.6,
+# examplinib,  dose,     450,       clinical dose
+# examplinib,  imaxss,   3530,      study 001
+# examplinib,  fu,       0.023,     study 002
+# examplinib,  fumic,    1,         default
+# examplinib,  rb,       1,         study 003
+# examplinib,  fa,       0.81,      study 003
+# examplinib,  fg,       1,         default
+# examplinib,  ka,       0.00267,   unknown
+#
+# # METABOLITE
+# # compound,  param,    value,     source
+# M1,          oral,     FALSE,
+# M1,          mw,       506.56,
+# M1,          dose,     NA,
+# M1,          imaxss,   1038,      study 001
+# M1,          fu,       0.012,     study 002
+# M1,          fumic,    1,         default
+# M1,          rb,       1,         study 002
+# M1,          fa,       NA,
+# M1,          fg,       NA,
+# M1,          ka,       NA,
+# "
 
-# METABOLITE
-# compound,  param,    value,     source
-M1,          oral,     FALSE,
-M1,          mw,       506.56,
-M1,          dose,     NA,
-M1,          imaxss,   1038,      study 001
-M1,          fu,       0.012,     study 002
-M1,          fumic,    1,         default
-M1,          rb,       1,         study 002
-M1,          fa,       NA,
-M1,          fg,       NA,
-M1,          ka,       NA,
-"
+examplinib_compounds_string <- paste(readLines(
+  fs::path_package("inst/extdata/examplinib_compounds.csv",
+                   package = "ddir")), collapse = "\n")
 
 examplinib_compounds <- read_perpetrators(textConnection(
   examplinib_compounds_string))
@@ -42,20 +46,24 @@ usethis::use_data(examplinib_metabolite, overwrite = TRUE)
 
 ## REVERSIBLE CYP INHIBITION
 
-examplinib_cyp_inhibition_string <- "
-# PARENT
-# compound, CYP, ki, source
-examplinib, CYP1A2,  NA,
-examplinib, CYP2B6,  NA,
-examplinib, CYP2C8,  11,   study 001
-examplinib, CYP2C9,  13.5, study 001
-examplinib, CYP2C19, 15,   study 001
-examplinib, CYP2D6,  NA,
-examplinib, CYP3A4,  12.5, study 001
+# examplinib_cyp_inhibition_string <- "
+# # PARENT
+# # compound, CYP, ki, source
+# examplinib, CYP1A2,  NA,
+# examplinib, CYP2B6,  NA,
+# examplinib, CYP2C8,  11,   study 001
+# examplinib, CYP2C9,  13.5, study 001
+# examplinib, CYP2C19, 15,   study 001
+# examplinib, CYP2D6,  NA,
+# examplinib, CYP3A4,  12.5, study 001
+#
+# # METABOLITE
+# M1,         CYP2C9,  4.4,  study 002
+# "
 
-# METABOLITE
-M1,         CYP2C9,  4.4,  study 002
-"
+examplinib_cyp_inhibition_string <- paste(readLines(
+  fs::path_package("inst/extdata/examplinib_cyp_inhibition.csv",
+                   package = "ddir")), collapse = "\n")
 
 examplinib_cyp_inhibition_data <-
   read_cyp_inhibitor_data(textConnection(examplinib_cyp_inhibition_string))

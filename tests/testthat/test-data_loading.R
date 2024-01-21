@@ -1,5 +1,5 @@
 
-test_that("compound imports from textwithout error", {
+test_that("compound imports from text without error", {
   compounds <- read_perpetrators(textConnection(examplinib_compounds_string))
   expect_equal(length(compounds), 2)
 })

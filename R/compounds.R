@@ -305,7 +305,9 @@ name.perpetrator <- function(obj) {
 #' is_igut_solubility_limited(examplinib_parent)
 is_igut_solubility_limited <- function(obj) {
   oral <- as.logical(obj[which(obj$param=="oral"), "value"])
-  dose <- as.num(obj[which(obj$param=="dose"), "value"])
+  dose <- as.num(obj[which(obj$param == "dose"), "value"])
+  # oral <-as.logical(obj[which(obj$param == "oral"), "value"])
+
 
   # total gut concentration in ng/ml
   if(oral==FALSE) {

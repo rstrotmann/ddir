@@ -52,9 +52,10 @@ The following parameters are needed:
 ## Input as data frame
 
 As the most basic option, the compound property data can be hard-coded into a R
-script as a data frame and then converted into a perpetrator object. Note that
-the constructor function for perpetrator objects expects all values to be of
-character type:
+script as a data frame and then converted into a perpetrator object.
+
+> Note that the constructor function for perpetrator objects expects all values
+to be of character type:
 
 ```{r}
 parent_data_frame <- data.frame(
@@ -67,8 +68,9 @@ parent <- new_perpetrator(parent_data_frame)
 parent
 ```
 
-In the above code, only the strictly required fields were provided,
-the other fields were automatically set to their respective default values.
+In the above code, only the strictly required fields were provided, the other
+fields were automatically set to their respective default values during the
+construction of the perpetrator compound.
 
 ## Input as tribble
 
@@ -180,13 +182,12 @@ compounds <- read_perpetrators(
 compounds
 ```
 
-Note that since the data is not in a file but in a character variable, a
-`textConnection()` construct must be used here.
+> Note that since the data is not read from a file, the input string variable is
+wrapped in a `textConnection()` construct.
 
-
-Also note that the above data chunk contains data for two different compounds,
-'examplinib' and 'M1'. The output of the `read_perpetrators()` function is 
-therefore a list of perpetrator objects.
+> Also note that the above data chunk contains data for two different compounds,
+'examplinib' and 'M1'. The output of the `read_perpetrators()` function is a
+list of perpetrator objects in this case.
 
 You will find that the [sample DDI
 report](https://github.com/rstrotmann/ddir/blob/main/R/DDI-report_examplinib.Rmd)
@@ -203,10 +204,10 @@ their `_table()` siblings) rely on the in vitro data for direct CYP inhibition.
 
 The following fields are expected in the respective data frame:
 
-| PARAM | REQUIREMENT | DESCRIPTION |
-| --- | --- | --- |
-| name | required | The name of the compound |
-| cyp | required | The CYP enzyme (in upper case) |
+| PARAM | DESCRIPTION |
+| --- | --- |
+| name | The name of the compound |
+| cyp | The CYP enzyme (in upper case) |
 | ki | the in vitro $k_i$ in µM |
 | source | source information for the parameter |
 
@@ -220,27 +221,27 @@ direct UGT inhibition.
 
 The following fields are expected in the respective data frame:
 
-| PARAM | REQUIREMENT | DESCRIPTION |
-| --- | --- | --- |
-| name | required | The name of the compound |
-| ugt | required | The UGT enzyme (in upper case) |
+| PARAM | DESCRIPTION |
+| --- | --- |
+| name | The name of the compound |
+| ugt | The UGT enzyme (in upper case) |
 | ic50 | the in vitro $k_i$ in µM |
 | source | source information for the parameter |
 
 Use `read_ugt_inhibitor_data()` to load the data from a csv file or
 textConnection.
 
-## Time-dependent CYP inhibition (TDI)
+## Time-dependent CYP inhibition (TDI) data
 
 The `basic_cyp_tdi_risk()` and `mech_stat_cyp_risk()` functions (and their
 `_table()` siblings) rely on the in vitro data for TDI.
 
 The following fields are expected in the respective data frame:
 
-| PARAM | REQUIREMENT | DESCRIPTION |
-| --- | --- | --- |
-| name | required | The name of the compound |
-| cyp | required | The CYP enzyme (in upper case) |
+| PARAM | DESCRIPTION |
+| --- | --- |
+| name | The name of the compound |
+| cyp | The CYP enzyme (in upper case) |
 | ki | the in vitro $k_i$ in µM |
 | kinact | the inactivation rate in 1/h |
 | source | source information for the parameters |
@@ -248,17 +249,17 @@ The following fields are expected in the respective data frame:
 Use `read_tdi_data()` to load the data from a csv file or
 textConnection.
 
-## CYP induction
+## CYP induction data
 
 The `static_cyp_induction_risk()`, `kinetic_cyp_induction_risk()` and `mech_stat_cyp_risk()` functions (and their
 `_table()` siblings) rely on the in vitro data for CYP induction.
 
 The following fields are expected in the respective data frame:
 
-| PARAM | REQUIREMENT | DESCRIPTION |
-| --- | --- | --- |
-| name | required | The name of the compound |
-| cyp | required | The CYP enzyme (in upper case) |
+| PARAM | DESCRIPTION |
+| --- | --- |
+| name | The name of the compound |
+| cyp | The CYP enzyme (in upper case) |
 | emax | the in vitro emax, i.e., the maximal change in the mRNA level |
 | ec50 | the $EC_{50}$ of the induction in µM |
 | maxc | the maximal concentration in µM tested in the in vitro study |
@@ -274,10 +275,10 @@ direct transporter inhibition.
 
 The following fields are expected in the respective data frame:
 
-| PARAM | REQUIREMENT | DESCRIPTION |
-| --- | --- | --- |
-| name | required | The name of the compound |
-| transporter | required | The drug transporter |
+| PARAM | DESCRIPTION |
+| --- | --- |
+| name | The name of the compound |
+| transporter | The drug transporter |
 | ic50 | the in vitro $IC_{50}$ in µM |
 | source | source information for the parameter |
 

@@ -24,6 +24,7 @@ test_that("new_perpetrator", {
 
 test_that("solubility limitation works", {
   test_compound <- examplinib_parent %>% as.data.frame()
+  # test_compound <- examplinib_parent
   expect_false(is_igut_solubility_limited(test_compound))
 
   test_compound[which(test_compound$param=="solubility"), "value"] <- 100
