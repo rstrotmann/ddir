@@ -169,12 +169,7 @@ All calculations were done using the
 The following physico-chemical, ADME and clinical exposure data were used for
 the calculation of the relevant drug concentrations:
 
-```{r perpetrator_properties}
-# p <- compounds[[1]]
-# m <- compounds[[2]]
-# 
-# property_table(p)
-# property_table(m)
+```{r perpetrator_properties, results="asis"}
 property_table(compounds)
 ```
 
@@ -183,10 +178,8 @@ property_table(compounds)
 The following perpetrator concentrations were calculated as described in 
 Appendix 1:
 
-```{r}
-# conc_table(p)
-# conc_table(m)
-conc_table(compounds)
+```{r results="asis"}
+print(conc_table(compounds))
 ```
 
 # DDI perpetrator risk assessment
@@ -204,9 +197,7 @@ and $I_{gut}$ for intestinal CYP enzymes.
 Thresholds of $R < 1.02$ and $R < 11$ apply for hepatic and intestinal enzymes,
 respectively. Intestinal CYP inhibition is only evaluated for CYP3A4.
 
-```{r}
-# basic_cyp_inhibition_risk_table(p, cyp_inhibition_data)
-# basic_cyp_inhibition_risk_table(m, cyp_inhibition_data)
+```{r results="asis"}
 basic_cyp_inhibition_risk_table(compounds, cyp_inhibition_data)
 ```
 
@@ -219,9 +210,7 @@ As per the FDA guideline, the risk for time-dependent inhbition (TDI) of CYP
 enzymes is assessed based on $R_2$ (see Appendix 1), where $R_2 \geq 1.25$ suggest
 a clinically relevant DDI potential that requires further investigation.
 
-```{r}
-# basic_cyp_tdi_risk_table(p, cyp_tdi_data, na.rm=T)
-# basic_cyp_tdi_risk_table(m, cyp_tdi_data, na.rm=T)
+```{r results="asis"}
 basic_cyp_tdi_risk_table(compounds, cyp_tdi_data, na.rm=T)
 ```
 
@@ -243,9 +232,7 @@ assays cover these concentrations.
 
 Basic modeling as per the FDA guideline results in the following risk assessment:
 
-```{r}
-# static_cyp_induction_risk_table(p, cyp_induction_data, na.rm=T)
-# static_cyp_induction_risk_table(m, cyp_induction_data, na.rm=T)
+```{r results="asis"}
 static_cyp_induction_risk_table(compounds, cyp_induction_data, na.rm=T)
 ```
 
@@ -257,9 +244,7 @@ metric is $R_3$ (see fig. 4 of the
 $R_3 < 0.8$, a potential in vivo induction risk is assumed that needs further
 investigation.
 
-```{r}
-# kinetic_cyp_induction_risk_table(p, cyp_induction_data, na.rm=T)
-# kinetic_cyp_induction_risk_table(m, cyp_induction_data, na.rm=T)
+```{r results="asis"}
 kinetic_cyp_induction_risk_table(compounds, cyp_induction_data, na.rm=T)
 ```
 
@@ -275,22 +260,14 @@ of inhibition (reversible and mechanism-dependent) and induction separately.
 
 ### CYP inhibition only
 
-```{r}
-# mech_stat_cyp_risk_table(p, cyp_inhibition_data, cyp_induction_data,
-#                          cyp_tdi_data, include_induction=F)
-# mech_stat_cyp_risk_table(m, cyp_inhibition_data, cyp_induction_data,
-#                          cyp_tdi_data, include_induction=F)
+```{r results="asis"}
 mech_stat_cyp_risk_table(compounds, cyp_inhibition_data, cyp_induction_data,
                          cyp_tdi_data, include_induction=F)
 ```
 
 ### CYP inhibition and induction
 
-```{r}
-# mech_stat_cyp_risk_table(p, cyp_inhibition_data, cyp_induction_data,
-#                          cyp_tdi_data, include_induction=T, na.rm=T)
-# mech_stat_cyp_risk_table(m, cyp_inhibition_data, cyp_induction_data,
-#                          cyp_tdi_data, include_induction=T, na.rm=T)
+```{r results="asis"}
 mech_stat_cyp_risk_table(compounds, cyp_inhibition_data, cyp_induction_data,
                          cyp_tdi_data, include_induction=T, na.rm=T)
 ```
@@ -308,9 +285,7 @@ $K_i$ is calculated as $K_i = IC_{50}/2$ (refer to Cheng, Prusoff 1973).
 Basic modeling as per the FDA guideline (FDA 2020) results in the following
 risk assessment:
 
-```{r}
-# basic_ugt_inhibition_risk_table(p, ugt_inhibition_data)
-# basic_ugt_inhibition_risk_table(m, ugt_inhibition_data)
+```{r results="asis"}
 basic_ugt_inhibition_risk_table(compounds, ugt_inhibition_data)
 
 ```
@@ -332,9 +307,7 @@ mucosa, i.e., hepatic P-gp and BCRP, and MATE1, MATE2-k.
 The FDA and EMA guidelines differ in their threshold definitions. The risk
 assessments according to both guidelines are presented below:
 
-```{r}
-# transporter_inhibition_risk_table(p, transporter_inhibition_data)
-# transporter_inhibition_risk_table(m, transporter_inhibition_data)
+```{r results="asis"}
 transporter_inhibition_risk_table(compounds, transporter_inhibition_data)
 ```
 

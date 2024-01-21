@@ -501,7 +501,10 @@ conc_table.perpetrator <- function(perp) {
   out <- knitr::kable(
     temp,
     caption = paste("Key perpetrator concentrations for", name))
-  return(out)
+
+  if(nrow(perp) != 0){
+    return(out)
+  }
 }
 
 
@@ -575,7 +578,7 @@ property_table.perpetrator <- function(obj){
     dplyr::select(parameter, value, source) %>%
     knitr::kable(caption=paste("Compound parameters for", obj["name", "value"]))
 
-  if(nrow(out) == 0){
+  if(nrow(obj) == 0){
     return("out")
   } else {
     return(out)
