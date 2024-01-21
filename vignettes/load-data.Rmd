@@ -13,13 +13,12 @@ knitr::opts_chunk$set(
 )
 ```
 
-This vignette describes how the compound-specific data can be provided for the
+This vignette describes how to provide the compound-specific data for the
 calculation of the DDI perpetrator risks.
 
-In the first sections, different data input options for the drug properties,
-(i.e., the parameters needed to calculate the relevant perpetrator
-concentrations) are discussed in detail. In the same way, also the CYP-, UGT- or
-transporter inhibition data can be provided using these techniques.
+In the first section, different data loading methods are presented, using the
+perpetrator drug property object as an example. The second section describes the
+requirements for the CYP-, UGT- or transporter inhibition data.
 
 ```{r setup, message = FALSE, warning = FALSE}
 library(ddir)
@@ -28,11 +27,11 @@ library(tidyverse)
 
 # Drug properties
 
-All functions of the `ddir` package that evaluate the different DDI risks expect
-as their first argument a `perpetrator` object that contains all compound
-properties needed to calculate the relevant perpetrator concentrations.
+All functions within the `ddir` package that evaluate the various DDI risks
+expect as their first argument a `perpetrator` object that contains the compound
+properties that are needed to calculate the relevant perpetrator concentrations.
 
-The following parameters are needed:
+The following parameters are required to create a perpetrator object:
 
 | PARAM | REQUIREMENT | DESCRIPTION |
 | --- | --- | --- |
@@ -52,10 +51,7 @@ The following parameters are needed:
 ## Input as data frame
 
 As the most basic option, the compound property data can be hard-coded into a R
-script as a data frame and then converted into a perpetrator object.
-
-> Note that the constructor function for perpetrator objects expects all values
-to be of character type:
+script as a data frame and then converted into a perpetrator object:
 
 ```{r}
 parent_data_frame <- data.frame(
@@ -68,13 +64,16 @@ parent <- new_perpetrator(parent_data_frame)
 parent
 ```
 
+> Note that the constructor function for perpetrator objects expects all values
+to be of character type.
+
 In the above code, only the strictly required fields were provided, the other
 fields were automatically set to their respective default values during the
 construction of the perpetrator compound.
 
 ## Input as tribble
 
-The `tibble` package that is included in the `tidyverse` meta-package provides a
+The `tibble` package that is part of the `tidyverse` meta-package provides a
 very convenient function, `tribble()`, to construct data frames in a row-wise
 fashion. This renders the code much more readable:
 
@@ -94,7 +93,7 @@ parent
 ## Read from a csv file
 
 Alternatively, the data can also be provided as comma-separated values (csv) in
-an external data file and read using `read_perpetrators()`. The csv file
+an external data file, and read using `read_perpetrators()`. The csv file
 'examplinib_compounds_single.csv' is included as part of this package for
 demonstration purposes:
 
@@ -113,17 +112,20 @@ structure. In normal use cases, the file name should provided here.
 
 ## Read from a data chunk within an R notebook
 
-When programming in an R notebook, which we highly recommend to keep the data,
-the code and text blocks together in one document, the compound properties can
-also be provided in the form of a data chunk. This is a feature introduced by
-the `knitrdata` package:
+When the DDI risk calculations are done within an R notebook, which we highly
+recommend to keep the data, code and report text in a single Rmd document that
+can be knitted into a human-readable report, the compound-specific data can be
+conveniently provided in the form of data chunks. This is a neat feature
+introduced by the
+[`knitrdata`](https://journal.r-project.org/articles/RJ-2023-001/) package.
 
 ```{r}
 library(knitrdata)
 ```
 
-Chunks with the type 'data' will be assigned as is to the variable provided by
-'output.var':
+The text data contained in chunks of the type 'data' is assigned as-is to a
+character variable by the name defined by 'output.var' in the chunk header when
+the document is rendered:
 
 ```{r, include=FALSE}
 knitr::knit_hooks$set(wrapper = function(before, options) {
@@ -172,8 +174,8 @@ M1,          fg,       NA,
 M1,          ka,       NA,    
 ```
 
-Like in the above example, this variable can then be used to create perpetrator
-objects:
+Like in the above example, the content of this variable can then be read into a
+perpetrator object:
 
 ```{r}
 compounds <- read_perpetrators(
@@ -191,18 +193,25 @@ list of perpetrator objects in this case.
 
 You will find that the [sample DDI
 report](https://github.com/rstrotmann/ddir/blob/main/R/DDI-report_examplinib.Rmd)
-provided as part of the `ddir` package uses this approach. Feel free to use this
-report file and merely exchange the compound-specific data to create a standard
-DDI report.
+for the fictional drug 'examplinib' that is provided as part of the `ddir`
+package uses this approach. For your own DDI assessment, feel free to copy that
+Rmd file and merely replace the compound-specific data to obtain a basic DDI
+report for your drug.
 
 # Enzyme inhibition and induction data
+
+The following sections describe the format in which the _in vitro_ data for
+enzyme or transporter inhibition or induction need to be provided to the
+respective `ddir` functions. You can use either of the above methods to load the
+data. However, as said before, we suggest the input as data chunks within a R
+notebook document.
 
 ## Direct CYP inhibition data
 
 The `basic_cyp_inhibition_risk()` and `mech_stat_cyp_risk()` functions (and
-their `_table()` siblings) rely on the in vitro data for direct CYP inhibition.
-
-The following fields are expected in the respective data frame:
+their `*_table()` siblings) require the $k_i$ values for direct CYP inhibition.
+A data frame with the following fields is expected as the the 'cyp_inh'
+parameter to these functions:
 
 | PARAM | DESCRIPTION |
 | --- | --- |
@@ -211,15 +220,20 @@ The following fields are expected in the respective data frame:
 | ki | the in vitro $k_i$ in µM |
 | source | source information for the parameter |
 
+See the below sample data frame for 'examplinib':
+
+```{r}
+examplinib_cyp_inhibition_data
+```
+
 Use `read_cyp_inhibitor_data()` to load the data from a csv file or
 textConnection.
 
 ## UGT inhibition data
 
-The `basic_ugt_inhibition_risk()` function relies on the in vitro data for
-direct UGT inhibition.
-
-The following fields are expected in the respective data frame:
+The `basic_ugt_inhibition_risk()` function relies on the _in vitro_ data for
+direct UGT inhibition. A data frame with the following fields is expected as the
+'ugt_inh' parameter to these functions:
 
 | PARAM | DESCRIPTION |
 | --- | --- |
@@ -228,15 +242,20 @@ The following fields are expected in the respective data frame:
 | ic50 | the in vitro $k_i$ in µM |
 | source | source information for the parameter |
 
+See the below sample data frame for 'examplinib':
+
+```{r}
+examplinib_ugt_inhibition_data
+```
+
 Use `read_ugt_inhibitor_data()` to load the data from a csv file or
 textConnection.
 
 ## Time-dependent CYP inhibition (TDI) data
 
 The `basic_cyp_tdi_risk()` and `mech_stat_cyp_risk()` functions (and their
-`_table()` siblings) rely on the in vitro data for TDI.
-
-The following fields are expected in the respective data frame:
+`*_table()` siblings) rely on the _in vitro_ data for TDI. A data frame with the
+below fields is expected as the 'cyp_tdi' parameter to these functions:
 
 | PARAM | DESCRIPTION |
 | --- | --- |
@@ -246,15 +265,21 @@ The following fields are expected in the respective data frame:
 | kinact | the inactivation rate in 1/h |
 | source | source information for the parameters |
 
+See the below sample data frame for 'examplinib':
+
+```{r}
+examplinib_cyp_tdi_data
+```
+
 Use `read_tdi_data()` to load the data from a csv file or
 textConnection.
 
 ## CYP induction data
 
-The `static_cyp_induction_risk()`, `kinetic_cyp_induction_risk()` and `mech_stat_cyp_risk()` functions (and their
-`_table()` siblings) rely on the in vitro data for CYP induction.
-
-The following fields are expected in the respective data frame:
+The `static_cyp_induction_risk()`, `kinetic_cyp_induction_risk()` and
+`mech_stat_cyp_risk()` functions (and their `*_table()` siblings) rely on the
+_in vitro_ data for CYP induction. A data frame with the below fields is
+expected as the 'cyp_ind' parameter to these functions:
 
 | PARAM | DESCRIPTION |
 | --- | --- |
@@ -265,15 +290,22 @@ The following fields are expected in the respective data frame:
 | maxc | the maximal concentration in µM tested in the in vitro study |
 | source | source information for the parameters |
 
+See the below sample data frame for 'examplinib':
+
+```{r}
+examplinib_cyp_induction_data
+```
+
 Use `read_inducer_data()` to load the data from a csv file or
 textConnection.
 
 # Transporter inhibition data
 
-The `transporter_inhibition_risk()` function relies on the in vitro data for
-direct transporter inhibition.
+The `transporter_inhibition_risk()` function relies on the _in vitro data_ for
+direct transporter inhibition to be provided as a data frame to the
+'transporter_inh' parameter.
 
-The following fields are expected in the respective data frame:
+The following fields are expected:
 
 | PARAM | DESCRIPTION |
 | --- | --- |
@@ -282,6 +314,11 @@ The following fields are expected in the respective data frame:
 | ic50 | the in vitro $IC_{50}$ in µM |
 | source | source information for the parameter |
 
+See the below sample data frame for 'examplinib':
+
+```{r}
+examplinib_transporter_inhibition_data
+```
 Use `read_transporter_inhibitor_data()` to load the data from a csv file or
 textConnection.
 

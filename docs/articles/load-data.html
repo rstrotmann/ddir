@@ -70,24 +70,25 @@
 
     
     
-<p>This vignette describes how the compound-specific data can be
-provided for the calculation of the DDI perpetrator risks.</p>
-<p>In the first sections, different data input options for the drug
-properties, (i.e., the parameters needed to calculate the relevant
-perpetrator concentrations) are discussed in detail. In the same way,
-also the CYP-, UGT- or transporter inhibition data can be provided using
-these techniques.</p>
+<p>This vignette describes how to provide the compound-specific data for
+the calculation of the DDI perpetrator risks.</p>
+<p>In the first section, different data loading methods are presented,
+using the perpetrator drug property object as an example. The second
+section describes the requirements for the CYP-, UGT- or transporter
+inhibition data.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">ddir</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="drug-properties">Drug properties<a class="anchor" aria-label="anchor" href="#drug-properties"></a>
 </h2>
-<p>All functions of the <code>ddir</code> package that evaluate the
-different DDI risks expect as their first argument a
-<code>perpetrator</code> object that contains all compound properties
-needed to calculate the relevant perpetrator concentrations.</p>
-<p>The following parameters are needed:</p>
+<p>All functions within the <code>ddir</code> package that evaluate the
+various DDI risks expect as their first argument a
+<code>perpetrator</code> object that contains the compound properties
+that are needed to calculate the relevant perpetrator
+concentrations.</p>
+<p>The following parameters are required to create a perpetrator
+object:</p>
 <table class="table">
 <colgroup>
 <col width="33%">
@@ -170,11 +171,7 @@ whether the compound is administered orally</td>
 </h3>
 <p>As the most basic option, the compound property data can be
 hard-coded into a R script as a data frame and then converted into a
-perpetrator object.</p>
-<blockquote>
-<p>Note that the constructor function for perpetrator objects expects
-all values to be of character type:</p>
-</blockquote>
+perpetrator object:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">parent_data_frame</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"oral"</span>, <span class="st">"mw"</span>, <span class="st">"dose"</span>, <span class="st">"imaxss"</span><span class="op">)</span>,</span>
@@ -197,6 +194,10 @@ all values to be of character type:</p>
 <span><span class="co">#&gt; fg           1            default   </span></span>
 <span><span class="co">#&gt; ka           0.1          default   </span></span>
 <span><span class="co">#&gt; solubility   Inf          default</span></span></code></pre></div>
+<blockquote>
+<p>Note that the constructor function for perpetrator objects expects
+all values to be of character type.</p>
+</blockquote>
 <p>In the above code, only the strictly required fields were provided,
 the other fields were automatically set to their respective default
 values during the construction of the perpetrator compound.</p>
@@ -204,7 +205,7 @@ values during the construction of the perpetrator compound.</p>
 <div class="section level3">
 <h3 id="input-as-tribble">Input as tribble<a class="anchor" aria-label="anchor" href="#input-as-tribble"></a>
 </h3>
-<p>The <code>tibble</code> package that is included in the
+<p>The <code>tibble</code> package that is part of the
 <code>tidyverse</code> meta-package provides a very convenient function,
 <code><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble()</a></code>, to construct data frames in a row-wise fashion.
 This renders the code much more readable:</p>
@@ -237,7 +238,7 @@ This renders the code much more readable:</p>
 <h3 id="read-from-a-csv-file">Read from a csv file<a class="anchor" aria-label="anchor" href="#read-from-a-csv-file"></a>
 </h3>
 <p>Alternatively, the data can also be provided as comma-separated
-values (csv) in an external data file and read using
+values (csv) in an external data file, and read using
 <code><a href="../reference/read_perpetrators.html">read_perpetrators()</a></code>. The csv file
 ‘examplinib_compounds_single.csv’ is included as part of this package
 for demonstration purposes:</p>
@@ -257,14 +258,17 @@ here.</p>
 <div class="section level3">
 <h3 id="read-from-a-data-chunk-within-an-r-notebook">Read from a data chunk within an R notebook<a class="anchor" aria-label="anchor" href="#read-from-a-data-chunk-within-an-r-notebook"></a>
 </h3>
-<p>When programming in an R notebook, which we highly recommend to keep
-the data, the code and text blocks together in one document, the
-compound properties can also be provided in the form of a data chunk.
-This is a feature introduced by the <code>knitrdata</code> package:</p>
+<p>When the DDI risk calculations are done within an R notebook, which
+we highly recommend to keep the data, code and report text in a single
+Rmd document that can be knitted into a human-readable report, the
+compound-specific data can be conveniently provided in the form of data
+chunks. This is a neat feature introduced by the <a href="https://journal.r-project.org/articles/RJ-2023-001/" class="external-link"><code>knitrdata</code></a>
+package.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dmkaplan2000/knitrdata" class="external-link">knitrdata</a></span><span class="op">)</span></span></code></pre></div>
-<p>Chunks with the type ‘data’ will be assigned as is to the variable
-provided by ‘output.var’:</p>
+<p>The text data contained in chunks of the type ‘data’ is assigned
+as-is to a character variable by the name defined by ‘output.var’ in the
+chunk header when the document is rendered:</p>
 <pre><code>```{data output.var = "compounds_text", engine="data"}</code></pre>
 <pre class="data"><code># PARENT
 # compound,  param,    value,     source
@@ -288,8 +292,8 @@ M1,          imaxss,   1038,      study 001
 M1,          fu,       0.012,     study 002
 -- 5 more lines of data ommitted --</code></pre>
 <pre><code>```</code></pre>
-<p>Like in the above example, this variable can then be used to create
-perpetrator objects:</p>
+<p>Like in the above example, the content of this variable can then be
+read into a perpetrator object:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">compounds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_perpetrators.html">read_perpetrators</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/textconnections.html" class="external-link">textConnection</a></span><span class="op">(</span><span class="va">compounds_text</span><span class="op">)</span></span>
@@ -334,22 +338,29 @@ compounds, ‘examplinib’ and ‘M1’. The output of the
 objects in this case.</p>
 </blockquote>
 <p>You will find that the <a href="https://github.com/rstrotmann/ddir/blob/main/R/DDI-report_examplinib.Rmd" class="external-link">sample
-DDI report</a> provided as part of the <code>ddir</code> package uses
-this approach. Feel free to use this report file and merely exchange the
-compound-specific data to create a standard DDI report.</p>
+DDI report</a> for the fictional drug ‘examplinib’ that is provided as
+part of the <code>ddir</code> package uses this approach. For your own
+DDI assessment, feel free to copy that Rmd file and merely replace the
+compound-specific data to obtain a basic DDI report for your drug.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="enzyme-inhibition-and-induction-data">Enzyme inhibition and induction data<a class="anchor" aria-label="anchor" href="#enzyme-inhibition-and-induction-data"></a>
 </h2>
+<p>The following sections describe the format in which the <em>in
+vitro</em> data for enzyme or transporter inhibition or induction need
+to be provided to the respective <code>ddir</code> functions. You can
+use either of the above methods to load the data. However, as said
+before, we suggest the input as data chunks within a R notebook
+document.</p>
 <div class="section level3">
 <h3 id="direct-cyp-inhibition-data">Direct CYP inhibition data<a class="anchor" aria-label="anchor" href="#direct-cyp-inhibition-data"></a>
 </h3>
 <p>The <code><a href="../reference/basic_cyp_inhibition_risk.html">basic_cyp_inhibition_risk()</a></code> and
 <code><a href="../reference/mech_stat_cyp_risk.html">mech_stat_cyp_risk()</a></code> functions (and their
-<code>_table()</code> siblings) rely on the in vitro data for direct CYP
-inhibition.</p>
-<p>The following fields are expected in the respective data frame:</p>
+<code>*_table()</code> siblings) require the <span class="math inline">\(k_i\)</span> values for direct CYP inhibition. A
+data frame with the following fields is expected as the the ‘cyp_inh’
+parameter to these functions:</p>
 <table class="table">
 <thead><tr class="header">
 <th>PARAM</th>
@@ -374,6 +385,18 @@ inhibition.</p>
 </tr>
 </tbody>
 </table>
+<p>See the below sample data frame for ‘examplinib’:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">examplinib_cyp_inhibition_data</span></span>
+<span><span class="co">#&gt;         name     cyp   ki    source</span></span>
+<span><span class="co">#&gt; 1 examplinib  CYP1A2   NA          </span></span>
+<span><span class="co">#&gt; 2 examplinib  CYP2B6   NA          </span></span>
+<span><span class="co">#&gt; 3 examplinib  CYP2C8   11 study 001</span></span>
+<span><span class="co">#&gt; 4 examplinib  CYP2C9 13.5 study 001</span></span>
+<span><span class="co">#&gt; 5 examplinib CYP2C19   15 study 001</span></span>
+<span><span class="co">#&gt; 6 examplinib  CYP2D6   NA          </span></span>
+<span><span class="co">#&gt; 7 examplinib  CYP3A4 12.5 study 001</span></span>
+<span><span class="co">#&gt; 8         M1  CYP2C9  4.4 study 002</span></span></code></pre></div>
 <p>Use <code><a href="../reference/read_cyp_inhibitor_data.html">read_cyp_inhibitor_data()</a></code> to load the data from a
 csv file or textConnection.</p>
 </div>
@@ -381,8 +404,9 @@ csv file or textConnection.</p>
 <h3 id="ugt-inhibition-data">UGT inhibition data<a class="anchor" aria-label="anchor" href="#ugt-inhibition-data"></a>
 </h3>
 <p>The <code><a href="../reference/basic_ugt_inhibition_risk.html">basic_ugt_inhibition_risk()</a></code> function relies on the
-in vitro data for direct UGT inhibition.</p>
-<p>The following fields are expected in the respective data frame:</p>
+<em>in vitro</em> data for direct UGT inhibition. A data frame with the
+following fields is expected as the ‘ugt_inh’ parameter to these
+functions:</p>
 <table class="table">
 <thead><tr class="header">
 <th>PARAM</th>
@@ -407,6 +431,26 @@ in vitro data for direct UGT inhibition.</p>
 </tr>
 </tbody>
 </table>
+<p>See the below sample data frame for ‘examplinib’:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">examplinib_ugt_inhibition_data</span></span>
+<span><span class="co">#&gt;          name     ugt ic50    source</span></span>
+<span><span class="co">#&gt; 1  examplinib  UGT1A1   15 study 009</span></span>
+<span><span class="co">#&gt; 2  examplinib  UGT1A3   15 study 009</span></span>
+<span><span class="co">#&gt; 3  examplinib  UGT1A4   15 study 009</span></span>
+<span><span class="co">#&gt; 4  examplinib  UGT1A6   15 study 009</span></span>
+<span><span class="co">#&gt; 5  examplinib  UGT1A9  3.8 study 009</span></span>
+<span><span class="co">#&gt; 6  examplinib  UGT2B7   15 study 009</span></span>
+<span><span class="co">#&gt; 7  examplinib UGT2B15   15 study 009</span></span>
+<span><span class="co">#&gt; 8  examplinib UGT2B17  6.1 study 009</span></span>
+<span><span class="co">#&gt; 9          M1  UGT1A1  1.1 study 009</span></span>
+<span><span class="co">#&gt; 10         M1  UGT1A3  5.8 study 009</span></span>
+<span><span class="co">#&gt; 11         M1  UGT1A4  6.2 study 009</span></span>
+<span><span class="co">#&gt; 12         M1  UGT1A6   15 study 009</span></span>
+<span><span class="co">#&gt; 13         M1  UGT1A9  3.6 study 009</span></span>
+<span><span class="co">#&gt; 14         M1  UGT2B7   15 study 009</span></span>
+<span><span class="co">#&gt; 15         M1 UGT2B15  9.6 study 009</span></span>
+<span><span class="co">#&gt; 16         M1 UGT2B17  2.2 study 009</span></span></code></pre></div>
 <p>Use <code><a href="../reference/read_ugt_inhibitor_data.html">read_ugt_inhibitor_data()</a></code> to load the data from a
 csv file or textConnection.</p>
 </div>
@@ -415,8 +459,9 @@ csv file or textConnection.</p>
 </h3>
 <p>The <code><a href="../reference/basic_cyp_tdi_risk.html">basic_cyp_tdi_risk()</a></code> and
 <code><a href="../reference/mech_stat_cyp_risk.html">mech_stat_cyp_risk()</a></code> functions (and their
-<code>_table()</code> siblings) rely on the in vitro data for TDI.</p>
-<p>The following fields are expected in the respective data frame:</p>
+<code>*_table()</code> siblings) rely on the <em>in vitro</em> data for
+TDI. A data frame with the below fields is expected as the ‘cyp_tdi’
+parameter to these functions:</p>
 <table class="table">
 <thead><tr class="header">
 <th>PARAM</th>
@@ -445,6 +490,11 @@ csv file or textConnection.</p>
 </tr>
 </tbody>
 </table>
+<p>See the below sample data frame for ‘examplinib’:</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">examplinib_cyp_tdi_data</span></span>
+<span><span class="co">#&gt;         name    cyp   ki kinact    source</span></span>
+<span><span class="co">#&gt; 1 examplinib CYP3A4 0.17   0.04 study 001</span></span></code></pre></div>
 <p>Use <code><a href="../reference/read_tdi_data.html">read_tdi_data()</a></code> to load the data from a csv file or
 textConnection.</p>
 </div>
@@ -454,9 +504,9 @@ textConnection.</p>
 <p>The <code><a href="../reference/static_cyp_induction_risk.html">static_cyp_induction_risk()</a></code>,
 <code><a href="../reference/kinetic_cyp_induction_risk.html">kinetic_cyp_induction_risk()</a></code> and
 <code><a href="../reference/mech_stat_cyp_risk.html">mech_stat_cyp_risk()</a></code> functions (and their
-<code>_table()</code> siblings) rely on the in vitro data for CYP
-induction.</p>
-<p>The following fields are expected in the respective data frame:</p>
+<code>*_table()</code> siblings) rely on the <em>in vitro</em> data for
+CYP induction. A data frame with the below fields is expected as the
+‘cyp_ind’ parameter to these functions:</p>
 <table class="table">
 <thead><tr class="header">
 <th>PARAM</th>
@@ -490,6 +540,24 @@ induction.</p>
 </tr>
 </tbody>
 </table>
+<p>See the below sample data frame for ‘examplinib’:</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">examplinib_cyp_induction_data</span></span>
+<span><span class="co">#&gt;          name     cyp  emax ec50 maxc    source</span></span>
+<span><span class="co">#&gt; 1  examplinib  CYP1A2  1.00   NA    5 study 007</span></span>
+<span><span class="co">#&gt; 2  examplinib  CYP2B6  1.00   NA    5 study 007</span></span>
+<span><span class="co">#&gt; 3  examplinib  CYP2C8    NA   NA   NA          </span></span>
+<span><span class="co">#&gt; 4  examplinib  CYP2C9    NA   NA   NA          </span></span>
+<span><span class="co">#&gt; 5  examplinib CYP2C19    NA   NA   NA          </span></span>
+<span><span class="co">#&gt; 6  examplinib  CYP2D6    NA   NA   NA          </span></span>
+<span><span class="co">#&gt; 7  examplinib  CYP3A4  7.35 1.64    3 study 007</span></span>
+<span><span class="co">#&gt; 8          M1  CYP1A2  1.00   NA    5 study 007</span></span>
+<span><span class="co">#&gt; 9          M1  CYP2B6  6.98 1.86    5 study 007</span></span>
+<span><span class="co">#&gt; 10         M1  CYP2C8    NA   NA   NA          </span></span>
+<span><span class="co">#&gt; 11         M1  CYP2C9    NA   NA   NA          </span></span>
+<span><span class="co">#&gt; 12         M1 CYP2C19    NA   NA   NA          </span></span>
+<span><span class="co">#&gt; 13         M1  CYP2D6    NA   NA   NA          </span></span>
+<span><span class="co">#&gt; 14         M1  CYP3A4 22.70 1.10    5 study 007</span></span></code></pre></div>
 <p>Use <code><a href="../reference/read_inducer_data.html">read_inducer_data()</a></code> to load the data from a csv file
 or textConnection.</p>
 </div>
@@ -498,8 +566,9 @@ or textConnection.</p>
 <h2 id="transporter-inhibition-data">Transporter inhibition data<a class="anchor" aria-label="anchor" href="#transporter-inhibition-data"></a>
 </h2>
 <p>The <code><a href="../reference/transporter_inhibition_risk.html">transporter_inhibition_risk()</a></code> function relies on the
-in vitro data for direct transporter inhibition.</p>
-<p>The following fields are expected in the respective data frame:</p>
+<em>in vitro data</em> for direct transporter inhibition to be provided
+as a data frame to the ‘transporter_inh’ parameter.</p>
+<p>The following fields are expected:</p>
 <table class="table">
 <thead><tr class="header">
 <th>PARAM</th>
@@ -524,6 +593,21 @@ in vitro data for direct transporter inhibition.</p>
 </tr>
 </tbody>
 </table>
+<p>See the below sample data frame for ‘examplinib’:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">examplinib_transporter_inhibition_data</span></span>
+<span><span class="co">#&gt;          name transporter ic50    source</span></span>
+<span><span class="co">#&gt; 1  examplinib         Pgp 0.41 study 005</span></span>
+<span><span class="co">#&gt; 2  examplinib        BCRP  1.9 study 005</span></span>
+<span><span class="co">#&gt; 3  examplinib        OCT1  2.3 study 006</span></span>
+<span><span class="co">#&gt; 4  examplinib     OATP1B1  177 study 006</span></span>
+<span><span class="co">#&gt; 5  examplinib     OATP1B3   35 study 006</span></span>
+<span><span class="co">#&gt; 6  examplinib        OAT1  271          </span></span>
+<span><span class="co">#&gt; 7  examplinib        OAT3  300          </span></span>
+<span><span class="co">#&gt; 8  examplinib        BSEP 12.8          </span></span>
+<span><span class="co">#&gt; 9  examplinib        OCT2   67 study 006</span></span>
+<span><span class="co">#&gt; 10 examplinib       MATE1  3.6 study 006</span></span>
+<span><span class="co">#&gt; 11 examplinib      MATE2k  1.1 study 006</span></span></code></pre></div>
 <p>Use <code><a href="../reference/read_transporter_inhibitor_data.html">read_transporter_inhibitor_data()</a></code> to load the data
 from a csv file or textConnection.</p>
 </div>
