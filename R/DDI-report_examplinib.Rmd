@@ -179,7 +179,7 @@ The following perpetrator concentrations were calculated as described in
 Appendix 1:
 
 ```{r results="asis"}
-print(conc_table(compounds))
+conc_table(compounds)
 ```
 
 # DDI perpetrator risk assessment

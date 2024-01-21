@@ -29,7 +29,8 @@ Lines starting with '#' are interpreted as comments and are not evaluated.
 
 A valid data set is, e.g.,
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{      # compound, CYP, Ki, Kinact, source
-      examplinib, CYP3A4, 0.17,   0.04, study 001
+\if{html}{\out{<div class="sourceCode">}}\preformatted{
+# compound, CYP,    ki,   kinact, source
+examplinib, CYP3A4, 0.17, 0.04, study 001
 }\if{html}{\out{</div>}}
 }
