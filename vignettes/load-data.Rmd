@@ -98,7 +98,7 @@ an external data file and read using `read_perpetrators()`. The csv file
 'examplinib_compounds_single.csv' is included as part of this package for
 demonstration purposes:
 
-```{r eval=FALSE}
+```{r}
 parent_perpetrator <- read_perpetrators(
   fs::path_package("extdata/examplinib_compounds_single.csv", package = "ddir")
 )
