@@ -102,61 +102,65 @@ object:</p>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>oral</td>
+<td>name</td>
 <td>required</td>
-<td>Logical value (<code>TRUE</code> or <code>FALSE</code>) to indicate
-whether the compound is administered orally</td>
+<td>the name of the compound</td>
 </tr>
 <tr class="even">
+<td>oral</td>
+<td>required</td>
+<td>logical value (<code>TRUE</code> or <code>FALSE</code>) to indicate
+whether the compound is administered orally</td>
+</tr>
+<tr class="odd">
 <td>mw</td>
 <td>required</td>
 <td>molar weight in g/mol</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>dose</td>
 <td>required for oral compounds</td>
 <td>clinical dose in mg</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>imaxss</td>
 <td>required</td>
-<td>total Cmax in ng/ml</td>
+<td>total <span class="math inline">\(C_{max}\)</span> in ng/ml</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>fu</td>
 <td>optional</td>
-<td>fraction unbound, default is 1</td>
+<td>fraction unbound, defaults to 1</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>fumic</td>
 <td>optional</td>
-<td>microsomal unbound fraction, dafault is 1</td>
+<td>microsomal unbound fraction, defaults to 1</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>rb</td>
 <td>optional</td>
-<td>blood-to-plasma concentration ratio, default is 1</td>
+<td>blood-to-plasma concentration ratio, defaults to 1</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>fa</td>
 <td>optional</td>
-<td>fraction absorbed, default is 1</td>
-</tr>
-<tr class="odd">
-<td>fg</td>
-<td>optional</td>
-<td>fraction escaping gut metabolism, default is 1</td>
+<td>fraction absorbed, defaults to 1</td>
 </tr>
 <tr class="even">
-<td>ka</td>
+<td>fg</td>
 <td>optional</td>
-<td>absorption rate constant, default is 0.1 /min</td>
+<td>fraction escaping gut metabolism, defaults to 1</td>
 </tr>
 <tr class="odd">
+<td>ka</td>
+<td>optional</td>
+<td>absorption rate constant, defaults to 0.1 /min</td>
+</tr>
+<tr class="even">
 <td>solubility</td>
 <td>optional</td>
-<td>solubility of the compound in mg/l, defaults to
-<code>Inf</code>
+<td>aqueous solubility in mg/l, defaults to <code>Inf</code>
 </td>
 </tr>
 </tbody>
@@ -247,8 +251,27 @@ for demonstration purposes:</p>
 <p>In the above code, the
 <code>fs::path_package("extdata/examplinib_compounds_single.csv", package = "ddir")</code>
 construct is needed to resolve the path to the sample file within the
-package structure. In normal use cases, the file name should provided
+package structure. In regular use, the file name should provided
 here.</p>
+<p>The csv file is expected to have ‘long table’ format: All line must
+start with the compound name, followed by the parameter name, the value
+and (optionally) source information.</p>
+<p>This is what the content of a typical compound file may look
+like:</p>
+<pre><code>    # PARENT
+    # compound,  param,    value,     source
+    examplinib,  oral,     TRUE,
+    examplinib,  mw,       492.6,
+    examplinib,  dose,     450,       clinical dose
+    examplinib,  imaxss,   3530,      study 001
+    examplinib,  fu,       0.023,     study 002
+    examplinib,  fumic,    1,         default
+    examplinib,  rb,       1,         study 003
+    examplinib,  fa,       0.81,      study 003
+    examplinib,  fg,       1,         default
+    examplinib,  ka,       0.00267,   unknown</code></pre>
+<p>The fields within a line must be separated by commas. All lines
+starting with ‘#’ are considered comments and are not evaluated.</p>
 </div>
 <div class="section level3">
 <h3 id="read-from-a-data-chunk-within-an-r-notebook">Read from a data chunk within an R notebook<a class="anchor" aria-label="anchor" href="#read-from-a-data-chunk-within-an-r-notebook"></a>
@@ -259,12 +282,12 @@ Rmd document that can be knitted into a human-readable report, the
 compound-specific data can be conveniently provided in the form of data
 chunks. This is a neat feature introduced by the <a href="https://journal.r-project.org/articles/RJ-2023-001/" class="external-link"><code>knitrdata</code></a>
 package.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dmkaplan2000/knitrdata" class="external-link">knitrdata</a></span><span class="op">)</span></span></code></pre></div>
-<p>The text data contained in chunks of the type ‘data’ is assigned
-as-is to a character variable by the name defined by ‘output.var’ in the
-chunk header when the document is rendered:</p>
-<pre><code>```{data output.var = "compounds_text", engine="data"}</code></pre>
+<p>The text contained in chunks of the type ‘data’ is assigned as-is to
+a character variable by the name defined by ‘output.var’ in the chunk
+header when the document is rendered:</p>
+<pre><code>```{data output.var = "compounds_text", wrapper = TRUE, engine="data"}</code></pre>
 <pre class="data"><code># PARENT
 # compound,  param,    value,     source
 examplinib,  oral,     TRUE,
@@ -278,18 +301,18 @@ examplinib,  fa,       0.81,      study 003
 examplinib,  fg,       1,         default
 examplinib,  ka,       0.00267,   unknown
 
-# METABOLITE 
+# METABOLITE
 # compound,  param,    value,     source
 M1,          oral,     FALSE,
 M1,          mw,       506.56,
-M1,          dose,     NA,        
+M1,          dose,     NA,
 M1,          imaxss,   1038,      study 001
 M1,          fu,       0.012,     study 002
 -- 5 more lines of data ommitted --</code></pre>
 <pre><code>```</code></pre>
-<p>Like in the above example, the content of this variable can then be
-read into a perpetrator object:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<p>Similar to the above csv file example, the content of this variable
+can then be read into a perpetrator object:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">compounds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_perpetrators.html">read_perpetrators</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/textconnections.html" class="external-link">textConnection</a></span><span class="op">(</span><span class="va">compounds_text</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -327,10 +350,10 @@ read into a perpetrator object:</p>
 variable is wrapped in a <code><a href="https://rdrr.io/r/base/textconnections.html" class="external-link">textConnection()</a></code> construct.</p>
 </blockquote>
 <blockquote>
-<p>Also note that the above data chunk contains data for two different
+<p>Also note that the above data file contains data for two different
 compounds, ‘examplinib’ and ‘M1’. The output of the
-<code><a href="../reference/read_perpetrators.html">read_perpetrators()</a></code> function is a list of perpetrator
-objects in this case.</p>
+<code><a href="../reference/read_perpetrators.html">read_perpetrators()</a></code> function is therefore a list of
+perpetrator objects in this case.</p>
 </blockquote>
 <p>You will find that the <a href="https://github.com/rstrotmann/ddir/blob/main/R/DDI-report_examplinib.Rmd" class="external-link">sample
 DDI report</a> for the fictional drug ‘examplinib’ that is provided as
@@ -381,7 +404,7 @@ parameter to these functions:</p>
 </tbody>
 </table>
 <p>See the below sample data frame for ‘examplinib’:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">examplinib_cyp_inhibition_data</span></span>
 <span><span class="co">#&gt;         name     cyp   ki    source</span></span>
 <span><span class="co">#&gt; 1 examplinib  CYP1A2   NA          </span></span>
@@ -427,7 +450,7 @@ functions:</p>
 </tbody>
 </table>
 <p>See the below sample data frame for ‘examplinib’:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">examplinib_ugt_inhibition_data</span></span>
 <span><span class="co">#&gt;          name     ugt ic50    source</span></span>
 <span><span class="co">#&gt; 1  examplinib  UGT1A1   15 study 009</span></span>
@@ -486,7 +509,7 @@ parameter to these functions:</p>
 </tbody>
 </table>
 <p>See the below sample data frame for ‘examplinib’:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">examplinib_cyp_tdi_data</span></span>
 <span><span class="co">#&gt;         name    cyp   ki kinact    source</span></span>
 <span><span class="co">#&gt; 1 examplinib CYP3A4 0.17   0.04 study 001</span></span></code></pre></div>
@@ -536,7 +559,7 @@ CYP induction. A data frame with the below fields is expected as the
 </tbody>
 </table>
 <p>See the below sample data frame for ‘examplinib’:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">examplinib_cyp_induction_data</span></span>
 <span><span class="co">#&gt;          name     cyp  emax ec50 maxc    source</span></span>
 <span><span class="co">#&gt; 1  examplinib  CYP1A2  1.00   NA    5 study 007</span></span>
@@ -589,7 +612,7 @@ as a data frame to the ‘transporter_inh’ parameter.</p>
 </tbody>
 </table>
 <p>See the below sample data frame for ‘examplinib’:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">examplinib_transporter_inhibition_data</span></span>
 <span><span class="co">#&gt;          name transporter ic50    source</span></span>
 <span><span class="co">#&gt; 1  examplinib         Pgp 0.41 study 005</span></span>

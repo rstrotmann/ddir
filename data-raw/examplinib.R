@@ -9,6 +9,7 @@ pull_data_string <- function(filename) {
 ## EXAMPLINIB COMPOUNDS
 
 examplinib_compounds_string <- pull_data_string("examplinib_compounds.csv")
+examplinib_compounds_single_string <- pull_data_string("examplinib_compounds_single.csv")
 
 examplinib_compounds <- read_perpetrators(textConnection(
   examplinib_compounds_string))
@@ -17,6 +18,7 @@ examplinib_parent <- examplinib_compounds[[1]]
 examplinib_metabolite <- examplinib_compounds[[2]]
 
 usethis::use_data(examplinib_compounds_string, overwrite = TRUE)
+usethis::use_data(examplinib_compounds_single_string, overwrite = TRUE)
 usethis::use_data(examplinib_compounds, overwrite = TRUE)
 usethis::use_data(examplinib_parent, overwrite = TRUE)
 usethis::use_data(examplinib_metabolite, overwrite = TRUE)

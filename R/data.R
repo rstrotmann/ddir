@@ -120,6 +120,18 @@
 "examplinib_compounds_string"
 
 
+#' Examplinib compound data for parent only as string
+#'
+#' A character string containing data for one perpetrator object:
+#' * examplinib, a fictional drug.
+#'
+#' @source Fictional data, made up for demo purposes.
+#' @seealso [read_perpetrators()]
+#' @noRd
+#' @keywords internal
+"examplinib_compounds_single_string"
+
+
 #' Examplinib CYP inhibitor data as string
 #'
 #' A character string containing CYP inhibition data for examplinib and M1.

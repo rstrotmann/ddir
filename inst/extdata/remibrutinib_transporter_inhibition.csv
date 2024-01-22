@@ -1,0 +1,13 @@
+# name,      transporter, value, source
+remibrutinib, Pgp,        29.4,  Schiller et al. 2020
+remibrutinib, BCRP,       4.3,   Schiller et al. 2020
+remibrutinib, OCT1,       1.09,   Schiller et al. 2020
+remibrutinib, OATP1B1,    2.36,   Schiller et al. 2020
+remibrutinib, OATP1B3,    7.55,    Schiller et al. 2020
+remibrutinib, OAT1,       9.87,   Schiller et al. 2020
+remibrutinib, OAT3,       1.09,   Schiller et al. 2020
+remibrutinib, BSEP,       6.6,  Schiller et al. 2020
+remibrutinib, OCT2,       9.41,    Schiller et al. 2020
+remibrutinib, MATE1,      1.70,   Schiller et al. 2020
+
+

@@ -35,17 +35,18 @@ The following parameters are required to create a perpetrator object:
 
 | PARAM | REQUIREMENT | DESCRIPTION |
 | --- | --- | --- |
-| oral | required | Logical value (`TRUE` or `FALSE`) to indicate whether the compound is administered orally |
+| name | required | the name of the compound
+| oral | required | logical value (`TRUE` or `FALSE`) to indicate whether the compound is administered orally |
 | mw | required | molar weight in g/mol |
 | dose | required for oral compounds | clinical dose in mg |
-| imaxss | required | total Cmax in ng/ml |
-| fu | optional | fraction unbound, default is 1 |
-| fumic | optional | microsomal unbound fraction, dafault is 1 |
-| rb | optional | blood-to-plasma concentration ratio, default is 1 |
-| fa | optional | fraction absorbed, default is 1 |
-| fg | optional | fraction escaping gut metabolism, default is 1 |
-| ka | optional | absorption rate constant, default is 0.1 /min |
-| solubility | optional | solubility of the compound in mg/l, defaults to `Inf` |
+| imaxss | required | total $C_{max}$ in ng/ml |
+| fu | optional | fraction unbound, defaults to 1 |
+| fumic | optional | microsomal unbound fraction, defaults to 1 |
+| rb | optional | blood-to-plasma concentration ratio, defaults to 1 |
+| fa | optional | fraction absorbed, defaults to 1 |
+| fg | optional | fraction escaping gut metabolism, defaults to 1 |
+| ka | optional | absorption rate constant, defaults to 0.1 /min |
+| solubility | optional | aqueous solubility in mg/l, defaults to `Inf` |
 
 ## Input as data frame
 
@@ -107,7 +108,20 @@ parent_perpetrator %>%
 In the above code, the
 `fs::path_package("extdata/examplinib_compounds_single.csv", package = "ddir")`
 construct is needed to resolve the path to the sample file within the package
-structure. In normal use cases, the file name should provided here.
+structure. In regular use, the file name should provided here.
+
+The csv file is expected to have 'long table' format: All line must start with
+the compound name, followed by the parameter name, the value and (optionally)
+source information.
+
+This is what the content of a typical compound file may look like:
+
+```{r echo = FALSE, comment=NA}
+cat(examplinib_compounds_single_string)
+```
+
+The fields within a line must be separated by commas. All lines starting with
+'#' are considered comments and are not evaluated.
 
 ## Read from a data chunk within an R notebook
 
@@ -122,9 +136,9 @@ introduced by the
 library(knitrdata)
 ```
 
-The text data contained in chunks of the type 'data' is assigned as-is to a
-character variable by the name defined by 'output.var' in the chunk header when
-the document is rendered:
+The text contained in chunks of the type 'data' is assigned as-is to a character
+variable by the name defined by 'output.var' in the chunk header when the
+document is rendered:
 
 ```{r, include=FALSE}
 knitr::knit_hooks$set(wrapper = function(before, options) {
@@ -144,8 +158,7 @@ knitr::knit_hooks$set(wrapper = function(before, options) {
 })
 ```
 
-
-```{data output.var = "compounds_text", wrapper=TRUE}
+```{data output.var = "compounds_text", wrapper = TRUE}
 # PARENT
 # compound,  param,    value,     source
 examplinib,  oral,     TRUE,
@@ -159,22 +172,22 @@ examplinib,  fa,       0.81,      study 003
 examplinib,  fg,       1,         default
 examplinib,  ka,       0.00267,   unknown
 
-# METABOLITE 
+# METABOLITE
 # compound,  param,    value,     source
 M1,          oral,     FALSE,
 M1,          mw,       506.56,
-M1,          dose,     NA,        
+M1,          dose,     NA,
 M1,          imaxss,   1038,      study 001
 M1,          fu,       0.012,     study 002
 M1,          fumic,    1,         default
 M1,          rb,       1,         study 002
 M1,          fa,       NA,
 M1,          fg,       NA,
-M1,          ka,       NA,    
+M1,          ka,       NA,
 ```
 
-Like in the above example, the content of this variable can then be read into a
-perpetrator object:
+Similar to the above csv file example, the content of this variable can then be
+read into a perpetrator object:
 
 ```{r}
 compounds <- read_perpetrators(
@@ -186,9 +199,9 @@ compounds
 > Note that since the data is not read from a file, the input string variable is
 wrapped in a `textConnection()` construct.
 
-> Also note that the above data chunk contains data for two different compounds,
-'examplinib' and 'M1'. The output of the `read_perpetrators()` function is a
-list of perpetrator objects in this case.
+> Also note that the above data file contains data for two different compounds,
+'examplinib' and 'M1'. The output of the `read_perpetrators()` function is
+therefore a list of perpetrator objects in this case.
 
 You will find that the [sample DDI
 report](https://github.com/rstrotmann/ddir/blob/main/R/DDI-report_examplinib.Rmd)

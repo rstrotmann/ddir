@@ -68,5 +68,13 @@ See also: `kinetic_cyp_induction_risk_table()`,
 `mech_stat_cyp_risk_table()`, `basic_ugt_inhibition_risk_table()`,
 `transporter_inhibition_risk_table()`
 
-Full documentation can be found together with the source code on
-[github](https://github.com/rstrotmann/ddir).
+## Full DDI perpetrator report
+
+As an easy starting point for your own full DDI perpetrator report, load
+the sample DDI report from the package source or
+[github](https://github.com/rstrotmann/ddir/blob/main/R/DDI-report_examplinib.Rmd),
+replace the compound-specific data with the data for your drug, and
+`knit()` to a Word or pdf document.
+
+Full documentation for `ddir` can be found together with the source code
+on [github](https://github.com/rstrotmann/ddir).
