@@ -19,7 +19,9 @@ Imports:
     methods,
     stringr,
     tibble,
-    tidyr
+    tidyr,
+    rstudioapi,
+    fs
 Suggests: 
     rmarkdown,
     testthat (>= 3.0.0)

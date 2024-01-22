@@ -606,6 +606,16 @@ property_table.list <- function(obj) {
 }
 
 
+#' Open report template
+#'
+#' @return Nothing.
+#' @import rstudioapi
+#' @import fs
+#' @export
+ddi_report_template <- function() {
+  dummy = rstudioapi::navigateToFile(fs::path_package(
+    "extdata/DDI-report_template.Rmd", package="ddir"))
+}
 
 
 
