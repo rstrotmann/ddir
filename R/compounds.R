@@ -463,6 +463,8 @@ key_concentrations <- function(obj, qh=1.616, qent=18/60, molar=TRUE) {
 #' @examples
 #' conc_table(examplinib_parent)
 #' conc_table(examplinib_compounds)
+#' conc_table(examplinib_parent, show_dose = TRUE)
+#' conc_table(examplinib_compounds, show_dose = TRUE)
 conc_table <- function(perp, show_dose = FALSE) {
   UseMethod("conc_table")
 }
