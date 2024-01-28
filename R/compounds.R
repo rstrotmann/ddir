@@ -456,13 +456,14 @@ key_concentrations <- function(obj, qh=1.616, qent=18/60, molar=TRUE) {
 #' concentrations used for the assessment of the DDI perpetrator potential. See
 #' [key_concentrations()] for details on their calculation.
 #' @param perp The perpetrator object or a list of perpetrator objects.
+#' @param show_dose Include dose information in table caption as logical.
 #' @return A markdown-formatted table.
 #' @export
 #' @seealso [key_concentrations()]
 #' @examples
 #' conc_table(examplinib_parent)
 #' conc_table(examplinib_compounds)
-conc_table <- function(perp) {
+conc_table <- function(perp, show_dose = FALSE) {
   UseMethod("conc_table")
 }
 
@@ -473,6 +474,7 @@ conc_table <- function(perp) {
 #' concentrations used for the assessment of the DDI perpetrator potential. See
 #' [key_concentrations()] for details on their calculation.
 #'
+#' @param show_dose Include dose information in table caption as logical.
 #' @param perp The perpetrator object.
 #' @return A markdown-formatted table.
 #' @export
@@ -480,7 +482,9 @@ conc_table <- function(perp) {
 #' @seealso [key_concentrations()]
 #' @examples
 #' conc_table(examplinib_parent)
-conc_table.perpetrator <- function(perp) {
+#' conc_table(examplinib_parent, show_dose = TRUE)
+#' conc_table(examplinib_compounds, show_dose = TRUE)
+conc_table.perpetrator <- function(perp, show_dose = FALSE) {
   sol_limit <- is_igut_solubility_limited(perp)
 
   name <- perp["name", "value"]
@@ -500,9 +504,18 @@ conc_table.perpetrator <- function(perp) {
   colnames(temp) <- c("parameter", "value (ng/ml)", "value (uM)")
   rownames(temp) <- NULL
 
-  out <- knitr::kable(
-    temp,
-    caption = paste("Key perpetrator concentrations for", name))
+  caption <- paste0("Key perpetrator concentrations for ", name)
+  if(show_dose == TRUE) {
+    if(perp["oral", "value"] == TRUE){
+      caption <- paste0(caption, " (", perp["dose", "value"], " mg)")
+    } else {
+      if(!is.na(perp["dose", "value"]) && perp["dose", "value"] != "NA") {
+        caption <- paste0(caption, " (", perp["dose", "value"], " mg parent)")
+      }
+    }
+  }
+
+  out <- knitr::kable(temp, caption = caption)
 
   if(nrow(perp) != 0){
     return(out)
@@ -523,9 +536,9 @@ conc_table.perpetrator <- function(perp) {
 #' @seealso [key_concentrations()]
 #' @examples
 #' conc_table.list(examplinib_compounds)
-conc_table.list <- function(perp) {
+conc_table.list <- function(perp, show_dose = FALSE) {
   for(i in perp) {
-    print(conc_table.perpetrator(i))
+    print(conc_table.perpetrator(i, show_dose = show_dose))
   }
 }
 

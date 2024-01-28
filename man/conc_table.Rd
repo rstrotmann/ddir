@@ -4,10 +4,12 @@
 \alias{conc_table}
 \title{Table of key perpetrator concentrations}
 \usage{
-conc_table(perp)
+conc_table(perp, show_dose = FALSE)
 }
 \arguments{
 \item{perp}{The perpetrator object or a list of perpetrator objects.}
+
+\item{show_dose}{Include dose information in table caption as logical.}
 }
 \value{
 A markdown-formatted table.
