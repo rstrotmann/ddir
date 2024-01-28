@@ -252,7 +252,8 @@ make_perpetrator <- function(name, dose, imaxss, mw, type = "parent",
 #' @examples
 #' print(examplinib_parent)
 print.perpetrator <- function(x, ...) {
-  line <- paste0(rep("\U2500", 5), collapse="")
+  # line <- paste0(rep("\U2500", 5), collapse="")
+  line <- paste0(rep("-", 5), collapse="")
   cat(paste0(line, " DDI perpetrator object ", line, "\n"))
   x %>%
     df_to_string(colnames=F) %>%
