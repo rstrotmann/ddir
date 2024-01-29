@@ -54,7 +54,12 @@ on the calculation of the risk.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">basic_cyp_inhibition_risk_table</span><span class="op">(</span><span class="va">perp</span>, <span class="va">cyp_inh</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">basic_cyp_inhibition_risk_table</span><span class="op">(</span></span>
+<span>  <span class="va">perp</span>,</span>
+<span>  <span class="va">cyp_inh</span>,</span>
+<span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  show_dose <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -76,6 +81,10 @@ expected:</p><ul><li><p>'name' The name of the perpetrator compound.</p></li>
 <dd><p>Switch to define whether rows with lacking \(K_i\) data are
 removed from the output (i.e., where <code>ki == NA</code>). Defaults to <code>FALSE</code>.</p></dd>
 
+
+<dt>show_dose</dt>
+<dd><p>Show perpetrator dose in table title as logical.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -90,38 +99,15 @@ removed from the output (i.e., where <code>ki == NA</code>). Defaults to <code>F
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">basic_cyp_inhibition_risk_table</span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_inhibition_data</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Table: Risk for direct CYP inhibition by examplinib (basic model)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP     | $K_{i}$ (µM)| $K_{i,u}$ (µM)|$R_1$ |risk (hepatic) |$R_{1,gut}$ |risk (intestinal) |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |:-------|------------:|--------------:|:-----|:--------------|:-----------|:-----------------|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP1A2  |           NA|             NA|NA    |NA             |NA          |NA                |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2B6  |           NA|             NA|NA    |NA             |NA          |NA                |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C8  |         11.0|           11.0|1.015 |FALSE          |NA          |NA                |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9  |         13.5|           13.5|1.012 |FALSE          |NA          |NA                |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C19 |         15.0|           15.0|1.011 |FALSE          |NA          |NA                |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2D6  |           NA|             NA|NA    |NA             |NA          |NA                |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP3A4  |         12.5|           12.5|1.013 |FALSE          |293.3       |TRUE              |</span>
-<span class="r-in"><span><span class="fu">basic_cyp_inhibition_risk_table</span><span class="op">(</span><span class="va">examplinib_compounds</span>, <span class="va">examplinib_cyp_inhibition_data</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Table: Risk for direct CYP inhibition by examplinib (basic model)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP     | $K_{i}$ (µM)| $K_{i,u}$ (µM)|$R_1$ |risk (hepatic) |$R_{1,gut}$ |risk (intestinal) |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |:-------|------------:|--------------:|:-----|:--------------|:-----------|:-----------------|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C8  |         11.0|           11.0|1.015 |FALSE          |NA          |NA                |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9  |         13.5|           13.5|1.012 |FALSE          |NA          |NA                |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C19 |         15.0|           15.0|1.011 |FALSE          |NA          |NA                |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP3A4  |         12.5|           12.5|1.013 |FALSE          |293.3       |TRUE              |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Table: Risk for direct CYP inhibition by M1 (basic model)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP    | $K_{i}$ (µM)| $K_{i,u}$ (µM)|$R_1$ |risk (hepatic) |$R_{1,gut}$ |risk (intestinal) |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |:------|------------:|--------------:|:-----|:--------------|:-----------|:-----------------|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9 |          4.4|            4.4|1.006 |FALSE          |NA          |NA                |</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">basic_cyp_inhibition_risk_table</span><span class="op">(</span><span class="va">examplinib_parent</span>,</span></span>
+<span class="r-in"><span>  <span class="va">examplinib_cyp_inhibition_data</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in conditional_dose_string(perp, show_dose):</span> object 'obj' not found</span>
+<span class="r-in"><span><span class="fu">basic_cyp_inhibition_risk_table</span><span class="op">(</span><span class="va">examplinib_compounds</span>,</span></span>
+<span class="r-in"><span>  <span class="va">examplinib_cyp_inhibition_data</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in conditional_dose_string(perp, show_dose):</span> object 'obj' not found</span>
+<span class="r-in"><span><span class="fu">basic_cyp_inhibition_risk_table</span><span class="op">(</span><span class="va">examplinib_compounds</span>,</span></span>
+<span class="r-in"><span>  <span class="va">examplinib_cyp_inhibition_data</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span>, show_dose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in conditional_dose_string(perp, show_dose):</span> object 'obj' not found</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

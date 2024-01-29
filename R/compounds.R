@@ -333,6 +333,7 @@ is_igut_solubility_limited <- function(obj) {
 #'
 #' @param obj The perpetrator object.
 #' @return Logical
+#' @export
 #' @keywords internal
 #' @examples
 #' is_oral(examplinib_parent)
@@ -348,12 +349,13 @@ is_oral <- function(obj) {
 #' @param show_dose Show dose as logical.
 #' @return Character string.
 #' @keywords internal
+#' @export
 #' @examples
 #' conditional_dose_string(examplinib_parent, TRUE)
 #' conditional_dose_string(examplinib_metabolite, TRUE)
 #' conditional_dose_string(examplinib_parent, FALSE)
 conditional_dose_string <- function(perp, show_dose = TRUE) {
-  dose <- obj[which(obj$param=="dose"), "value"]
+  dose <- perp[which(perp$param=="dose"), "value"]
   if(is_oral(perp) & show_dose == TRUE) {
     paste0("(", dose, " mg)")
   }

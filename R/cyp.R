@@ -83,6 +83,7 @@ basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
 #' @inheritParams basic_cyp_inhibition_risk
 #' @param na.rm Switch to define whether rows with lacking \eqn{K_i} data are
 #' removed from the output (i.e., where `ki == NA`). Defaults to `FALSE`.
+#' @param show_dose Show perpetrator dose in table title as logical.
 #' @return A markdown-formatted table, or an empty string.
 #' @export
 #' @seealso [basic_cyp_inhibition_risk()]
@@ -108,6 +109,7 @@ basic_cyp_inhibition_risk_table <- function(perp, cyp_inh, na.rm = FALSE,
 #' @inheritParams basic_cyp_inhibition_risk
 #' @param na.rm Switch to define whether rows with lacking \eqn{K_i} data are
 #' removed from the output (i.e., where `ki == NA`). Defaults to `FALSE`.
+#' @param show_dose Show perpetrator dose in table title as logical.
 #' @return A markdown-formatted table, or an empty string.
 #' @export
 #' @noRd
@@ -115,6 +117,8 @@ basic_cyp_inhibition_risk_table <- function(perp, cyp_inh, na.rm = FALSE,
 #' @examples
 #' basic_cyp_inhibition_risk_table(examplinib_parent,
 #'   examplinib_cyp_inhibition_data)
+#' basic_cyp_inhibition_risk_table(examplinib_parent,
+#'   examplinib_cyp_inhibition_data, show_dose = TRUE)
 basic_cyp_inhibition_risk_table.perpetrator <- function(
     perp, cyp_inh, na.rm = FALSE, show_dose = FALSE) {
   temp <- basic_cyp_inhibition_risk(perp, cyp_inh)
@@ -131,7 +135,6 @@ basic_cyp_inhibition_risk_table.perpetrator <- function(
                      ", basic model ", conditional_dose_string(perp, show_dose))
 
     out <- knitr::kable(temp,
-      # caption = paste("Risk for direct CYP inhibition by", name(perp), "(basic model)"),
       caption = caption,
       col.names=labels)
     return(out)
@@ -148,6 +151,7 @@ basic_cyp_inhibition_risk_table.perpetrator <- function(
 #' @inheritParams basic_cyp_inhibition_risk
 #' @param na.rm Switch to define whether rows with lacking \eqn{K_i} data are
 #' removed from the output (i.e., where `ki == NA`). Defaults to `FALSE`.
+#' @param show_dose Show perpetrator dose in table title as logical.
 #' @return A markdown-formatted table, or an empty string.
 #' @export
 #' @noRd

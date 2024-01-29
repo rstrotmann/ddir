@@ -25,19 +25,7 @@
     <loc>/reference/basic_cyp_inhibition_risk.html</loc>
   </url>
   <url>
-    <loc>/reference/basic_cyp_inhibition_risk.list.html</loc>
-  </url>
-  <url>
-    <loc>/reference/basic_cyp_inhibition_risk.perpetrator.html</loc>
-  </url>
-  <url>
     <loc>/reference/basic_cyp_inhibition_risk_table.html</loc>
-  </url>
-  <url>
-    <loc>/reference/basic_cyp_inhibition_risk_table.list.html</loc>
-  </url>
-  <url>
-    <loc>/reference/basic_cyp_inhibition_risk_table.perpetrator.html</loc>
   </url>
   <url>
     <loc>/reference/basic_cyp_tdi_risk.html</loc>
@@ -58,10 +46,7 @@
     <loc>/reference/conc_table.html</loc>
   </url>
   <url>
-    <loc>/reference/conc_table.list.html</loc>
-  </url>
-  <url>
-    <loc>/reference/conc_table.perpetrator.html</loc>
+    <loc>/reference/conditional_dose_string.html</loc>
   </url>
   <url>
     <loc>/reference/cyp_reference_substrates.html</loc>
@@ -76,31 +61,16 @@
     <loc>/reference/ddir-package.html</loc>
   </url>
   <url>
-    <loc>/reference/df_to_string.html</loc>
-  </url>
-  <url>
     <loc>/reference/examplinib_compounds.html</loc>
-  </url>
-  <url>
-    <loc>/reference/examplinib_compounds_string.html</loc>
   </url>
   <url>
     <loc>/reference/examplinib_cyp_induction_data.html</loc>
   </url>
   <url>
-    <loc>/reference/examplinib_cyp_induction_string.html</loc>
-  </url>
-  <url>
     <loc>/reference/examplinib_cyp_inhibition_data.html</loc>
   </url>
   <url>
-    <loc>/reference/examplinib_cyp_inhibition_string.html</loc>
-  </url>
-  <url>
     <loc>/reference/examplinib_cyp_tdi_data.html</loc>
-  </url>
-  <url>
-    <loc>/reference/examplinib_cyp_tdi_string.html</loc>
   </url>
   <url>
     <loc>/reference/examplinib_metabolite.html</loc>
@@ -124,25 +94,16 @@
     <loc>/reference/is_igut_solubility_limited.html</loc>
   </url>
   <url>
+    <loc>/reference/is_oral.html</loc>
+  </url>
+  <url>
     <loc>/reference/key_concentrations.html</loc>
   </url>
   <url>
     <loc>/reference/kinetic_cyp_induction_risk.html</loc>
   </url>
   <url>
-    <loc>/reference/kinetic_cyp_induction_risk.list.html</loc>
-  </url>
-  <url>
-    <loc>/reference/kinetic_cyp_induction_risk.perpetrator.html</loc>
-  </url>
-  <url>
     <loc>/reference/kinetic_cyp_induction_risk_table.html</loc>
-  </url>
-  <url>
-    <loc>/reference/kinetic_cyp_induction_risk_table.list.html</loc>
-  </url>
-  <url>
-    <loc>/reference/kinetic_cyp_induction_risk_table.perpetrator.html</loc>
   </url>
   <url>
     <loc>/reference/make_perpetrator.html</loc>
@@ -154,28 +115,10 @@
     <loc>/reference/mech_stat_cyp_risk_table.html</loc>
   </url>
   <url>
-    <loc>/reference/name.html</loc>
-  </url>
-  <url>
-    <loc>/reference/name.perpetrator.html</loc>
-  </url>
-  <url>
-    <loc>/reference/names_string.html</loc>
-  </url>
-  <url>
     <loc>/reference/new_perpetrator.html</loc>
   </url>
   <url>
-    <loc>/reference/print.perpetrator.html</loc>
-  </url>
-  <url>
     <loc>/reference/property_table.html</loc>
-  </url>
-  <url>
-    <loc>/reference/property_table.list.html</loc>
-  </url>
-  <url>
-    <loc>/reference/property_table.perpetrator.html</loc>
   </url>
   <url>
     <loc>/reference/read_cyp_inhibitor_data.html</loc>
@@ -202,19 +145,7 @@
     <loc>/reference/static_cyp_induction_risk.html</loc>
   </url>
   <url>
-    <loc>/reference/static_cyp_induction_risk.list.html</loc>
-  </url>
-  <url>
-    <loc>/reference/static_cyp_induction_risk.perpetrator.html</loc>
-  </url>
-  <url>
     <loc>/reference/static_cyp_induction_risk_table.html</loc>
-  </url>
-  <url>
-    <loc>/reference/static_cyp_induction_risk_table.list.html</loc>
-  </url>
-  <url>
-    <loc>/reference/static_cyp_induction_risk_table.perpetrator.html</loc>
   </url>
   <url>
     <loc>/reference/transporter_inhibition_risk.html</loc>
