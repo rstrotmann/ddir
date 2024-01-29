@@ -22,6 +22,8 @@ concentrations used for the assessment of the DDI perpetrator potential. See
 \examples{
 conc_table(examplinib_parent)
 conc_table(examplinib_compounds)
+conc_table(examplinib_parent, show_dose = TRUE)
+conc_table(examplinib_compounds, show_dose = TRUE)
 }
 \seealso{
 \code{\link[=key_concentrations]{key_concentrations()}}

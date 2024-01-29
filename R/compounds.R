@@ -329,6 +329,37 @@ is_igut_solubility_limited <- function(obj) {
 }
 
 
+#' Test whether perpetrator is subject to first-pass elimination
+#'
+#' @param obj The perpetrator object.
+#' @return Logical
+#' @keywords internal
+#' @examples
+#' is_oral(examplinib_parent)
+#' is_oral(examplinib_metabolite)
+is_oral <- function(obj) {
+  as.logical(obj[which(obj$param=="oral"), "value"])
+}
+
+
+#' Perpetrator dose as string
+#'
+#' @param perp The perpetrator object.
+#' @param show_dose Show dose as logical.
+#' @return Character string.
+#' @keywords internal
+#' @examples
+#' conditional_dose_string(examplinib_parent, TRUE)
+#' conditional_dose_string(examplinib_metabolite, TRUE)
+#' conditional_dose_string(examplinib_parent, FALSE)
+conditional_dose_string <- function(perp, show_dose = TRUE) {
+  dose <- obj[which(obj$param=="dose"), "value"]
+  if(is_oral(perp) & show_dose == TRUE) {
+    paste0("(", dose, " mg)")
+  }
+}
+
+
 #' Key perpetrator concentrations
 #'
 #' This function calculates the relevant perpetrator concentrations in

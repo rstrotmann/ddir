@@ -4,7 +4,13 @@
 \alias{basic_cyp_tdi_risk_table}
 \title{Basic CYP time-dependent inhibition risk table}
 \usage{
-basic_cyp_tdi_risk_table(perp, cyp_tdi, cyp_kdeg = cyp_turnover, na.rm = TRUE)
+basic_cyp_tdi_risk_table(
+  perp,
+  cyp_tdi,
+  cyp_kdeg = cyp_turnover,
+  na.rm = TRUE,
+  show_dose = FALSE
+)
 }
 \arguments{
 \item{perp}{The perpetrator object.}
@@ -23,6 +29,8 @@ built-in reference data, \link{cyp_turnover}.}
 
 \item{na.rm}{Switch to define whether rows with lacking \eqn{K_i} data are
 removed from the output. Defaults to \code{FALSE}.}
+
+\item{show_dose}{Show perpetrator dose in table title as logical.}
 }
 \value{
 A markdown-formatted table.
@@ -33,6 +41,8 @@ Basic CYP time-dependent inhibition risk table
 \examples{
 basic_cyp_tdi_risk_table(examplinib_parent, examplinib_cyp_tdi_data)
 basic_cyp_tdi_risk_table(examplinib_compounds, examplinib_cyp_tdi_data)
+basic_cyp_tdi_risk_table(examplinib_compounds, examplinib_cyp_tdi_data,
+  show_dose = TRUE)
 }
 \seealso{
 \code{\link[=basic_cyp_tdi_risk]{basic_cyp_tdi_risk()}}

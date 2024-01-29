@@ -4,7 +4,7 @@
 \alias{kinetic_cyp_induction_risk_table}
 \title{Table of the basic kinetic CYP induction risk}
 \usage{
-kinetic_cyp_induction_risk_table(perp, cyp_ind, na.rm = F)
+kinetic_cyp_induction_risk_table(perp, cyp_ind, na.rm = F, show_dose = FALSE)
 }
 \arguments{
 \item{perp}{The perpetrator object or a list thereof.}
@@ -24,6 +24,8 @@ numeric.
 
 \item{na.rm}{Switch to define whether rows with lacking \eqn{E_{max}} data
 are removed from the output. Defaults to \code{FALSE}.}
+
+\item{show_dose}{Show perpetrator dose in table title as logical.}
 }
 \value{
 A markdown-formatted table.

@@ -4,7 +4,7 @@
 \alias{static_cyp_induction_risk_table}
 \title{Table of the basic static CYP induction risk}
 \usage{
-static_cyp_induction_risk_table(perp, cyp_ind, na.rm = F)
+static_cyp_induction_risk_table(perp, cyp_ind, na.rm = F, show_dose = FALSE)
 }
 \arguments{
 \item{perp}{The perpetrator object or a list thereof.}
@@ -24,6 +24,8 @@ numeric.
 
 \item{na.rm}{Switch to define whether rows with lacking \eqn{E_{max}} data
 are removed from the output. Defaults to \code{FALSE}.}
+
+\item{show_dose}{Show perpetrator dose in table title as logical.}
 }
 \value{
 A markdown-formatted table.
@@ -33,7 +35,10 @@ Table of the basic static CYP induction risk
 }
 \examples{
 static_cyp_induction_risk_table(examplinib_parent, examplinib_cyp_induction_data)
-static_cyp_induction_risk_table(examplinib_compounds, examplinib_cyp_induction_data)
+static_cyp_induction_risk_table(examplinib_compounds,
+  examplinib_cyp_induction_data)
+static_cyp_induction_risk_table(examplinib_compounds,
+  examplinib_cyp_induction_data, show_dose = TRUE)
 }
 \seealso{
 \code{\link[=static_cyp_induction_risk]{static_cyp_induction_risk()}}

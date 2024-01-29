@@ -179,7 +179,7 @@ The following perpetrator concentrations were calculated as described in
 Appendix 1:
 
 ```{r results="asis"}
-conc_table(compounds)
+conc_table(compounds, show_dose = TRUE)
 ```
 
 # DDI perpetrator risk assessment
@@ -198,7 +198,7 @@ Thresholds of $R < 1.02$ and $R < 11$ apply for hepatic and intestinal enzymes,
 respectively. Intestinal CYP inhibition is only evaluated for CYP3A4.
 
 ```{r results="asis"}
-basic_cyp_inhibition_risk_table(compounds, cyp_inhibition_data)
+basic_cyp_inhibition_risk_table(compounds, cyp_inhibition_data, show_dose = TRUE)
 ```
 
 Note that the ratios used in the EMA guidance correspond to the FDA ratios
@@ -211,7 +211,7 @@ enzymes is assessed based on $R_2$ (see Appendix 1), where $R_2 \geq 1.25$ sugge
 a clinically relevant DDI potential that requires further investigation.
 
 ```{r results="asis"}
-basic_cyp_tdi_risk_table(compounds, cyp_tdi_data, na.rm=T)
+basic_cyp_tdi_risk_table(compounds, cyp_tdi_data, na.rm=T, show_dose = TRUE)
 ```
 
 
@@ -245,7 +245,7 @@ $R_3 < 0.8$, a potential in vivo induction risk is assumed that needs further
 investigation.
 
 ```{r results="asis"}
-kinetic_cyp_induction_risk_table(compounds, cyp_induction_data, na.rm=T)
+kinetic_cyp_induction_risk_table(compounds, cyp_induction_data, na.rm=T, show_dose = TRUE)
 ```
 
 ## Mechanistic static modeling of CYP modulation
@@ -262,14 +262,14 @@ of inhibition (reversible and mechanism-dependent) and induction separately.
 
 ```{r results="asis"}
 mech_stat_cyp_risk_table(compounds, cyp_inhibition_data, cyp_induction_data,
-                         cyp_tdi_data, include_induction=F)
+                         cyp_tdi_data, include_induction=F, show_dose = TRUE)
 ```
 
 ### CYP inhibition and induction
 
 ```{r results="asis"}
 mech_stat_cyp_risk_table(compounds, cyp_inhibition_data, cyp_induction_data,
-                         cyp_tdi_data, include_induction=T, na.rm=T)
+                         cyp_tdi_data, include_induction=T, na.rm=T, show_dose=T)
 ```
 
 ## Basic modeling of UGT inhibition

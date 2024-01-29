@@ -87,9 +87,14 @@ basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
 #' @export
 #' @seealso [basic_cyp_inhibition_risk()]
 #' @examples
-#' basic_cyp_inhibition_risk_table(examplinib_parent, examplinib_cyp_inhibition_data)
-#' basic_cyp_inhibition_risk_table(examplinib_compounds, examplinib_cyp_inhibition_data, na.rm = TRUE)
-basic_cyp_inhibition_risk_table <- function(perp, cyp_inh, na.rm = FALSE) {
+#' basic_cyp_inhibition_risk_table(examplinib_parent,
+#'   examplinib_cyp_inhibition_data)
+#' basic_cyp_inhibition_risk_table(examplinib_compounds,
+#'   examplinib_cyp_inhibition_data, na.rm = TRUE)
+#' basic_cyp_inhibition_risk_table(examplinib_compounds,
+#'   examplinib_cyp_inhibition_data, na.rm = TRUE, show_dose = TRUE)
+basic_cyp_inhibition_risk_table <- function(perp, cyp_inh, na.rm = FALSE,
+                                            show_dose = FALSE) {
   UseMethod("basic_cyp_inhibition_risk_table")
 }
 
@@ -108,9 +113,10 @@ basic_cyp_inhibition_risk_table <- function(perp, cyp_inh, na.rm = FALSE) {
 #' @noRd
 #' @seealso [basic_cyp_inhibition_risk()]
 #' @examples
-#' basic_cyp_inhibition_risk_table(examplinib_parent, examplinib_cyp_inhibition_data)
+#' basic_cyp_inhibition_risk_table(examplinib_parent,
+#'   examplinib_cyp_inhibition_data)
 basic_cyp_inhibition_risk_table.perpetrator <- function(
-    perp, cyp_inh, na.rm = FALSE) {
+    perp, cyp_inh, na.rm = FALSE, show_dose = FALSE) {
   temp <- basic_cyp_inhibition_risk(perp, cyp_inh)
 
   if(na.rm==TRUE) {
@@ -121,8 +127,12 @@ basic_cyp_inhibition_risk_table.perpetrator <- function(
   labels <- c("CYP", "$K_{i}$ (µM)", "$K_{i,u}$ (µM)", "$R_1$",
               "risk (hepatic)", "$R_{1,gut}$", "risk (intestinal)")
   if(nrow(temp)!=0) {
+    caption <- paste0("Risk for direct CYP inhibition by ", name(perp),
+                     ", basic model ", conditional_dose_string(perp, show_dose))
+
     out <- knitr::kable(temp,
-      caption=paste("Risk for direct CYP inhibition by", name(perp), "(basic model)"),
+      # caption = paste("Risk for direct CYP inhibition by", name(perp), "(basic model)"),
+      caption = caption,
       col.names=labels)
     return(out)
   }
@@ -143,13 +153,17 @@ basic_cyp_inhibition_risk_table.perpetrator <- function(
 #' @noRd
 #' @seealso [basic_cyp_inhibition_risk()]
 #' @examples
-#' basic_cyp_inhibition_risk_table(examplinib_compounds, examplinib_cyp_inhibition_data)
-#' basic_cyp_inhibition_risk_table(examplinib_parent, examplinib_cyp_inhibition_data, na.rm = TRUE)
+#' basic_cyp_inhibition_risk_table(examplinib_compounds,
+#'   examplinib_cyp_inhibition_data)
+#' basic_cyp_inhibition_risk_table(examplinib_parent,
+#'   examplinib_cyp_inhibition_data, na.rm = TRUE)
+#' basic_cyp_inhibition_risk_table(examplinib_compounds,
+#'   examplinib_cyp_inhibition_data, na.rm = TRUE, show_dose = TRUE)
 basic_cyp_inhibition_risk_table.list <- function(
-    perp, cyp_inh, na.rm = FALSE) {
+    perp, cyp_inh, na.rm = FALSE, show_dose = FALSE) {
   for(i in perp) {
     temp = basic_cyp_inhibition_risk_table.perpetrator(
-      i, cyp_inh=cyp_inh, na.rm=na.rm)
+      i, cyp_inh = cyp_inh, na.rm = na.rm, show_dose = show_dose)
     if(!is.null(temp)){
       print(temp)
     }
@@ -220,14 +234,17 @@ basic_cyp_tdi_risk<- function(perp, cyp_tdi, cyp_kdeg=cyp_turnover) {
 #' @inheritParams basic_cyp_tdi_risk
 #' @param na.rm Switch to define whether rows with lacking \eqn{K_i} data are
 #' removed from the output. Defaults to `FALSE`.
+#' @param show_dose Show perpetrator dose in table title as logical.
 #' @return A markdown-formatted table.
 #' @seealso [basic_cyp_tdi_risk()]
 #' @export
 #' @examples
 #' basic_cyp_tdi_risk_table(examplinib_parent, examplinib_cyp_tdi_data)
 #' basic_cyp_tdi_risk_table(examplinib_compounds, examplinib_cyp_tdi_data)
-basic_cyp_tdi_risk_table <- function(perp, cyp_tdi, cyp_kdeg=cyp_turnover,
-                                     na.rm = TRUE) {
+#' basic_cyp_tdi_risk_table(examplinib_compounds, examplinib_cyp_tdi_data,
+#'   show_dose = TRUE)
+basic_cyp_tdi_risk_table <- function(perp, cyp_tdi, cyp_kdeg = cyp_turnover,
+                                     na.rm = TRUE, show_dose = FALSE) {
   UseMethod("basic_cyp_tdi_risk_table")
 }
 
@@ -237,6 +254,7 @@ basic_cyp_tdi_risk_table <- function(perp, cyp_tdi, cyp_kdeg=cyp_turnover,
 #' @inheritParams basic_cyp_tdi_risk
 #' @param na.rm Switch to define whether rows with lacking \eqn{K_i} data are
 #' removed from the output. Defaults to `FALSE`.
+#' @param show_dose Show perpetrator dose in table title as logical.
 #' @return A markdown-formatted table.
 #' @seealso [basic_cyp_tdi_risk()]
 #' @export
@@ -244,8 +262,8 @@ basic_cyp_tdi_risk_table <- function(perp, cyp_tdi, cyp_kdeg=cyp_turnover,
 #' @examples
 #' basic_cyp_tdi_risk_table(examplinib_parent, examplinib_cyp_tdi_data)
 #' basic_cyp_tdi_risk_table(examplinib_metabolite, examplinib_cyp_tdi_data)
-basic_cyp_tdi_risk_table.perpetrator <- function(perp, cyp_tdi, cyp_kdeg=cyp_turnover,
-                                     na.rm = TRUE) {
+basic_cyp_tdi_risk_table.perpetrator <- function(
+    perp, cyp_tdi, cyp_kdeg=cyp_turnover, na.rm = TRUE, show_dose = FALSE) {
   temp <- basic_cyp_tdi_risk(perp, cyp_tdi, cyp_kdeg)
   if(na.rm==TRUE) {
     temp <- temp %>%
@@ -255,8 +273,10 @@ basic_cyp_tdi_risk_table.perpetrator <- function(perp, cyp_tdi, cyp_kdeg=cyp_tur
   labels <- c("CYP", "$K_{I} (µM)$", "$f_u$", "$k_{inact}$ (1/h)",
               "$k_{deg}$ (1/h)", "source", "$R_2$", "risk")
   if(nrow(temp)!=0) {
+    caption <- paste0("Risk for CYP TDI by ", name(perp), ", basic model ",
+                      conditional_dose_string(perp, show_dose))
     out <- knitr::kable(temp,
-                        caption=paste("Risk for CYP TDI by", name(perp), "(basic model)"),
+                        caption = caption,
                         digits = 2,
                         col.names=labels)
     return(out)
@@ -269,17 +289,19 @@ basic_cyp_tdi_risk_table.perpetrator <- function(perp, cyp_tdi, cyp_kdeg=cyp_tur
 #' @inheritParams basic_cyp_tdi_risk
 #' @param na.rm Switch to define whether rows with lacking \eqn{K_i} data are
 #' removed from the output. Defaults to `FALSE`.
+#' @param show_dose Show perpetrator dose in table title as logical.
 #' @return A markdown-formatted table.
 #' @seealso [basic_cyp_tdi_risk()]
 #' @export
 #' @noRd
 #' @examples
 #' basic_cyp_tdi_risk_table(examplinib_compounds, examplinib_cyp_tdi_data)
-basic_cyp_tdi_risk_table.list <- function(perp, cyp_tdi, cyp_kdeg=cyp_turnover,
-                                                 na.rm = TRUE) {
+basic_cyp_tdi_risk_table.list <- function(
+    perp, cyp_tdi,  cyp_kdeg=cyp_turnover, na.rm = TRUE, show_dose = FALSE) {
   for(i in perp) {
     temp <- basic_cyp_tdi_risk_table.perpetrator(
-        i, cyp_tdi=cyp_tdi, cyp_kdeg=cyp_kdeg, na.rm=na.rm)
+        i, cyp_tdi=cyp_tdi, cyp_kdeg = cyp_kdeg, na.rm = na.rm,
+        show_dose = show_dose)
     if(!is.null(temp)) {
       print(temp)
     }
@@ -338,13 +360,18 @@ static_cyp_induction_risk <- function(perp, cyp_ind)  {
 #' @inheritParams static_cyp_induction_risk
 #' @param na.rm Switch to define whether rows with lacking \eqn{E_{max}} data
 #' are removed from the output. Defaults to `FALSE`.
+#' @param show_dose Show perpetrator dose in table title as logical.
 #' @return A markdown-formatted table.
 #' @export
 #' @seealso [static_cyp_induction_risk()]
 #' @examples
 #' static_cyp_induction_risk_table(examplinib_parent, examplinib_cyp_induction_data)
-#' static_cyp_induction_risk_table(examplinib_compounds, examplinib_cyp_induction_data)
-static_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
+#' static_cyp_induction_risk_table(examplinib_compounds,
+#'   examplinib_cyp_induction_data)
+#' static_cyp_induction_risk_table(examplinib_compounds,
+#'   examplinib_cyp_induction_data, show_dose = TRUE)
+static_cyp_induction_risk_table <- function(
+    perp, cyp_ind, na.rm = F, show_dose = FALSE) {
   UseMethod("static_cyp_induction_risk_table")
 }
 
@@ -354,12 +381,13 @@ static_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
 #' @inheritParams static_cyp_induction_risk
 #' @param na.rm Switch to define whether rows with lacking \eqn{E_{max}} data
 #' are removed from the output. Defaults to `FALSE`.
+#' @param show_dose Show perpetrator dose in table title as logical.
 #' @return A markdown-formatted table.
 #' @export
 #' @noRd
 #' @seealso [static_cyp_induction_risk()]
-static_cyp_induction_risk_table.perpetrator <- function(perp, cyp_ind,
-                                                        na.rm=F) {
+static_cyp_induction_risk_table.perpetrator <- function(
+    perp, cyp_ind, na.rm = F, show_dose = FALSE) {
   temp <- static_cyp_induction_risk(perp, cyp_ind)
 
   if(na.rm==TRUE) {
@@ -372,8 +400,9 @@ static_cyp_induction_risk_table.perpetrator <- function(perp, cyp_ind,
 
   if(nrow(temp)!=0) {
     out <- knitr::kable(
-      temp, caption=paste("Risk for hepatic CYP induction by", name(perp),
-                          "(basic static model)"),
+      temp, caption=paste0(
+        "Risk for hepatic CYP induction by ", name(perp),
+        ", basic static model ", conditional_dose_string(perp, show_dose)),
       col.names=labels)
     return(out)
   }
@@ -385,21 +414,21 @@ static_cyp_induction_risk_table.perpetrator <- function(perp, cyp_ind,
 #' @inheritParams static_cyp_induction_risk
 #' @param na.rm Switch to define whether rows with lacking \eqn{E_{max}} data
 #' are removed from the output. Defaults to `FALSE`.
+#' @param show_dose Show perpetrator dose in table title as logical.
 #' @return A markdown-formatted table.
 #' @export
 #' @noRd
 #' @seealso [static_cyp_induction_risk()]
-static_cyp_induction_risk_table.list <- function(perp, cyp_ind, na.rm=F) {
+static_cyp_induction_risk_table.list <- function(
+    perp, cyp_ind, na.rm = F, show_dose = FALSE) {
   for(i in perp) {
-    temp <- static_cyp_induction_risk_table.perpetrator(i, cyp_ind=cyp_ind,
-                                                        na.rm=na.rm)
+    temp <- static_cyp_induction_risk_table.perpetrator(
+      i, cyp_ind = cyp_ind, na.rm = na.rm, show_dose = show_dose)
     if(!is.null(temp)) {
       print(temp)
     }
   }
 }
-
-
 
 
 #' Basic kinetic CYP induction risk
@@ -439,13 +468,15 @@ kinetic_cyp_induction_risk <- function(perp, cyp_ind, d = 1) {
 #' @inheritParams kinetic_cyp_induction_risk
 #' @param na.rm Switch to define whether rows with lacking \eqn{E_{max}} data
 #' are removed from the output. Defaults to `FALSE`.
+#' @param show_dose Show perpetrator dose in table title as logical.
 #' @return A markdown-formatted table.
 #' @export
 #' @seealso [kinetic_cyp_induction_risk()]
 #' @examples
 #' kinetic_cyp_induction_risk_table(examplinib_parent, examplinib_cyp_induction_data)
 #' kinetic_cyp_induction_risk_table(examplinib_compounds, examplinib_cyp_induction_data)
-kinetic_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
+kinetic_cyp_induction_risk_table <- function(
+    perp, cyp_ind, na.rm = F, show_dose = FALSE) {
   UseMethod("kinetic_cyp_induction_risk_table")
 }
 
@@ -455,13 +486,15 @@ kinetic_cyp_induction_risk_table <- function(perp, cyp_ind, na.rm=F) {
 #' @inheritParams kinetic_cyp_induction_risk
 #' @param na.rm Switch to define whether rows with lacking \eqn{E_{max}} data
 #' are removed from the output. Defaults to `FALSE`.
+#' @param show_dose Show perpetrator dose in table title as logical.
 #' @return A markdown-formatted table.
 #' @export
 #' @noRd
 #' @seealso [kinetic_cyp_induction_risk()]
 #' @examples
 #' kinetic_cyp_induction_risk_table(examplinib_parent, examplinib_cyp_induction_data)
-kinetic_cyp_induction_risk_table.perpetrator <- function(perp, cyp_ind, na.rm=F) {
+kinetic_cyp_induction_risk_table.perpetrator <- function(
+    perp, cyp_ind, na.rm = F, show_dose = FALSE) {
   temp <- kinetic_cyp_induction_risk(perp, cyp_ind) %>%
     mutate(r3=format(r3, digit=3))
 
@@ -473,10 +506,9 @@ kinetic_cyp_induction_risk_table.perpetrator <- function(perp, cyp_ind, na.rm=F)
   labels <- c("CYP", "$E_{max}$", "$EC_{50}$ (µM)", "$max c$ (µM)",
               "source", "$R_3$", "risk")
   if(nrow(temp)!=0) {
-    out <- knitr::kable(temp,
-                        caption=paste("Risk for CYP induction by", name(perp),
-                                      "(basic kinetic model)"),
-                        col.names=labels)
+    caption <- paste0("Risk for CYP induction by ", name(perp),
+          ", basic kinetic model ", conditional_dose_string(perp, show_dose))
+    out <- knitr::kable(temp, caption = caption, col.names = labels)
     return(out)
   }
 }
@@ -487,16 +519,18 @@ kinetic_cyp_induction_risk_table.perpetrator <- function(perp, cyp_ind, na.rm=F)
 #' @inheritParams kinetic_cyp_induction_risk
 #' @param na.rm Switch to define whether rows with lacking \eqn{E_{max}} data
 #' are removed from the output. Defaults to `FALSE`.
+#' @param show_dose Show perpetrator dose in table title as logical.
 #' @return A markdown-formatted table.
 #' @export
 #' @noRd
 #' @seealso [kinetic_cyp_induction_risk()]
 #' @examples
 #' kinetic_cyp_induction_risk_table(examplinib_compounds, examplinib_cyp_induction_data)
-kinetic_cyp_induction_risk_table.list <- function(perp, cyp_ind, na.rm=F) {
+kinetic_cyp_induction_risk_table.list <- function(
+    perp, cyp_ind, na.rm = F, show_dose = FALSE) {
   for(i in perp) {
-    temp <- kinetic_cyp_induction_risk_table.perpetrator(i, cyp_ind=cyp_ind,
-                                                         na.rm=na.rm)
+    temp <- kinetic_cyp_induction_risk_table.perpetrator(
+      i, cyp_ind = cyp_ind, na.rm = na.rm, show_dose = show_dose)
     if(!is.null(temp)) {
       print(temp)
     }
@@ -657,6 +691,7 @@ mech_stat_cyp_risk <- function(
 #' @inheritParams mech_stat_cyp_risk
 #' @param na.rm Switch to define whether rows with lacking \eqn{K_I} or
 #' \eqn{k_{deg}} data are removed from the output.
+#' @param show_dose Show perpetrator dose in table title as logical.
 #' @return A markdown-formatted table.
 #' @seealso [mech_stat_cyp_risk()]
 #' @seealso [cyp_reference_substrates]
@@ -679,7 +714,8 @@ mech_stat_cyp_risk_table <- function(
     include_induction = TRUE,
     substr = cyp_reference_substrates,
     cyp_kdeg = cyp_turnover,
-    na.rm = FALSE) {
+    na.rm = FALSE,
+    show_dose = FALSE) {
   UseMethod("mech_stat_cyp_risk_table")
 }
 
@@ -689,6 +725,7 @@ mech_stat_cyp_risk_table <- function(
 #' @inheritParams mech_stat_cyp_risk
 #' @param na.rm Switch to define whether rows with lacking \eqn{K_I} or
 #' \eqn{k_{deg}} data are removed from the output.
+#' @param show_dose Show perpetrator dose in table title as logical.
 #' @return A markdown-formatted table.
 #' @seealso [mech_stat_cyp_risk()]
 #' @seealso [cyp_reference_substrates]
@@ -707,7 +744,8 @@ mech_stat_cyp_risk_table.perpetrator <- function(
     include_induction = TRUE,
     substr = cyp_reference_substrates,
     cyp_kdeg = cyp_turnover,
-    na.rm = FALSE) {
+    na.rm = FALSE,
+    show_dose = FALSE) {
   temp <- mech_stat_cyp_risk(perp, cyp_inh, cyp_ind, cyp_tdi,
                              include_induction=include_induction,
                              substr=substr, cyp_kdeg=cyp_kdeg) %>%
@@ -727,11 +765,12 @@ mech_stat_cyp_risk_table.perpetrator <- function(
               "$C_h$", "AUCR", "risk")
 
   if(nrow(temp)!=0) {
+    caption <- paste0("Mechanistic static modeling of the CYP inhibition risk for ",
+      name(perp), " ", conditional_dose_string(perp, show_dose))
     out <- knitr::kable(
       temp,
-      caption=paste0("Mechanistic static modeling of the CYP inhibition risk for ",
-                    name(perp)),
-      col.names=labels)
+      caption = caption,
+      col.names = labels)
     return(out)
   }
 }
@@ -742,6 +781,7 @@ mech_stat_cyp_risk_table.perpetrator <- function(
 #' @inheritParams mech_stat_cyp_risk
 #' @param na.rm Switch to define whether rows with lacking \eqn{K_I} or
 #' \eqn{k_{deg}} data are removed from the output.
+#' @param show_dose Show perpetrator dose in table title as logical.
 #' @return A markdown-formatted table.
 #' @seealso [mech_stat_cyp_risk()]
 #' @seealso [cyp_reference_substrates]
@@ -761,11 +801,12 @@ mech_stat_cyp_risk_table.list <- function(
     include_induction = TRUE,
     substr = cyp_reference_substrates,
     cyp_kdeg = cyp_turnover,
-    na.rm = FALSE) {
+    na.rm = FALSE,
+    show_dose = FALSE) {
   for(i in perp) {
     temp <- mech_stat_cyp_risk_table.perpetrator(i, cyp_inh=cyp_inh,
            cyp_ind=cyp_ind, cyp_tdi=cyp_tdi, include_induction=include_induction,
-           substr=substr, cyp_kdeg=cyp_kdeg, na.rm=na.rm)
+           substr=substr, cyp_kdeg=cyp_kdeg, na.rm = na.rm, show_dose = show_dose)
     if(!is.null(temp)) {
       print(temp)
     }

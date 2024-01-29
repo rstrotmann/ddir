@@ -4,7 +4,12 @@
 \alias{basic_cyp_inhibition_risk_table}
 \title{Basic CYP inhibition risk table}
 \usage{
-basic_cyp_inhibition_risk_table(perp, cyp_inh, na.rm = FALSE)
+basic_cyp_inhibition_risk_table(
+  perp,
+  cyp_inh,
+  na.rm = FALSE,
+  show_dose = FALSE
+)
 }
 \arguments{
 \item{perp}{The perpetrator object.}
@@ -30,8 +35,12 @@ CYP inhibition risk assessment. See \code{\link[=basic_cyp_inhibition_risk]{basi
 on the calculation of the risk.
 }
 \examples{
-basic_cyp_inhibition_risk_table(examplinib_parent, examplinib_cyp_inhibition_data)
-basic_cyp_inhibition_risk_table(examplinib_compounds, examplinib_cyp_inhibition_data, na.rm = TRUE)
+basic_cyp_inhibition_risk_table(examplinib_parent,
+  examplinib_cyp_inhibition_data)
+basic_cyp_inhibition_risk_table(examplinib_compounds,
+  examplinib_cyp_inhibition_data, na.rm = TRUE)
+basic_cyp_inhibition_risk_table(examplinib_compounds,
+  examplinib_cyp_inhibition_data, na.rm = TRUE, show_dose = TRUE)
 }
 \seealso{
 \code{\link[=basic_cyp_inhibition_risk]{basic_cyp_inhibition_risk()}}

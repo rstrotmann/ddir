@@ -12,7 +12,8 @@ mech_stat_cyp_risk_table(
   include_induction = TRUE,
   substr = cyp_reference_substrates,
   cyp_kdeg = cyp_turnover,
-  na.rm = FALSE
+  na.rm = FALSE,
+  show_dose = FALSE
 )
 }
 \arguments{
@@ -68,6 +69,8 @@ built-in reference data, \link{cyp_turnover}.}
 
 \item{na.rm}{Switch to define whether rows with lacking \eqn{K_I} or
 \eqn{k_{deg}} data are removed from the output.}
+
+\item{show_dose}{Show perpetrator dose in table title as logical.}
 }
 \value{
 A markdown-formatted table.
