@@ -4,7 +4,7 @@
 \alias{basic_ugt_inhibition_risk_table}
 \title{UGT inhibition risk table}
 \usage{
-basic_ugt_inhibition_risk_table(perp, ugt_inh, na.rm = F)
+basic_ugt_inhibition_risk_table(perp, ugt_inh, na.rm = F, show_dose = FALSE)
 }
 \arguments{
 \item{perp}{The perpetrator object.}
@@ -20,6 +20,9 @@ expected:
 
 \item{na.rm}{Boolean to define whether rows with lacking \eqn{K_i} data are
 removed from the output (i.e., where \code{ki == NA}).}
+
+\item{show_dose}{Show_dose Show perpetrator dose in table title, defaults to
+\code{FALSE.}}
 }
 \value{
 A markdown-formatted table.
@@ -30,8 +33,12 @@ UGT inhibition risk assessment. See \code{\link[=basic_ugt_inhibition_risk]{basi
 on the calculation of the risk.
 }
 \examples{
-basic_ugt_inhibition_risk_table(examplinib_parent, examplinib_ugt_inhibition_data)
-basic_ugt_inhibition_risk_table(examplinib_compounds, examplinib_ugt_inhibition_data)
+basic_ugt_inhibition_risk_table(examplinib_parent,
+  examplinib_ugt_inhibition_data)
+basic_ugt_inhibition_risk_table(examplinib_compounds,
+  examplinib_ugt_inhibition_data)
+basic_ugt_inhibition_risk_table(examplinib_compounds,
+  examplinib_ugt_inhibition_data, show_dose = TRUE)
 }
 \seealso{
 \code{\link[=basic_ugt_inhibition_risk]{basic_ugt_inhibition_risk()}}

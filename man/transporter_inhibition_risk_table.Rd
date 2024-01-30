@@ -8,7 +8,8 @@ transporter_inhibition_risk_table(
   perp,
   transporter_inh,
   transporter_ref = transporter_reference_data,
-  na.rm = F
+  na.rm = F,
+  show_dose = FALSE
 )
 }
 \arguments{
@@ -28,6 +29,9 @@ following fields are expected:
 
 \item{na.rm}{Switch to exlcude rows with lacking \eqn{IC_{50}} data from the
 output.}
+
+\item{show_dose}{Show_dose Show perpetrator dose in table title, defaults
+to \code{FALSE.}}
 }
 \value{
 A markdown-formatted table.
@@ -36,8 +40,12 @@ A markdown-formatted table.
 Table of drug transporter inhibition risks
 }
 \examples{
-transporter_inhibition_risk_table(examplinib_parent, examplinib_transporter_inhibition_data)
-transporter_inhibition_risk_table(examplinib_compounds, examplinib_transporter_inhibition_data)
+transporter_inhibition_risk_table(examplinib_parent,
+  examplinib_transporter_inhibition_data)
+transporter_inhibition_risk_table(examplinib_compounds,
+  examplinib_transporter_inhibition_data)
+transporter_inhibition_risk_table(examplinib_compounds,
+  examplinib_transporter_inhibition_data, show_dose = TRUE)
 }
 \seealso{
 \code{\link[=transporter_inhibition_risk]{transporter_inhibition_risk()}}

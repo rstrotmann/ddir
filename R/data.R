@@ -115,8 +115,6 @@
 #'
 #' @source Fictional data, made up for demo purposes.
 #' @seealso [read_perpetrators()]
-#' @noRd
-#' @keywords internal
 "examplinib_compounds_string"
 
 
@@ -127,8 +125,6 @@
 #'
 #' @source Fictional data, made up for demo purposes.
 #' @seealso [read_perpetrators()]
-#' @noRd
-#' @keywords internal
 "examplinib_compounds_single_string"
 
 
@@ -137,7 +133,6 @@
 #' A character string containing CYP inhibition data for examplinib and M1.
 #' @source Fictional data for demo purposes.
 #' @seealso [read_inhibitor_data()]
-#' @noRd
 "examplinib_cyp_inhibition_string"
 
 
@@ -181,7 +176,6 @@
 #' A character string containing CYP TDI data for examplinib.
 #' @source Fictional data for demo purposes.
 #' @seealso [read_tdi_data()]
-#' @noRd
 "examplinib_cyp_tdi_string"
 
 
@@ -201,7 +195,6 @@
 #' A character string containing CYP induction data for examplinib and M1.
 #' @source Fictional data for demo purposes.
 #' @seealso [read_inducer_data()]
-#' @noRd
 "examplinib_cyp_induction_string"
 
 
@@ -234,7 +227,6 @@
 #' A character string containing transporter inhibition data for examplinib and M1.
 #' @source Fictional data for demo purposes.
 #' @seealso [read_transporter_inhibitor_data()]
-#' @noRd
 "examplinib_transporter_inhibition_string"
 
 
@@ -265,7 +257,6 @@
 #' A character string containing UGT inhibition data for examplinib and M1.
 #' @source Fictional data for demo purposes.
 #' @seealso [read_ugt_inhibitor_data()]
-#' @noRd
 "examplinib_ugt_inhibition_string"
 
 

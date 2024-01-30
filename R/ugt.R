@@ -1,5 +1,3 @@
-
-
 #' UGT inhibition risk
 #'
 #' This function evaluates the clinical risk for reversible inhibition of UGT
@@ -63,37 +61,33 @@ basic_ugt_inhibition_risk <- function(perp, ugt_inh) {
 #' This function generates a markdown-formatted table of the reversible
 #' UGT inhibition risk assessment. See [basic_ugt_inhibition_risk()] for details
 #' on the calculation of the risk.
-#'
 #' @inheritParams basic_ugt_inhibition_risk
 #' @param na.rm Boolean to define whether rows with lacking \eqn{K_i} data are
 #' removed from the output (i.e., where `ki == NA`).
+#' @param show_dose Show_dose Show perpetrator dose in table title, defaults to
+#' `FALSE.`
 #' @seealso [basic_ugt_inhibition_risk()]
 #' @return A markdown-formatted table.
 #' @export
 #' @examples
-#' basic_ugt_inhibition_risk_table(examplinib_parent, examplinib_ugt_inhibition_data)
-#' basic_ugt_inhibition_risk_table(examplinib_compounds, examplinib_ugt_inhibition_data)
-basic_ugt_inhibition_risk_table <- function(perp, ugt_inh, na.rm=F) {
+#' basic_ugt_inhibition_risk_table(examplinib_parent,
+#'   examplinib_ugt_inhibition_data)
+#' basic_ugt_inhibition_risk_table(examplinib_compounds,
+#'   examplinib_ugt_inhibition_data)
+#' basic_ugt_inhibition_risk_table(examplinib_compounds,
+#'   examplinib_ugt_inhibition_data, show_dose = TRUE)
+basic_ugt_inhibition_risk_table <- function(perp, ugt_inh, na.rm=F,
+                                            show_dose = FALSE) {
   UseMethod("basic_ugt_inhibition_risk_table")
 }
 
 
 #' UGT inhibition risk table
-#'
-#' This function generates a markdown-formatted table of the reversible
-#' UGT inhibition risk assessment. See [basic_ugt_inhibition_risk()] for details
-#' on the calculation of the risk.
-#'
-#' @inheritParams basic_ugt_inhibition_risk
-#' @param na.rm Boolean to define whether rows with lacking \eqn{K_i} data are
-#' removed from the output (i.e., where `ki == NA`).
-#' @seealso [basic_ugt_inhibition_risk()]
-#' @return A markdown-formatted table.
+#' @inheritParams basic_ugt_inhibition_risk_table
 #' @export
 #' @noRd
-#' @examples
-#' basic_ugt_inhibition_risk_table(examplinib_parent, examplinib_ugt_inhibition_data)
-basic_ugt_inhibition_risk_table.perpetrator <- function(perp, ugt_inh, na.rm=F) {
+basic_ugt_inhibition_risk_table.perpetrator <- function(perp, ugt_inh, na.rm=F,
+                                                        show_dose = FALSE) {
   temp <- basic_ugt_inhibition_risk(perp, ugt_inh)
 
   if(na.rm==TRUE) {
@@ -103,35 +97,24 @@ basic_ugt_inhibition_risk_table.perpetrator <- function(perp, ugt_inh, na.rm=F) 
 
   labels <- c("UGT", "$K_{i,u}$", "$R_1$", "risk")
   if(nrow(temp)!=0) {
+    caption <- paste0("Risk for UGT inhibition by ",
+                     name(perp), conditional_dose_string(perp, show_dose),
+                     ", basic model")
     out <- temp %>%
       mutate(r1=round(r1, 3)) %>%
-      knitr::kable(caption=paste("Risk for UGT inhibition by",
-                                 name(perp), "(basic model)"),
-                   col.names=labels)
+      knitr::kable(caption = caption, col.names=labels)
     return(out)
   }
 }
 
 
 #' UGT inhibition risk table
-#'
-#' This function generates a markdown-formatted table of the reversible
-#' UGT inhibition risk assessment. See [basic_ugt_inhibition_risk()] for details
-#' on the calculation of the risk.
-#'
-#' @inheritParams basic_ugt_inhibition_risk
-#' @param na.rm Boolean to define whether rows with lacking \eqn{K_i} data are
-#' removed from the output (i.e., where `ki == NA`).
-#' @seealso [basic_ugt_inhibition_risk()]
-#' @return A markdown-formatted table.
+#' @inheritParams basic_ugt_inhibition_risk_table
 #' @export
 #' @noRd
-#' @examples
-#' basic_ugt_inhibition_risk_table(examplinib_parent, examplinib_ugt_inhibition_data)
-basic_ugt_inhibition_risk_table.list <- function(perp, ugt_inh, na.rm=F) {
+basic_ugt_inhibition_risk_table.list <- function(perp, ...) {
   for(i in perp) {
-    temp <- basic_ugt_inhibition_risk_table.perpetrator(i, ugt_inh=ugt_inh,
-           na.rm=na.rm)
+    temp <- basic_ugt_inhibition_risk_table.perpetrator(i, ...)
     if(!is.null(temp)) {
       print(temp)
     }

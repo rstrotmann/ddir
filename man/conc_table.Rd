@@ -9,7 +9,7 @@ conc_table(perp, show_dose = FALSE)
 \arguments{
 \item{perp}{The perpetrator object or a list of perpetrator objects.}
 
-\item{show_dose}{Include dose information in table caption as logical.}
+\item{show_dose}{Show perpetrator dose in table title, defaults to \code{FALSE.}}
 }
 \value{
 A markdown-formatted table.
@@ -22,7 +22,6 @@ concentrations used for the assessment of the DDI perpetrator potential. See
 \examples{
 conc_table(examplinib_parent)
 conc_table(examplinib_compounds)
-conc_table(examplinib_parent, show_dose = TRUE)
 conc_table(examplinib_compounds, show_dose = TRUE)
 }
 \seealso{

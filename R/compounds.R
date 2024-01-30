@@ -68,7 +68,7 @@ as.num = function(x, na.strings = "NA") {
 #' @import lifecycle
 #' @return The output as string.
 #' @export
-#' @noRd
+#' @keywords internal
 names_string <- function(perps) {
   lifecycle::deprecate_warn("0.8.1", "names_string()", "compound_names_string()")
   return(paste(lapply(perps, function(p) {p[(p$param=="name"), "value"]}), collapse=", "))
@@ -267,7 +267,7 @@ print.perpetrator <- function(x, ...) {
 #'
 #' @return The name of the perpetrator as character.
 #' @export
-#' @noRd
+#' @keywords internal
 name <- function(obj) {
   UseMethod("name")
 }
@@ -279,7 +279,7 @@ name <- function(obj) {
 #'
 #' @return The name of the perpetrator as character.
 #' @export
-#' @noRd
+#' @keywords internal
 #' @examples
 #' name(examplinib_parent)
 name.perpetrator <- function(obj) {
@@ -357,7 +357,7 @@ is_oral <- function(obj) {
 conditional_dose_string <- function(perp, show_dose = TRUE) {
   dose <- perp[which(perp$param=="dose"), "value"]
   if(is_oral(perp) & show_dose == TRUE) {
-    paste0("(", dose, " mg)")
+    paste0(" (", dose, " mg)")
   }
 }
 
@@ -490,14 +490,13 @@ key_concentrations <- function(obj, qh=1.616, qent=18/60, molar=TRUE) {
 #' concentrations used for the assessment of the DDI perpetrator potential. See
 #' [key_concentrations()] for details on their calculation.
 #' @param perp The perpetrator object or a list of perpetrator objects.
-#' @param show_dose Include dose information in table caption as logical.
+#' @param show_dose Show perpetrator dose in table title, defaults to `FALSE.`
 #' @return A markdown-formatted table.
 #' @export
 #' @seealso [key_concentrations()]
 #' @examples
 #' conc_table(examplinib_parent)
 #' conc_table(examplinib_compounds)
-#' conc_table(examplinib_parent, show_dose = TRUE)
 #' conc_table(examplinib_compounds, show_dose = TRUE)
 conc_table <- function(perp, show_dose = FALSE) {
   UseMethod("conc_table")
@@ -505,21 +504,9 @@ conc_table <- function(perp, show_dose = FALSE) {
 
 
 #' Key perpetrator concentrations
-#'
-#' This function generates a markdown-formatted table of the key perpetrator
-#' concentrations used for the assessment of the DDI perpetrator potential. See
-#' [key_concentrations()] for details on their calculation.
-#'
-#' @param show_dose Include dose information in table caption as logical.
-#' @param perp The perpetrator object.
-#' @return A markdown-formatted table.
+#' @inheritParams conc_table
 #' @export
 #' @noRd
-#' @seealso [key_concentrations()]
-#' @examples
-#' conc_table(examplinib_parent)
-#' conc_table(examplinib_parent, show_dose = TRUE)
-#' conc_table(examplinib_compounds, show_dose = TRUE)
 conc_table.perpetrator <- function(perp, show_dose = FALSE) {
   sol_limit <- is_igut_solubility_limited(perp)
 
@@ -539,17 +526,8 @@ conc_table.perpetrator <- function(perp, show_dose = FALSE) {
 
   colnames(temp) <- c("parameter", "value (ng/ml)", "value (uM)")
   rownames(temp) <- NULL
-
-  caption <- paste0("Key perpetrator concentrations for ", name)
-  if(show_dose == TRUE) {
-    if(perp["oral", "value"] == TRUE){
-      caption <- paste0(caption, " (", perp["dose", "value"], " mg)")
-    } else {
-      if(!is.na(perp["dose", "value"]) && perp["dose", "value"] != "NA") {
-        caption <- paste0(caption, " (", perp["dose", "value"], " mg parent)")
-      }
-    }
-  }
+  caption <- paste0("Key perpetrator concentrations for ", name,
+                    conditional_dose_string(perp, show_dose))
 
   out <- knitr::kable(temp, caption = caption)
 
@@ -560,21 +538,12 @@ conc_table.perpetrator <- function(perp, show_dose = FALSE) {
 
 
 #' Key perpetrator concentrations
-#'
-#' This function generates a list of markdown-formatted tables of the key
-#' concentrations used for the assessment of the DDI perpetrator potential. See
-#' [key_concentrations()] for details on the calculation of the concentrations.
-#'
-#' @param perp A list of perpetrator objects.
-#' @return A markdown-formatted table.
+#' @inheritParams conc_table
 #' @export
 #' @noRd
-#' @seealso [key_concentrations()]
-#' @examples
-#' conc_table.list(examplinib_compounds)
-conc_table.list <- function(perp, show_dose = FALSE) {
+conc_table.list <- function(perp, ...) {
   for(i in perp) {
-    print(conc_table.perpetrator(i, show_dose = show_dose))
+    print(conc_table.perpetrator(i, ...))
   }
 }
 
@@ -595,17 +564,9 @@ property_table <- function(obj) {
 
 
 #' Table of perpetrator drug properties
-#'
-#' This function generates a markdown-formatted table of the key properties of
-#' a perpetrator object.
-#'
-#' @param obj The perpetrator object.
-#' @return A markdown-formatted table.
+#' @inheritParams property_table
 #' @noRd
 #' @export
-#' @examples
-#' property_table(examplinib_parent)
-#' property_table(examplinib_metabolite)
 property_table.perpetrator <- function(obj){
   labels <- data.frame(
     param=c("oral", "mw", "dose", "solubility", "imaxss", "fu", "fumic", "rb", "fa",
@@ -638,19 +599,12 @@ property_table.perpetrator <- function(obj){
 
 
 #' Perpetrator drug properties for a list of compounds
-#'
-#' This function generates a list of markdown-formatted tables of the key
-#' properties of a list of perpetrator objects.
-#'
-#' @param obj A list of perpetrator objects.
-#' @return A list of markdown-formatted tables.
+#' @inheritParams property_table
 #' @noRd
 #' @export
-#' @examples
-#' property_table(examplinib_compounds)
-property_table.list <- function(obj) {
+property_table.list <- function(obj, ...) {
   for(i in obj) {
-    print(property_table(i))
+    print(property_table(i, ...))
   }
 }
 

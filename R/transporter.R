@@ -1,4 +1,3 @@
-
 #' Drug transporter inhibition risk
 #'
 #' @details
@@ -73,37 +72,38 @@ transporter_inhibition_risk <- function(
 #' @inheritParams transporter_inhibition_risk
 #' @param na.rm Switch to exlcude rows with lacking \eqn{IC_{50}} data from the
 #' output.
+#' @param show_dose Show_dose Show perpetrator dose in table title, defaults
+#' to `FALSE.`
 #' @seealso [transporter_inhibition_risk()]
 #' @return A markdown-formatted table.
 #' @export
 #' @examples
-#' transporter_inhibition_risk_table(examplinib_parent, examplinib_transporter_inhibition_data)
-#' transporter_inhibition_risk_table(examplinib_compounds, examplinib_transporter_inhibition_data)
+#' transporter_inhibition_risk_table(examplinib_parent,
+#'   examplinib_transporter_inhibition_data)
+#' transporter_inhibition_risk_table(examplinib_compounds,
+#'   examplinib_transporter_inhibition_data)
+#' transporter_inhibition_risk_table(examplinib_compounds,
+#'   examplinib_transporter_inhibition_data, show_dose = TRUE)
 transporter_inhibition_risk_table <- function(
     perp,
     transporter_inh,
     transporter_ref=transporter_reference_data,
-    na.rm=F) {
+    na.rm=F,
+    show_dose = FALSE) {
   UseMethod("transporter_inhibition_risk_table")
 }
 
 
 #' Table of drug transporter inhibition risks
-#'
-#' @inheritParams transporter_inhibition_risk
-#' @param na.rm Switch to exlcude rows with lacking \eqn{IC_{50}} data from the
-#' output.
-#' @seealso [transporter_inhibition_risk()]
-#' @return A markdown-formatted table.
+#' @inheritParams transporter_inhibition_risk_table
 #' @export
 #' @noRd
-#' @examples
-#' transporter_inhibition_risk_table(examplinib_parent, examplinib_transporter_inhibition_data)
 transporter_inhibition_risk_table.perpetrator <- function(
     perp,
     transporter_inh,
     transporter_ref=transporter_reference_data,
-    na.rm=F) {
+    na.rm=F,
+    show_dose = FALSE) {
   temp <- transporter_inhibition_risk(
     perp, transporter_inh,
     transporter_ref=transporter_reference_data) %>%
@@ -117,36 +117,21 @@ transporter_inhibition_risk_table.perpetrator <- function(
   labels <- c("transporter", "$IC_{50}$", "source", "$R$", "thld FDA", "risk FDA",
               "thld EMA", "risk EMA")
   if(nrow(temp)!=0) {
-    out <- knitr::kable(
-      temp,
-      caption=paste("Risk for drug transporter inhibition by",
-                    name(perp)), col.names=labels,
-      signif=2)
+    caption <- paste0("Risk for drug transporter inhibition by ",
+                     name(perp), conditional_dose_string(perp, show_dose))
+    out <- knitr::kable(temp, caption = caption, col.names=labels, signif=2)
     return(out)
   }
 }
 
 
 #' Table of drug transporter inhibition risks
-#'
-#' @inheritParams transporter_inhibition_risk
-#' @param na.rm Switch to exlcude rows with lacking \eqn{IC_{50}} data from the
-#' output.
-#' @seealso [transporter_inhibition_risk()]
-#' @return A markdown-formatted table.
+#' @inheritParams transporter_inhibition_risk_table
 #' @export
 #' @noRd
-#' @examples
-#' transporter_inhibition_risk_table(examplinib_parent, examplinib_transporter_inhibition_data)
-transporter_inhibition_risk_table.list <- function(
-    perp,
-    transporter_inh,
-    transporter_ref=transporter_reference_data,
-    na.rm=F) {
+transporter_inhibition_risk_table.list <- function(perp, ...) {
   for(i in perp) {
-    temp <- transporter_inhibition_risk_table.perpetrator( i,
-           transporter_inh=transporter_inh, transporter_ref=transporter_ref,
-           na.rm=na.rm)
+    temp <- transporter_inhibition_risk_table.perpetrator( i, ...)
     if(!is.null(temp)) {
       print(temp)
     }

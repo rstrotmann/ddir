@@ -70,7 +70,7 @@ built-in reference data, \link{cyp_turnover}.}
 \item{na.rm}{Switch to define whether rows with lacking \eqn{K_I} or
 \eqn{k_{deg}} data are removed from the output.}
 
-\item{show_dose}{Show perpetrator dose in table title as logical.}
+\item{show_dose}{Show perpetrator dose in table title, defaults to \code{FALSE.}}
 }
 \value{
 A markdown-formatted table.
@@ -88,6 +88,11 @@ mech_stat_cyp_risk_table(
   examplinib_cyp_inhibition_data,
   examplinib_cyp_induction_data,
   examplinib_cyp_tdi_data)
+mech_stat_cyp_risk_table(
+  examplinib_compounds,
+  examplinib_cyp_inhibition_data,
+  examplinib_cyp_induction_data,
+  examplinib_cyp_tdi_data, show_dose = TRUE)
 }
 \seealso{
 \code{\link[=mech_stat_cyp_risk]{mech_stat_cyp_risk()}}

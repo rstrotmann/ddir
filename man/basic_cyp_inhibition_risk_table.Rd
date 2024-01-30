@@ -26,7 +26,7 @@ expected:
 \item{na.rm}{Switch to define whether rows with lacking \eqn{K_i} data are
 removed from the output (i.e., where \code{ki == NA}). Defaults to \code{FALSE}.}
 
-\item{show_dose}{Show perpetrator dose in table title as logical.}
+\item{show_dose}{Show perpetrator dose in table title, defaults to \code{FALSE.}}
 }
 \value{
 A markdown-formatted table, or an empty string.

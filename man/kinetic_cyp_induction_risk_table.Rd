@@ -25,7 +25,7 @@ numeric.
 \item{na.rm}{Switch to define whether rows with lacking \eqn{E_{max}} data
 are removed from the output. Defaults to \code{FALSE}.}
 
-\item{show_dose}{Show perpetrator dose in table title as logical.}
+\item{show_dose}{Show perpetrator dose in table title, defaults to \code{FALSE.}}
 }
 \value{
 A markdown-formatted table.
@@ -34,8 +34,12 @@ A markdown-formatted table.
 Table of the basic kinetic CYP induction risk
 }
 \examples{
-kinetic_cyp_induction_risk_table(examplinib_parent, examplinib_cyp_induction_data)
-kinetic_cyp_induction_risk_table(examplinib_compounds, examplinib_cyp_induction_data)
+kinetic_cyp_induction_risk_table(examplinib_parent,
+  examplinib_cyp_induction_data)
+kinetic_cyp_induction_risk_table(examplinib_compounds,
+  examplinib_cyp_induction_data)
+kinetic_cyp_induction_risk_table(examplinib_compounds,
+  examplinib_cyp_induction_data, show_dose = TRUE)
 }
 \seealso{
 \code{\link[=kinetic_cyp_induction_risk]{kinetic_cyp_induction_risk()}}
