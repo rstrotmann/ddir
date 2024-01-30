@@ -64,13 +64,28 @@
     <loc>/reference/examplinib_compounds.html</loc>
   </url>
   <url>
+    <loc>/reference/examplinib_compounds_single_string.html</loc>
+  </url>
+  <url>
+    <loc>/reference/examplinib_compounds_string.html</loc>
+  </url>
+  <url>
     <loc>/reference/examplinib_cyp_induction_data.html</loc>
+  </url>
+  <url>
+    <loc>/reference/examplinib_cyp_induction_string.html</loc>
   </url>
   <url>
     <loc>/reference/examplinib_cyp_inhibition_data.html</loc>
   </url>
   <url>
+    <loc>/reference/examplinib_cyp_inhibition_string.html</loc>
+  </url>
+  <url>
     <loc>/reference/examplinib_cyp_tdi_data.html</loc>
+  </url>
+  <url>
+    <loc>/reference/examplinib_cyp_tdi_string.html</loc>
   </url>
   <url>
     <loc>/reference/examplinib_metabolite.html</loc>
@@ -82,7 +97,13 @@
     <loc>/reference/examplinib_transporter_inhibition_data.html</loc>
   </url>
   <url>
+    <loc>/reference/examplinib_transporter_inhibition_string.html</loc>
+  </url>
+  <url>
     <loc>/reference/examplinib_ugt_inhibition_data.html</loc>
+  </url>
+  <url>
+    <loc>/reference/examplinib_ugt_inhibition_string.html</loc>
   </url>
   <url>
     <loc>/reference/hepatic_cyp_turnover.html</loc>
@@ -113,6 +134,15 @@
   </url>
   <url>
     <loc>/reference/mech_stat_cyp_risk_table.html</loc>
+  </url>
+  <url>
+    <loc>/reference/name.html</loc>
+  </url>
+  <url>
+    <loc>/reference/name.perpetrator.html</loc>
+  </url>
+  <url>
+    <loc>/reference/names_string.html</loc>
   </url>
   <url>
     <loc>/reference/new_perpetrator.html</loc>

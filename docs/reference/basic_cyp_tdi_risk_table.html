@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.14.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.14.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -83,7 +83,7 @@ removed from the output. Defaults to <code>FALSE</code>.</p></dd>
 
 
 <dt>show_dose</dt>
-<dd><p>Show perpetrator dose in table title as logical.</p></dd>
+<dd><p>Show perpetrator dose in table title, defaults to <code>FALSE.</code></p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -102,7 +102,7 @@ removed from the output. Defaults to <code>FALSE</code>.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">basic_cyp_tdi_risk_table</span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_tdi_data</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Table: Risk for CYP TDI by examplinib, basic model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Table: Risk for CYP TDI by examplinib, basic model</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |CYP    | $K_{I} (µM)$| $f_u$| $k_{inact}$ (1/h)| $k_{deg}$ (1/h)|source    | $R_2$|risk |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |:------|------------:|-----:|-----------------:|---------------:|:---------|-----:|:----|</span>
@@ -110,7 +110,7 @@ removed from the output. Defaults to <code>FALSE</code>.</p></dd>
 <span class="r-in"><span><span class="fu">basic_cyp_tdi_risk_table</span><span class="op">(</span><span class="va">examplinib_compounds</span>, <span class="va">examplinib_cyp_tdi_data</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Table: Risk for CYP TDI by examplinib, basic model </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Table: Risk for CYP TDI by examplinib, basic model</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |CYP    | $K_{I} (µM)$| $f_u$| $k_{inact}$ (1/h)| $k_{deg}$ (1/h)|source    | $R_2$|risk |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |:------|------------:|-----:|-----------------:|---------------:|:---------|-----:|:----|</span>
@@ -119,7 +119,7 @@ removed from the output. Defaults to <code>FALSE</code>.</p></dd>
 <span class="r-in"><span>  show_dose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Table: Risk for CYP TDI by examplinib, basic model (450 mg)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Table: Risk for CYP TDI by examplinib (450 mg), basic model</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |CYP    | $K_{I} (µM)$| $f_u$| $k_{inact}$ (1/h)| $k_{deg}$ (1/h)|source    | $R_2$|risk |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |:------|------------:|-----:|-----------------:|---------------:|:---------|-----:|:----|</span>

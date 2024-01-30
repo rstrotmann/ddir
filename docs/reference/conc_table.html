@@ -14,7 +14,7 @@ key_concentrations() for details on their calculation."><!-- mathjax --><script 
     
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.14.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.14.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,7 +64,7 @@ concentrations used for the assessment of the DDI perpetrator potential. See
 
 
 <dt>show_dose</dt>
-<dd><p>Include dose information in table caption as logical.</p></dd>
+<dd><p>Show perpetrator dose in table title, defaults to <code>FALSE.</code></p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -112,17 +112,6 @@ concentrations used for the assessment of the DDI perpetrator potential. See
 <span class="r-out co"><span class="r-pr">#&gt;</span> |$I_{max,ss,u}$       |12.5          |0.0246     |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |$I_{max,inlet,u}$    |12.5          |0.0246     |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |$I_{max,intestinal}$ |12.5          |0.0246     |</span>
-<span class="r-in"><span><span class="fu">conc_table</span><span class="op">(</span><span class="va">examplinib_parent</span>, show_dose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Table: Key perpetrator concentrations for examplinib (450 mg)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |parameter            |value (ng/ml) |value (uM) |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |:--------------------|:-------------|:----------|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |$I_{gut}$            |1800000.0     |3654.080   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |$I_{max,ss,u}$       |81.2          |0.165      |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |$I_{max,inlet,u}$    |95.0          |0.193      |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |$I_{max,intestinal}$ |3244.1        |6.586      |</span>
 <span class="r-in"><span><span class="fu">conc_table</span><span class="op">(</span><span class="va">examplinib_compounds</span>, show_dose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>

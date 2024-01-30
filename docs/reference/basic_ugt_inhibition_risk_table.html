@@ -14,7 +14,7 @@ on the calculation of the risk."><!-- mathjax --><script src="https://cdnjs.clou
     
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.14.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.14.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,7 +54,7 @@ on the calculation of the risk.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">basic_ugt_inhibition_risk_table</span><span class="op">(</span><span class="va">perp</span>, <span class="va">ugt_inh</span>, na.rm <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">basic_ugt_inhibition_risk_table</span><span class="op">(</span><span class="va">perp</span>, <span class="va">ugt_inh</span>, na.rm <span class="op">=</span> <span class="cn">F</span>, show_dose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -76,6 +76,11 @@ expected:</p><ul><li><p>'name' The name of the perpetrator compound.</p></li>
 <dd><p>Boolean to define whether rows with lacking \(K_i\) data are
 removed from the output (i.e., where <code>ki == NA</code>).</p></dd>
 
+
+<dt>show_dose</dt>
+<dd><p>Show_dose Show perpetrator dose in table title, defaults to
+<code>FALSE.</code></p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -90,25 +95,11 @@ removed from the output (i.e., where <code>ki == NA</code>).</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">basic_ugt_inhibition_risk_table</span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_ugt_inhibition_data</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">basic_ugt_inhibition_risk_table</span><span class="op">(</span><span class="va">examplinib_parent</span>,</span></span>
+<span class="r-in"><span>  <span class="va">examplinib_ugt_inhibition_data</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Table: Risk for UGT inhibition by examplinib (basic model)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT     | $K_{i,u}$| $R_1$|risk |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |:-------|---------:|-----:|:----|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT1A1  |      7.50| 1.022|TRUE |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT1A3  |      7.50| 1.022|TRUE |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT1A4  |      7.50| 1.022|TRUE |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT1A6  |      7.50| 1.022|TRUE |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT1A9  |      1.90| 1.087|TRUE |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT2B7  |      7.50| 1.022|TRUE |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT2B15 |      7.50| 1.022|TRUE |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT2B17 |      3.05| 1.054|TRUE |</span>
-<span class="r-in"><span><span class="fu">basic_ugt_inhibition_risk_table</span><span class="op">(</span><span class="va">examplinib_compounds</span>, <span class="va">examplinib_ugt_inhibition_data</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Table: Risk for UGT inhibition by examplinib (basic model)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Table: Risk for UGT inhibition by examplinib, basic model</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |UGT     | $K_{i,u}$| $R_1$|risk |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |:-------|---------:|-----:|:----|</span>
@@ -120,9 +111,55 @@ removed from the output (i.e., where <code>ki == NA</code>).</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |UGT2B7  |      7.50| 1.022|TRUE |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |UGT2B15 |      7.50| 1.022|TRUE |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |UGT2B17 |      3.05| 1.054|TRUE |</span>
+<span class="r-in"><span><span class="fu">basic_ugt_inhibition_risk_table</span><span class="op">(</span><span class="va">examplinib_compounds</span>,</span></span>
+<span class="r-in"><span>  <span class="va">examplinib_ugt_inhibition_data</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Table: Risk for UGT inhibition by M1 (basic model)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Table: Risk for UGT inhibition by examplinib, basic model</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT     | $K_{i,u}$| $R_1$|risk |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |:-------|---------:|-----:|:----|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT1A1  |      7.50| 1.022|TRUE |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT1A3  |      7.50| 1.022|TRUE |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT1A4  |      7.50| 1.022|TRUE |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT1A6  |      7.50| 1.022|TRUE |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT1A9  |      1.90| 1.087|TRUE |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT2B7  |      7.50| 1.022|TRUE |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT2B15 |      7.50| 1.022|TRUE |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT2B17 |      3.05| 1.054|TRUE |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Table: Risk for UGT inhibition by M1, basic model</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT     | $K_{i,u}$| $R_1$|risk  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |:-------|---------:|-----:|:-----|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT1A1  |      0.55| 1.045|TRUE  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT1A3  |      2.90| 1.008|FALSE |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT1A4  |      3.10| 1.008|FALSE |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT1A6  |      7.50| 1.003|FALSE |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT1A9  |      1.80| 1.014|FALSE |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT2B7  |      7.50| 1.003|FALSE |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT2B15 |      4.80| 1.005|FALSE |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT2B17 |      1.10| 1.022|TRUE  |</span>
+<span class="r-in"><span><span class="fu">basic_ugt_inhibition_risk_table</span><span class="op">(</span><span class="va">examplinib_compounds</span>,</span></span>
+<span class="r-in"><span>  <span class="va">examplinib_ugt_inhibition_data</span>, show_dose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Table: Risk for UGT inhibition by examplinib (450 mg), basic model</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT     | $K_{i,u}$| $R_1$|risk |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |:-------|---------:|-----:|:----|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT1A1  |      7.50| 1.022|TRUE |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT1A3  |      7.50| 1.022|TRUE |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT1A4  |      7.50| 1.022|TRUE |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT1A6  |      7.50| 1.022|TRUE |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT1A9  |      1.90| 1.087|TRUE |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT2B7  |      7.50| 1.022|TRUE |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT2B15 |      7.50| 1.022|TRUE |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |UGT2B17 |      3.05| 1.054|TRUE |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Table: Risk for UGT inhibition by M1, basic model</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |UGT     | $K_{i,u}$| $R_1$|risk  |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |:-------|---------:|-----:|:-----|</span>
