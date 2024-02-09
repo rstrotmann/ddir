@@ -13,7 +13,7 @@ basic_cyp_tdi_risk(perp, cyp_tdi, cyp_kdeg = cyp_turnover)
 \itemize{
 \item 'name' The perpetrator compound name as character.
 \item 'cyp' The CYP enzyme as character.
-\item 'ki' The \eqn{K_I} in µM as numeric.
+\item 'ki' The \eqn{K_I} in \eqn{\mu M} as numeric.
 \item 'kinact' The \eqn{k_{inact}} in 1/h as numeric.
 \item 'source' Optional source information as character,
 }}

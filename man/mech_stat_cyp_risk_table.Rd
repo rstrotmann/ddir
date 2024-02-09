@@ -24,7 +24,7 @@ expected:
 \itemize{
 \item 'name' The name of the perpetrator compound.
 \item 'cyp' The CYP enzyme as (upper case) character.
-\item 'ki' The \eqn{k_i} in µM as numeric.
+\item 'ki' The \eqn{k_i} in \eqn{\mu M} as numeric.
 \item 'source' Optional source information as character.
 }}
 
@@ -35,8 +35,8 @@ are expected:
 \item 'cyp' The CYP enzyme as (upper case) character.
 \item 'emax' The \eqn{E_{max}}, i.e., the maximum induction effect determined in
 vitro as numeric.
-\item 'ec50' The \eqn{EC_{50}} in µM as numeric.
-\item 'maxc' The maximal concentration in µM tested in the in vitro assay as
+\item 'ec50' The \eqn{EC_{50}} in \eqn{\mu M} as numeric.
+\item 'maxc' The maximal concentration in \eqn{\mu M} tested in the in vitro assay as
 numeric.
 \item 'source' Optional source information as character.
 }}
@@ -45,7 +45,7 @@ numeric.
 \itemize{
 \item 'name' The perpetrator compound name as character.
 \item 'cyp' The CYP enzyme as character.
-\item 'ki' The \eqn{K_I} in µM as numeric.
+\item 'ki' The \eqn{K_I} in \eqn{\mu M} as numeric.
 \item 'kinact' The \eqn{k_{inact}} in 1/h as numeric.
 \item 'source' Optional source information as character,
 }}

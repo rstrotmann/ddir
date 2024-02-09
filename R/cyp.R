@@ -42,7 +42,7 @@
 #' expected:
 #' * 'name' The name of the perpetrator compound.
 #' * 'cyp' The CYP enzyme as (upper case) character.
-#' * 'ki' The \eqn{k_i} in µM as numeric.
+#' * 'ki' The \eqn{k_i} in \eqn{\mu M} as numeric.
 #' * 'source' Optional source information as character.
 #' @return A data frame.
 #' @seealso [basic_cyp_inhibition_risk_table()]
@@ -109,7 +109,7 @@ basic_cyp_inhibition_risk_table.perpetrator <- function(
   if(na.rm==TRUE) {
     temp <- temp %>%
       filter(!is.na(ki))}
-  labels <- c("CYP", "$K_{i}$ (µM)", "$K_{i,u}$ (µM)", "$R_1$",
+  labels <- c("CYP", "$K_{i}$ ($\\mu M$)", "$K_{i,u}$ ($\\mu M$)", "$R_1$",
               "risk (hepatic)", "$R_{1,gut}$", "risk (intestinal)")
   if(nrow(temp)!=0) {
     caption <- paste0("Risk for direct CYP inhibition by ", name(perp),
@@ -163,7 +163,7 @@ basic_cyp_inhibition_risk_table.list <- function(perp, ...) {
 #' @param cyp_tdi The CYP TDI data as data frame. The following fields are expected:
 #' * 'name' The perpetrator compound name as character.
 #' * 'cyp' The CYP enzyme as character.
-#' * 'ki' The \eqn{K_I} in µM as numeric.
+#' * 'ki' The \eqn{K_I} in \eqn{\mu M} as numeric.
 #' * 'kinact' The \eqn{k_{inact}} in 1/h as numeric.
 #' * 'source' Optional source information as character,
 #' @param cyp_kdeg The CYP turnover data as data frame. Defaults to the
@@ -226,7 +226,7 @@ basic_cyp_tdi_risk_table.perpetrator <- function(
       filter(!is.na(ki) & !is.na(kdeg))
   }
 
-  labels <- c("CYP", "$K_{I} (µM)$", "$f_u$", "$k_{inact}$ (1/h)",
+  labels <- c("CYP", "$K_{I}$ ($\\mu M$)", "$f_u$", "$k_{inact}$ (1/h)",
               "$k_{deg}$ (1/h)", "source", "$R_2$", "risk")
   if(nrow(temp)!=0) {
     caption <- paste0("Risk for CYP TDI by ", name(perp),
@@ -278,8 +278,8 @@ basic_cyp_tdi_risk_table.list <- function(perp, ...) {
 #' * 'cyp' The CYP enzyme as (upper case) character.
 #' * 'emax' The \eqn{E_{max}}, i.e., the maximum induction effect determined in
 #' vitro as numeric.
-#' * 'ec50' The \eqn{EC_{50}} in µM as numeric.
-#' * 'maxc' The maximal concentration in µM tested in the in vitro assay as
+#' * 'ec50' The \eqn{EC_{50}} in \eqn{\mu M} as numeric.
+#' * 'maxc' The maximal concentration in \eqn{\mu M} tested in the in vitro assay as
 #' numeric.
 #' * 'source' Optional source information as character.
 #' @return A data frame.
@@ -333,7 +333,7 @@ static_cyp_induction_risk_table.perpetrator <- function(
   if(na.rm==TRUE) {
     temp <- temp %>%
       filter(!is.na(emax))}
-  labels <- c("CYP", "$E_{max}$", "$max c$ (µM)", "source",
+  labels <- c("CYP", "$E_{max}$", "$max c$ ($\\mu M$)", "source",
               "$max c/I_{max,ss,u}$", "risk", "notes")
   if(nrow(temp)!=0) {
     caption <- paste0("Risk for hepatic CYP induction by ", name(perp),
@@ -429,7 +429,7 @@ kinetic_cyp_induction_risk_table.perpetrator <- function(
       filter(!is.na(emax))
   }
 
-  labels <- c("CYP", "$E_{max}$", "$EC_{50}$ (µM)", "$max c$ (µM)",
+  labels <- c("CYP", "$E_{max}$", "$EC_{50}$ ($\\mu M$)", "$max c$ ($\\mu M$)",
               "source", "$R_3$", "risk")
   if(nrow(temp)!=0) {
     caption <- paste0("Risk for CYP induction by ", name(perp),

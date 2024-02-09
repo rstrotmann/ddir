@@ -2,11 +2,14 @@
 title: "Load compound-specific data"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{load-data} %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{load-data}
   %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}
+library(knitr)
+
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
