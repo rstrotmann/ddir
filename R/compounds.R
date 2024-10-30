@@ -9,8 +9,11 @@
 #' @export
 #' @keywords internal
 names_string <- function(perps) {
-  lifecycle::deprecate_warn("0.8.1", "names_string()", "compound_names_string()")
-  return(paste(lapply(perps, function(p) {p[(p$param=="name"), "value"]}), collapse=", "))
+  lifecycle::deprecate_warn("0.8.1", "names_string()",
+                            "compound_names_string()")
+  return(paste(lapply(
+    perps,
+    function(p) {p[(p$param=="name"), "value"]}), collapse=", "))
 }
 
 
