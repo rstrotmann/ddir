@@ -1,7 +1,7 @@
 Type: Package
 Package: ddir
 Title: Assess the Clinical Drug-Drug Interaction Risk for Drug Compounds
-Version: 0.14.3
+Version: 0.15.0
 Author: Rainer Strotmann
 Maintainer: Rainer Strotmann <rainer.strotmann@mailbox.org>
 Description: The goal of ddir is to facilitate the analysis of the
