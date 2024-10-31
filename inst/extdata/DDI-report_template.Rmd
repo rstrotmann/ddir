@@ -461,16 +461,14 @@ $$R=[I]/K_i$$
 with the following relevant precitipant concentrations $[I]$ and regulatory
 thresholds of concern:
 
-* $I_{gut}$ for P-gp and BRCR when drugs are orally administered, with a
-threshold for R of 10
-* $C_{max,ss,u}$ for P-gp and BRCR when drugs are administered
-parenterally or for drug metabolites, with a threshold for R of 0.02
-* $I_{max,inlet,u}$ for the hepatic basolateral transporters OCT1,
-OATP1B1 and OATP1B3, with a threshold for R of 0.1
-* $C_{max,ss,u}$ for the renal basolateral transporters OAT1, OAT3 and
-OCT2, with a threshold for R of 0.1
-* $C_{max,ss,u}$ for the apical transporters MATE1 and MATE2-K, with a
-threshold for R of 0.02
+| $I$                     | transporter                                                                    | threshold |
+| ---                   | ---                                                                            | ---       |
+| $I_{gut}$         | P-gp and BRCR when drugs are orally administered                               | 10        |
+| $C_{max,ss,u}$    | P-gp and BRCR when drugs are administered parenterally or for drug metabolites | 0.02      |
+| $I_{max,inlet,u}$ | hepatic basolateral transporters OCT1, OATP1B1 and OATP1B3                     | 0.1       |
+| $C_{max,ss,u}$    | renal basolateral transporters OAT1, OAT3 and OCT2                             | 0.1       |
+| $C_{max,ss,u}$    | apical transporters MATE1 and MATE2-K                                          | 0.02      |
+
 
 Refer to Section '[Relevant precipitant drug concentrations]' for the calculation
 of the relevant precipitant concentrations.
