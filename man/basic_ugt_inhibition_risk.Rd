@@ -23,27 +23,23 @@ A markdown-formatted table.
 }
 \description{
 This function evaluates the clinical risk for reversible inhibition of UGT
-enzymes according to the relevant
-\href{https://www.fda.gov/media/134582/download}{FDA} and
-\href{https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-drug-interactions-revision-1_en.pdf}{EMA}
-guidelines.
+enzymes according to the relevant \href{https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf}{regulatory guideline}.
 }
 \details{
 This function assumes that the UGT inhibition data is provided as
 \eqn{IC_{50}}. According to
 \href{https://doi.org/10.1016/0006-2952(73)90196-2}{Cheng, Prusoff 1973}),
 \eqn{K_i} can be assumed to be \eqn{IC_{50}/2} at the experimental conditions
-commonly used in the in vitro ihibition studies where substrate
+commonly used in the in vitro inhibition studies where substrate
 concentrations are close to \eqn{K_M}.
 
 The relevant metric for basic modeling of the UGT inhibition risk is
-\eqn{R_1=I_{max,ss,u}/K_{i,u}} (refer to fig. 1 of  the the
-\href{https://www.fda.gov/media/134582/download}{FDA guidance}).
+\eqn{R=C_{max,ss,u}/K_{i,u}}
 
-\eqn{R_1>1.02} are considered to indicate a potential UGT inhibition risk.
+Refer to Section 2.1.2.1 of the \href{https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf}{ICH M12 guidance document})
+for details.
 
-Refer to the documentation to the \code{\link[=key_concentrations]{key_concentrations()}} function for details
-on the calculation of \eqn{I_{max,ss,u}}.
+\eqn{R>0.02} are considered to indicate a potential UGT inhibition risk.
 }
 \examples{
 basic_ugt_inhibition_risk(examplinib_parent, examplinib_ugt_inhibition_data)

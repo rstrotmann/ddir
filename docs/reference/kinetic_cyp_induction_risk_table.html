@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.14.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.15.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,7 +18,8 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/load-data.html">Load compound-specific data</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/ddi-assessment.html">DDI assessment</a></li>
+    <li><a class="dropdown-item" href="../articles/load-data.html">Load compound-specific data</a></li>
   </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -91,71 +92,71 @@ are removed from the output. Defaults to <code>FALSE</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Table: Risk for CYP induction by examplinib, basic kinetic model</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP     | $E_{max}$| $EC_{50}$ ($\mu M$)| $max c$ ($\mu M$)|source    |$R_3$ |risk |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |:-------|---------:|-------------------:|-----------------:|:---------|:-----|:----|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP1A2  |      1.00|                  NA|                 5|study 007 |NA    |NA   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2B6  |      1.00|                  NA|                 5|study 007 |NA    |NA   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C8  |        NA|                  NA|                NA|          |NA    |NA   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9  |        NA|                  NA|                NA|          |NA    |NA   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C19 |        NA|                  NA|                NA|          |NA    |NA   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2D6  |        NA|                  NA|                NA|          |NA    |NA   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP3A4  |      7.35|                1.64|                 3|study 007 |0.213 |TRUE |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP     | $E_{max}$| $EC_{50}$ ($\mu M$)|source    |$R$   |risk |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |:-------|---------:|-------------------:|:---------|:-----|:----|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP1A2  |      1.00|                  NA|study 007 |NA    |NA   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2B6  |      1.00|                  NA|study 007 |NA    |NA   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C8  |        NA|                  NA|          |NA    |NA   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9  |        NA|                  NA|          |NA    |NA   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C19 |        NA|                  NA|          |NA    |NA   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2D6  |        NA|                  NA|          |NA    |NA   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP3A4  |      7.35|                1.64|study 007 |0.213 |TRUE |</span>
 <span class="r-in"><span><span class="fu">kinetic_cyp_induction_risk_table</span><span class="op">(</span><span class="va">examplinib_compounds</span>,</span></span>
 <span class="r-in"><span>  <span class="va">examplinib_cyp_induction_data</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Table: Risk for CYP induction by examplinib, basic kinetic model</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP     | $E_{max}$| $EC_{50}$ ($\mu M$)| $max c$ ($\mu M$)|source    |$R_3$ |risk |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |:-------|---------:|-------------------:|-----------------:|:---------|:-----|:----|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP1A2  |      1.00|                  NA|                 5|study 007 |NA    |NA   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2B6  |      1.00|                  NA|                 5|study 007 |NA    |NA   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C8  |        NA|                  NA|                NA|          |NA    |NA   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9  |        NA|                  NA|                NA|          |NA    |NA   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C19 |        NA|                  NA|                NA|          |NA    |NA   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2D6  |        NA|                  NA|                NA|          |NA    |NA   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP3A4  |      7.35|                1.64|                 3|study 007 |0.213 |TRUE |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP     | $E_{max}$| $EC_{50}$ ($\mu M$)|source    |$R$   |risk |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |:-------|---------:|-------------------:|:---------|:-----|:----|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP1A2  |      1.00|                  NA|study 007 |NA    |NA   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2B6  |      1.00|                  NA|study 007 |NA    |NA   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C8  |        NA|                  NA|          |NA    |NA   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9  |        NA|                  NA|          |NA    |NA   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C19 |        NA|                  NA|          |NA    |NA   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2D6  |        NA|                  NA|          |NA    |NA   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP3A4  |      7.35|                1.64|study 007 |0.213 |TRUE |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Table: Risk for CYP induction by M1, basic kinetic model</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP     | $E_{max}$| $EC_{50}$ ($\mu M$)| $max c$ ($\mu M$)|source    |$R_3$ |risk |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |:-------|---------:|-------------------:|-----------------:|:---------|:-----|:----|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP1A2  |      1.00|                  NA|                 5|study 007 |NA    |NA   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2B6  |      6.98|                1.86|                 5|study 007 |0.551 |TRUE |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C8  |        NA|                  NA|                NA|          |NA    |NA   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9  |        NA|                  NA|                NA|          |NA    |NA   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C19 |        NA|                  NA|                NA|          |NA    |NA   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2D6  |        NA|                  NA|                NA|          |NA    |NA   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP3A4  |     22.70|                1.10|                 5|study 007 |0.194 |TRUE |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP     | $E_{max}$| $EC_{50}$ ($\mu M$)|source    |$R$   |risk |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |:-------|---------:|-------------------:|:---------|:-----|:----|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP1A2  |      1.00|                  NA|study 007 |NA    |NA   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2B6  |      6.98|                1.86|study 007 |0.551 |TRUE |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C8  |        NA|                  NA|          |NA    |NA   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9  |        NA|                  NA|          |NA    |NA   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C19 |        NA|                  NA|          |NA    |NA   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2D6  |        NA|                  NA|          |NA    |NA   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP3A4  |     22.70|                1.10|study 007 |0.194 |TRUE |</span>
 <span class="r-in"><span><span class="fu">kinetic_cyp_induction_risk_table</span><span class="op">(</span><span class="va">examplinib_compounds</span>,</span></span>
 <span class="r-in"><span>  <span class="va">examplinib_cyp_induction_data</span>, show_dose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Table: Risk for CYP induction by examplinib (450 mg), basic kinetic model</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP     | $E_{max}$| $EC_{50}$ ($\mu M$)| $max c$ ($\mu M$)|source    |$R_3$ |risk |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |:-------|---------:|-------------------:|-----------------:|:---------|:-----|:----|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP1A2  |      1.00|                  NA|                 5|study 007 |NA    |NA   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2B6  |      1.00|                  NA|                 5|study 007 |NA    |NA   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C8  |        NA|                  NA|                NA|          |NA    |NA   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9  |        NA|                  NA|                NA|          |NA    |NA   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C19 |        NA|                  NA|                NA|          |NA    |NA   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2D6  |        NA|                  NA|                NA|          |NA    |NA   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP3A4  |      7.35|                1.64|                 3|study 007 |0.213 |TRUE |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP     | $E_{max}$| $EC_{50}$ ($\mu M$)|source    |$R$   |risk |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |:-------|---------:|-------------------:|:---------|:-----|:----|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP1A2  |      1.00|                  NA|study 007 |NA    |NA   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2B6  |      1.00|                  NA|study 007 |NA    |NA   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C8  |        NA|                  NA|          |NA    |NA   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9  |        NA|                  NA|          |NA    |NA   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C19 |        NA|                  NA|          |NA    |NA   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2D6  |        NA|                  NA|          |NA    |NA   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP3A4  |      7.35|                1.64|study 007 |0.213 |TRUE |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Table: Risk for CYP induction by M1, basic kinetic model</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP     | $E_{max}$| $EC_{50}$ ($\mu M$)| $max c$ ($\mu M$)|source    |$R_3$ |risk |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |:-------|---------:|-------------------:|-----------------:|:---------|:-----|:----|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP1A2  |      1.00|                  NA|                 5|study 007 |NA    |NA   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2B6  |      6.98|                1.86|                 5|study 007 |0.551 |TRUE |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C8  |        NA|                  NA|                NA|          |NA    |NA   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9  |        NA|                  NA|                NA|          |NA    |NA   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C19 |        NA|                  NA|                NA|          |NA    |NA   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2D6  |        NA|                  NA|                NA|          |NA    |NA   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP3A4  |     22.70|                1.10|                 5|study 007 |0.194 |TRUE |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP     | $E_{max}$| $EC_{50}$ ($\mu M$)|source    |$R$   |risk |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |:-------|---------:|-------------------:|:---------|:-----|:----|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP1A2  |      1.00|                  NA|study 007 |NA    |NA   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2B6  |      6.98|                1.86|study 007 |0.551 |TRUE |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C8  |        NA|                  NA|          |NA    |NA   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9  |        NA|                  NA|          |NA    |NA   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C19 |        NA|                  NA|          |NA    |NA   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2D6  |        NA|                  NA|          |NA    |NA   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP3A4  |     22.70|                1.10|study 007 |0.194 |TRUE |</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -29,15 +29,23 @@ A data frame.
 Basic static CYP induction risk
 }
 \details{
-The basic (EMA) or fold-change (FDA) methods evaluate whether the maximal
-fold-change in mRNA expression is > 2-fold at the expected unbound hepatic
-concentration of the drug.
+The basic fold-change method evaluates whether the maximal fold-change in
+mRNA expression for the CYP enzyme, relative to the vehicle control, is >
+2-fold at concentrations up to 50-fold over the unbound Cmax,ss - provided
+that concentration-dependent increases in mRNA were observed in vitro.
 
-Regarding the relevant drug concentrations, the FDA guidance suggests
-considering \eqn{30*I_{max,ss,u}} while the EMA guidance considers
-\eqn{50*I_{max,ss,u}} for hepatic and \eqn{0.1*I_{gut}} for intestinal
-CYP enzyme induction. It is expected that the concentrations in the
-respective in vitro assays cover these concentrations.
+If in the in vitro experiments concentrations of 50-fold the unbound Cmax,ss
+were not tested, this is noted in the output.
+
+Also note that the ICH guideline further specifies that the positive control
+used in the in vitro studies should result in at least 6-fold mRNA increases,
+otherwise an induction risk cannot be ruled out if the mRNA increase for the
+CYP enzyme is > 20\% of the positive control. This, as well as the condition
+of concentration-dependent increase in mRNA increase (see above), must be
+confirmed manually by the user.
+
+For details, refer to section 2.1.4.1 of the
+\href{https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf}{ICH M1s2 guideline}
 }
 \examples{
 static_cyp_induction_risk(examplinib_parent, examplinib_cyp_induction_data)

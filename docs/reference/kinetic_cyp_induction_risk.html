@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.14.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.15.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,7 +18,8 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/load-data.html">Load compound-specific data</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/ddi-assessment.html">DDI assessment</a></li>
+    <li><a class="dropdown-item" href="../articles/load-data.html">Load compound-specific data</a></li>
   </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -75,18 +76,17 @@ numeric.</p></li>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Basic kinetic modeling of the CYP induction risk considers \(R_3\) (refer
-to fig. 4 of the <a href="https://www.fda.gov/media/134582/download" class="external-link">FDA guideline</a>):</p>
-<p>$$R_3 = \frac {1}{1+d* \frac {E_{max}*10*I_{max,u}}{EC_{50} + 10*I_{max,u}}}$$</p>
+    <p>Basic kinetic modeling of the CYP induction risk considers:</p>
+<p>$$R = \frac {1}{1 + d * \frac {E_{max}*10*C_{max,u}}{EC_{50,u} + 10 * C_{max,u}}}$$</p>
 <p>\(d\) is a scaling factor with a standard value of 1. A different value can
-be used if warranted by prior experience with the experimental setup.</p>
-<p>\(R_3 \le 0.8\) suggests a relevant in vivo induction potential.</p>
+be used if warranted by prior experience with the experimental conditions.</p>
+<p>\(R \le 0.8\) suggest a relevant in vivo CYP induction potential.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">kinetic_cyp_induction_risk</span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_induction_data</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       cyp emax ec50 maxc    source        r3 risk</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       cyp emax ec50 maxc    source         r risk</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  CYP1A2 1.00   NA    5 study 007        NA   NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  CYP2B6 1.00   NA    5 study 007        NA   NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  CYP2C8   NA   NA   NA                  NA   NA</span>

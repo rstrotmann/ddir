@@ -1,7 +1,7 @@
 Type: Package
 Package: ddir
 Title: Assess the Clinical Drug-Drug Interaction Risk for Drug Compounds
-Version: 0.14.3
+Version: 0.15.0
 Author: Rainer Strotmann
 Maintainer: Rainer Strotmann <rainer.strotmann@mailbox.org>
 Description: The goal of ddir is to facilitate the analysis of the
@@ -29,5 +29,5 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 VignetteBuilder: knitr

@@ -171,14 +171,15 @@ new_perpetrator <- function(df) {
 #'
 #' @examples
 #' make_perpetrator("test", 100, 1000, 500)
-make_perpetrator <- function(name, dose, imaxss, mw, type = "parent",
-                             oral = TRUE, fu = 1, fumic = 1, rb = 1, fa = 1,
-                             fg = 1, ka = 0.1, solubility = Inf) {
-  temp <- data.frame(param = c("name", "type", "oral", "mw", "dose", "imaxss",
+make_perpetrator <- function(
+    name, dose, imaxss, mw, type = "parent",
+    oral = TRUE, fu = 1, fumic = 1, rb = 1, fa = 1,
+    fg = 1, ka = 0.1, solubility = Inf) {
+  temp <- data.frame(param = c("name", "oral", "mw", "dose", "imaxss",
                                "fu", "fumic", "rb", "fa", "fg", "ka", "solubility"),
-                     value = c(name, type, oral, mw, dose, imaxss, fu, fumic,
+                     value = c(name, oral, mw, dose, imaxss, fu, fumic,
                                rb, fa, fg, ka, solubility),
-                     source = rep("", 13))
+                     source = rep("", 12))
   new_perpetrator(temp)
 }
 
@@ -530,7 +531,7 @@ property_table.perpetrator <- function(obj){
     dplyr::filter(param %in% labels$param) %>%
     dplyr::left_join(labels, by="param") %>%
     dplyr::select(parameter, value, source) %>%
-    knitr::kable(caption=paste("Compound parameters for", obj["name", "value"]))
+    knitr::kable(caption = paste("Compound parameters for", obj["name", "value"]))
 
   if(nrow(obj) == 0){
     return("out")

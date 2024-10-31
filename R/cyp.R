@@ -3,46 +3,44 @@
 #' Basic CYP inhibition risk
 #'
 #' This function evaluates the clinical risk for direct (reversible) CYP
-#' inhibition according to the basic model defined in the relevant regulatory
-#' guidelines.
+#' inhibition according to the basic model defined in the relevant
+#' [regulatory guideline](https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf).
 #'
-#' @details
-#' For the basic modeling of direct (reversible) CYP enzyme inhibition, the
-#' ratio of the relevant inhibitor concentration to the \eqn{K_i} of the
-#' respective CYP enzyme is
-#' considered, i.e., \eqn{R_1} for hepatic enzymes and \eqn{R_{1,gut}} for
-#' intestinal enzymes (refer to fig. 1 of  the the
-#' [FDA guidance](https://www.fda.gov/media/134582/download)).
+#' @details For the basic modeling of direct (reversible) CYP enzyme inhibition,
+#'   the ratio of the relevant inhibitor concentration to the \eqn{K_i} of the
+#'   respective CYP enzyme is considered, i.e., \eqn{R} for hepatic enzymes and
+#'   \eqn{R_{gut}} for intestinal enzymes (refer to Section 2.1.2.1 of the [ICH
+#'   M12 guidance
+#'   document](https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf)).
 #'
-#' ## Liver
+#'   ## Liver
 #'
-#' \deqn{R_1=1+\frac{I_{max,ss,u}}{K_{i,u}}}
+#'   \deqn{R=\frac{C_{max,ss,u}}{K_{i,u}}}
 #'
-#' ## Gut wall
+#'   \eqn{R} values > 0.02, i.e., maximal unbound perpetrator concentrations
+#'   50-fold over \eqn{K_i} are considered to indicate a potential clinical CYP
+#'   inhibition risk using this method.
 #'
-#' \deqn{R_{1,gut}=1+\frac{I_{gut}}{K_{i,u}}}
+#'   ## Intestine
 #'
-#' \eqn{R_1} values > 1.02, i.e., maximal unbound perpetrator concentrations
-#' 50-fold over \eqn{K_i} are considered to indicate a clinical risk using this
-#' method.
+#'   \deqn{R_{gut}=\frac{I_{gut}}{K_{i,u}}}
 #'
-#' Note that section 5.3.3.1 of the
-#' [EMA DDI guidance](https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-drug-interactions-revision-1_en.pdf)
-#' defines the relevant ratio as \eqn{R_1=\frac{I_{max,ss,u}}{K_{i,u}}} and the
-#' threshold as 0.02.
+#'   where
 #'
-#' In the output, the columns `risk_hep` and `risk_intest` indicate whether the
-#' regulatory threshold is reached for the respecive enzyme.
+#'   \deqn{I_{gut}=\frac{Dose}{250 mg}}
 #'
-#' Refer to the documentation to the [key_concentrations()] function for details
-#' on the calculation of \eqn{I_{max,ss,u}} and \eqn{I_{gut}}.
+#'   \eqn{R} values > 10 are considered to indicate a clinical risk for
+#'   intestinal CYP3A inhibition.
+#'
+#'   In the output, the columns `risk_hep` and `risk_intest` indicate whether
+#'   the regulatory threshold is reached for the respective enzyme.
 #'
 #' @param perp The perpetrator object.
 #' @param cyp_inh CYP inhibition data as data frame. The following fields are
-#' expected:
+#'   expected:
 #' * 'name' The name of the perpetrator compound.
 #' * 'cyp' The CYP enzyme as (upper case) character.
-#' * 'ki' The \eqn{k_i} in \eqn{\mu M} as numeric.
+#' * 'ki' The \eqn{K_i} in \eqn{\mu M} as numeric.
 #' * 'source' Optional source information as character.
 #' @return A data frame.
 #' @seealso [basic_cyp_inhibition_risk_table()]
@@ -53,7 +51,7 @@
 #' basic_cyp_inhibition_risk(examplinib_parent, examplinib_cyp_inhibition_data)
 basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
   ki <- cyp_inh %>%
-    filter(name==name(perp)) #%>%
+    filter(name==name(perp))
 
   i <- key_concentrations(perp, molar=TRUE)
   fumic <- as.num(perp["fumic", "value"])
@@ -61,14 +59,16 @@ basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
   out <- ki %>%
     mutate(ki=as.num(ki)) %>%
     mutate(kiu=ki*fumic) %>%
-    mutate(r1=1 + (i["imaxssu"]/kiu)) %>%
-    mutate(r1gut=case_when(cyp=="CYP3A4" ~ 1+(i["igut"]/ki), .default=NA)) %>%
+    mutate(r=i["imaxssu"]/kiu) %>%
+    mutate(r_gut=case_when(cyp=="CYP3A4" ~ i["igut"]/kiu, .default=NA)) %>%
     select(-name) %>%
-    mutate(risk_hep=r1>1.02) %>%
-    mutate(risk_intest=r1gut>11) %>%
-    mutate(r1=format(r1, digits=4)) %>%
-    mutate(r1gut=format(r1gut, digits=4)) %>%
-    select(cyp, ki, kiu, r1, risk_hep, r1gut, risk_intest)
+    mutate(risk_hep=r>0.02) %>%
+    mutate(risk_intest=r_gut>10) %>%
+    # mutate(r=format(r, digits=4)) %>%
+    mutate(r=round(r, digits=4)) %>%
+    # mutate(r_gut=format(r_gut, digits=4)) %>%
+    mutate(r_gut=round(r_gut, digits=4)) %>%
+    select(cyp, ki, kiu, r, risk_hep, r_gut, risk_intest)
 
   return(out)
 }
@@ -105,12 +105,17 @@ basic_cyp_inhibition_risk_table <- function(perp, cyp_inh, na.rm = FALSE,
 #' @noRd
 basic_cyp_inhibition_risk_table.perpetrator <- function(
     perp, cyp_inh, na.rm = FALSE, show_dose = FALSE) {
-  temp <- basic_cyp_inhibition_risk(perp, cyp_inh)
+  temp <- basic_cyp_inhibition_risk(perp, cyp_inh) %>%
+    mutate(r = round(r, digits = 3)) %>%
+    mutate(r_gut = round(r_gut, 1)) %>%
+    mutate(r_gut = case_when(!is.na(r_gut) ~ as.character(r_gut), .default = "")) %>%
+    mutate(risk_intest = case_when(!is.na(risk_intest) ~ as.character(risk_intest), .default = ""))
+
   if(na.rm==TRUE) {
     temp <- temp %>%
       filter(!is.na(ki))}
-  labels <- c("CYP", "$K_{i}$ ($\\mu M$)", "$K_{i,u}$ ($\\mu M$)", "$R_1$",
-              "risk (hepatic)", "$R_{1,gut}$", "risk (intestinal)")
+  labels <- c("CYP", "$K_{i}$ ($\\mu M$)", "$K_{i,u}$ ($\\mu M$)", "$R$",
+              "risk (hepatic)", "$R_{gut}$", "risk (intestinal)")
   if(nrow(temp)!=0) {
     caption <- paste0("Risk for direct CYP inhibition by ", name(perp),
                       conditional_dose_string(perp, show_dose),
@@ -145,13 +150,13 @@ basic_cyp_inhibition_risk_table.list <- function(perp, ...) {
 #' The relevant metric is \eqn{R_2} as defined in fig. 2 of the
 #' [FDA guidance](https://www.fda.gov/media/134582/download):
 #'
-#' \deqn{R_2=\frac {k_{obs} + k_{deg}}{k_{deg}}}
+#' \deqn{R=\frac {k_{obs} + k_{deg}}{k_{deg}}}
 #'
 #' where
 #'
-#' \deqn{k_{obs}=\frac {50*k_{inact}*I_{max,u}}{K_{I,u} + 50*I_{max,u}}}
+#' \deqn{k_{obs}=\frac {5*k_{inact}*C_{max,u}}{K_{I,u} + 5 * C_{max,u}}}
 #'
-#' Values of \eqn{R_2 > 1.25} suggest a relevant TDI potential.
+#' Values of \eqn{R > 1.25} suggest a relevant TDI potential.
 #'
 #' The CYP degradation rates, \eqn{k_{deg}} are physiological constants that
 #' should be derived from the scientific literature. This package provides
@@ -184,13 +189,13 @@ basic_cyp_tdi_risk<- function(perp, cyp_tdi, cyp_kdeg=cyp_turnover) {
   fu <- as.num(perp["fu", "value"])
 
   cyp_tdi %>%
-    mutate(kobs=kinact*50*imaxssu/(ki * fu + 50 * imaxssu)) %>%
+    mutate(kobs=kinact*5*imaxssu/(ki * fu + 5 * imaxssu)) %>%
     mutate(fu=fu) %>%
     left_join(cyp_kdeg, by="cyp") %>%
     mutate(kdeg=kdeg_hepatic) %>%
-    mutate(r2=(kobs + kdeg)/kdeg) %>%
-    mutate(risk=(r2>1.25)) %>%
-    select(cyp, ki, fu, kinact, kdeg, source, r2, risk)
+    mutate(r=(kobs + kdeg)/kdeg) %>%
+    mutate(risk=(r>1.25)) %>%
+    select(cyp, ki, fu, kinact, kdeg, source, r, risk)
 }
 
 
@@ -227,7 +232,7 @@ basic_cyp_tdi_risk_table.perpetrator <- function(
   }
 
   labels <- c("CYP", "$K_{I}$ ($\\mu M$)", "$f_u$", "$k_{inact}$ (1/h)",
-              "$k_{deg}$ (1/h)", "source", "$R_2$", "risk")
+              "$k_{deg}$ (1/h)", "source", "$R$", "risk")
   if(nrow(temp)!=0) {
     caption <- paste0("Risk for CYP TDI by ", name(perp),
                       conditional_dose_string(perp, show_dose),
@@ -261,15 +266,24 @@ basic_cyp_tdi_risk_table.list <- function(perp, ...) {
 #' Basic static CYP induction risk
 #'
 #' @details
-#' The basic (EMA) or fold-change (FDA) methods evaluate whether the maximal
-#' fold-change in mRNA expression is > 2-fold at the expected unbound hepatic
-#' concentration of the drug.
+#' The basic fold-change method evaluates whether the maximal fold-change in
+#' mRNA expression for the CYP enzyme, relative to the vehicle control, is >
+#' 2-fold at concentrations up to 50-fold over the unbound Cmax,ss - provided
+#' that concentration-dependent increases in mRNA were observed in vitro.
 #'
-#' Regarding the relevant drug concentrations, the FDA guidance suggests
-#' considering \eqn{30*I_{max,ss,u}} while the EMA guidance considers
-#' \eqn{50*I_{max,ss,u}} for hepatic and \eqn{0.1*I_{gut}} for intestinal
-#' CYP enzyme induction. It is expected that the concentrations in the
-#' respective in vitro assays cover these concentrations.
+#' If in the in vitro experiments concentrations of 50-fold the unbound Cmax,ss
+#' were not tested, this is noted in the output.
+#'
+#' Also note that the ICH guideline further specifies that the positive control
+#' used in the in vitro studies should result in at least 6-fold mRNA increases,
+#' otherwise an induction risk cannot be ruled out if the mRNA increase for the
+#' CYP enzyme is > 20% of the positive control. This, as well as the condition
+#' of concentration-dependent increase in mRNA increase (see above), must be
+#' confirmed manually by the user.
+#'
+#' For details, refer to section 2.1.4.1 of the
+#' [ICH M1s2 guideline](https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf)
+#'
 #'
 #' @param perp The perpetrator object or a list thereof.
 #' @param cyp_ind The CYP induction data as data frame. The following fields
@@ -294,8 +308,7 @@ static_cyp_induction_risk <- function(perp, cyp_ind)  {
     mutate(maxc_imaxssu=round(maxc/i["imaxssu"], 1)) %>%
     mutate(risk=emax>2) %>%
     mutate(note=case_when(
-      maxc_imaxssu<30 ~ "Maximal tested concentration is below EMA/FDA expectations",
-      (maxc_imaxssu>30 & maxc_imaxssu<50)~"Maximal tested concentration is below FDA expectations",
+      maxc_imaxssu<50 ~ "Maximal tested concentration (maxc) is below guideline expectations",
       .default="")) %>%
     select(-c(name, ec50))
 }
@@ -334,7 +347,7 @@ static_cyp_induction_risk_table.perpetrator <- function(
     temp <- temp %>%
       filter(!is.na(emax))}
   labels <- c("CYP", "$E_{max}$", "$max c$ ($\\mu M$)", "source",
-              "$max c/I_{max,ss,u}$", "risk", "notes")
+              "$max c/C_{max,ss,u}$", "risk", "notes")
   if(nrow(temp)!=0) {
     caption <- paste0("Risk for hepatic CYP induction by ", name(perp),
                       conditional_dose_string(perp, show_dose),
@@ -364,15 +377,14 @@ static_cyp_induction_risk_table.list <- function(perp, ...) {
 #' Basic kinetic CYP induction risk
 #'
 #' @details
-#' Basic kinetic modeling of the CYP induction risk considers \eqn{R_3} (refer
-#' to fig. 4 of the [FDA guideline](https://www.fda.gov/media/134582/download)):
+#' Basic kinetic modeling of the CYP induction risk considers:
 #'
-#' \deqn{R_3 = \frac {1}{1+d* \frac {E_{max}*10*I_{max,u}}{EC_{50} + 10*I_{max,u}}}}
+#' \deqn{R = \frac {1}{1 + d * \frac {E_{max}*10*C_{max,u}}{EC_{50,u} + 10 * C_{max,u}}}}
 #'
 #' \eqn{d} is a scaling factor with a standard value of 1. A different value can
-#' be used if warranted by prior experience with the experimental setup.
+#' be used if warranted by prior experience with the experimental conditions.
 #'
-#' \eqn{R_3 \le 0.8} suggests a relevant in vivo induction potential.
+#' \eqn{R \le 0.8} suggest a relevant in vivo CYP induction potential.
 #'
 #' @inheritParams static_cyp_induction_risk
 #' @param d Scaling factor, defaults to 1.
@@ -385,9 +397,10 @@ kinetic_cyp_induction_risk <- function(perp, cyp_ind, d = 1) {
 
   out <- cyp_ind %>%
     filter(name==name(perp)) %>%
-    mutate(r3=(1/(1 + d * emax * 10 * i["imaxssu"] /
+    # mutate(d = d) %>%
+    mutate(r=(1/(1 + d * emax * 10 * i["imaxssu"] /
                     (ec50 + 10 * i["imaxssu"])))) %>%
-    mutate(risk = r3 <= 0.8) %>%
+    mutate(risk = r <= 0.8) %>%
     select(-name)
   return(out)
 }
@@ -422,15 +435,16 @@ kinetic_cyp_induction_risk_table <- function(
 kinetic_cyp_induction_risk_table.perpetrator <- function(
     perp, cyp_ind, na.rm = F, show_dose = FALSE) {
   temp <- kinetic_cyp_induction_risk(perp, cyp_ind) %>%
-    mutate(r3=format(r3, digit=3))
+    mutate(r=format(r, digit=3)) %>%
+    select(-maxc)
 
   if(na.rm==TRUE) {
     temp <- temp %>%
       filter(!is.na(emax))
   }
 
-  labels <- c("CYP", "$E_{max}$", "$EC_{50}$ ($\\mu M$)", "$max c$ ($\\mu M$)",
-              "source", "$R_3$", "risk")
+  labels <- c("CYP", "$E_{max}$", "$EC_{50}$ ($\\mu M$)",
+              "source", "$R$", "risk")
   if(nrow(temp)!=0) {
     caption <- paste0("Risk for CYP induction by ", name(perp),
           conditional_dose_string(perp, show_dose), ", basic kinetic model")
@@ -460,15 +474,11 @@ kinetic_cyp_induction_risk_table.list <- function(perp, ...) {
 #' CYP perpetration risk as per mechanistic-static modeling
 #'
 #' @details
-#' In this approach, AUC ratios for probe substrates are calculated based on
-#' their known intestinal and hepatic metabolism. Both direct (competitive) and
-#' time-dependent inhibition are considered.
-#'
-#' The below formula given by the FDA guideline (refer to
-#' fig. 7 of [FDA, 2020](https://www.fda.gov/media/134582/download))
-#' also includes intestinal and hepatic enzyme induction terms (\eqn{C_g} and
-#' \eqn{C_h}, respectively). At the same time, the guideline states that both
-#' inhibition and induction should be considered separately.
+#' In this approach, AUC ratios for CYP-specific probe substrates are calculated
+#' based on their known intestinal and hepatic metabolism. Direct (competitive)
+#' and time-dependent inhibition terms, as well as enzyme induction terms are
+#' considered. For details, refer to section 7.5.1.2 of the [ICH M12
+#' guideline](https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf).
 #'
 #' \deqn{AUCR = \frac{1}{A_g*B_g*C_g* \left(1-F_g \right)+F_g} * \frac{1}{A_h*B_h*C_h*f_m+\left(1-f_m\right)}}
 #'

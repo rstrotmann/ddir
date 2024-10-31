@@ -23,7 +23,7 @@ expected:
 \itemize{
 \item 'name' The name of the perpetrator compound.
 \item 'cyp' The CYP enzyme as (upper case) character.
-\item 'ki' The \eqn{k_i} in \eqn{\mu M} as numeric.
+\item 'ki' The \eqn{K_i} in \eqn{\mu M} as numeric.
 \item 'source' Optional source information as character.
 }}
 
@@ -75,15 +75,10 @@ A data frame.
 CYP perpetration risk as per mechanistic-static modeling
 }
 \details{
-In this approach, AUC ratios for probe substrates are calculated based on
-their known intestinal and hepatic metabolism. Both direct (competitive) and
-time-dependent inhibition are considered.
-
-The below formula given by the FDA guideline (refer to
-fig. 7 of \href{https://www.fda.gov/media/134582/download}{FDA, 2020})
-also includes intestinal and hepatic enzyme induction terms (\eqn{C_g} and
-\eqn{C_h}, respectively). At the same time, the guideline states that both
-inhibition and induction should be considered separately.
+In this approach, AUC ratios for CYP-specific probe substrates are calculated
+based on their known intestinal and hepatic metabolism. Direct (competitive)
+and time-dependent inhibition terms, as well as enzyme induction terms are
+considered. For details, refer to section 7.5.1.2 of the \href{https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf}{ICH M12 guideline}.
 
 \deqn{AUCR = \frac{1}{A_g*B_g*C_g* \left(1-F_g \right)+F_g} * \frac{1}{A_h*B_h*C_h*f_m+\left(1-f_m\right)}}
 

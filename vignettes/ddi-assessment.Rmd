@@ -1,0 +1,183 @@
+---
+title: "DDI assessment"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{ddi-assessment}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This vignette shows how to assess the potential of a drug to act as a
+perpetrator of drug-drug interactions with CYP and UGT enzymes and drug
+transporters. The live code contained in this document relies on the following R
+packages:
+
+```{r setup, message = FALSE, warning = FALSE}
+library(ddir)
+library(tidyverse)
+```
+
+# Regulatory background
+
+In May-2024, ICH published a new harmonized guidance on the assessment of
+enzyme- or transporter-mediated drug interactions that will be adopted by the
+ICH-abiding regulatory agencies, including FDA, EMA and PMDA.
+
+Currently (Nov-2024), the following guidance documents are provided by the
+individual regulatory authorities:
+
+* [M12 Drug Interaction Studies (FDA, Aug-2024)](https://www.fda.gov/media/161199/download)
+* [M12 Questions and Answers document (Aug-2024)](https://www.fda.gov/media/180488/download?attachment)
+* [ICH M12 Drug Interaction Studies (EMA, May-2024)](https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf)
+
+# Drug properties
+
+As a general concept, the risk for enzyme or transporter interactions is
+evaluated for a given drug exposure level that corresponds to the maximal
+unbound clinical exposure in the relevant pharmacokinetic compartment. For
+interactions with hepatic enzymes, the unbound maximal plasma concentration at
+steady state ($I_{max,ss,u}$) is considered, and for intestinal enzymes as
+victim of orally administered drugs, the maximal clinical dose, dissolved in a
+volume of 250 mg ($I_{gut}$).
+
+For interactions with basolateral hepatic transporters (OATP1B1, OATP1B3), the
+unbound hepatic inlet concentration ($I_{max,inlet,u}$) is considered that is
+composed of the $I_{max,ss,u}$ and a portal venous term reflecting the
+intestinally absorbed drug escaping gut metabolism.
+
+These concentrations can be automatically derived from the following set of
+drug-specific parameters:
+
+| Parameter                                    | Parameter name | Default | Unit  |
+| :---                                         | :---:          | :---:   | :---: |
+| Molar weight                                 | mw             | NA      | g/mol |
+| Clinical dose                                | dose           | NA      | mg    |
+| Maximal total plasma concentration ($C_max$) | imaxss         | NA      | ng/ml |
+| Fraction unbound ($f_u$)                     | fu             | 1       |       |
+| Microsomal unbound fraction ($f_{u,mic}$)    | fumic          | 1       |       |
+| Blood-to-plasma concentration ratio ($R_b$)  | rb             | 1       |       |
+| Fraction absorbed ($f_a$)                    | fa             | 1       |       |
+| Fraction escapting gut metabolism ($f_g$)    | fg             | 1       |       |
+| Absorption rate constant ($k_a$)             | ka             | 0.1     | 1/min |
+| Solubility                                   | solubility     | Inf     | mg/l  |
+
+The specification of the key compound parameters is therefore the first step in
+the formal analysis. In the scope of this package, these key parameters are
+aggregated into a 'perpetrator' object. The package contains a sample
+perpetrator object for the ficitional drug 'examplinib':
+
+```{r}
+examplinib_parent
+```
+
+The `ddir` package provides multiple options to create perpetrator objects. In the simplest case, the function `make_perpetrator()` can be used:
+
+```{r}
+perp <- make_perpetrator(
+  name = "test",
+  dose = 100,
+  imaxss = 1000,
+  mw = 500,
+  oral = TRUE,
+  fu = 1,
+  fumic = 1,
+  rb = 1,
+  fa = 1,
+  fg = 1,
+  ka = 0.1,
+  solubility = Inf
+)
+```
+
+Other options are presented in a dedicated vignette (see
+`vignette("load-data")`).
+
+To facilitate the generation of R notebook-based reports, `property_table()` can
+be used to print a markdown-formatted table of the key compound parameters:
+
+```{r}
+property_table(examplinib_parent)
+```
+
+# Perpetrator concentrations
+
+The relevant perpetrator concentrations (in $\mu M$) for a perpetrator compound
+can be determined using `key_concentrations()` - please see the documentation to
+this function for details about the calculations. While this function returns a
+named numeric vector of the naked concentrations, a markdown-formatted tabular
+output that can be directly embedded in R notebook documents can be generated
+using `conc_table()':
+
+```{r}
+key_concentrations(examplinib_parent)
+
+conc_table(examplinib_parent)
+```
+
+# Direct enzyme inhibition
+
+## CYP enzymes
+
+```{r}
+basic_cyp_inhibition_risk(examplinib_parent, examplinib_cyp_inhibition_data)
+
+basic_cyp_inhibition_risk_table(examplinib_parent, examplinib_cyp_inhibition_data)
+```
+
+## UGT enzymes
+
+```{r}
+basic_ugt_inhibition_risk(examplinib_parent, examplinib_ugt_inhibition_data)
+
+basic_ugt_inhibition_risk_table(examplinib_parent, examplinib_ugt_inhibition_data)
+```
+
+# Time-dependent enzyme inhibition
+
+```{r}
+basic_cyp_tdi_risk(examplinib_parent, examplinib_cyp_tdi_data)
+
+basic_cyp_tdi_risk_table(examplinib_parent, examplinib_cyp_tdi_data)
+```
+
+# CYP induction
+
+## Fold-change method
+
+```{r}
+static_cyp_induction_risk(examplinib_parent, examplinib_cyp_induction_data)
+
+static_cyp_induction_risk_table(examplinib_parent, examplinib_cyp_induction_data)
+```
+
+## Basic kinetic model
+
+```{r}
+kinetic_cyp_induction_risk(examplinib_parent, examplinib_cyp_induction_data)
+
+kinetic_cyp_induction_risk_table(examplinib_parent, examplinib_cyp_induction_data)
+```
+
+# Mechanistic-static assessment of CYP-related DDI
+
+```{r}
+mech_stat_cyp_risk(examplinib_parent, examplinib_cyp_inhibition_data,
+                   examplinib_cyp_induction_data)
+
+mech_stat_cyp_risk_table(examplinib_parent, examplinib_cyp_inhibition_data,
+                         examplinib_cyp_induction_data)
+```
+
+# Transporter inhibition
+
+
+
+
+
