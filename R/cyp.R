@@ -309,7 +309,7 @@ static_cyp_induction_risk <- function(perp, cyp_ind)  {
     mutate(maxc_imaxssu=round(maxc/i["imaxssu"], 1)) %>%
     mutate(risk=emax>2) %>%
     mutate(note=case_when(
-      maxc_imaxssu<50 ~ "Maximal tested concentration (maxc) is below guideline expectations",
+      maxc_imaxssu<50 ~ "Low maxc",
       .default="")) %>%
     select(-c(name, ec50))
 }
