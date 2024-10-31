@@ -1,189 +1,65 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>/articles/load-data.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/basic_cyp_inhibition_risk.html</loc>
-  </url>
-  <url>
-    <loc>/reference/basic_cyp_inhibition_risk_table.html</loc>
-  </url>
-  <url>
-    <loc>/reference/basic_cyp_tdi_risk.html</loc>
-  </url>
-  <url>
-    <loc>/reference/basic_cyp_tdi_risk_table.html</loc>
-  </url>
-  <url>
-    <loc>/reference/basic_ugt_inhibition_risk.html</loc>
-  </url>
-  <url>
-    <loc>/reference/basic_ugt_inhibition_risk_table.html</loc>
-  </url>
-  <url>
-    <loc>/reference/compound_names_string.html</loc>
-  </url>
-  <url>
-    <loc>/reference/conc_table.html</loc>
-  </url>
-  <url>
-    <loc>/reference/conditional_dose_string.html</loc>
-  </url>
-  <url>
-    <loc>/reference/cyp_reference_substrates.html</loc>
-  </url>
-  <url>
-    <loc>/reference/cyp_turnover.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ddi_report_template.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ddir-package.html</loc>
-  </url>
-  <url>
-    <loc>/reference/examplinib_compounds.html</loc>
-  </url>
-  <url>
-    <loc>/reference/examplinib_compounds_single_string.html</loc>
-  </url>
-  <url>
-    <loc>/reference/examplinib_compounds_string.html</loc>
-  </url>
-  <url>
-    <loc>/reference/examplinib_cyp_induction_data.html</loc>
-  </url>
-  <url>
-    <loc>/reference/examplinib_cyp_induction_string.html</loc>
-  </url>
-  <url>
-    <loc>/reference/examplinib_cyp_inhibition_data.html</loc>
-  </url>
-  <url>
-    <loc>/reference/examplinib_cyp_inhibition_string.html</loc>
-  </url>
-  <url>
-    <loc>/reference/examplinib_cyp_tdi_data.html</loc>
-  </url>
-  <url>
-    <loc>/reference/examplinib_cyp_tdi_string.html</loc>
-  </url>
-  <url>
-    <loc>/reference/examplinib_metabolite.html</loc>
-  </url>
-  <url>
-    <loc>/reference/examplinib_parent.html</loc>
-  </url>
-  <url>
-    <loc>/reference/examplinib_transporter_inhibition_data.html</loc>
-  </url>
-  <url>
-    <loc>/reference/examplinib_transporter_inhibition_string.html</loc>
-  </url>
-  <url>
-    <loc>/reference/examplinib_ugt_inhibition_data.html</loc>
-  </url>
-  <url>
-    <loc>/reference/examplinib_ugt_inhibition_string.html</loc>
-  </url>
-  <url>
-    <loc>/reference/hepatic_cyp_turnover.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/is_igut_solubility_limited.html</loc>
-  </url>
-  <url>
-    <loc>/reference/is_oral.html</loc>
-  </url>
-  <url>
-    <loc>/reference/key_concentrations.html</loc>
-  </url>
-  <url>
-    <loc>/reference/kinetic_cyp_induction_risk.html</loc>
-  </url>
-  <url>
-    <loc>/reference/kinetic_cyp_induction_risk_table.html</loc>
-  </url>
-  <url>
-    <loc>/reference/make_perpetrator.html</loc>
-  </url>
-  <url>
-    <loc>/reference/mech_stat_cyp_risk.html</loc>
-  </url>
-  <url>
-    <loc>/reference/mech_stat_cyp_risk_table.html</loc>
-  </url>
-  <url>
-    <loc>/reference/name.html</loc>
-  </url>
-  <url>
-    <loc>/reference/name.perpetrator.html</loc>
-  </url>
-  <url>
-    <loc>/reference/names_string.html</loc>
-  </url>
-  <url>
-    <loc>/reference/new_perpetrator.html</loc>
-  </url>
-  <url>
-    <loc>/reference/property_table.html</loc>
-  </url>
-  <url>
-    <loc>/reference/read_cyp_inhibitor_data.html</loc>
-  </url>
-  <url>
-    <loc>/reference/read_inducer_data.html</loc>
-  </url>
-  <url>
-    <loc>/reference/read_inhibitor_data.html</loc>
-  </url>
-  <url>
-    <loc>/reference/read_perpetrators.html</loc>
-  </url>
-  <url>
-    <loc>/reference/read_tdi_data.html</loc>
-  </url>
-  <url>
-    <loc>/reference/read_transporter_inhibitor_data.html</loc>
-  </url>
-  <url>
-    <loc>/reference/read_ugt_inhibitor_data.html</loc>
-  </url>
-  <url>
-    <loc>/reference/static_cyp_induction_risk.html</loc>
-  </url>
-  <url>
-    <loc>/reference/static_cyp_induction_risk_table.html</loc>
-  </url>
-  <url>
-    <loc>/reference/transporter_inhibition_risk.html</loc>
-  </url>
-  <url>
-    <loc>/reference/transporter_inhibition_risk_table.html</loc>
-  </url>
-  <url>
-    <loc>/reference/transporter_reference_data.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/404.html</loc></url>
+<url><loc>/LICENSE-text.html</loc></url>
+<url><loc>/LICENSE.html</loc></url>
+<url><loc>/articles/index.html</loc></url>
+<url><loc>/articles/load-data.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/reference/basic_cyp_inhibition_risk.html</loc></url>
+<url><loc>/reference/basic_cyp_inhibition_risk_table.html</loc></url>
+<url><loc>/reference/basic_cyp_tdi_risk.html</loc></url>
+<url><loc>/reference/basic_cyp_tdi_risk_table.html</loc></url>
+<url><loc>/reference/basic_ugt_inhibition_risk.html</loc></url>
+<url><loc>/reference/basic_ugt_inhibition_risk_table.html</loc></url>
+<url><loc>/reference/compound_names_string.html</loc></url>
+<url><loc>/reference/conc_table.html</loc></url>
+<url><loc>/reference/conditional_dose_string.html</loc></url>
+<url><loc>/reference/cyp_reference_substrates.html</loc></url>
+<url><loc>/reference/cyp_turnover.html</loc></url>
+<url><loc>/reference/ddi_report_template.html</loc></url>
+<url><loc>/reference/ddir-package.html</loc></url>
+<url><loc>/reference/examplinib_compounds.html</loc></url>
+<url><loc>/reference/examplinib_compounds_single_string.html</loc></url>
+<url><loc>/reference/examplinib_compounds_string.html</loc></url>
+<url><loc>/reference/examplinib_cyp_induction_data.html</loc></url>
+<url><loc>/reference/examplinib_cyp_induction_string.html</loc></url>
+<url><loc>/reference/examplinib_cyp_inhibition_data.html</loc></url>
+<url><loc>/reference/examplinib_cyp_inhibition_string.html</loc></url>
+<url><loc>/reference/examplinib_cyp_tdi_data.html</loc></url>
+<url><loc>/reference/examplinib_cyp_tdi_string.html</loc></url>
+<url><loc>/reference/examplinib_metabolite.html</loc></url>
+<url><loc>/reference/examplinib_parent.html</loc></url>
+<url><loc>/reference/examplinib_transporter_inhibition_data.html</loc></url>
+<url><loc>/reference/examplinib_transporter_inhibition_string.html</loc></url>
+<url><loc>/reference/examplinib_ugt_inhibition_data.html</loc></url>
+<url><loc>/reference/examplinib_ugt_inhibition_string.html</loc></url>
+<url><loc>/reference/hepatic_cyp_turnover.html</loc></url>
+<url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/is_igut_solubility_limited.html</loc></url>
+<url><loc>/reference/is_oral.html</loc></url>
+<url><loc>/reference/key_concentrations.html</loc></url>
+<url><loc>/reference/kinetic_cyp_induction_risk.html</loc></url>
+<url><loc>/reference/kinetic_cyp_induction_risk_table.html</loc></url>
+<url><loc>/reference/make_perpetrator.html</loc></url>
+<url><loc>/reference/mech_stat_cyp_risk.html</loc></url>
+<url><loc>/reference/mech_stat_cyp_risk_table.html</loc></url>
+<url><loc>/reference/name.html</loc></url>
+<url><loc>/reference/name.perpetrator.html</loc></url>
+<url><loc>/reference/names_string.html</loc></url>
+<url><loc>/reference/new_perpetrator.html</loc></url>
+<url><loc>/reference/property_table.html</loc></url>
+<url><loc>/reference/read_cyp_inhibitor_data.html</loc></url>
+<url><loc>/reference/read_inducer_data.html</loc></url>
+<url><loc>/reference/read_inhibitor_data.html</loc></url>
+<url><loc>/reference/read_perpetrators.html</loc></url>
+<url><loc>/reference/read_tdi_data.html</loc></url>
+<url><loc>/reference/read_transporter_inhibitor_data.html</loc></url>
+<url><loc>/reference/read_ugt_inhibitor_data.html</loc></url>
+<url><loc>/reference/static_cyp_induction_risk.html</loc></url>
+<url><loc>/reference/static_cyp_induction_risk_table.html</loc></url>
+<url><loc>/reference/transporter_inhibition_risk.html</loc></url>
+<url><loc>/reference/transporter_inhibition_risk_table.html</loc></url>
+<url><loc>/reference/transporter_reference_data.html</loc></url>
 </urlset>
+
