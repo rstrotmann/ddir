@@ -146,9 +146,9 @@ basic_cyp_inhibition_risk_table.list <- function(perp, ...) {
 #'
 #' This function calculates the risk for time-dependent inhibition of CYP
 #' enzymes.
+#'
 #' @details
-#' The relevant metric is \eqn{R_2} as defined in fig. 2 of the
-#' [FDA guidance](https://www.fda.gov/media/134582/download):
+#' The risk assessment is based on:
 #'
 #' \deqn{R=\frac {k_{obs} + k_{deg}}{k_{deg}}}
 #'
@@ -171,6 +171,7 @@ basic_cyp_inhibition_risk_table.list <- function(perp, ...) {
 #' * 'ki' The \eqn{K_I} in \eqn{\mu M} as numeric.
 #' * 'kinact' The \eqn{k_{inact}} in 1/h as numeric.
 #' * 'source' Optional source information as character,
+#'
 #' @param cyp_kdeg The CYP turnover data as data frame. Defaults to the
 #' built-in reference data, [cyp_turnover].
 #' @seealso [cyp_turnover]
@@ -379,7 +380,7 @@ static_cyp_induction_risk_table.list <- function(perp, ...) {
 #' @details
 #' Basic kinetic modeling of the CYP induction risk considers:
 #'
-#' \deqn{R = \frac {1}{1 + d * \frac {E_{max}*10*C_{max,u}}{EC_{50,u} + 10 * C_{max,u}}}}
+#' \deqn{R = \frac {1}{1 + d * \frac {E_{max}*10*C_{max,ss,u}}{EC_{50,u} + 10 * C_{max,ss,u}}}}
 #'
 #' \eqn{d} is a scaling factor with a standard value of 1. A different value can
 #' be used if warranted by prior experience with the experimental conditions.

@@ -145,7 +145,7 @@ transporter_inhibition_data <- read_transporter_inhibitor_data(
 ```
 
 ---
-title: "DDI perpetrator risk assessment for `r compound_names_string(compounds)`"
+title: "DDI precipitant risk assessment for `r compound_names_string(compounds)`"
 author: "Author name"
 date: `r format(Sys.Date(), "%d-%b-%Y")`
 ---
@@ -155,19 +155,16 @@ date: `r format(Sys.Date(), "%d-%b-%Y")`
 <!-- This is basic introductory text that should suffice in most cases. Feel free to change or extend but keep concise.
 The version information should not be changed as it provides a back link to the script template. -->
 
-This assessment of the drug-drug interaction (DDI) perpetrator risks for
-`r compound_names_string(compounds)` is based on the relevant FDA and EMA
-guidance documents (refer to
-[FDA 2020](https://www.fda.gov/media/134582/download) and
-[EMA 2012](https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-drug-interactions-revision-1_en.pdf)).
+This drug-drug interaction (DDI) precipitant risks assessment report for
+`r compound_names_string(compounds)` is based on the [ICH M12 guidance document](https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf).
 
 All calculations were done using the
-[`ddir`](https://github.com/rstrotmann/ddir) package.
+[`ddir`](https://github.com/rstrotmann/ddir) package, version `r packageVersion("ddir")`.
 
 # Drug properties
 
 The following physico-chemical, ADME and clinical exposure data were used for
-the calculation of the relevant drug concentrations:
+the calculation of the relevant precipitant drug concentrations:
 
 ```{r perpetrator_properties, results="asis"}
 property_table(compounds)
@@ -188,33 +185,29 @@ conc_table(compounds)
 
 ### Reversible inhibition
 
-Following the basic modeling approach (refer to the
-[FDA guideline](https://www.fda.gov/media/134582/download)), the relevant metric
-for the assessment of the direct CYP inhibition risk is $R=1+[I]/K_{i,u}$ with
-the inhibitor concentration $[I]$ being $I_{max,ss,u}$ for hepatic CYP enzymes
-and $I_{gut}$ for intestinal CYP enzymes.
+Following the basic modeling approach (refer to Section 2.1.2.1 of the [ICH M12
+guideline](https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf)),
+the relevant metric for the assessment of the direct CYP inhibition risk is
+$R=[I]/K_{i,u}$ with the inhibitor concentration $[I]$ being $C_{max,ss,u}$
+for hepatic CYP enzymes and $I_{gut}$ for intestinal CYP enzymes.
 
-Thresholds of $R < 1.02$ and $R < 11$ apply for hepatic and intestinal enzymes,
-respectively. Intestinal CYP inhibition is only evaluated for CYP3A4.
+R values of $R \ge 0.02$ and $R \ge 10$ for hepatic and intestinal enzymes are
+considered to indicate a potential clinical risk.
 
 ```{r results="asis"}
 basic_cyp_inhibition_risk_table(compounds, cyp_inhibition_data)
 ```
 
-Note that the ratios used in the EMA guidance correspond to the FDA ratios
-listed above minus 1.
-
 ### Time-dependent inhibition
 
-As per the FDA guideline, the risk for time-dependent inhbition (TDI) of CYP
-enzymes is assessed based on $R_2$ (see Appendix 1), where $R_2 \geq 1.25$ suggest
-a clinically relevant DDI potential that requires further investigation.
+As per the ICH M12 guideline, the risk for time-dependent inhibition (TDI) of CYP
+enzymes is assessed based on the formula given in Appendix 1, where
+$R \ge 1.25$ suggest a clinically relevant DDI potential that requires further
+investigation.
 
 ```{r results="asis"}
 basic_cyp_tdi_risk_table(compounds, cyp_tdi_data, na.rm=T)
 ```
-
-
 
 ## Modeling of CYP induction
 
@@ -314,41 +307,51 @@ transporter_inhibition_risk_table(compounds, transporter_inhibition_data)
 \newpage
 # Appendix 1: Calculations and formulae
 
-## Perpetrator concentrations
+## Relevant precipitant drug concentrations
 
 ### Gut concentration {-}
 
-As per the FDA guideline, the maximal gut concentration ($I_{gut}$) for the
-parent compound is to be assumed the administered dose dissolved in 250 ml.
+The maximal gut concentration ($I_{gut}$) for the
+orally administered compounds is the administered dose dissolved in 250 ml.
 
 $$I_{gut} = \frac{D} {250}$$
 
 ### Systemic concentration {-}
 
-The unbound systemic ($I_{max,ss,u}$) concentrations of the parent compound and
-the metabolites that are relevant for the DDI potential are derived from the
-total maximal plasma concentration and the respective unbound fractions:
+The unbound systemic ($C_{max,ss,u}$) concentration is considered the relevant
+precipitant concentration for hepatic enzyme inhibition and induction:
 
-$$I_{max,ss,u}=I_{max,ss} * f_u$$
+$$C_{max,ss,u}=I_{max,ss} * f_u$$
 
 ### Hepatic inlet concentration {-}
 
-For the parent compound, the portal contribution to the hepatic inlet
-concentration is calculated as:
+The hepatic inlet concentration is considered the relevant perpetrator
+concentration for inhibition of the hepatic uptake transporters OATPB1B1 and
+OATP1B3, and for the hepatic terms in the mechanistic static modeling equation
+(refer to Section [Mechanistic static modeling of CYP inhibition/induction]).
 
-$$portal\ term = D*\frac{F_a*F_g*k_a}{Q_h*R_B}*1000\ ng/ml$$
-With $D$ the administered dose in mg, $F_a$ the fraction absorbed after oral
-administration, $F_g$ the fraction available after gut metabolism, $k_a$ the
-absorption rate, $Q_h$ the hepatic blood flow and $R_B$ the blood-to-plasma
-ratio.
+The hepatic inlet concentration is composed of the systemic concentration and
+the portal contribution. For orally administered drugs, the portal term is
+calculated as:
 
-The standard hepatic blood flow is 97 l/h/70 kg or 1.61 l/min/70 kg.
+$$portal\ term = D * \frac{F_a * F_g * k_a}{Q_h * R_B} * 1000\ ng/ml$$
+
+with
+
+* $D$ the administered dose in mg
+* $F_a$ the fraction absorbed after oral administration
+* $F_g$ the fraction available after gut metabolism
+* $k_a$ the absorption rate
+* $Q_h$ the hepatic blood flow
+* $R_B$ the blood-to-plasma ratio.
+
+The standard hepatic blood flow is assumed as 97 l/h/70 kg or 1.61 l/min/70 kg.
 
 The relevant hepatic inlet ($I_{max,inlet,u}$, also called $I_h$ in the
 mechanistic static modeling equations) concentration is the sum of the maximal
 systemic plasma concentration and the portal contribution:
 
-$$I_{max,inlet,u}=(I_{max,ss} + portal\ term) * f_u$$
+$$I_{max,inlet,u}=(C_{max,ss} + portal\ term) * f_u$$
 
 ### Enteric concentration {-}
 
@@ -357,67 +360,77 @@ also called $I_g$ in the mechanistic static modeling equations) is calculated
 as: 
 
 $$I_{enteric,u} = D * \frac{F_a*k_a}{Q_{ent}} *1000\ ng/ml$$
-with $F_a$ the fraction absorbed after oral administration, $k_a$ the absorption
-rate, and $Q_{ent}$ the enteric villous blood flow.
 
-Note that as per the FDA and EMA guidelines and [Rostami-Hodjegan and Tucker,
-2004](https://doi.org/10.1016/j.ddtec.2004.10.002) the blood-to-plasma ratio and
-the plasma binding of the drug are not applicable for the villous concentration.
+with
 
-The standard villous blood flow is 18 l/h/70 kg or 0.3 l/min/70 kg.
+* $F_a$ the fraction absorbed after oral administration
+* $k_a$ the absorption rate constant
+* $Q_{ent}$ the enteric villous blood flow
 
+Note that as per the ICH M12 guidelines and [Rostami-Hodjegan and Tucker,
+2004](https://doi.org/10.1016/j.ddtec.2004.10.002) the blood-to-plasma
+distribution ratio and the plasma binding of the drug are not applicable for the
+villous concentration.
 
+The standard villous blood flow is assumed as 18 l/h/70 kg or 0.3 l/min/70 kg.
 
 ## Basic modeling of enzyme inhibition
 
 ### Reversible inhibition
 
 For the basic modeling of direct (reversible) enzyme inhibition, the ratios of
-the relevant inhibitor concentration to the $K_i$ are considered (refer to the
-FDA guidance, FDA 2020, Fig. 1). A cut-off of 1.02 applies.
+the relevant inhibitor concentration to the $K_i$ are considered (refer to
+Section 2.1.2.1 of the [ICH M12 guidance document](https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf)).
+
+$R$ values larger than 0.02 (liver) or 10 (gut), are considered to indicate a
+potential clinical enzyme inhibition risk using this method.
 
 #### Liver {-}
 
-$$R_1=1+\frac{I_{max,ss,u}}{K_{i,u}}$$
+$$R=\frac{C_{max,ss,u}}{K_{i,u}}$$
 
 #### Gut wall {-}
 
-$$R_{1,gut}=1+\frac{I_{gut}}{K_{i,u}}$$
+$$R_{gut}=\frac{I_{gut}}{K_{i,u}}$$
 
-<!-- ### Time-dependent enzyme inhibition -->
-
-## Time-dependent CYP inhibition
+### Time-dependent CYP inhibition
 
 For the basic modeling of the potential for time-dependent CYP inhibition (TDI),
-$R_2$ is considered with:
+the following metric is considered:
 
-$$R_2=\frac {k_{obs} + k_{deg}}{k_{deg}}$$
+$$R=\frac {k_{obs} + k_{deg}}{k_{deg}}$$
 
-and
+with
 
-$$k_{obs}=\frac {50*k_{inact}*I_{max,u}}{K_{I,u} + 50*I_{max,u}}$$
+$$k_{obs}=\frac {5 * k_{inact}*C_{max,u}}{K_{I,u} + 5 * C_{max,u}}$$
 
 The CYP degradation constant, $k_{deg}$ is a physiological constant that should
 be derived from the scientific literature. In this DDI assessment report,
 standard values are used unless otherwise indicated.
 
-Values of $R_2 \ge 1.25$ may indicate a relevant TDI potential and need further 
-investigation.
+Values of $R \ge 1.25$ is considered to indicate a clinically relevant TDI
+potential and suggest the need for further investigation.
 
 ## Basic kinetic modeling of CYP induction
 
-$$R_3 = \frac {1}{1+d* \frac {E_{max}*10*I_{max,u}}{EC_{50} + 10*I_{max,u}}}$$
+For the basic kinetic modeling of the CYP induction potential, the following
+metric is considered:
+
+$$R = \frac {1}{1+d* \frac {E_{max}*10*C_{max,ss,u}}{EC_{50} + 10*C_{max,ss,u}}}$$
+
+with $d$ a scaling factor that has a standard value of 1. A different value can
+be used if warranted by prior experience with the experimental conditions.
+
+$R \le 0.8$ suggest a relevant in vivo CYP induction potential.
 
 
-## Static mechanistic modeling of CYP inhibition/induction
+## Mechanistic static modeling of CYP inhibition/induction
 
-In this approach, AUC ratios for probe substrates are calculated based on their
-known intestinal and hepatic metabolism. Both direct (competitive) and
-time-dependent inhibition are considered. The below formula given by the FDA
-guideline (refer to FDA 2020, Fig. 7) also includes intestinal and hepatic
-enzyme induction terms ($C_g$ and $C_h$, respectively). At the same time, the
-guideline states that both inhibition and induction should be considered
-separately.
+In this approach, AUC ratios for specific DDI object substrates are projected
+based on their known intestinal and hepatic metabolism. Both direct
+(competitive) and time-dependent inhibition, as well as enzyme induction are
+considered. AUC ratios are calculated according to the below formula (refer to
+Section 7.5.1.2 of the ICH M12 guideline):
 
 $$AUCR = \frac{1}{A_g*B_g*C_g*\left(1-F_g\right)+F_g} * \frac{1}{A_h*B_h*C_h*f_m+\left(1-f_m\right)}$$
 
@@ -453,7 +466,7 @@ $$C_h = 1 + \frac{d*E_{max}*I_h}{I_h+EC_{50}}$$
 
 with the hepatic inlet concentration $I_h=I_{max,inlet,u}$ and the intestinal
 concentration $I_g=I_{enteric}$ (see above). $d$ is an induction scaling factor
-(assumed to be 1 but can be adjusted).
+(assumed to be 1 but can be adjusted based on the experimental conditions).
 
 \newpage
 # Appendix 2: R Session Info

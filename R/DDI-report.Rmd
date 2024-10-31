@@ -71,16 +71,6 @@ calculation of the maximal gut and portal vein concentrations, and the unbound
 systemic concentrations. 
 
 ```{r load_compound_data}
-# examplinib_compounds <- load_perpetrators("/Users/rainerstrotmann/Documents/Programming/R/ddir/tests/testthat/fixtures/compounds.csv")
-# 
-# examplinib_cyp_inhibition_data <- load_dmpk_data("/Users/rainerstrotmann/Documents/Programming/R/ddir/tests/testthat/fixtures/cyp-inhibition.csv")
-# 
-# examplinib_cyp_induction_data <- load_cyp_inducer_data("/Users/rainerstrotmann/Documents/Programming/R/ddir/tests/testthat/fixtures/cyp-induction.csv")
-# 
-# examplinib_ugt_inhibition_data <- load_dmpk_data("/Users/rainerstrotmann/Documents/Programming/R/ddir/tests/testthat/fixtures/ugt-inhibition.csv")
-# 
-# examplinib_transporter_inhibition_data <- load_dmpk_data("/Users/rainerstrotmann/Documents/Programming/R/ddir/tests/testthat/fixtures/transporter-inhibition.R")
-
 p <- examplinib_compounds[[1]]
 m <- examplinib_compounds[[2]]
 
@@ -104,11 +94,16 @@ conc_table(m)
 
 ### Reversible inhibition
 
-As per the FDA guideline (FDA, 2020), the relevant metric for the basic modeling of the direct CYP inhibition risk is $R=1+[I]/K_{i,u}$ with the relevant inhibitor concentration $[I]$ being $I_{max,ss,u}$ for hepatic CYP enzymes and $I_{gut}$ for intestinal CYP enzymes.
+Following the basic modeling approach (refer to Section 2.1.2.1 of the [ICH M12
+guideline](https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf)),
+the relevant metric for the assessment of the direct CYP inhibition risk is
+$R=[I]/K_{i,u}$ with the inhibitor concentration $[I]$ being $C_{max,ss,u}$
+for hepatic CYP enzymes and $I_{gut}$ for intestinal CYP enzymes.
 
-Thresholds of $R < 1.02$ and $R < 11$ apply for hepatic and intestinal enzymes, respectively. Note that intestinal CYP inhibition is only evaluated for CYP3A4.
+R values of $R \ge 0.02$ and $R \ge 10$ for hepatic and intestinal enzymes are
+considered to indicate a potential clinical risk.
 
-Basic modeling as per the FDA guideline results in the following risk assessment for direct CYP inhibition by xxx.
+Intestinal CYP inhibition is only evaluated for CYP3A4.
 
 ```{r}
 basic_cyp_inhibition_risk_table(p, examplinib_cyp_inhibition_data)

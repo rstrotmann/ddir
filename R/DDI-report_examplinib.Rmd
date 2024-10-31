@@ -188,14 +188,16 @@ conc_table(compounds)
 
 ### Reversible inhibition
 
-Following the basic modeling approach (refer to the
-[FDA guideline](https://www.fda.gov/media/134582/download)), the relevant metric
-for the assessment of the direct CYP inhibition risk is $R=1+[I]/K_{i,u}$ with
-the inhibitor concentration $[I]$ being $I_{max,ss,u}$ for hepatic CYP enzymes
-and $I_{gut}$ for intestinal CYP enzymes.
+Following the basic modeling approach (refer to Section 2.1.2.1 of the [ICH M12
+guideline](https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf)),
+the relevant metric for the assessment of the direct CYP inhibition risk is
+$R=[I]/K_{i,u}$ with the inhibitor concentration $[I]$ being $C_{max,ss,u}$
+for hepatic CYP enzymes and $I_{gut}$ for intestinal CYP enzymes.
 
-Thresholds of $R < 1.02$ and $R < 11$ apply for hepatic and intestinal enzymes,
-respectively. Intestinal CYP inhibition is only evaluated for CYP3A4.
+R values of $R \ge 0.02$ and $R \ge 10$ for hepatic and intestinal enzymes are
+considered to indicate a potential clinical risk.
+
+Intestinal CYP inhibition is only evaluated for CYP3A4.
 
 ```{r results="asis"}
 basic_cyp_inhibition_risk_table(compounds, cyp_inhibition_data)
