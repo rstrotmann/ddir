@@ -76,18 +76,17 @@ numeric.</p></li>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Basic kinetic modeling of the CYP induction risk considers \(R_3\) (refer
-to fig. 4 of the <a href="https://www.fda.gov/media/134582/download" class="external-link">FDA guideline</a>):</p>
-<p>$$R_3 = \frac {1}{1+d* \frac {E_{max}*10*I_{max,u}}{EC_{50} + 10*I_{max,u}}}$$</p>
+    <p>Basic kinetic modeling of the CYP induction risk considers:</p>
+<p>$$R = \frac {1}{1 + d * \frac {E_{max}*10*C_{max,u}}{EC_{50,u} + 10 * C_{max,u}}}$$</p>
 <p>\(d\) is a scaling factor with a standard value of 1. A different value can
-be used if warranted by prior experience with the experimental setup.</p>
-<p>\(R_3 \le 0.8\) suggests a relevant in vivo induction potential.</p>
+be used if warranted by prior experience with the experimental conditions.</p>
+<p>\(R \le 0.8\) suggest a relevant in vivo CYP induction potential.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">kinetic_cyp_induction_risk</span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_induction_data</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       cyp emax ec50 maxc    source        r3 risk</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       cyp emax ec50 maxc    source         r risk</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  CYP1A2 1.00   NA    5 study 007        NA   NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  CYP2B6 1.00   NA    5 study 007        NA   NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  CYP2C8   NA   NA   NA                  NA   NA</span>

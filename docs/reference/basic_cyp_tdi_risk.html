@@ -78,10 +78,10 @@ built-in reference data, <a href="cyp_turnover.html">cyp_turnover</a>.</p></dd>
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The relevant metric is \(R_2\) as defined in fig. 2 of the
 <a href="https://www.fda.gov/media/134582/download" class="external-link">FDA guidance</a>:</p>
-<p>$$R_2=\frac {k_{obs} + k_{deg}}{k_{deg}}$$</p>
+<p>$$R=\frac {k_{obs} + k_{deg}}{k_{deg}}$$</p>
 <p>where</p>
-<p>$$k_{obs}=\frac {50*k_{inact}*I_{max,u}}{K_{I,u} + 50*I_{max,u}}$$</p>
-<p>Values of \(R_2 &gt; 1.25\) suggest a relevant TDI potential.</p>
+<p>$$k_{obs}=\frac {5*k_{inact}*C_{max,u}}{K_{I,u} + 5 * C_{max,u}}$$</p>
+<p>Values of \(R &gt; 1.25\) suggest a relevant TDI potential.</p>
 <p>The CYP degradation rates, \(k_{deg}\) are physiological constants that
 should be derived from the scientific literature. This package provides
 standard values for \(k_{deg}\) in <a href="cyp_turnover.html">cyp_turnover</a> that are commonly used.</p>
@@ -97,8 +97,8 @@ calculated.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">basic_cyp_tdi_risk</span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_tdi_data</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      cyp   ki    fu kinact   kdeg    source       r2 risk</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 CYP3A4 0.17 0.023   0.04 0.0193 study 001 3.071556 TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      cyp   ki    fu kinact   kdeg    source        r risk</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 CYP3A4 0.17 0.023   0.04 0.0193 study 001 3.062752 TRUE</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

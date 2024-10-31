@@ -72,14 +72,20 @@ numeric.</p></li>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The basic (EMA) or fold-change (FDA) methods evaluate whether the maximal
-fold-change in mRNA expression is &gt; 2-fold at the expected unbound hepatic
-concentration of the drug.</p>
-<p>Regarding the relevant drug concentrations, the FDA guidance suggests
-considering \(30*I_{max,ss,u}\) while the EMA guidance considers
-\(50*I_{max,ss,u}\) for hepatic and \(0.1*I_{gut}\) for intestinal
-CYP enzyme induction. It is expected that the concentrations in the
-respective in vitro assays cover these concentrations.</p>
+    <p>The basic fold-change method evaluates whether the maximal fold-change in
+mRNA expression for the CYP enzyme, relative to the vehicle control, is &gt;
+2-fold at concentrations up to 50-fold over the unbound Cmax,ss - provided
+that concentration-dependent increases in mRNA were observed in vitro.</p>
+<p>If in the in vitro experiments concentrations of 50-fold the unbound Cmax,ss
+were not tested, this is noted in the output.</p>
+<p>Also note that the ICH guideline further specifies that the positive control
+used in the in vitro studies should result in at least 6-fold mRNA increases,
+otherwise an induction risk cannot be ruled out if the mRNA increase for the
+CYP enzyme is &gt; 20% of the positive control. This, as well as the condition
+of concentration-dependent increase in mRNA increase (see above), must be
+confirmed manually by the user.</p>
+<p>For details, refer to section 2.1.4.1 of the
+<a href="https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf" class="external-link">ICH M1s2 guideline</a></p>
     </div>
 
     <div class="section level2">
@@ -93,14 +99,14 @@ respective in vitro assays cover these concentrations.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 CYP2C19   NA   NA                     NA    NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6  CYP2D6   NA   NA                     NA    NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7  CYP3A4 7.35    3 study 007         18.2  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                         note</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     Maximal tested concentration is below FDA expectations</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     Maximal tested concentration is below FDA expectations</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7 Maximal tested concentration is below EMA/FDA expectations</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                  note</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Maximal tested concentration (maxc) is below guideline expectations</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Maximal tested concentration (maxc) is below guideline expectations</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 Maximal tested concentration (maxc) is below guideline expectations</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

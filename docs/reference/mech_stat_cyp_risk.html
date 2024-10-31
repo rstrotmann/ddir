@@ -66,7 +66,7 @@
 <dd><p>CYP inhibition data as data frame. The following fields are
 expected:</p><ul><li><p>'name' The name of the perpetrator compound.</p></li>
 <li><p>'cyp' The CYP enzyme as (upper case) character.</p></li>
-<li><p>'ki' The \(k_i\) in \(\mu M\) as numeric.</p></li>
+<li><p>'ki' The \(K_i\) in \(\mu M\) as numeric.</p></li>
 <li><p>'source' Optional source information as character.</p></li>
 </ul></dd>
 
@@ -124,14 +124,10 @@ built-in reference data, <a href="cyp_turnover.html">cyp_turnover</a>.</p></dd>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>In this approach, AUC ratios for probe substrates are calculated based on
-their known intestinal and hepatic metabolism. Both direct (competitive) and
-time-dependent inhibition are considered.</p>
-<p>The below formula given by the FDA guideline (refer to
-fig. 7 of <a href="https://www.fda.gov/media/134582/download" class="external-link">FDA, 2020</a>)
-also includes intestinal and hepatic enzyme induction terms (\(C_g\) and
-\(C_h\), respectively). At the same time, the guideline states that both
-inhibition and induction should be considered separately.</p>
+    <p>In this approach, AUC ratios for CYP-specific probe substrates are calculated
+based on their known intestinal and hepatic metabolism. Direct (competitive)
+and time-dependent inhibition terms, as well as enzyme induction terms are
+considered. For details, refer to section 7.5.1.2 of the <a href="https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf" class="external-link">ICH M12 guideline</a>.</p>
 <p>$$AUCR = \frac{1}{A_g*B_g*C_g* \left(1-F_g \right)+F_g} * \frac{1}{A_h*B_h*C_h*f_m+\left(1-f_m\right)}$$</p>
 <p>The individual terms are:</p><div class="section">
 <h3 id="reversible-inhibition">Reversible inhibition<a class="anchor" aria-label="anchor" href="#reversible-inhibition"></a></h3>

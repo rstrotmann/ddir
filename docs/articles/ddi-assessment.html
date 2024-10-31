@@ -366,18 +366,622 @@ be generated using `conc_table()’:</p>
 <div class="section level2">
 <h2 id="direct-enzyme-inhibition">Direct enzyme inhibition<a class="anchor" aria-label="anchor" href="#direct-enzyme-inhibition"></a>
 </h2>
+<div class="section level3">
+<h3 id="cyp-enzymes">CYP enzymes<a class="anchor" aria-label="anchor" href="#cyp-enzymes"></a>
+</h3>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/basic_cyp_inhibition_risk.html">basic_cyp_inhibition_risk</a></span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_inhibition_data</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       cyp   ki  kiu      r risk_hep    r_gut risk_intest</span></span>
+<span><span class="co">#&gt; 1  CYP1A2   NA   NA     NA       NA       NA          NA</span></span>
+<span><span class="co">#&gt; 2  CYP2B6   NA   NA     NA       NA       NA          NA</span></span>
+<span><span class="co">#&gt; 3  CYP2C8 11.0 11.0 0.0150    FALSE       NA          NA</span></span>
+<span><span class="co">#&gt; 4  CYP2C9 13.5 13.5 0.0122    FALSE       NA          NA</span></span>
+<span><span class="co">#&gt; 5 CYP2C19 15.0 15.0 0.0110    FALSE       NA          NA</span></span>
+<span><span class="co">#&gt; 6  CYP2D6   NA   NA     NA       NA       NA          NA</span></span>
+<span><span class="co">#&gt; 7  CYP3A4 12.5 12.5 0.0132    FALSE 292.3264        TRUE</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/basic_cyp_inhibition_risk_table.html">basic_cyp_inhibition_risk_table</a></span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_inhibition_data</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<caption>Risk for direct CYP inhibition by examplinib, basic
+model</caption>
+<colgroup>
+<col width="8%">
+<col width="18%">
+<col width="21%">
+<col width="6%">
+<col width="15%">
+<col width="10%">
+<col width="18%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">CYP</th>
+<th align="right">
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>K</mi><mi>i</mi></msub><annotation encoding="application/x-tex">K_{i}</annotation></semantics></math>
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mi>M</mi></mrow><annotation encoding="application/x-tex">\mu M</annotation></semantics></math>)</th>
+<th align="right">
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>K</mi><mrow><mi>i</mi><mo>,</mo><mi>u</mi></mrow></msub><annotation encoding="application/x-tex">K_{i,u}</annotation></semantics></math>
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mi>M</mi></mrow><annotation encoding="application/x-tex">\mu M</annotation></semantics></math>)</th>
+<th align="right"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math></th>
+<th align="left">risk (hepatic)</th>
+<th align="left"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mrow><mi>g</mi><mi>u</mi><mi>t</mi></mrow></msub><annotation encoding="application/x-tex">R_{gut}</annotation></semantics></math></th>
+<th align="left">risk (intestinal)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">CYP1A2</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">CYP2B6</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">CYP2C8</td>
+<td align="right">11.0</td>
+<td align="right">11.0</td>
+<td align="right">0.015</td>
+<td align="left">FALSE</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">CYP2C9</td>
+<td align="right">13.5</td>
+<td align="right">13.5</td>
+<td align="right">0.012</td>
+<td align="left">FALSE</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">CYP2C19</td>
+<td align="right">15.0</td>
+<td align="right">15.0</td>
+<td align="right">0.011</td>
+<td align="left">FALSE</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">CYP2D6</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">CYP3A4</td>
+<td align="right">12.5</td>
+<td align="right">12.5</td>
+<td align="right">0.013</td>
+<td align="left">FALSE</td>
+<td align="left">292.3</td>
+<td align="left">TRUE</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="ugt-enzymes">UGT enzymes<a class="anchor" aria-label="anchor" href="#ugt-enzymes"></a>
+</h3>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/basic_ugt_inhibition_risk.html">basic_ugt_inhibition_risk</a></span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_ugt_inhibition_data</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       ugt  kiu          r risk</span></span>
+<span><span class="co">#&gt; 1  UGT1A1 7.50 0.02197591 TRUE</span></span>
+<span><span class="co">#&gt; 2  UGT1A3 7.50 0.02197591 TRUE</span></span>
+<span><span class="co">#&gt; 3  UGT1A4 7.50 0.02197591 TRUE</span></span>
+<span><span class="co">#&gt; 4  UGT1A6 7.50 0.02197591 TRUE</span></span>
+<span><span class="co">#&gt; 5  UGT1A9 1.90 0.08674701 TRUE</span></span>
+<span><span class="co">#&gt; 6  UGT2B7 7.50 0.02197591 TRUE</span></span>
+<span><span class="co">#&gt; 7 UGT2B15 7.50 0.02197591 TRUE</span></span>
+<span><span class="co">#&gt; 8 UGT2B17 3.05 0.05403912 TRUE</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/basic_ugt_inhibition_risk_table.html">basic_ugt_inhibition_risk_table</a></span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_ugt_inhibition_data</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<caption>Risk for UGT inhibition by examplinib, basic model</caption>
+<thead><tr class="header">
+<th align="left">UGT</th>
+<th align="right"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>K</mi><mrow><mi>i</mi><mo>,</mo><mi>u</mi></mrow></msub><annotation encoding="application/x-tex">K_{i,u}</annotation></semantics></math></th>
+<th align="right"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math></th>
+<th align="left">risk</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">UGT1A1</td>
+<td align="right">7.50</td>
+<td align="right">0.022</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">UGT1A3</td>
+<td align="right">7.50</td>
+<td align="right">0.022</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">UGT1A4</td>
+<td align="right">7.50</td>
+<td align="right">0.022</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">UGT1A6</td>
+<td align="right">7.50</td>
+<td align="right">0.022</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">UGT1A9</td>
+<td align="right">1.90</td>
+<td align="right">0.087</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">UGT2B7</td>
+<td align="right">7.50</td>
+<td align="right">0.022</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">UGT2B15</td>
+<td align="right">7.50</td>
+<td align="right">0.022</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">UGT2B17</td>
+<td align="right">3.05</td>
+<td align="right">0.054</td>
+<td align="left">TRUE</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="section level2">
 <h2 id="time-dependent-enzyme-inhibition">Time-dependent enzyme inhibition<a class="anchor" aria-label="anchor" href="#time-dependent-enzyme-inhibition"></a>
 </h2>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/basic_cyp_tdi_risk.html">basic_cyp_tdi_risk</a></span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_tdi_data</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      cyp   ki    fu kinact   kdeg    source        r risk</span></span>
+<span><span class="co">#&gt; 1 CYP3A4 0.17 0.023   0.04 0.0193 study 001 3.062752 TRUE</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/basic_cyp_tdi_risk_table.html">basic_cyp_tdi_risk_table</a></span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_tdi_data</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<caption>Risk for CYP TDI by examplinib, basic model</caption>
+<colgroup>
+<col width="8%">
+<col width="21%">
+<col width="7%">
+<col width="21%">
+<col width="18%">
+<col width="11%">
+<col width="5%">
+<col width="5%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">CYP</th>
+<th align="right">
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>K</mi><mi>I</mi></msub><annotation encoding="application/x-tex">K_{I}</annotation></semantics></math>
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mi>M</mi></mrow><annotation encoding="application/x-tex">\mu M</annotation></semantics></math>)</th>
+<th align="right"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>f</mi><mi>u</mi></msub><annotation encoding="application/x-tex">f_u</annotation></semantics></math></th>
+<th align="right">
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>k</mi><mrow><mi>i</mi><mi>n</mi><mi>a</mi><mi>c</mi><mi>t</mi></mrow></msub><annotation encoding="application/x-tex">k_{inact}</annotation></semantics></math>
+(1/h)</th>
+<th align="right">
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>k</mi><mrow><mi>d</mi><mi>e</mi><mi>g</mi></mrow></msub><annotation encoding="application/x-tex">k_{deg}</annotation></semantics></math>
+(1/h)</th>
+<th align="left">source</th>
+<th align="right"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math></th>
+<th align="left">risk</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="left">CYP3A4</td>
+<td align="right">0.17</td>
+<td align="right">0.02</td>
+<td align="right">0.04</td>
+<td align="right">0.02</td>
+<td align="left">study 001</td>
+<td align="right">3.06</td>
+<td align="left">TRUE</td>
+</tr></tbody>
+</table>
 </div>
 <div class="section level2">
 <h2 id="cyp-induction">CYP induction<a class="anchor" aria-label="anchor" href="#cyp-induction"></a>
 </h2>
+<div class="section level3">
+<h3 id="fold-change-method">Fold-change method<a class="anchor" aria-label="anchor" href="#fold-change-method"></a>
+</h3>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/static_cyp_induction_risk.html">static_cyp_induction_risk</a></span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_induction_data</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       cyp emax maxc    source maxc_imaxssu  risk</span></span>
+<span><span class="co">#&gt; 1  CYP1A2 1.00    5 study 007         30.3 FALSE</span></span>
+<span><span class="co">#&gt; 2  CYP2B6 1.00    5 study 007         30.3 FALSE</span></span>
+<span><span class="co">#&gt; 3  CYP2C8   NA   NA                     NA    NA</span></span>
+<span><span class="co">#&gt; 4  CYP2C9   NA   NA                     NA    NA</span></span>
+<span><span class="co">#&gt; 5 CYP2C19   NA   NA                     NA    NA</span></span>
+<span><span class="co">#&gt; 6  CYP2D6   NA   NA                     NA    NA</span></span>
+<span><span class="co">#&gt; 7  CYP3A4 7.35    3 study 007         18.2  TRUE</span></span>
+<span><span class="co">#&gt;                                                                  note</span></span>
+<span><span class="co">#&gt; 1 Maximal tested concentration (maxc) is below guideline expectations</span></span>
+<span><span class="co">#&gt; 2 Maximal tested concentration (maxc) is below guideline expectations</span></span>
+<span><span class="co">#&gt; 3                                                                    </span></span>
+<span><span class="co">#&gt; 4                                                                    </span></span>
+<span><span class="co">#&gt; 5                                                                    </span></span>
+<span><span class="co">#&gt; 6                                                                    </span></span>
+<span><span class="co">#&gt; 7 Maximal tested concentration (maxc) is below guideline expectations</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/static_cyp_induction_risk_table.html">static_cyp_induction_risk_table</a></span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_induction_data</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<caption>Risk for hepatic CYP induction by examplinib, basic static
+model</caption>
+<colgroup>
+<col width="5%">
+<col width="7%">
+<col width="12%">
+<col width="7%">
+<col width="14%">
+<col width="4%">
+<col width="48%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">CYP</th>
+<th align="right"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>E</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub><annotation encoding="application/x-tex">E_{max}</annotation></semantics></math></th>
+<th align="right">
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mi>a</mi><mi>x</mi><mi>c</mi></mrow><annotation encoding="application/x-tex">max c</annotation></semantics></math>
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mi>M</mi></mrow><annotation encoding="application/x-tex">\mu M</annotation></semantics></math>)</th>
+<th align="left">source</th>
+<th align="right"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mi>a</mi><mi>x</mi><mi>c</mi><mi>/</mi><msub><mi>C</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi><mo>,</mo><mi>s</mi><mi>s</mi><mo>,</mo><mi>u</mi></mrow></msub></mrow><annotation encoding="application/x-tex">max c/C_{max,ss,u}</annotation></semantics></math></th>
+<th align="left">risk</th>
+<th align="left">notes</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">CYP1A2</td>
+<td align="right">1.00</td>
+<td align="right">5</td>
+<td align="left">study 007</td>
+<td align="right">30.3</td>
+<td align="left">FALSE</td>
+<td align="left">Maximal tested concentration (maxc) is below guideline
+expectations</td>
+</tr>
+<tr class="even">
+<td align="left">CYP2B6</td>
+<td align="right">1.00</td>
+<td align="right">5</td>
+<td align="left">study 007</td>
+<td align="right">30.3</td>
+<td align="left">FALSE</td>
+<td align="left">Maximal tested concentration (maxc) is below guideline
+expectations</td>
+</tr>
+<tr class="odd">
+<td align="left">CYP2C8</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left"></td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">CYP2C9</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left"></td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">CYP2C19</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left"></td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">CYP2D6</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left"></td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">CYP3A4</td>
+<td align="right">7.35</td>
+<td align="right">3</td>
+<td align="left">study 007</td>
+<td align="right">18.2</td>
+<td align="left">TRUE</td>
+<td align="left">Maximal tested concentration (maxc) is below guideline
+expectations</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="basic-kinetic-model">Basic kinetic model<a class="anchor" aria-label="anchor" href="#basic-kinetic-model"></a>
+</h3>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/kinetic_cyp_induction_risk.html">kinetic_cyp_induction_risk</a></span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_induction_data</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       cyp emax ec50 maxc    source         r risk</span></span>
+<span><span class="co">#&gt; 1  CYP1A2 1.00   NA    5 study 007        NA   NA</span></span>
+<span><span class="co">#&gt; 2  CYP2B6 1.00   NA    5 study 007        NA   NA</span></span>
+<span><span class="co">#&gt; 3  CYP2C8   NA   NA   NA                  NA   NA</span></span>
+<span><span class="co">#&gt; 4  CYP2C9   NA   NA   NA                  NA   NA</span></span>
+<span><span class="co">#&gt; 5 CYP2C19   NA   NA   NA                  NA   NA</span></span>
+<span><span class="co">#&gt; 6  CYP2D6   NA   NA   NA                  NA   NA</span></span>
+<span><span class="co">#&gt; 7  CYP3A4 7.35 1.64    3 study 007 0.2134856 TRUE</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/kinetic_cyp_induction_risk_table.html">kinetic_cyp_induction_risk_table</a></span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_induction_data</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<caption>Risk for CYP induction by examplinib, basic kinetic
+model</caption>
+<thead><tr class="header">
+<th align="left">CYP</th>
+<th align="right"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>E</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub><annotation encoding="application/x-tex">E_{max}</annotation></semantics></math></th>
+<th align="right">
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><msub><mi>C</mi><mn>50</mn></msub></mrow><annotation encoding="application/x-tex">EC_{50}</annotation></semantics></math>
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mi>M</mi></mrow><annotation encoding="application/x-tex">\mu M</annotation></semantics></math>)</th>
+<th align="left">source</th>
+<th align="left"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math></th>
+<th align="left">risk</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">CYP1A2</td>
+<td align="right">1.00</td>
+<td align="right">NA</td>
+<td align="left">study 007</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">CYP2B6</td>
+<td align="right">1.00</td>
+<td align="right">NA</td>
+<td align="left">study 007</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">CYP2C8</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left"></td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">CYP2C9</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left"></td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">CYP2C19</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left"></td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">CYP2D6</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left"></td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">CYP3A4</td>
+<td align="right">7.35</td>
+<td align="right">1.64</td>
+<td align="left">study 007</td>
+<td align="left">0.213</td>
+<td align="left">TRUE</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="section level2">
 <h2 id="mechanistic-static-assessment-of-cyp-related-ddi">Mechanistic-static assessment of CYP-related DDI<a class="anchor" aria-label="anchor" href="#mechanistic-static-assessment-of-cyp-related-ddi"></a>
 </h2>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/mech_stat_cyp_risk.html">mech_stat_cyp_risk</a></span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_inhibition_data</span>,</span>
+<span>                   <span class="va">examplinib_cyp_induction_data</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       cyp   substrate  kiu fgut   fm fmcyp        Ag        Ah Bg Bh       Cg</span></span>
+<span><span class="co">#&gt; 1  CYP1A2  tizanidine   NA 1.00 0.95  0.98 1.0000000 1.0000000  1  1 1.000000</span></span>
+<span><span class="co">#&gt; 2  CYP2B6        &lt;NA&gt;   NA   NA   NA    NA 1.0000000 1.0000000  1  1 1.000000</span></span>
+<span><span class="co">#&gt; 3  CYP2C8 repaglinide 11.0 1.00 1.00  0.61 0.6255130 0.9827625  1  1 1.000000</span></span>
+<span><span class="co">#&gt; 4  CYP2C9  S-warfarin 13.5 1.00 1.00  0.91 0.6721244 0.9859096  1  1 1.000000</span></span>
+<span><span class="co">#&gt; 5 CYP2C19  omeprazole 15.0 1.00 1.00  0.87 0.6949088 0.9873008  1  1 1.000000</span></span>
+<span><span class="co">#&gt; 6  CYP2D6        &lt;NA&gt;   NA   NA   NA    NA 1.0000000 1.0000000  1  1 1.000000</span></span>
+<span><span class="co">#&gt; 7  CYP3A4   midazolam 12.5 0.57 0.96  1.00 0.6549452 0.9847995  1  1 6.884569</span></span>
+<span><span class="co">#&gt;         Ch      aucr  risk</span></span>
+<span><span class="co">#&gt; 1 1.000000 1.0000000 FALSE</span></span>
+<span><span class="co">#&gt; 2 1.000000        NA    NA</span></span>
+<span><span class="co">#&gt; 3 1.000000 1.0106266 FALSE</span></span>
+<span><span class="co">#&gt; 4 1.000000 1.0129888 FALSE</span></span>
+<span><span class="co">#&gt; 5 1.000000 1.0111717 FALSE</span></span>
+<span><span class="co">#&gt; 6 1.000000        NA    NA</span></span>
+<span><span class="co">#&gt; 7 1.773674 0.2321612  TRUE</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/mech_stat_cyp_risk_table.html">mech_stat_cyp_risk_table</a></span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_inhibition_data</span>,</span>
+<span>                         <span class="va">examplinib_cyp_induction_data</span><span class="op">)</span></span></code></pre></div>
+<table style="width:100%;" class="table">
+<caption>Mechanistic static modeling of the CYP inhibition risk for
+examplinib</caption>
+<colgroup>
+<col width="7%">
+<col width="9%">
+<col width="11%">
+<col width="9%">
+<col width="5%">
+<col width="11%">
+<col width="5%">
+<col width="5%">
+<col width="5%">
+<col width="5%">
+<col width="5%">
+<col width="5%">
+<col width="5%">
+<col width="5%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">CYP</th>
+<th align="right"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>K</mi><mrow><mi>i</mi><mo>,</mo><mi>u</mi></mrow></msub><annotation encoding="application/x-tex">K_{i,u}</annotation></semantics></math></th>
+<th align="left">substrate</th>
+<th align="right"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>F</mi><mrow><mi>g</mi><mi>u</mi><mi>t</mi></mrow></msub><annotation encoding="application/x-tex">F_{gut}</annotation></semantics></math></th>
+<th align="right"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>f</mi><mi>m</mi></msub><annotation encoding="application/x-tex">f_m</annotation></semantics></math></th>
+<th align="right"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>f</mi><mrow><mi>m</mi><mo>,</mo><mi>C</mi><mi>Y</mi><mi>P</mi></mrow></msub><annotation encoding="application/x-tex">f_{m,CYP}</annotation></semantics></math></th>
+<th align="left"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mi>g</mi></msub><annotation encoding="application/x-tex">A_g</annotation></semantics></math></th>
+<th align="left"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mi>h</mi></msub><annotation encoding="application/x-tex">A_h</annotation></semantics></math></th>
+<th align="left"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>B</mi><mi>g</mi></msub><annotation encoding="application/x-tex">B_g</annotation></semantics></math></th>
+<th align="left"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>B</mi><mi>h</mi></msub><annotation encoding="application/x-tex">B_h</annotation></semantics></math></th>
+<th align="left"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>g</mi></msub><annotation encoding="application/x-tex">C_g</annotation></semantics></math></th>
+<th align="left"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>h</mi></msub><annotation encoding="application/x-tex">C_h</annotation></semantics></math></th>
+<th align="left">AUCR</th>
+<th align="left">risk</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">CYP1A2</td>
+<td align="right">NA</td>
+<td align="left">tizanidine</td>
+<td align="right">1.00</td>
+<td align="right">0.95</td>
+<td align="right">0.98</td>
+<td align="left">1.000</td>
+<td align="left">1.000</td>
+<td align="left">1.000</td>
+<td align="left">1.000</td>
+<td align="left">1.000</td>
+<td align="left">1.000</td>
+<td align="left">1.000</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">CYP2B6</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">1.000</td>
+<td align="left">1.000</td>
+<td align="left">1.000</td>
+<td align="left">1.000</td>
+<td align="left">1.000</td>
+<td align="left">1.000</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">CYP2C8</td>
+<td align="right">11.0</td>
+<td align="left">repaglinide</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="right">0.61</td>
+<td align="left">0.626</td>
+<td align="left">0.983</td>
+<td align="left">1.000</td>
+<td align="left">1.000</td>
+<td align="left">1.000</td>
+<td align="left">1.000</td>
+<td align="left">1.011</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">CYP2C9</td>
+<td align="right">13.5</td>
+<td align="left">S-warfarin</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="right">0.91</td>
+<td align="left">0.672</td>
+<td align="left">0.986</td>
+<td align="left">1.000</td>
+<td align="left">1.000</td>
+<td align="left">1.000</td>
+<td align="left">1.000</td>
+<td align="left">1.013</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">CYP2C19</td>
+<td align="right">15.0</td>
+<td align="left">omeprazole</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="right">0.87</td>
+<td align="left">0.695</td>
+<td align="left">0.987</td>
+<td align="left">1.000</td>
+<td align="left">1.000</td>
+<td align="left">1.000</td>
+<td align="left">1.000</td>
+<td align="left">1.011</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">CYP2D6</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">1.000</td>
+<td align="left">1.000</td>
+<td align="left">1.000</td>
+<td align="left">1.000</td>
+<td align="left">1.000</td>
+<td align="left">1.000</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">CYP3A4</td>
+<td align="right">12.5</td>
+<td align="left">midazolam</td>
+<td align="right">0.57</td>
+<td align="right">0.96</td>
+<td align="right">1.00</td>
+<td align="left">0.655</td>
+<td align="left">0.985</td>
+<td align="left">1.000</td>
+<td align="left">1.000</td>
+<td align="left">6.885</td>
+<td align="left">1.774</td>
+<td align="left">0.232</td>
+<td align="left">TRUE</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section level2">
 <h2 id="transporter-inhibition">Transporter inhibition<a class="anchor" aria-label="anchor" href="#transporter-inhibition"></a>
