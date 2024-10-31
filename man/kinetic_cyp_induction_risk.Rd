@@ -31,15 +31,14 @@ A data frame.
 Basic kinetic CYP induction risk
 }
 \details{
-Basic kinetic modeling of the CYP induction risk considers \eqn{R_3} (refer
-to fig. 4 of the \href{https://www.fda.gov/media/134582/download}{FDA guideline}):
+Basic kinetic modeling of the CYP induction risk considers:
 
-\deqn{R_3 = \frac {1}{1+d* \frac {E_{max}*10*I_{max,u}}{EC_{50} + 10*I_{max,u}}}}
+\deqn{R = \frac {1}{1 + d * \frac {E_{max}*10*C_{max,u}}{EC_{50,u} + 10 * C_{max,u}}}}
 
 \eqn{d} is a scaling factor with a standard value of 1. A different value can
-be used if warranted by prior experience with the experimental setup.
+be used if warranted by prior experience with the experimental conditions.
 
-\eqn{R_3 \le 0.8} suggests a relevant in vivo induction potential.
+\eqn{R \le 0.8} suggest a relevant in vivo CYP induction potential.
 }
 \examples{
 kinetic_cyp_induction_risk(examplinib_parent, examplinib_cyp_induction_data)

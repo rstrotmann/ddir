@@ -1,28 +1,24 @@
 #' UGT inhibition risk
 #'
 #' This function evaluates the clinical risk for reversible inhibition of UGT
-#' enzymes according to the relevant
-#' [FDA](https://www.fda.gov/media/134582/download) and
-#' [EMA](https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-drug-interactions-revision-1_en.pdf)
-#' guidelines.
+#' enzymes according to the relevant [regulatory guideline](https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf).
 #'
 #' @details
 #' This function assumes that the UGT inhibition data is provided as
 #' \eqn{IC_{50}}. According to
 #' [Cheng, Prusoff 1973](https://doi.org/10.1016/0006-2952(73)90196-2)),
 #' \eqn{K_i} can be assumed to be \eqn{IC_{50}/2} at the experimental conditions
-#' commonly used in the in vitro ihibition studies where substrate
+#' commonly used in the in vitro inhibition studies where substrate
 #' concentrations are close to \eqn{K_M}.
 #'
 #' @details
 #' The relevant metric for basic modeling of the UGT inhibition risk is
-#' \eqn{R_1=I_{max,ss,u}/K_{i,u}} (refer to fig. 1 of  the the
-#' [FDA guidance](https://www.fda.gov/media/134582/download)).
+#' \eqn{R=C_{max,ss,u}/K_{i,u}}
 #'
-#' \eqn{R_1>1.02} are considered to indicate a potential UGT inhibition risk.
+#' Refer to Section 2.1.2.1 of the [ICH M12 guidance document](https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf))
+#' for details.
 #'
-#' Refer to the documentation to the [key_concentrations()] function for details
-#' on the calculation of \eqn{I_{max,ss,u}}.
+#' \eqn{R>0.02} are considered to indicate a potential UGT inhibition risk.
 #'
 #' @param perp The perpetrator object.
 #' @param ugt_inh UGT inhibition data as data frame, The following fields are
@@ -48,10 +44,10 @@ basic_ugt_inhibition_risk <- function(perp, ugt_inh) {
   out <- temp %>%
     mutate(ki=as.num(ic50)/2) %>%
     mutate(kiu=ki*fumic) %>%
-    mutate(r1=1 + (i["imaxssu"]/kiu)) %>%
+    mutate(r=i["imaxssu"]/kiu) %>%
     select(-name) %>%
-    mutate(risk=r1>1.02) %>%
-    select(ugt, kiu, r1, risk)
+    mutate(risk=r>0.02) %>%
+    select(ugt, kiu, r, risk)
   return(out)
 }
 
@@ -86,8 +82,8 @@ basic_ugt_inhibition_risk_table <- function(perp, ugt_inh, na.rm=F,
 #' @inheritParams basic_ugt_inhibition_risk_table
 #' @export
 #' @noRd
-basic_ugt_inhibition_risk_table.perpetrator <- function(perp, ugt_inh, na.rm=F,
-                                                        show_dose = FALSE) {
+basic_ugt_inhibition_risk_table.perpetrator <- function(
+    perp, ugt_inh, na.rm=F, show_dose = FALSE) {
   temp <- basic_ugt_inhibition_risk(perp, ugt_inh)
 
   if(na.rm==TRUE) {
@@ -95,13 +91,13 @@ basic_ugt_inhibition_risk_table.perpetrator <- function(perp, ugt_inh, na.rm=F,
       filter(!is.na(ki))
   }
 
-  labels <- c("UGT", "$K_{i,u}$", "$R_1$", "risk")
+  labels <- c("UGT", "$K_{i,u}$", "$R$", "risk")
   if(nrow(temp)!=0) {
     caption <- paste0("Risk for UGT inhibition by ",
                      name(perp), conditional_dose_string(perp, show_dose),
                      ", basic model")
     out <- temp %>%
-      mutate(r1=round(r1, 3)) %>%
+      mutate(r=round(r, 3)) %>%
       knitr::kable(caption = caption, col.names=labels)
     return(out)
   }

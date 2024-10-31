@@ -32,13 +32,13 @@ enzymes.
 The relevant metric is \eqn{R_2} as defined in fig. 2 of the
 \href{https://www.fda.gov/media/134582/download}{FDA guidance}:
 
-\deqn{R_2=\frac {k_{obs} + k_{deg}}{k_{deg}}}
+\deqn{R=\frac {k_{obs} + k_{deg}}{k_{deg}}}
 
 where
 
-\deqn{k_{obs}=\frac {50*k_{inact}*I_{max,u}}{K_{I,u} + 50*I_{max,u}}}
+\deqn{k_{obs}=\frac {5*k_{inact}*C_{max,u}}{K_{I,u} + 5 * C_{max,u}}}
 
-Values of \eqn{R_2 > 1.25} suggest a relevant TDI potential.
+Values of \eqn{R > 1.25} suggest a relevant TDI potential.
 
 The CYP degradation rates, \eqn{k_{deg}} are physiological constants that
 should be derived from the scientific literature. This package provides

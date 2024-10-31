@@ -123,18 +123,57 @@ conc_table(examplinib_parent)
 
 # Direct enzyme inhibition
 
+## CYP enzymes
+
 ```{r}
 basic_cyp_inhibition_risk(examplinib_parent, examplinib_cyp_inhibition_data)
 
 basic_cyp_inhibition_risk_table(examplinib_parent, examplinib_cyp_inhibition_data)
 ```
 
+## UGT enzymes
+
+```{r}
+basic_ugt_inhibition_risk(examplinib_parent, examplinib_ugt_inhibition_data)
+
+basic_ugt_inhibition_risk_table(examplinib_parent, examplinib_ugt_inhibition_data)
+```
 
 # Time-dependent enzyme inhibition
 
+```{r}
+basic_cyp_tdi_risk(examplinib_parent, examplinib_cyp_tdi_data)
+
+basic_cyp_tdi_risk_table(examplinib_parent, examplinib_cyp_tdi_data)
+```
+
 # CYP induction
 
+## Fold-change method
+
+```{r}
+static_cyp_induction_risk(examplinib_parent, examplinib_cyp_induction_data)
+
+static_cyp_induction_risk_table(examplinib_parent, examplinib_cyp_induction_data)
+```
+
+## Basic kinetic model
+
+```{r}
+kinetic_cyp_induction_risk(examplinib_parent, examplinib_cyp_induction_data)
+
+kinetic_cyp_induction_risk_table(examplinib_parent, examplinib_cyp_induction_data)
+```
+
 # Mechanistic-static assessment of CYP-related DDI
+
+```{r}
+mech_stat_cyp_risk(examplinib_parent, examplinib_cyp_inhibition_data,
+                   examplinib_cyp_induction_data)
+
+mech_stat_cyp_risk_table(examplinib_parent, examplinib_cyp_inhibition_data,
+                         examplinib_cyp_induction_data)
+```
 
 # Transporter inhibition
 

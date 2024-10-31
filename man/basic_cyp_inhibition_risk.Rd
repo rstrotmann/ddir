@@ -23,8 +23,8 @@ A data frame.
 }
 \description{
 This function evaluates the clinical risk for direct (reversible) CYP
-inhibition according to the basic model defined in the relevant regulatory
-guidelines.
+inhibition according to the basic model defined in the relevant
+\href{https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf}{regulatory guideline}.
 }
 \details{
 For the basic modeling of direct (reversible) CYP enzyme inhibition,
