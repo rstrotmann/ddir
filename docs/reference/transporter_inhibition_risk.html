@@ -59,7 +59,7 @@
 
 <dt id="arg-transporter-inh">transporter_inh<a class="anchor" aria-label="anchor" href="#arg-transporter-inh"></a></dt>
 <dd><p>Transporter inhibition data as data frame. The
-following fields are expected:</p><ul><li><p>'name' The perpetrator compound name</p></li>
+following fields are expected:</p><ul><li><p>'name' The perpetrator compound name.</p></li>
 <li><p>'cyp' The UGT enzyme as (upper case) character.</p></li>
 <li><p>'ic50' The \(IC_{50}\) of the inhibition in μM.</p></li>
 <li><p>'source' Optional source information as character.</p></li>
@@ -79,17 +79,8 @@ following fields are expected:</p><ul><li><p>'name' The perpetrator compound nam
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The metric for the assessment of transporter interactions is
 \(R=[I]/IC_{50}\).</p>
-<p>The relevant perpetrator concentrations \([I]\) are:</p><ul><li><p>\(I_{gut}\) for P-gp and BRCR when drugs are orally administered, with a
-threshold for R of 10</p></li>
-<li><p>\(C_{max,ss,u}\) for P-gp and BRCR when drugs are administered
-parenterally or for drug metabolites, with a threshold for R of 0.02</p></li>
-<li><p>\(I_{max,inlet,u}\) for the hepatic basolateral transporters OCT1,
-OATP1B1 and OATP1B3, with a threshold for R of 0.1</p></li>
-<li><p>\(C_{max,ss,u}\) for the renal basolateral transporters OAT1, OAT3 and
-OCT2, with a threshold for R of 0.1</p></li>
-<li><p>\(C_{max,ss,u}\) for the apical transporters MATE1 and MATE2-K, with a
-threshold for R of 0.02</p></li>
-</ul></div>
+<p>The relevant perpetrator concentrations \([I]\) and regulatory thresholds
+of concern are:</p><table class="table table"><tr><td>I</td><td>transporter</td><td>threshold</td></tr><tr><td>\(I_{gut}\)</td><td>P-gp and BRCR when drugs are orally administered</td><td>10</td></tr><tr><td>\(C_{max,ss,u}\)</td><td>P-gp and BRCR when drugs are administered parenterally or for drug metabolites</td><td>0.02</td></tr><tr><td>\(I_{max,inlet,u}\)</td><td>hepatic basolateral transporters OCT1, OATP1B1 and OATP1B3</td><td>0.1</td></tr><tr><td>\(C_{max,ss,u}\)</td><td>renal basolateral transporters OAT1, OAT3 and OCT2</td><td>0.1</td></tr><tr><td>\(C_{max,ss,u}\)</td><td>apical transporters MATE1 and MATE2-K</td><td>0.02</td></tr></table></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="transporter_inhibition_risk_table.html">transporter_inhibition_risk_table()</a></code></p>
@@ -100,20 +91,20 @@ threshold for R of 0.02</p></li>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">transporter_inhibition_risk</span><span class="op">(</span><span class="va">examplinib_parent</span>,</span></span>
 <span class="r-in"><span>  <span class="va">examplinib_transporter_inhibition_data</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    transporter   ic50    source            r threshold  risk</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      Pgp_int   0.41 study 005 8.912391e+03     10.00  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2      Pgp_sys   0.41 study 005 4.019984e-01      0.02  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     BCRP_int   1.90 study 005 1.923200e+03     10.00  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4     BCRP_sys   1.90 study 005 8.674701e-02      0.02  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      OATP1B1 177.00 study 006 1.090047e-03      0.10 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6      OATP1B3  35.00 study 006 5.512525e-03      0.10 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7         OAT1 271.00           6.081894e-04      0.10 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8         OAT3 300.00           5.493978e-04      0.10 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9         BSEP  12.80           1.287651e-02      0.10 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10        OCT2  67.00 study 006 2.459990e-03      0.10 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11       MATE1   3.60 study 006 4.578315e-02      0.02  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12      MATE2k   1.10 study 006 1.498358e-01      0.02  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13        OCT1   2.30 study 006           NA        NA    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    transporter   ic50    source          i            r threshold  risk</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      Pgp_int   0.41 study 005       igut 8.912391e+03     10.00  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      Pgp_sys   0.41 study 005    imaxssu 4.019984e-01      0.02  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     BCRP_int   1.90 study 005       igut 1.923200e+03     10.00  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4     BCRP_sys   1.90 study 005    imaxssu 8.674701e-02      0.02  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      OATP1B1 177.00 study 006 imaxinletu 1.090047e-03      0.10 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6      OATP1B3  35.00 study 006 imaxinletu 5.512525e-03      0.10 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7         OAT1 271.00              imaxssu 6.081894e-04      0.10 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8         OAT3 300.00              imaxssu 5.493978e-04      0.10 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9         BSEP  12.80              imaxssu 1.287651e-02      0.10 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        OCT2  67.00 study 006    imaxssu 2.459990e-03      0.10 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11       MATE1   3.60 study 006    imaxssu 4.578315e-02      0.02  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12      MATE2k   1.10 study 006    imaxssu 1.498358e-01      0.02  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13        OCT1   2.30 study 006       &lt;NA&gt;           NA        NA    NA</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

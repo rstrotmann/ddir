@@ -18,7 +18,7 @@ transporter_inhibition_risk_table(
 \item{transporter_inh}{Transporter inhibition data as data frame. The
 following fields are expected:
 \itemize{
-\item 'name' The perpetrator compound name
+\item 'name' The perpetrator compound name.
 \item 'cyp' The UGT enzyme as (upper case) character.
 \item 'ic50' The \eqn{IC_{50}} of the inhibition in μM.
 \item 'source' Optional source information as character.
@@ -27,11 +27,11 @@ following fields are expected:
 \item{transporter_ref}{Transporter reference data, see
 \link{transporter_reference_data} for details.}
 
-\item{na.rm}{Switch to exlcude rows with lacking \eqn{IC_{50}} data from the
-output.}
+\item{na.rm}{Exclude rows with lacking \eqn{IC_{50}} data from the
+output, as logical.}
 
-\item{show_dose}{Show_dose Show perpetrator dose in table title, defaults
-to \code{FALSE.}}
+\item{show_dose}{Show_dose Show perpetrator dose in table title, as logical.
+Defaults to \code{FALSE.}}
 }
 \value{
 A markdown-formatted table.

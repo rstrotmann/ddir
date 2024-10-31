@@ -16,7 +16,7 @@ transporter_inhibition_risk(
 \item{transporter_inh}{Transporter inhibition data as data frame. The
 following fields are expected:
 \itemize{
-\item 'name' The perpetrator compound name
+\item 'name' The perpetrator compound name.
 \item 'cyp' The UGT enzyme as (upper case) character.
 \item 'ic50' The \eqn{IC_{50}} of the inhibition in μM.
 \item 'source' Optional source information as character.
@@ -35,18 +35,14 @@ Drug transporter inhibition risk
 The metric for the assessment of transporter interactions is
 \eqn{R=[I]/IC_{50}}.
 
-The relevant perpetrator concentrations \eqn{[I]} are:
-\itemize{
-\item \eqn{I_{gut}} for P-gp and BRCR when drugs are orally administered, with a
-threshold for R of 10
-\item \eqn{C_{max,ss,u}} for P-gp and BRCR when drugs are administered
-parenterally or for drug metabolites, with a threshold for R of 0.02
-\item \eqn{I_{max,inlet,u}} for the hepatic basolateral transporters OCT1,
-OATP1B1 and OATP1B3, with a threshold for R of 0.1
-\item \eqn{C_{max,ss,u}} for the renal basolateral transporters OAT1, OAT3 and
-OCT2, with a threshold for R of 0.1
-\item \eqn{C_{max,ss,u}} for the apical transporters MATE1 and MATE2-K, with a
-threshold for R of 0.02
+The relevant perpetrator concentrations \eqn{[I]} and regulatory thresholds
+of concern are:\tabular{lll}{
+   I \tab transporter \tab threshold \cr
+   \eqn{I_{gut}} \tab P-gp and BRCR when drugs are orally administered \tab 10 \cr
+   \eqn{C_{max,ss,u}} \tab P-gp and BRCR when drugs are administered parenterally or for drug metabolites \tab 0.02 \cr
+   \eqn{I_{max,inlet,u}} \tab hepatic basolateral transporters OCT1, OATP1B1 and OATP1B3 \tab 0.1 \cr
+   \eqn{C_{max,ss,u}} \tab renal basolateral transporters OAT1, OAT3 and OCT2 \tab 0.1 \cr
+   \eqn{C_{max,ss,u}} \tab apical transporters MATE1 and MATE2-K \tab 0.02 \cr
 }
 }
 \examples{

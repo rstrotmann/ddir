@@ -4,23 +4,16 @@
 #' The metric for the assessment of transporter interactions is
 #' \eqn{R=[I]/IC_{50}}.
 #'
-# In in vitro transporter inhibition studies, \eqn{IC_{50}}
-# values are experimentally determined. Since the transporter substrate
-# concentration is usually kept very low in relation to \eqn{K_m} to
-# minimize passive permeation, \eqn{K_i = IC_{50}} can be assumed.
+#' The relevant perpetrator concentrations \eqn{[I]} and regulatory thresholds
+#' of concern are:
 #'
-#' The relevant perpetrator concentrations \eqn{[I]} are:
-#'
-#' * \eqn{I_{gut}} for P-gp and BRCR when drugs are orally administered, with a
-#' threshold for R of 10
-#' * \eqn{C_{max,ss,u}} for P-gp and BRCR when drugs are administered
-#' parenterally or for drug metabolites, with a threshold for R of 0.02
-#' * \eqn{I_{max,inlet,u}} for the hepatic basolateral transporters OCT1,
-#' OATP1B1 and OATP1B3, with a threshold for R of 0.1
-#' * \eqn{C_{max,ss,u}} for the renal basolateral transporters OAT1, OAT3 and
-#' OCT2, with a threshold for R of 0.1
-#' * \eqn{C_{max,ss,u}} for the apical transporters MATE1 and MATE2-K, with a
-#' threshold for R of 0.02
+#' | I                     | transporter                                                                    | threshold |
+#' | ---                   | ---                                                                            | ---       |
+#' | \eqn{I_{gut}}         | P-gp and BRCR when drugs are orally administered                               | 10        |
+#' | \eqn{C_{max,ss,u}}    | P-gp and BRCR when drugs are administered parenterally or for drug metabolites | 0.02      |
+#' | \eqn{I_{max,inlet,u}} | hepatic basolateral transporters OCT1, OATP1B1 and OATP1B3                     | 0.1       |
+#' | \eqn{C_{max,ss,u}}    | renal basolateral transporters OAT1, OAT3 and OCT2                             | 0.1       |
+#' | \eqn{C_{max,ss,u}}    | apical transporters MATE1 and MATE2-K                                          | 0.02      |
 #'
 #' @param perp The perpetrator object.
 #' @param transporter_inh Transporter inhibition data as data frame. The
