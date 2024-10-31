@@ -13,5 +13,5 @@ utils::globalVariables(c(
   "transporter_reference_data", "conc", "fda_thld", "ema_thld", "fda_risk",
   "ema_risk", "ic50", "r", "maxc", "." , "default", "item", "transporter",
   "ugt", "cyp_turnover", "kdeg_hepatic", "kdeg", "kinact", "kobs", "r2",
-  "Bg", "Bh", "cyp_kdeg", "r_gut"
+  "Bg", "Bh", "cyp_kdeg", "r_gut", "threshold"
 ))

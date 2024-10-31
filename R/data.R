@@ -2,31 +2,25 @@
 #'
 #' @format
 #' * 'transporter' The name of the drug transporter protein.
-#' * 'fda_thld' The threshold for relevant interactions as defined by the
-#' [FDA guidance](https://www.fda.gov/media/134582/download).
-#' * 'ema_thld' the threshold for relevant interactions as defined in the
-#' [EMA guidance](https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-drug-interactions-revision-1_en.pdf).
-#' * 'i' The perpetrator concentration applicable for the interaction.
+#' * 'threshold' The regulatory threshold for clinically relevant interactions.
+#' * 'i' The precipitant concentration metric applicable for the interaction.
 #' @details
 #' \preformatted{
-#' transporter   fda_thld   ema_thld    i
-#' "Pgp_int",    10.0,      10.00,     "igut",
-#' "Pgp_sys",    0.1,       0.02,      "imaxssu",
-#' "BCRP_int",   10.0,      10.00,     "igut",
-#' "BCRP_sys",   0.1,       0.02,      "imaxssu",
-#' "OCT1",       NA,        0.04,      "imaxinletu",
-#' "OATP1B1",    0.1,       0.04,      "imaxinletu",
-#' "OATP1B3",    0.1,       0.04,      "imaxinletu",
-#' "OAT1",       0.1,       0.04,      "imaxssu",
-#' "OAT3",       0.1,       0.04,      "imaxssu",
-#' "BSEP",       0.1,       0.02,      "imaxssu",
-#' "OCT2",       0.1,       0.02,      "imaxssu",
-#' "MATE1",      0.1,       0.02,      "imaxssu",
-#' "MATE2k",     0.1,       0.02,      "imaxssu"
+#' transporter , threshold , i
+#' Pgp_int     , 10        , igut
+#' Pgp_sys     , 0.02      , imaxssu
+#' BCRP_int    , 10        , igut
+#' BCRP_sys    , 0.02      , imaxssu
+#' OATP1B1     , 0.1       , imaxinletu
+#' OATP1B3     , 0.1       , imaxinletu
+#' OAT1        , 0.1       , imaxssu
+#' OAT3        , 0.1       , imaxssu
+#' BSEP        , 0.1       , imaxssu
+#' OCT2        , 0.1       , imaxssu
+#' MATE1       , 0.02      , imaxssu
+#' MATE2k      , 0.02      , imaxssu
 #' }
-#' @source [FDA guideline: In Vitro Drug Interaction Studies — Cytochrome P450
-#' Enzyme- and Transporter-Mediated Drug Interactions, 2020](https://www.fda.gov/media/134582/download).
-#' @source [EMA Guideline on the investigation of drug interactions, 2012](https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-drug-interactions-revision-1_en.pdf)
+#' @source Section 2 of the [ICH M12 guideline](https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf).
 #' @seealso [key_concentrations()]
 #' @seealso [transporter_inhibition_risk()]
 "transporter_reference_data"
@@ -35,17 +29,17 @@
 #' CYP reference substrate data
 #'
 #' CYP reference substrates commonly used in the mechanistic static assessment
-#' of the CYP DDI perpetrator potential of drugs.
+#' of the CYP DDI potential of drugs.
 #'
 #' @details
 #' The CYP reference substrates currently implemented include:
 #' \preformatted{
-#'     cyp   substrate fgut   fm fmcyp
-#'  CYP1A2  tizanidine 1.00 0.95  0.98
-#'  CYP2C8 repaglinide 1.00 1.00  0.61
-#'  CYP2C9  S-warfarin 1.00 1.00  0.91
-#' CYP2C19  omeprazole 1.00 1.00  0.87
-#'  CYP3A4   midazolam 0.57 0.96  1.00
+#' cyp     , substrate   , fgut , fm   , fmcyp
+#' CYP1A2  , tizanidine  , 1    , 0.95 , 0.98
+#' CYP2C8  , repaglinide , 1    , 1    , 0.61
+#' CYP2C9  , S-warfarin  , 1    , 1    , 0.91
+#' CYP2C19 , omeprazole  , 1    , 1    , 0.87
+#' CYP3A4  , midazolam   , 0.57 , 0.96 , 1
 #' }
 #' @source FDA and EMA guidelines.
 #' @seealso [mech_stat_cyp_risk()]

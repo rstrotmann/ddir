@@ -32,27 +32,26 @@ A data frame.
 Drug transporter inhibition risk
 }
 \details{
-The relevant metric for the assessment of transporter interactions is
-\eqn{R=[I]/K_i}. In in vitro transporter inhibition studies, \eqn{IC_{50}}
-values are experimentally determined. Since the transporter substrate
-concentration is usually kept very low in relation to \eqn{K_m} to
-minimize passive permeation, \eqn{K_i = IC_{50}} can be assumed.
+The metric for the assessment of transporter interactions is
+\eqn{R=[I]/IC_{50}}.
 
 The relevant perpetrator concentrations \eqn{[I]} are:
 \itemize{
-\item \eqn{I_{gut}} for intestinal P-gp and BRCR
+\item \eqn{I_{gut}} for P-gp and BRCR when drugs are orally administered, with a
+threshold for R of 10
+\item \eqn{C_{max,ss,u}} for P-gp and BRCR when drugs are administered
+parenterally or for drug metabolites, with a threshold for R of 0.02
 \item \eqn{I_{max,inlet,u}} for the hepatic basolateral transporters OCT1,
-OATP1B1 and OATP1B3
-\item \eqn{I_{max,ss,u}} for the renal basolateral transporters OAT1, OAT3 and
-OCT2, as well as the apical transporters outside the intestinal mucosa, i.e.,
-hepatic P-gp and BCRP, and MATE1, MATE2-k.
+OATP1B1 and OATP1B3, with a threshold for R of 0.1
+\item \eqn{C_{max,ss,u}} for the renal basolateral transporters OAT1, OAT3 and
+OCT2, with a threshold for R of 0.1
+\item \eqn{C_{max,ss,u}} for the apical transporters MATE1 and MATE2-K, with a
+threshold for R of 0.02
 }
-
-Note that the FDA and EMA guidelines differ in their definitions for the
-thresholds for assumed clinically relevant effects.
 }
 \examples{
-transporter_inhibition_risk(examplinib_parent, examplinib_transporter_inhibition_data)
+transporter_inhibition_risk(examplinib_parent,
+  examplinib_transporter_inhibition_data)
 }
 \seealso{
 \code{\link[=transporter_inhibition_risk_table]{transporter_inhibition_risk_table()}}

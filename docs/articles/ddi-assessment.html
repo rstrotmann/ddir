@@ -780,7 +780,7 @@ model</caption>
 <td align="right">7.35</td>
 <td align="right">1.64</td>
 <td align="left">study 007</td>
-<td align="left">0.213</td>
+<td align="left">0.21</td>
 <td align="left">TRUE</td>
 </tr>
 </tbody>
@@ -966,6 +966,141 @@ examplinib</caption>
 <div class="section level2">
 <h2 id="transporter-inhibition">Transporter inhibition<a class="anchor" aria-label="anchor" href="#transporter-inhibition"></a>
 </h2>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/transporter_inhibition_risk.html">transporter_inhibition_risk</a></span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_transporter_inhibition_data</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    transporter   ic50    source            r threshold  risk</span></span>
+<span><span class="co">#&gt; 1      Pgp_int   0.41 study 005 8.912391e+03     10.00  TRUE</span></span>
+<span><span class="co">#&gt; 2      Pgp_sys   0.41 study 005 4.019984e-01      0.02  TRUE</span></span>
+<span><span class="co">#&gt; 3     BCRP_int   1.90 study 005 1.923200e+03     10.00  TRUE</span></span>
+<span><span class="co">#&gt; 4     BCRP_sys   1.90 study 005 8.674701e-02      0.02  TRUE</span></span>
+<span><span class="co">#&gt; 5      OATP1B1 177.00 study 006 1.090047e-03      0.10 FALSE</span></span>
+<span><span class="co">#&gt; 6      OATP1B3  35.00 study 006 5.512525e-03      0.10 FALSE</span></span>
+<span><span class="co">#&gt; 7         OAT1 271.00           6.081894e-04      0.10 FALSE</span></span>
+<span><span class="co">#&gt; 8         OAT3 300.00           5.493978e-04      0.10 FALSE</span></span>
+<span><span class="co">#&gt; 9         BSEP  12.80           1.287651e-02      0.10 FALSE</span></span>
+<span><span class="co">#&gt; 10        OCT2  67.00 study 006 2.459990e-03      0.10 FALSE</span></span>
+<span><span class="co">#&gt; 11       MATE1   3.60 study 006 4.578315e-02      0.02  TRUE</span></span>
+<span><span class="co">#&gt; 12      MATE2k   1.10 study 006 1.498358e-01      0.02  TRUE</span></span>
+<span><span class="co">#&gt; 13        OCT1   2.30 study 006           NA        NA    NA</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/transporter_inhibition_risk_table.html">transporter_inhibition_risk_table</a></span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_transporter_inhibition_data</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<caption>Risk for drug transporter inhibition by examplinib</caption>
+<thead><tr class="header">
+<th align="left">transporter</th>
+<th align="right"><span class="math inline">\(IC_{50}\)</span></th>
+<th align="left">source</th>
+<th align="right"><span class="math inline">\(R\)</span></th>
+<th align="right">threshold</th>
+<th align="left">risk</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Pgp_int</td>
+<td align="right">0.41</td>
+<td align="left">study 005</td>
+<td align="right">8912.39</td>
+<td align="right">10.00</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">Pgp_sys</td>
+<td align="right">0.41</td>
+<td align="left">study 005</td>
+<td align="right">0.40</td>
+<td align="right">0.02</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">BCRP_int</td>
+<td align="right">1.90</td>
+<td align="left">study 005</td>
+<td align="right">1923.20</td>
+<td align="right">10.00</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">BCRP_sys</td>
+<td align="right">1.90</td>
+<td align="left">study 005</td>
+<td align="right">0.09</td>
+<td align="right">0.02</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">OATP1B1</td>
+<td align="right">177.00</td>
+<td align="left">study 006</td>
+<td align="right">0.00</td>
+<td align="right">0.10</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">OATP1B3</td>
+<td align="right">35.00</td>
+<td align="left">study 006</td>
+<td align="right">0.01</td>
+<td align="right">0.10</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">OAT1</td>
+<td align="right">271.00</td>
+<td align="left"></td>
+<td align="right">0.00</td>
+<td align="right">0.10</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">OAT3</td>
+<td align="right">300.00</td>
+<td align="left"></td>
+<td align="right">0.00</td>
+<td align="right">0.10</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">BSEP</td>
+<td align="right">12.80</td>
+<td align="left"></td>
+<td align="right">0.01</td>
+<td align="right">0.10</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">OCT2</td>
+<td align="right">67.00</td>
+<td align="left">study 006</td>
+<td align="right">0.00</td>
+<td align="right">0.10</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">MATE1</td>
+<td align="right">3.60</td>
+<td align="left">study 006</td>
+<td align="right">0.05</td>
+<td align="right">0.02</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">MATE2k</td>
+<td align="right">1.10</td>
+<td align="left">study 006</td>
+<td align="right">0.15</td>
+<td align="right">0.02</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">OCT1</td>
+<td align="right">2.30</td>
+<td align="left">study 006</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+</tr>
+</tbody>
+</table>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

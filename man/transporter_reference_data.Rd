@@ -7,17 +7,12 @@
 \format{
 \itemize{
 \item 'transporter' The name of the drug transporter protein.
-\item 'fda_thld' The threshold for relevant interactions as defined by the
-\href{https://www.fda.gov/media/134582/download}{FDA guidance}.
-\item 'ema_thld' the threshold for relevant interactions as defined in the
-\href{https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-drug-interactions-revision-1_en.pdf}{EMA guidance}.
-\item 'i' The perpetrator concentration applicable for the interaction.
+\item 'threshold' The regulatory threshold for clinically relevant interactions.
+\item 'i' The precipitant concentration metric applicable for the interaction.
 }
 }
 \source{
-\href{https://www.fda.gov/media/134582/download}{FDA guideline: In Vitro Drug Interaction Studies — Cytochrome P450 Enzyme- and Transporter-Mediated Drug Interactions, 2020}.
-
-\href{https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-drug-interactions-revision-1_en.pdf}{EMA Guideline on the investigation of drug interactions, 2012}
+Section 2 of the \href{https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf}{ICH M12 guideline}.
 }
 \usage{
 transporter_reference_data
@@ -27,20 +22,19 @@ Drug transporter reference data
 }
 \details{
 \preformatted{
-transporter   fda_thld   ema_thld    i
-"Pgp_int",    10.0,      10.00,     "igut",
-"Pgp_sys",    0.1,       0.02,      "imaxssu",
-"BCRP_int",   10.0,      10.00,     "igut",
-"BCRP_sys",   0.1,       0.02,      "imaxssu",
-"OCT1",       NA,        0.04,      "imaxinletu",
-"OATP1B1",    0.1,       0.04,      "imaxinletu",
-"OATP1B3",    0.1,       0.04,      "imaxinletu",
-"OAT1",       0.1,       0.04,      "imaxssu",
-"OAT3",       0.1,       0.04,      "imaxssu",
-"BSEP",       0.1,       0.02,      "imaxssu",
-"OCT2",       0.1,       0.02,      "imaxssu",
-"MATE1",      0.1,       0.02,      "imaxssu",
-"MATE2k",     0.1,       0.02,      "imaxssu"
+transporter , threshold , i
+Pgp_int     , 10        , igut
+Pgp_sys     , 0.02      , imaxssu
+BCRP_int    , 10        , igut
+BCRP_sys    , 0.02      , imaxssu
+OATP1B1     , 0.1       , imaxinletu
+OATP1B3     , 0.1       , imaxinletu
+OAT1        , 0.1       , imaxssu
+OAT3        , 0.1       , imaxssu
+BSEP        , 0.1       , imaxssu
+OCT2        , 0.1       , imaxssu
+MATE1       , 0.02      , imaxssu
+MATE2k      , 0.02      , imaxssu
 }
 }
 \seealso{

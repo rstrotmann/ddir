@@ -177,6 +177,12 @@ mech_stat_cyp_risk_table(examplinib_parent, examplinib_cyp_inhibition_data,
 
 # Transporter inhibition
 
+```{r}
+transporter_inhibition_risk(examplinib_parent, examplinib_transporter_inhibition_data)
+
+transporter_inhibition_risk_table(examplinib_parent, examplinib_transporter_inhibition_data)
+```
+
 
 
 

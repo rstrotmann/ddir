@@ -29,8 +29,7 @@ This function calculates the risk for time-dependent inhibition of CYP
 enzymes.
 }
 \details{
-The relevant metric is \eqn{R_2} as defined in fig. 2 of the
-\href{https://www.fda.gov/media/134582/download}{FDA guidance}:
+The risk assessment is based on:
 
 \deqn{R=\frac {k_{obs} + k_{deg}}{k_{deg}}}
 

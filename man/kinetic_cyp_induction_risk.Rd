@@ -33,7 +33,7 @@ Basic kinetic CYP induction risk
 \details{
 Basic kinetic modeling of the CYP induction risk considers:
 
-\deqn{R = \frac {1}{1 + d * \frac {E_{max}*10*C_{max,u}}{EC_{50,u} + 10 * C_{max,u}}}}
+\deqn{R = \frac {1}{1 + d * \frac {E_{max}*10*C_{max,ss,u}}{EC_{50,u} + 10 * C_{max,ss,u}}}}
 
 \eqn{d} is a scaling factor with a standard value of 1. A different value can
 be used if warranted by prior experience with the experimental conditions.
