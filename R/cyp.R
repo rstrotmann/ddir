@@ -6,43 +6,41 @@
 #' inhibition according to the basic model defined in the relevant regulatory
 #' guidelines.
 #'
-#' @details
-#' For the basic modeling of direct (reversible) CYP enzyme inhibition, the
-#' ratio of the relevant inhibitor concentration to the \eqn{K_i} of the
-#' respective CYP enzyme is
-#' considered, i.e., \eqn{R_1} for hepatic enzymes and \eqn{R_{1,gut}} for
-#' intestinal enzymes (refer to fig. 1 of  the the
-#' [FDA guidance](https://www.fda.gov/media/134582/download)).
+#' @details For the basic modeling of direct (reversible) CYP enzyme inhibition,
+#'   the ratio of the relevant inhibitor concentration to the \eqn{K_i} of the
+#'   respective CYP enzyme is considered, i.e., \eqn{R} for hepatic enzymes and
+#'   \eqn{R_{gut}} for intestinal enzymes (refer to Section 2.1.2.1 of the [ICH
+#'   M12 guidance
+#'   document](https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf)).
 #'
-#' ## Liver
+#'   ## Liver
 #'
-#' \deqn{R_1=1+\frac{I_{max,ss,u}}{K_{i,u}}}
+#'   \deqn{R=\frac{C_{max,ss,u}}{K_{i,u}}}
 #'
-#' ## Gut wall
+#'   \eqn{R} values > 0.02, i.e., maximal unbound perpetrator concentrations
+#'   50-fold over \eqn{K_i} are considered to indicate a potential clinical CYP
+#'   inhibition risk using this method.
 #'
-#' \deqn{R_{1,gut}=1+\frac{I_{gut}}{K_{i,u}}}
+#'   ## Intestine
 #'
-#' \eqn{R_1} values > 1.02, i.e., maximal unbound perpetrator concentrations
-#' 50-fold over \eqn{K_i} are considered to indicate a clinical risk using this
-#' method.
+#'   \deqn{R_{gut}=\frac{I_{gut}}{K_{i,u}}}
 #'
-#' Note that section 5.3.3.1 of the
-#' [EMA DDI guidance](https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-drug-interactions-revision-1_en.pdf)
-#' defines the relevant ratio as \eqn{R_1=\frac{I_{max,ss,u}}{K_{i,u}}} and the
-#' threshold as 0.02.
+#'   where
 #'
-#' In the output, the columns `risk_hep` and `risk_intest` indicate whether the
-#' regulatory threshold is reached for the respecive enzyme.
+#'   \deqn{I_{gut}=\frac{Dose}{250 mg}}
 #'
-#' Refer to the documentation to the [key_concentrations()] function for details
-#' on the calculation of \eqn{I_{max,ss,u}} and \eqn{I_{gut}}.
+#'   \eqn{R} values > 10 are considered to indicate a clinical risk for
+#'   intestinal CYP3A inhibition.
+#'
+#'   In the output, the columns `risk_hep` and `risk_intest` indicate whether
+#'   the regulatory threshold is reached for the respective enzyme.
 #'
 #' @param perp The perpetrator object.
 #' @param cyp_inh CYP inhibition data as data frame. The following fields are
-#' expected:
+#'   expected:
 #' * 'name' The name of the perpetrator compound.
 #' * 'cyp' The CYP enzyme as (upper case) character.
-#' * 'ki' The \eqn{k_i} in \eqn{\mu M} as numeric.
+#' * 'ki' The \eqn{K_i} in \eqn{\mu M} as numeric.
 #' * 'source' Optional source information as character.
 #' @return A data frame.
 #' @seealso [basic_cyp_inhibition_risk_table()]
@@ -53,7 +51,7 @@
 #' basic_cyp_inhibition_risk(examplinib_parent, examplinib_cyp_inhibition_data)
 basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
   ki <- cyp_inh %>%
-    filter(name==name(perp)) #%>%
+    filter(name==name(perp))
 
   i <- key_concentrations(perp, molar=TRUE)
   fumic <- as.num(perp["fumic", "value"])
@@ -61,14 +59,16 @@ basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
   out <- ki %>%
     mutate(ki=as.num(ki)) %>%
     mutate(kiu=ki*fumic) %>%
-    mutate(r1=1 + (i["imaxssu"]/kiu)) %>%
-    mutate(r1gut=case_when(cyp=="CYP3A4" ~ 1+(i["igut"]/ki), .default=NA)) %>%
+    mutate(r=i["imaxssu"]/kiu) %>%
+    mutate(r_gut=case_when(cyp=="CYP3A4" ~ i["igut"]/kiu, .default=NA)) %>%
     select(-name) %>%
-    mutate(risk_hep=r1>1.02) %>%
-    mutate(risk_intest=r1gut>11) %>%
-    mutate(r1=format(r1, digits=4)) %>%
-    mutate(r1gut=format(r1gut, digits=4)) %>%
-    select(cyp, ki, kiu, r1, risk_hep, r1gut, risk_intest)
+    mutate(risk_hep=r>0.02) %>%
+    mutate(risk_intest=r_gut>10) %>%
+    # mutate(r=format(r, digits=4)) %>%
+    mutate(r=round(r, digits=4)) %>%
+    # mutate(r_gut=format(r_gut, digits=4)) %>%
+    mutate(r_gut=round(r_gut, digits=4)) %>%
+    select(cyp, ki, kiu, r, risk_hep, r_gut, risk_intest)
 
   return(out)
 }
@@ -105,12 +105,17 @@ basic_cyp_inhibition_risk_table <- function(perp, cyp_inh, na.rm = FALSE,
 #' @noRd
 basic_cyp_inhibition_risk_table.perpetrator <- function(
     perp, cyp_inh, na.rm = FALSE, show_dose = FALSE) {
-  temp <- basic_cyp_inhibition_risk(perp, cyp_inh)
+  temp <- basic_cyp_inhibition_risk(perp, cyp_inh) %>%
+    mutate(r = round(r, digits = 3)) %>%
+    mutate(r_gut = round(r_gut, 1)) %>%
+    mutate(r_gut = case_when(!is.na(r_gut) ~ as.character(r_gut), .default = "")) %>%
+    mutate(risk_intest = case_when(!is.na(risk_intest) ~ as.character(risk_intest), .default = ""))
+
   if(na.rm==TRUE) {
     temp <- temp %>%
       filter(!is.na(ki))}
-  labels <- c("CYP", "$K_{i}$ ($\\mu M$)", "$K_{i,u}$ ($\\mu M$)", "$R_1$",
-              "risk (hepatic)", "$R_{1,gut}$", "risk (intestinal)")
+  labels <- c("CYP", "$K_{i}$ ($\\mu M$)", "$K_{i,u}$ ($\\mu M$)", "$R$",
+              "risk (hepatic)", "$R_{gut}$", "risk (intestinal)")
   if(nrow(temp)!=0) {
     caption <- paste0("Risk for direct CYP inhibition by ", name(perp),
                       conditional_dose_string(perp, show_dose),

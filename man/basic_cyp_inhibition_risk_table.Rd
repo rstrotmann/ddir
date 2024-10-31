@@ -19,7 +19,7 @@ expected:
 \itemize{
 \item 'name' The name of the perpetrator compound.
 \item 'cyp' The CYP enzyme as (upper case) character.
-\item 'ki' The \eqn{k_i} in \eqn{\mu M} as numeric.
+\item 'ki' The \eqn{K_i} in \eqn{\mu M} as numeric.
 \item 'source' Optional source information as character.
 }}
 

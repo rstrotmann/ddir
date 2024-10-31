@@ -14,7 +14,7 @@ expected:
 \itemize{
 \item 'name' The name of the perpetrator compound.
 \item 'cyp' The CYP enzyme as (upper case) character.
-\item 'ki' The \eqn{k_i} in \eqn{\mu M} as numeric.
+\item 'ki' The \eqn{K_i} in \eqn{\mu M} as numeric.
 \item 'source' Optional source information as character.
 }}
 }
@@ -27,35 +27,32 @@ inhibition according to the basic model defined in the relevant regulatory
 guidelines.
 }
 \details{
-For the basic modeling of direct (reversible) CYP enzyme inhibition, the
-ratio of the relevant inhibitor concentration to the \eqn{K_i} of the
-respective CYP enzyme is
-considered, i.e., \eqn{R_1} for hepatic enzymes and \eqn{R_{1,gut}} for
-intestinal enzymes (refer to fig. 1 of  the the
-\href{https://www.fda.gov/media/134582/download}{FDA guidance}).
+For the basic modeling of direct (reversible) CYP enzyme inhibition,
+the ratio of the relevant inhibitor concentration to the \eqn{K_i} of the
+respective CYP enzyme is considered, i.e., \eqn{R} for hepatic enzymes and
+\eqn{R_{gut}} for intestinal enzymes (refer to Section 2.1.2.1 of the \href{https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf}{ICH M12 guidance document}).
 \subsection{Liver}{
 
-\deqn{R_1=1+\frac{I_{max,ss,u}}{K_{i,u}}}
+\deqn{R=\frac{C_{max,ss,u}}{K_{i,u}}}
+
+\eqn{R} values > 0.02, i.e., maximal unbound perpetrator concentrations
+50-fold over \eqn{K_i} are considered to indicate a potential clinical CYP
+inhibition risk using this method.
 }
 
-\subsection{Gut wall}{
+\subsection{Intestine}{
 
-\deqn{R_{1,gut}=1+\frac{I_{gut}}{K_{i,u}}}
+\deqn{R_{gut}=\frac{I_{gut}}{K_{i,u}}}
 
-\eqn{R_1} values > 1.02, i.e., maximal unbound perpetrator concentrations
-50-fold over \eqn{K_i} are considered to indicate a clinical risk using this
-method.
+where
 
-Note that section 5.3.3.1 of the
-\href{https://www.ema.europa.eu/en/documents/scientific-guideline/guideline-investigation-drug-interactions-revision-1_en.pdf}{EMA DDI guidance}
-defines the relevant ratio as \eqn{R_1=\frac{I_{max,ss,u}}{K_{i,u}}} and the
-threshold as 0.02.
+\deqn{I_{gut}=\frac{Dose}{250 mg}}
 
-In the output, the columns \code{risk_hep} and \code{risk_intest} indicate whether the
-regulatory threshold is reached for the respecive enzyme.
+\eqn{R} values > 10 are considered to indicate a clinical risk for
+intestinal CYP3A inhibition.
 
-Refer to the documentation to the \code{\link[=key_concentrations]{key_concentrations()}} function for details
-on the calculation of \eqn{I_{max,ss,u}} and \eqn{I_{gut}}.
+In the output, the columns \code{risk_hep} and \code{risk_intest} indicate whether
+the regulatory threshold is reached for the respective enzyme.
 }
 }
 \examples{
