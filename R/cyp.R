@@ -108,8 +108,14 @@ basic_cyp_inhibition_risk_table.perpetrator <- function(
   temp <- basic_cyp_inhibition_risk(perp, cyp_inh) %>%
     mutate(r = round(r, digits = 3)) %>%
     mutate(r_gut = round(r_gut, 1)) %>%
-    mutate(r_gut = case_when(!is.na(r_gut) ~ as.character(r_gut), .default = "")) %>%
-    mutate(risk_intest = case_when(!is.na(risk_intest) ~ as.character(risk_intest), .default = ""))
+    mutate(risk_hep = case_match(risk_hep,
+      TRUE ~ "Yes", FALSE ~ "No", .default = "")) %>%
+    mutate(risk_intest = case_match(risk_intest,
+      TRUE ~ "Yes", FALSE ~ "No", .default = "")) %>%
+    mutate(r_gut = case_when(
+      !is.na(r_gut) ~ as.character(r_gut), .default = ""))
+    # mutate(risk_intest = case_when(
+    #   !is.na(risk_intest) ~ as.character(risk_intest), .default = ""))
 
   if(na.rm==TRUE) {
     temp <- temp %>%
