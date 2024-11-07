@@ -29,6 +29,7 @@ transporter_reference_data <- tribble(
   "OAT1",       0.1,   "imaxssu",
   "OAT3",       0.1,   "imaxssu",
   "BSEP",       0.1,   "imaxssu",
+  "OCT1",       NA,    NA,
   "OCT2",       0.1,   "imaxssu",
   "MATE1",      0.02,   "imaxssu",
   "MATE2k",     0.02,   "imaxssu"

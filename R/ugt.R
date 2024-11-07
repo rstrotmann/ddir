@@ -84,7 +84,10 @@ basic_ugt_inhibition_risk_table <- function(perp, ugt_inh, na.rm=F,
 #' @noRd
 basic_ugt_inhibition_risk_table.perpetrator <- function(
     perp, ugt_inh, na.rm=F, show_dose = FALSE) {
-  temp <- basic_ugt_inhibition_risk(perp, ugt_inh)
+  temp <- basic_ugt_inhibition_risk(perp, ugt_inh) %>%
+    mutate(risk = case_match(
+      as.character(risk),
+      "TRUE" ~ "Yes", "FALSE" ~ "No", .default = ""))
 
   if(na.rm==TRUE) {
     temp <- temp %>%

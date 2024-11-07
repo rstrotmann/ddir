@@ -108,10 +108,10 @@ basic_cyp_inhibition_risk_table.perpetrator <- function(
   temp <- basic_cyp_inhibition_risk(perp, cyp_inh) %>%
     mutate(r = round(r, digits = 3)) %>%
     mutate(r_gut = round(r_gut, 1)) %>%
-    mutate(risk_hep = case_match(risk_hep,
-      TRUE ~ "Yes", FALSE ~ "No", .default = "")) %>%
-    mutate(risk_intest = case_match(risk_intest,
-      TRUE ~ "Yes", FALSE ~ "No", .default = "")) %>%
+    mutate(risk_hep = case_match(as.character(risk_hep),
+      "TRUE" ~ "Yes", "FALSE" ~ "No", .default = "")) %>%
+    mutate(risk_intest = case_match(as.character(risk_intest),
+      "TRUE" ~ "Yes", "FALSE" ~ "No", .default = "")) %>%
     mutate(r_gut = case_when(
       !is.na(r_gut) ~ as.character(r_gut), .default = ""))
     # mutate(risk_intest = case_when(
@@ -232,7 +232,11 @@ basic_cyp_tdi_risk_table <- function(perp, cyp_tdi, cyp_kdeg = cyp_turnover,
 #' @noRd
 basic_cyp_tdi_risk_table.perpetrator <- function(
     perp, cyp_tdi, cyp_kdeg=cyp_turnover, na.rm = TRUE, show_dose = FALSE) {
-  temp <- basic_cyp_tdi_risk(perp, cyp_tdi, cyp_kdeg)
+  temp <- basic_cyp_tdi_risk(perp, cyp_tdi, cyp_kdeg) %>%
+    mutate(risk = case_match(
+      as.character(risk),
+      "TRUE" ~ "Yes", "FALSE" ~ "No", .default = ""))
+
   if(na.rm==TRUE) {
     temp <- temp %>%
       filter(!is.na(ki) & !is.na(kdeg))
@@ -349,7 +353,11 @@ static_cyp_induction_risk_table <- function(
 #' @noRd
 static_cyp_induction_risk_table.perpetrator <- function(
     perp, cyp_ind, na.rm = F, show_dose = FALSE) {
-  temp <- static_cyp_induction_risk(perp, cyp_ind)
+  temp <- static_cyp_induction_risk(perp, cyp_ind) %>%
+    mutate(risk = case_match(
+      as.character(risk),
+      "TRUE" ~ "Yes", "FALSE" ~ "No", .default = ""))
+
   if(na.rm==TRUE) {
     temp <- temp %>%
       filter(!is.na(emax))}
@@ -442,6 +450,9 @@ kinetic_cyp_induction_risk_table <- function(
 kinetic_cyp_induction_risk_table.perpetrator <- function(
     perp, cyp_ind, na.rm = F, show_dose = FALSE) {
   temp <- kinetic_cyp_induction_risk(perp, cyp_ind) %>%
+    mutate(risk = case_match(
+      as.character(risk),
+      "TRUE" ~ "Yes", "FALSE" ~ "No", .default = "")) %>%
     mutate(r=format(r, digit=2)) %>%
     select(-maxc)
 
@@ -675,10 +686,14 @@ mech_stat_cyp_risk_table.perpetrator <- function(
   temp <- mech_stat_cyp_risk(perp, cyp_inh, cyp_ind, cyp_tdi,
                              include_induction=include_induction,
                              substr=substr, cyp_kdeg=cyp_kdeg) %>%
+    mutate(risk = case_match(
+      as.character(risk),
+      "TRUE" ~ "Yes", "FALSE" ~ "No", .default = "")) %>%
     select(cyp, kiu, substrate, fgut, fm, fmcyp, Ag, Ah, Bg, Bh, Cg, Ch, aucr,
            risk) %>%
     # mutate(across(Ag:Ch, ~ signif(., digits=2))) %>%
-    mutate(across(Ag:Ch, ~ format(., digits=3, nsmall=3))) %>%
+    # mutate(across(Ag:Ch, ~ format(., digits=2, nsmall=3))) %>%
+    mutate(across(Ag:Ch, ~ round(., digits=2))) %>%
     mutate(aucr=format(aucr, digits=3))
 
   if(na.rm==TRUE) {

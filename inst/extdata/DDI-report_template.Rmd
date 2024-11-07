@@ -215,7 +215,7 @@ basic_cyp_tdi_risk_table(compounds, cyp_tdi_data, na.rm=T)
 
 The basic 'fold-change' approach evaluates whether the maximal change in CYP
 mRNA expression is > 2-fold at concentrations up to 50-fold of the expected
-unbound systemic concentration of the drug (refer to Section 2.1.4.1 of th [ICH
+unbound systemic concentration of the drug (refer to Section 2.1.4.1 of the [ICH
 M12 guidance
 document](https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf)).
 
@@ -281,8 +281,10 @@ basic_ugt_inhibition_risk_table(compounds, ugt_inhibition_data)
 ## DDI risk as inhibitor of drug transporters
 
 The metric for the assessment of the drug transporter inhibition risk is
-$R=[I]/K_i$. For the relevant perpetrator concentrations, refer to Appendix 1,
-Section '[Inhibition of drug transporters]'.
+$R=[I]/IC_{50,u}$. For the relevant perpetrator concentrations, refer to
+Appendix 1, Section '[Inhibition of drug transporters]'.
+
+Note that OCT1 is currently not covered by the M12 guideline.
 
 ```{r results="asis"}
 transporter_inhibition_risk_table(compounds, transporter_inhibition_data)
@@ -363,8 +365,12 @@ The standard villous blood flow is assumed as 18 l/h/70 kg or 0.3 l/min/70 kg.
 ### Reversible inhibition
 
 For the basic modeling of direct (reversible) enzyme inhibition, the ratios of
-the relevant inhibitor concentration to the $K_i$ are considered (refer to
+the relevant inhibitor concentration to the $K_{i,u}$ are considered (refer to
 Section 2.1.2.1 of the [ICH M12 guidance document](https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf)).
+
+For in vitro studies conducted using human liver microsomes, the microsomal
+unbound fraction, $f_{u,mic}$ is used to calculate $K_{i,u}$. If unknown, a 
+default of 1 is assumed.
 
 $R$ values larger than 0.02 (liver) or 10 (gut), are considered to indicate a
 potential clinical enzyme inhibition risk using this method.
@@ -400,7 +406,7 @@ potential and suggest the need for further investigation.
 For the basic kinetic modeling of the CYP induction potential, the following
 metric is considered:
 
-$$R = \frac {1}{1+d* \frac {E_{max}*10*C_{max,ss,u}}{EC_{50} + 10*C_{max,ss,u}}}$$
+$$R = \frac {1}{1+d* \frac {E_{max}*10*C_{max,ss,u}}{EC_{50,u} + 10*C_{max,ss,u}}}$$
 
 with $d$ a scaling factor that has a standard value of 1. A different value can
 be used if warranted by prior experience with the experimental conditions.
@@ -454,12 +460,18 @@ concentration $I_g=I_{enteric}$ (see above). $d$ is an induction scaling factor
 
 ## Inhibition of drug transporters
 
-The metric for the assessment of the drug transporter inhibition risk is:
+As per the M12 guideline, the metric for the assessment of the drug transporter
+inhibition risk is:
 
-$$R=[I]/K_i$$
+$$R=[I]/IC_{50,u}$$
 
-with the following relevant precitipant concentrations $[I]$ and regulatory
-thresholds of concern:
+In the respective in vitro studies, the substrate concentration is usually very
+low, so that $K_i \approx IC_{50}$ can be assumed. Under common assay conditions,
+no protein is added to the medium so that the fraction unbound can be assumed 1,
+i.e. $IC_{50} = IC_{50,u}$.
+
+The following relevant precitipant concentrations $[I]$ and regulatory
+thresholds of concern apply for the transporters:
 
 | $I$                     | transporter                                                                    | threshold |
 | ---                   | ---                                                                            | ---       |

@@ -394,7 +394,7 @@ model</caption>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
-<td align="left">NA</td>
+<td align="left"></td>
 <td align="left"></td>
 <td align="left"></td>
 </tr>
@@ -403,7 +403,7 @@ model</caption>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
-<td align="left">NA</td>
+<td align="left"></td>
 <td align="left"></td>
 <td align="left"></td>
 </tr>
@@ -412,7 +412,7 @@ model</caption>
 <td align="right">11.0</td>
 <td align="right">11.0</td>
 <td align="right">0.015</td>
-<td align="left">FALSE</td>
+<td align="left">No</td>
 <td align="left"></td>
 <td align="left"></td>
 </tr>
@@ -421,7 +421,7 @@ model</caption>
 <td align="right">13.5</td>
 <td align="right">13.5</td>
 <td align="right">0.012</td>
-<td align="left">FALSE</td>
+<td align="left">No</td>
 <td align="left"></td>
 <td align="left"></td>
 </tr>
@@ -430,7 +430,7 @@ model</caption>
 <td align="right">15.0</td>
 <td align="right">15.0</td>
 <td align="right">0.011</td>
-<td align="left">FALSE</td>
+<td align="left">No</td>
 <td align="left"></td>
 <td align="left"></td>
 </tr>
@@ -439,7 +439,7 @@ model</caption>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
-<td align="left">NA</td>
+<td align="left"></td>
 <td align="left"></td>
 <td align="left"></td>
 </tr>
@@ -448,9 +448,9 @@ model</caption>
 <td align="right">12.5</td>
 <td align="right">12.5</td>
 <td align="right">0.013</td>
-<td align="left">FALSE</td>
+<td align="left">No</td>
 <td align="left">292.3</td>
-<td align="left">TRUE</td>
+<td align="left">Yes</td>
 </tr>
 </tbody>
 </table>
@@ -484,49 +484,49 @@ model</caption>
 <td align="left">UGT1A1</td>
 <td align="right">7.50</td>
 <td align="right">0.022</td>
-<td align="left">TRUE</td>
+<td align="left">Yes</td>
 </tr>
 <tr class="even">
 <td align="left">UGT1A3</td>
 <td align="right">7.50</td>
 <td align="right">0.022</td>
-<td align="left">TRUE</td>
+<td align="left">Yes</td>
 </tr>
 <tr class="odd">
 <td align="left">UGT1A4</td>
 <td align="right">7.50</td>
 <td align="right">0.022</td>
-<td align="left">TRUE</td>
+<td align="left">Yes</td>
 </tr>
 <tr class="even">
 <td align="left">UGT1A6</td>
 <td align="right">7.50</td>
 <td align="right">0.022</td>
-<td align="left">TRUE</td>
+<td align="left">Yes</td>
 </tr>
 <tr class="odd">
 <td align="left">UGT1A9</td>
 <td align="right">1.90</td>
 <td align="right">0.087</td>
-<td align="left">TRUE</td>
+<td align="left">Yes</td>
 </tr>
 <tr class="even">
 <td align="left">UGT2B7</td>
 <td align="right">7.50</td>
 <td align="right">0.022</td>
-<td align="left">TRUE</td>
+<td align="left">Yes</td>
 </tr>
 <tr class="odd">
 <td align="left">UGT2B15</td>
 <td align="right">7.50</td>
 <td align="right">0.022</td>
-<td align="left">TRUE</td>
+<td align="left">Yes</td>
 </tr>
 <tr class="even">
 <td align="left">UGT2B17</td>
 <td align="right">3.05</td>
 <td align="right">0.054</td>
-<td align="left">TRUE</td>
+<td align="left">Yes</td>
 </tr>
 </tbody>
 </table>
@@ -576,7 +576,7 @@ model</caption>
 <td align="right">0.02</td>
 <td align="left">study 001</td>
 <td align="right">3.06</td>
-<td align="left">TRUE</td>
+<td align="left">Yes</td>
 </tr></tbody>
 </table>
 </div>
@@ -588,35 +588,27 @@ model</caption>
 </h3>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/static_cyp_induction_risk.html">static_cyp_induction_risk</a></span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_induction_data</span><span class="op">)</span></span>
-<span><span class="co">#&gt;       cyp emax maxc    source maxc_imaxssu  risk</span></span>
-<span><span class="co">#&gt; 1  CYP1A2 1.00    5 study 007         30.3 FALSE</span></span>
-<span><span class="co">#&gt; 2  CYP2B6 1.00    5 study 007         30.3 FALSE</span></span>
-<span><span class="co">#&gt; 3  CYP2C8   NA   NA                     NA    NA</span></span>
-<span><span class="co">#&gt; 4  CYP2C9   NA   NA                     NA    NA</span></span>
-<span><span class="co">#&gt; 5 CYP2C19   NA   NA                     NA    NA</span></span>
-<span><span class="co">#&gt; 6  CYP2D6   NA   NA                     NA    NA</span></span>
-<span><span class="co">#&gt; 7  CYP3A4 7.35    3 study 007         18.2  TRUE</span></span>
-<span><span class="co">#&gt;                                                                  note</span></span>
-<span><span class="co">#&gt; 1 Maximal tested concentration (maxc) is below guideline expectations</span></span>
-<span><span class="co">#&gt; 2 Maximal tested concentration (maxc) is below guideline expectations</span></span>
-<span><span class="co">#&gt; 3                                                                    </span></span>
-<span><span class="co">#&gt; 4                                                                    </span></span>
-<span><span class="co">#&gt; 5                                                                    </span></span>
-<span><span class="co">#&gt; 6                                                                    </span></span>
-<span><span class="co">#&gt; 7 Maximal tested concentration (maxc) is below guideline expectations</span></span>
+<span><span class="co">#&gt;       cyp emax maxc    source maxc_imaxssu  risk     note</span></span>
+<span><span class="co">#&gt; 1  CYP1A2 1.00    5 study 007         30.3 FALSE Low maxc</span></span>
+<span><span class="co">#&gt; 2  CYP2B6 1.00    5 study 007         30.3 FALSE Low maxc</span></span>
+<span><span class="co">#&gt; 3  CYP2C8   NA   NA                     NA    NA         </span></span>
+<span><span class="co">#&gt; 4  CYP2C9   NA   NA                     NA    NA         </span></span>
+<span><span class="co">#&gt; 5 CYP2C19   NA   NA                     NA    NA         </span></span>
+<span><span class="co">#&gt; 6  CYP2D6   NA   NA                     NA    NA         </span></span>
+<span><span class="co">#&gt; 7  CYP3A4 7.35    3 study 007         18.2  TRUE Low maxc</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/static_cyp_induction_risk_table.html">static_cyp_induction_risk_table</a></span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_induction_data</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <caption>Risk for hepatic CYP induction by examplinib, basic static
 model</caption>
 <colgroup>
-<col width="5%">
-<col width="7%">
+<col width="9%">
 <col width="12%">
-<col width="7%">
-<col width="14%">
-<col width="4%">
-<col width="48%">
+<col width="22%">
+<col width="12%">
+<col width="25%">
+<col width="6%">
+<col width="11%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">CYP</th>
@@ -636,9 +628,8 @@ c/C_{max,ss,u}\)</span></th>
 <td align="right">5</td>
 <td align="left">study 007</td>
 <td align="right">30.3</td>
-<td align="left">FALSE</td>
-<td align="left">Maximal tested concentration (maxc) is below guideline
-expectations</td>
+<td align="left">No</td>
+<td align="left">Low maxc</td>
 </tr>
 <tr class="even">
 <td align="left">CYP2B6</td>
@@ -646,9 +637,8 @@ expectations</td>
 <td align="right">5</td>
 <td align="left">study 007</td>
 <td align="right">30.3</td>
-<td align="left">FALSE</td>
-<td align="left">Maximal tested concentration (maxc) is below guideline
-expectations</td>
+<td align="left">No</td>
+<td align="left">Low maxc</td>
 </tr>
 <tr class="odd">
 <td align="left">CYP2C8</td>
@@ -656,7 +646,7 @@ expectations</td>
 <td align="right">NA</td>
 <td align="left"></td>
 <td align="right">NA</td>
-<td align="left">NA</td>
+<td align="left"></td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -665,7 +655,7 @@ expectations</td>
 <td align="right">NA</td>
 <td align="left"></td>
 <td align="right">NA</td>
-<td align="left">NA</td>
+<td align="left"></td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -674,7 +664,7 @@ expectations</td>
 <td align="right">NA</td>
 <td align="left"></td>
 <td align="right">NA</td>
-<td align="left">NA</td>
+<td align="left"></td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -683,7 +673,7 @@ expectations</td>
 <td align="right">NA</td>
 <td align="left"></td>
 <td align="right">NA</td>
-<td align="left">NA</td>
+<td align="left"></td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -692,9 +682,8 @@ expectations</td>
 <td align="right">3</td>
 <td align="left">study 007</td>
 <td align="right">18.2</td>
-<td align="left">TRUE</td>
-<td align="left">Maximal tested concentration (maxc) is below guideline
-expectations</td>
+<td align="left">Yes</td>
+<td align="left">Low maxc</td>
 </tr>
 </tbody>
 </table>
@@ -733,7 +722,7 @@ model</caption>
 <td align="right">NA</td>
 <td align="left">study 007</td>
 <td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left"></td>
 </tr>
 <tr class="even">
 <td align="left">CYP2B6</td>
@@ -741,7 +730,7 @@ model</caption>
 <td align="right">NA</td>
 <td align="left">study 007</td>
 <td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left"></td>
 </tr>
 <tr class="odd">
 <td align="left">CYP2C8</td>
@@ -749,7 +738,7 @@ model</caption>
 <td align="right">NA</td>
 <td align="left"></td>
 <td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left"></td>
 </tr>
 <tr class="even">
 <td align="left">CYP2C9</td>
@@ -757,7 +746,7 @@ model</caption>
 <td align="right">NA</td>
 <td align="left"></td>
 <td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left"></td>
 </tr>
 <tr class="odd">
 <td align="left">CYP2C19</td>
@@ -765,7 +754,7 @@ model</caption>
 <td align="right">NA</td>
 <td align="left"></td>
 <td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left"></td>
 </tr>
 <tr class="even">
 <td align="left">CYP2D6</td>
@@ -773,7 +762,7 @@ model</caption>
 <td align="right">NA</td>
 <td align="left"></td>
 <td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left"></td>
 </tr>
 <tr class="odd">
 <td align="left">CYP3A4</td>
@@ -781,7 +770,7 @@ model</caption>
 <td align="right">1.64</td>
 <td align="left">study 007</td>
 <td align="left">0.21</td>
-<td align="left">TRUE</td>
+<td align="left">Yes</td>
 </tr>
 </tbody>
 </table>
@@ -829,7 +818,7 @@ examplinib</caption>
 <col width="5%">
 <col width="5%">
 <col width="5%">
-<col width="5%">
+<col width="4%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">CYP</th>
@@ -862,7 +851,7 @@ examplinib</caption>
 <td align="left">1.000</td>
 <td align="left">1.000</td>
 <td align="left">1.000</td>
-<td align="left">FALSE</td>
+<td align="left">No</td>
 </tr>
 <tr class="even">
 <td align="left">CYP2B6</td>
@@ -878,7 +867,7 @@ examplinib</caption>
 <td align="left">1.000</td>
 <td align="left">1.000</td>
 <td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left"></td>
 </tr>
 <tr class="odd">
 <td align="left">CYP2C8</td>
@@ -894,7 +883,7 @@ examplinib</caption>
 <td align="left">1.000</td>
 <td align="left">1.000</td>
 <td align="left">1.011</td>
-<td align="left">FALSE</td>
+<td align="left">No</td>
 </tr>
 <tr class="even">
 <td align="left">CYP2C9</td>
@@ -910,7 +899,7 @@ examplinib</caption>
 <td align="left">1.000</td>
 <td align="left">1.000</td>
 <td align="left">1.013</td>
-<td align="left">FALSE</td>
+<td align="left">No</td>
 </tr>
 <tr class="odd">
 <td align="left">CYP2C19</td>
@@ -926,7 +915,7 @@ examplinib</caption>
 <td align="left">1.000</td>
 <td align="left">1.000</td>
 <td align="left">1.011</td>
-<td align="left">FALSE</td>
+<td align="left">No</td>
 </tr>
 <tr class="even">
 <td align="left">CYP2D6</td>
@@ -942,7 +931,7 @@ examplinib</caption>
 <td align="left">1.000</td>
 <td align="left">1.000</td>
 <td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left"></td>
 </tr>
 <tr class="odd">
 <td align="left">CYP3A4</td>
@@ -958,7 +947,7 @@ examplinib</caption>
 <td align="left">6.885</td>
 <td align="left">1.774</td>
 <td align="left">0.232</td>
-<td align="left">TRUE</td>
+<td align="left">Yes</td>
 </tr>
 </tbody>
 </table>
@@ -1001,7 +990,7 @@ examplinib</caption>
 <td align="left">study 005</td>
 <td align="right">8912.39</td>
 <td align="right">10.00</td>
-<td align="left">TRUE</td>
+<td align="left">Yes</td>
 </tr>
 <tr class="even">
 <td align="left">Pgp_sys</td>
@@ -1009,7 +998,7 @@ examplinib</caption>
 <td align="left">study 005</td>
 <td align="right">0.40</td>
 <td align="right">0.02</td>
-<td align="left">TRUE</td>
+<td align="left">Yes</td>
 </tr>
 <tr class="odd">
 <td align="left">BCRP_int</td>
@@ -1017,7 +1006,7 @@ examplinib</caption>
 <td align="left">study 005</td>
 <td align="right">1923.20</td>
 <td align="right">10.00</td>
-<td align="left">TRUE</td>
+<td align="left">Yes</td>
 </tr>
 <tr class="even">
 <td align="left">BCRP_sys</td>
@@ -1025,7 +1014,7 @@ examplinib</caption>
 <td align="left">study 005</td>
 <td align="right">0.09</td>
 <td align="right">0.02</td>
-<td align="left">TRUE</td>
+<td align="left">Yes</td>
 </tr>
 <tr class="odd">
 <td align="left">OATP1B1</td>
@@ -1033,7 +1022,7 @@ examplinib</caption>
 <td align="left">study 006</td>
 <td align="right">0.00</td>
 <td align="right">0.10</td>
-<td align="left">FALSE</td>
+<td align="left">No</td>
 </tr>
 <tr class="even">
 <td align="left">OATP1B3</td>
@@ -1041,7 +1030,7 @@ examplinib</caption>
 <td align="left">study 006</td>
 <td align="right">0.01</td>
 <td align="right">0.10</td>
-<td align="left">FALSE</td>
+<td align="left">No</td>
 </tr>
 <tr class="odd">
 <td align="left">OAT1</td>
@@ -1049,7 +1038,7 @@ examplinib</caption>
 <td align="left"></td>
 <td align="right">0.00</td>
 <td align="right">0.10</td>
-<td align="left">FALSE</td>
+<td align="left">No</td>
 </tr>
 <tr class="even">
 <td align="left">OAT3</td>
@@ -1057,7 +1046,7 @@ examplinib</caption>
 <td align="left"></td>
 <td align="right">0.00</td>
 <td align="right">0.10</td>
-<td align="left">FALSE</td>
+<td align="left">No</td>
 </tr>
 <tr class="odd">
 <td align="left">BSEP</td>
@@ -1065,7 +1054,7 @@ examplinib</caption>
 <td align="left"></td>
 <td align="right">0.01</td>
 <td align="right">0.10</td>
-<td align="left">FALSE</td>
+<td align="left">No</td>
 </tr>
 <tr class="even">
 <td align="left">OCT2</td>
@@ -1073,7 +1062,7 @@ examplinib</caption>
 <td align="left">study 006</td>
 <td align="right">0.00</td>
 <td align="right">0.10</td>
-<td align="left">FALSE</td>
+<td align="left">No</td>
 </tr>
 <tr class="odd">
 <td align="left">MATE1</td>
@@ -1081,7 +1070,7 @@ examplinib</caption>
 <td align="left">study 006</td>
 <td align="right">0.05</td>
 <td align="right">0.02</td>
-<td align="left">TRUE</td>
+<td align="left">Yes</td>
 </tr>
 <tr class="even">
 <td align="left">MATE2k</td>
@@ -1089,7 +1078,7 @@ examplinib</caption>
 <td align="left">study 006</td>
 <td align="right">0.15</td>
 <td align="right">0.02</td>
-<td align="left">TRUE</td>
+<td align="left">Yes</td>
 </tr>
 <tr class="odd">
 <td align="left">OCT1</td>
@@ -1097,7 +1086,7 @@ examplinib</caption>
 <td align="left">study 006</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
-<td align="left">NA</td>
+<td align="left"></td>
 </tr>
 </tbody>
 </table>

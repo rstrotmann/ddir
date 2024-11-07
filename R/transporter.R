@@ -36,9 +36,9 @@ transporter_inhibition_risk <- function(
     transporter_inh,
     transporter_ref = transporter_reference_data) {
   ic50 <- transporter_inh %>%
-    filter(name==name(perp)) %>%
+    filter(name == name(perp)) %>%
     select(-name) %>%
-    mutate(ic50=as.num(ic50))
+    mutate(ic50 = as.num(ic50))
 
   temp <-  key_concentrations(perp, molar=TRUE)
   i <- data.frame(
@@ -111,6 +111,9 @@ transporter_inhibition_risk_table.perpetrator <- function(
   temp <- transporter_inhibition_risk(
     perp, transporter_inh,
     transporter_ref=transporter_reference_data) %>%
+    mutate(risk = case_match(
+      as.character(risk),
+      "TRUE" ~ "Yes", "FALSE" ~ "No", .default = "")) %>%
     mutate(r=round(r, 2)) %>%
     # left_join(i_names, by = "i") %>%
     # select(transporter, ic50, source, i_label, r, threshold, risk)

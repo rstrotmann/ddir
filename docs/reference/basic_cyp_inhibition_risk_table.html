@@ -101,13 +101,13 @@ removed from the output (i.e., where <code>ki == NA</code>). Defaults to <code>F
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |CYP     | $K_{i}$ ($\mu M$)| $K_{i,u}$ ($\mu M$)|   $R$|risk (hepatic) |$R_{gut}$ |risk (intestinal) |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |:-------|-----------------:|-------------------:|-----:|:--------------|:---------|:-----------------|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP1A2  |                NA|                  NA|    NA|NA             |          |                  |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2B6  |                NA|                  NA|    NA|NA             |          |                  |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C8  |              11.0|                11.0| 0.015|FALSE          |          |                  |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9  |              13.5|                13.5| 0.012|FALSE          |          |                  |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C19 |              15.0|                15.0| 0.011|FALSE          |          |                  |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2D6  |                NA|                  NA|    NA|NA             |          |                  |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP3A4  |              12.5|                12.5| 0.013|FALSE          |292.3     |TRUE              |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP1A2  |                NA|                  NA|    NA|               |          |                  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2B6  |                NA|                  NA|    NA|               |          |                  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C8  |              11.0|                11.0| 0.015|No             |          |                  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9  |              13.5|                13.5| 0.012|No             |          |                  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C19 |              15.0|                15.0| 0.011|No             |          |                  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2D6  |                NA|                  NA|    NA|               |          |                  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP3A4  |              12.5|                12.5| 0.013|No             |292.3     |Yes               |</span>
 <span class="r-in"><span><span class="fu">basic_cyp_inhibition_risk_table</span><span class="op">(</span><span class="va">examplinib_compounds</span>,</span></span>
 <span class="r-in"><span>  <span class="va">examplinib_cyp_inhibition_data</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -116,17 +116,17 @@ removed from the output (i.e., where <code>ki == NA</code>). Defaults to <code>F
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |CYP     | $K_{i}$ ($\mu M$)| $K_{i,u}$ ($\mu M$)|   $R$|risk (hepatic) |$R_{gut}$ |risk (intestinal) |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |:-------|-----------------:|-------------------:|-----:|:--------------|:---------|:-----------------|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C8  |              11.0|                11.0| 0.015|FALSE          |          |                  |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9  |              13.5|                13.5| 0.012|FALSE          |          |                  |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C19 |              15.0|                15.0| 0.011|FALSE          |          |                  |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP3A4  |              12.5|                12.5| 0.013|FALSE          |292.3     |TRUE              |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C8  |              11.0|                11.0| 0.015|No             |          |                  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9  |              13.5|                13.5| 0.012|No             |          |                  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C19 |              15.0|                15.0| 0.011|No             |          |                  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP3A4  |              12.5|                12.5| 0.013|No             |292.3     |Yes               |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Table: Risk for direct CYP inhibition by M1, basic model</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |CYP    | $K_{i}$ ($\mu M$)| $K_{i,u}$ ($\mu M$)|   $R$|risk (hepatic) |$R_{gut}$ |risk (intestinal) |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |:------|-----------------:|-------------------:|-----:|:--------------|:---------|:-----------------|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9 |               4.4|                 4.4| 0.006|FALSE          |          |                  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9 |               4.4|                 4.4| 0.006|No             |          |                  |</span>
 <span class="r-in"><span><span class="fu">basic_cyp_inhibition_risk_table</span><span class="op">(</span><span class="va">examplinib_compounds</span>,</span></span>
 <span class="r-in"><span>  <span class="va">examplinib_cyp_inhibition_data</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span>, show_dose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -135,17 +135,17 @@ removed from the output (i.e., where <code>ki == NA</code>). Defaults to <code>F
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |CYP     | $K_{i}$ ($\mu M$)| $K_{i,u}$ ($\mu M$)|   $R$|risk (hepatic) |$R_{gut}$ |risk (intestinal) |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |:-------|-----------------:|-------------------:|-----:|:--------------|:---------|:-----------------|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C8  |              11.0|                11.0| 0.015|FALSE          |          |                  |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9  |              13.5|                13.5| 0.012|FALSE          |          |                  |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C19 |              15.0|                15.0| 0.011|FALSE          |          |                  |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP3A4  |              12.5|                12.5| 0.013|FALSE          |292.3     |TRUE              |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C8  |              11.0|                11.0| 0.015|No             |          |                  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9  |              13.5|                13.5| 0.012|No             |          |                  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C19 |              15.0|                15.0| 0.011|No             |          |                  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP3A4  |              12.5|                12.5| 0.013|No             |292.3     |Yes               |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Table: Risk for direct CYP inhibition by M1, basic model</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |CYP    | $K_{i}$ ($\mu M$)| $K_{i,u}$ ($\mu M$)|   $R$|risk (hepatic) |$R_{gut}$ |risk (intestinal) |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |:------|-----------------:|-------------------:|-----:|:--------------|:---------|:-----------------|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9 |               4.4|                 4.4| 0.006|FALSE          |          |                  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9 |               4.4|                 4.4| 0.006|No             |          |                  |</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
