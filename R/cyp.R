@@ -689,7 +689,7 @@ mech_stat_cyp_risk_table.perpetrator <- function(
     mutate(risk = case_match(
       as.character(risk),
       "TRUE" ~ "Yes", "FALSE" ~ "No", .default = "")) %>%
-    select(cyp, kiu, substrate, fgut, fm, fmcyp, Ag, Ah, Bg, Bh, Cg, Ch, aucr,
+    select(cyp, substrate, fgut, fm, fmcyp, Ag, Ah, Bg, Bh, Cg, Ch, aucr,
            risk) %>%
     # mutate(across(Ag:Ch, ~ signif(., digits=2))) %>%
     # mutate(across(Ag:Ch, ~ format(., digits=2, nsmall=3))) %>%
@@ -701,7 +701,7 @@ mech_stat_cyp_risk_table.perpetrator <- function(
       filter(!is.na(risk))
   }
 
-  labels <- c("CYP", "$K_{i,u}$", "substrate", "$F_{gut}$", "$f_m$",
+  labels <- c("CYP", "substrate", "$F_{gut}$", "$f_m$",
               "$f_{m,CYP}$", "$A_g$", "$A_h$", "$B_g$", "$B_h$", "$C_g$",
               "$C_h$", "AUCR", "risk")
 

@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.15.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.15.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -788,7 +788,7 @@ model</caption>
 <span><span class="co">#&gt; 3  CYP2C8 repaglinide 11.0 1.00 1.00  0.61 0.6255130 0.9827625  1  1 1.000000</span></span>
 <span><span class="co">#&gt; 4  CYP2C9  S-warfarin 13.5 1.00 1.00  0.91 0.6721244 0.9859096  1  1 1.000000</span></span>
 <span><span class="co">#&gt; 5 CYP2C19  omeprazole 15.0 1.00 1.00  0.87 0.6949088 0.9873008  1  1 1.000000</span></span>
-<span><span class="co">#&gt; 6  CYP2D6        &lt;NA&gt;   NA   NA   NA    NA 1.0000000 1.0000000  1  1 1.000000</span></span>
+<span><span class="co">#&gt; 6  CYP2D6 desipramine   NA 1.00 1.00  0.85 1.0000000 1.0000000  1  1 1.000000</span></span>
 <span><span class="co">#&gt; 7  CYP3A4   midazolam 12.5 0.57 0.96  1.00 0.6549452 0.9847995  1  1 6.884569</span></span>
 <span><span class="co">#&gt;         Ch      aucr  risk</span></span>
 <span><span class="co">#&gt; 1 1.000000 1.0000000 FALSE</span></span>
@@ -796,7 +796,7 @@ model</caption>
 <span><span class="co">#&gt; 3 1.000000 1.0106266 FALSE</span></span>
 <span><span class="co">#&gt; 4 1.000000 1.0129888 FALSE</span></span>
 <span><span class="co">#&gt; 5 1.000000 1.0111717 FALSE</span></span>
-<span><span class="co">#&gt; 6 1.000000        NA    NA</span></span>
+<span><span class="co">#&gt; 6 1.000000 1.0000000 FALSE</span></span>
 <span><span class="co">#&gt; 7 1.773674 0.2321612  TRUE</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/mech_stat_cyp_risk_table.html">mech_stat_cyp_risk_table</a></span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_inhibition_data</span>,</span>
@@ -805,147 +805,138 @@ model</caption>
 <caption>Mechanistic static modeling of the CYP inhibition risk for
 examplinib</caption>
 <colgroup>
-<col width="7%">
-<col width="9%">
-<col width="11%">
-<col width="9%">
+<col width="8%">
+<col width="12%">
+<col width="10%">
+<col width="6%">
+<col width="12%">
+<col width="6%">
+<col width="6%">
+<col width="6%">
+<col width="6%">
+<col width="6%">
+<col width="6%">
+<col width="6%">
 <col width="5%">
-<col width="11%">
-<col width="5%">
-<col width="5%">
-<col width="5%">
-<col width="5%">
-<col width="5%">
-<col width="5%">
-<col width="5%">
-<col width="4%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">CYP</th>
-<th align="right"><span class="math inline">\(K_{i,u}\)</span></th>
 <th align="left">substrate</th>
 <th align="right"><span class="math inline">\(F_{gut}\)</span></th>
 <th align="right"><span class="math inline">\(f_m\)</span></th>
 <th align="right"><span class="math inline">\(f_{m,CYP}\)</span></th>
-<th align="left"><span class="math inline">\(A_g\)</span></th>
-<th align="left"><span class="math inline">\(A_h\)</span></th>
-<th align="left"><span class="math inline">\(B_g\)</span></th>
-<th align="left"><span class="math inline">\(B_h\)</span></th>
-<th align="left"><span class="math inline">\(C_g\)</span></th>
-<th align="left"><span class="math inline">\(C_h\)</span></th>
+<th align="right"><span class="math inline">\(A_g\)</span></th>
+<th align="right"><span class="math inline">\(A_h\)</span></th>
+<th align="right"><span class="math inline">\(B_g\)</span></th>
+<th align="right"><span class="math inline">\(B_h\)</span></th>
+<th align="right"><span class="math inline">\(C_g\)</span></th>
+<th align="right"><span class="math inline">\(C_h\)</span></th>
 <th align="left">AUCR</th>
 <th align="left">risk</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
 <td align="left">CYP1A2</td>
-<td align="right">NA</td>
 <td align="left">tizanidine</td>
 <td align="right">1.00</td>
 <td align="right">0.95</td>
 <td align="right">0.98</td>
-<td align="left">1.000</td>
-<td align="left">1.000</td>
-<td align="left">1.000</td>
-<td align="left">1.000</td>
-<td align="left">1.000</td>
-<td align="left">1.000</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
 <td align="left">1.000</td>
 <td align="left">No</td>
 </tr>
 <tr class="even">
 <td align="left">CYP2B6</td>
-<td align="right">NA</td>
 <td align="left">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
-<td align="left">1.000</td>
-<td align="left">1.000</td>
-<td align="left">1.000</td>
-<td align="left">1.000</td>
-<td align="left">1.000</td>
-<td align="left">1.000</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
 <td align="left">NA</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
 <td align="left">CYP2C8</td>
-<td align="right">11.0</td>
 <td align="left">repaglinide</td>
 <td align="right">1.00</td>
 <td align="right">1.00</td>
 <td align="right">0.61</td>
-<td align="left">0.626</td>
-<td align="left">0.983</td>
-<td align="left">1.000</td>
-<td align="left">1.000</td>
-<td align="left">1.000</td>
-<td align="left">1.000</td>
+<td align="right">0.63</td>
+<td align="right">0.98</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
 <td align="left">1.011</td>
 <td align="left">No</td>
 </tr>
 <tr class="even">
 <td align="left">CYP2C9</td>
-<td align="right">13.5</td>
 <td align="left">S-warfarin</td>
 <td align="right">1.00</td>
 <td align="right">1.00</td>
 <td align="right">0.91</td>
-<td align="left">0.672</td>
-<td align="left">0.986</td>
-<td align="left">1.000</td>
-<td align="left">1.000</td>
-<td align="left">1.000</td>
-<td align="left">1.000</td>
+<td align="right">0.67</td>
+<td align="right">0.99</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
 <td align="left">1.013</td>
 <td align="left">No</td>
 </tr>
 <tr class="odd">
 <td align="left">CYP2C19</td>
-<td align="right">15.0</td>
 <td align="left">omeprazole</td>
 <td align="right">1.00</td>
 <td align="right">1.00</td>
 <td align="right">0.87</td>
-<td align="left">0.695</td>
-<td align="left">0.987</td>
-<td align="left">1.000</td>
-<td align="left">1.000</td>
-<td align="left">1.000</td>
-<td align="left">1.000</td>
+<td align="right">0.69</td>
+<td align="right">0.99</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
 <td align="left">1.011</td>
 <td align="left">No</td>
 </tr>
 <tr class="even">
 <td align="left">CYP2D6</td>
-<td align="right">NA</td>
-<td align="left">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
+<td align="left">desipramine</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="right">0.85</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
 <td align="left">1.000</td>
-<td align="left">1.000</td>
-<td align="left">1.000</td>
-<td align="left">1.000</td>
-<td align="left">1.000</td>
-<td align="left">1.000</td>
-<td align="left">NA</td>
-<td align="left"></td>
+<td align="left">No</td>
 </tr>
 <tr class="odd">
 <td align="left">CYP3A4</td>
-<td align="right">12.5</td>
 <td align="left">midazolam</td>
 <td align="right">0.57</td>
 <td align="right">0.96</td>
 <td align="right">1.00</td>
-<td align="left">0.655</td>
-<td align="left">0.985</td>
-<td align="left">1.000</td>
-<td align="left">1.000</td>
-<td align="left">6.885</td>
-<td align="left">1.774</td>
+<td align="right">0.65</td>
+<td align="right">0.98</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">6.88</td>
+<td align="right">1.77</td>
 <td align="left">0.232</td>
 <td align="left">Yes</td>
 </tr>
@@ -967,10 +958,10 @@ examplinib</caption>
 <span><span class="co">#&gt; 7         OAT1 271.00              imaxssu 6.081894e-04      0.10 FALSE</span></span>
 <span><span class="co">#&gt; 8         OAT3 300.00              imaxssu 5.493978e-04      0.10 FALSE</span></span>
 <span><span class="co">#&gt; 9         BSEP  12.80              imaxssu 1.287651e-02      0.10 FALSE</span></span>
-<span><span class="co">#&gt; 10        OCT2  67.00 study 006    imaxssu 2.459990e-03      0.10 FALSE</span></span>
-<span><span class="co">#&gt; 11       MATE1   3.60 study 006    imaxssu 4.578315e-02      0.02  TRUE</span></span>
-<span><span class="co">#&gt; 12      MATE2k   1.10 study 006    imaxssu 1.498358e-01      0.02  TRUE</span></span>
-<span><span class="co">#&gt; 13        OCT1   2.30 study 006       &lt;NA&gt;           NA        NA    NA</span></span>
+<span><span class="co">#&gt; 10        OCT1   2.30 study 006       &lt;NA&gt;           NA        NA    NA</span></span>
+<span><span class="co">#&gt; 11        OCT2  67.00 study 006    imaxssu 2.459990e-03      0.10 FALSE</span></span>
+<span><span class="co">#&gt; 12       MATE1   3.60 study 006    imaxssu 4.578315e-02      0.02  TRUE</span></span>
+<span><span class="co">#&gt; 13      MATE2k   1.10 study 006    imaxssu 1.498358e-01      0.02  TRUE</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/transporter_inhibition_risk_table.html">transporter_inhibition_risk_table</a></span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_transporter_inhibition_data</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
@@ -1057,6 +1048,14 @@ examplinib</caption>
 <td align="left">No</td>
 </tr>
 <tr class="even">
+<td align="left">OCT1</td>
+<td align="right">2.30</td>
+<td align="left">study 006</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
 <td align="left">OCT2</td>
 <td align="right">67.00</td>
 <td align="left">study 006</td>
@@ -1064,7 +1063,7 @@ examplinib</caption>
 <td align="right">0.10</td>
 <td align="left">No</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">MATE1</td>
 <td align="right">3.60</td>
 <td align="left">study 006</td>
@@ -1072,21 +1071,13 @@ examplinib</caption>
 <td align="right">0.02</td>
 <td align="left">Yes</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">MATE2k</td>
 <td align="right">1.10</td>
 <td align="left">study 006</td>
 <td align="right">0.15</td>
 <td align="right">0.02</td>
 <td align="left">Yes</td>
-</tr>
-<tr class="odd">
-<td align="left">OCT1</td>
-<td align="right">2.30</td>
-<td align="left">study 006</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="left"></td>
 </tr>
 </tbody>
 </table>

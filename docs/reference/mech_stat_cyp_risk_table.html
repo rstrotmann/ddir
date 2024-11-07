@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.15.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.15.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -144,15 +144,15 @@ built-in reference data, <a href="cyp_turnover.html">cyp_turnover</a>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Table: Mechanistic static modeling of the CYP inhibition risk for examplinib</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP     | $K_{i,u}$|substrate   | $F_{gut}$| $f_m$| $f_{m,CYP}$|$A_g$ |$A_h$ |$B_g$ |$B_h$ |$C_g$ |$C_h$ |AUCR  |risk |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |:-------|---------:|:-----------|---------:|-----:|-----------:|:-----|:-----|:-----|:-----|:-----|:-----|:-----|:----|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP1A2  |        NA|tizanidine  |      1.00|  0.95|        0.98|1.000 |1.000 |1.000 |1.000 |1.000 |1.000 |1.000 |No   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2B6  |        NA|NA          |        NA|    NA|          NA|1.000 |1.000 |1.000 |1.000 |1.000 |1.000 |NA    |     |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C8  |      11.0|repaglinide |      1.00|  1.00|        0.61|0.626 |0.983 |1.000 |1.000 |1.000 |1.000 |1.011 |No   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9  |      13.5|S-warfarin  |      1.00|  1.00|        0.91|0.672 |0.986 |1.000 |1.000 |1.000 |1.000 |1.013 |No   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C19 |      15.0|omeprazole  |      1.00|  1.00|        0.87|0.695 |0.987 |1.000 |1.000 |1.000 |1.000 |1.011 |No   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2D6  |        NA|NA          |        NA|    NA|          NA|1.000 |1.000 |1.000 |1.000 |1.000 |1.000 |NA    |     |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP3A4  |      12.5|midazolam   |      0.57|  0.96|        1.00|0.655 |0.985 |1.000 |1.000 |6.885 |1.774 |0.232 |Yes  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP     |substrate   | $F_{gut}$| $f_m$| $f_{m,CYP}$| $A_g$| $A_h$| $B_g$| $B_h$| $C_g$| $C_h$|AUCR  |risk |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |:-------|:-----------|---------:|-----:|-----------:|-----:|-----:|-----:|-----:|-----:|-----:|:-----|:----|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP1A2  |tizanidine  |      1.00|  0.95|        0.98|  1.00|  1.00|     1|     1|  1.00|  1.00|1.000 |No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2B6  |NA          |        NA|    NA|          NA|  1.00|  1.00|     1|     1|  1.00|  1.00|NA    |     |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C8  |repaglinide |      1.00|  1.00|        0.61|  0.63|  0.98|     1|     1|  1.00|  1.00|1.011 |No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9  |S-warfarin  |      1.00|  1.00|        0.91|  0.67|  0.99|     1|     1|  1.00|  1.00|1.013 |No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C19 |omeprazole  |      1.00|  1.00|        0.87|  0.69|  0.99|     1|     1|  1.00|  1.00|1.011 |No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2D6  |desipramine |      1.00|  1.00|        0.85|  1.00|  1.00|     1|     1|  1.00|  1.00|1.000 |No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP3A4  |midazolam   |      0.57|  0.96|        1.00|  0.65|  0.98|     1|     1|  6.88|  1.77|0.232 |Yes  |</span>
 <span class="r-in"><span><span class="fu">mech_stat_cyp_risk_table</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">examplinib_compounds</span>,</span></span>
 <span class="r-in"><span>  <span class="va">examplinib_cyp_inhibition_data</span>,</span></span>
@@ -162,22 +162,22 @@ built-in reference data, <a href="cyp_turnover.html">cyp_turnover</a>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Table: Mechanistic static modeling of the CYP inhibition risk for examplinib</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP     | $K_{i,u}$|substrate   | $F_{gut}$| $f_m$| $f_{m,CYP}$|$A_g$ |$A_h$ |$B_g$ |$B_h$ |$C_g$ |$C_h$ |AUCR  |risk |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |:-------|---------:|:-----------|---------:|-----:|-----------:|:-----|:-----|:-----|:-----|:-----|:-----|:-----|:----|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP1A2  |        NA|tizanidine  |      1.00|  0.95|        0.98|1.000 |1.000 |1.000 |1.000 |1.000 |1.000 |1.000 |No   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2B6  |        NA|NA          |        NA|    NA|          NA|1.000 |1.000 |1.000 |1.000 |1.000 |1.000 |NA    |     |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C8  |      11.0|repaglinide |      1.00|  1.00|        0.61|0.626 |0.983 |1.000 |1.000 |1.000 |1.000 |1.011 |No   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9  |      13.5|S-warfarin  |      1.00|  1.00|        0.91|0.672 |0.986 |1.000 |1.000 |1.000 |1.000 |1.013 |No   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C19 |      15.0|omeprazole  |      1.00|  1.00|        0.87|0.695 |0.987 |1.000 |1.000 |1.000 |1.000 |1.011 |No   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2D6  |        NA|NA          |        NA|    NA|          NA|1.000 |1.000 |1.000 |1.000 |1.000 |1.000 |NA    |     |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP3A4  |      12.5|midazolam   |      0.57|  0.96|        1.00|0.655 |0.985 |0.435 |0.476 |6.885 |1.774 |0.845 |No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP     |substrate   | $F_{gut}$| $f_m$| $f_{m,CYP}$| $A_g$| $A_h$| $B_g$| $B_h$| $C_g$| $C_h$|AUCR  |risk |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |:-------|:-----------|---------:|-----:|-----------:|-----:|-----:|-----:|-----:|-----:|-----:|:-----|:----|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP1A2  |tizanidine  |      1.00|  0.95|        0.98|  1.00|  1.00|  1.00|  1.00|  1.00|  1.00|1.000 |No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2B6  |NA          |        NA|    NA|          NA|  1.00|  1.00|  1.00|  1.00|  1.00|  1.00|NA    |     |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C8  |repaglinide |      1.00|  1.00|        0.61|  0.63|  0.98|  1.00|  1.00|  1.00|  1.00|1.011 |No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9  |S-warfarin  |      1.00|  1.00|        0.91|  0.67|  0.99|  1.00|  1.00|  1.00|  1.00|1.013 |No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C19 |omeprazole  |      1.00|  1.00|        0.87|  0.69|  0.99|  1.00|  1.00|  1.00|  1.00|1.011 |No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2D6  |desipramine |      1.00|  1.00|        0.85|  1.00|  1.00|  1.00|  1.00|  1.00|  1.00|1.000 |No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP3A4  |midazolam   |      0.57|  0.96|        1.00|  0.65|  0.98|  0.43|  0.48|  6.88|  1.77|0.845 |No   |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Table: Mechanistic static modeling of the CYP inhibition risk for M1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP    | $K_{i,u}$|substrate  | $F_{gut}$| $f_m$| $f_{m,CYP}$|$A_g$ |$A_h$ |$B_g$ |$B_h$ |$C_g$ |$C_h$ |AUCR |risk |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |:------|---------:|:----------|---------:|-----:|-----------:|:-----|:-----|:-----|:-----|:-----|:-----|:----|:----|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9 |       4.4|S-warfarin |         1|     1|        0.91|0.994 |0.994 |1.000 |1.000 |1.000 |1.000 |1.01 |No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP    |substrate  | $F_{gut}$| $f_m$| $f_{m,CYP}$| $A_g$| $A_h$| $B_g$| $B_h$| $C_g$| $C_h$|AUCR |risk |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |:------|:----------|---------:|-----:|-----------:|-----:|-----:|-----:|-----:|-----:|-----:|:----|:----|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9 |S-warfarin |         1|     1|        0.91|  0.99|  0.99|     1|     1|     1|     1|1.01 |No   |</span>
 <span class="r-in"><span><span class="fu">mech_stat_cyp_risk_table</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">examplinib_compounds</span>,</span></span>
 <span class="r-in"><span>  <span class="va">examplinib_cyp_inhibition_data</span>,</span></span>
@@ -187,22 +187,22 @@ built-in reference data, <a href="cyp_turnover.html">cyp_turnover</a>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Table: Mechanistic static modeling of the CYP inhibition risk for examplinib (450 mg)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP     | $K_{i,u}$|substrate   | $F_{gut}$| $f_m$| $f_{m,CYP}$|$A_g$ |$A_h$ |$B_g$ |$B_h$ |$C_g$ |$C_h$ |AUCR  |risk |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |:-------|---------:|:-----------|---------:|-----:|-----------:|:-----|:-----|:-----|:-----|:-----|:-----|:-----|:----|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP1A2  |        NA|tizanidine  |      1.00|  0.95|        0.98|1.000 |1.000 |1.000 |1.000 |1.000 |1.000 |1.000 |No   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2B6  |        NA|NA          |        NA|    NA|          NA|1.000 |1.000 |1.000 |1.000 |1.000 |1.000 |NA    |     |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C8  |      11.0|repaglinide |      1.00|  1.00|        0.61|0.626 |0.983 |1.000 |1.000 |1.000 |1.000 |1.011 |No   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9  |      13.5|S-warfarin  |      1.00|  1.00|        0.91|0.672 |0.986 |1.000 |1.000 |1.000 |1.000 |1.013 |No   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C19 |      15.0|omeprazole  |      1.00|  1.00|        0.87|0.695 |0.987 |1.000 |1.000 |1.000 |1.000 |1.011 |No   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2D6  |        NA|NA          |        NA|    NA|          NA|1.000 |1.000 |1.000 |1.000 |1.000 |1.000 |NA    |     |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP3A4  |      12.5|midazolam   |      0.57|  0.96|        1.00|0.655 |0.985 |0.435 |0.476 |6.885 |1.774 |0.845 |No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP     |substrate   | $F_{gut}$| $f_m$| $f_{m,CYP}$| $A_g$| $A_h$| $B_g$| $B_h$| $C_g$| $C_h$|AUCR  |risk |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |:-------|:-----------|---------:|-----:|-----------:|-----:|-----:|-----:|-----:|-----:|-----:|:-----|:----|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP1A2  |tizanidine  |      1.00|  0.95|        0.98|  1.00|  1.00|  1.00|  1.00|  1.00|  1.00|1.000 |No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2B6  |NA          |        NA|    NA|          NA|  1.00|  1.00|  1.00|  1.00|  1.00|  1.00|NA    |     |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C8  |repaglinide |      1.00|  1.00|        0.61|  0.63|  0.98|  1.00|  1.00|  1.00|  1.00|1.011 |No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9  |S-warfarin  |      1.00|  1.00|        0.91|  0.67|  0.99|  1.00|  1.00|  1.00|  1.00|1.013 |No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C19 |omeprazole  |      1.00|  1.00|        0.87|  0.69|  0.99|  1.00|  1.00|  1.00|  1.00|1.011 |No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2D6  |desipramine |      1.00|  1.00|        0.85|  1.00|  1.00|  1.00|  1.00|  1.00|  1.00|1.000 |No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP3A4  |midazolam   |      0.57|  0.96|        1.00|  0.65|  0.98|  0.43|  0.48|  6.88|  1.77|0.845 |No   |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Table: Mechanistic static modeling of the CYP inhibition risk for M1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP    | $K_{i,u}$|substrate  | $F_{gut}$| $f_m$| $f_{m,CYP}$|$A_g$ |$A_h$ |$B_g$ |$B_h$ |$C_g$ |$C_h$ |AUCR |risk |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |:------|---------:|:----------|---------:|-----:|-----------:|:-----|:-----|:-----|:-----|:-----|:-----|:----|:----|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9 |       4.4|S-warfarin |         1|     1|        0.91|0.994 |0.994 |1.000 |1.000 |1.000 |1.000 |1.01 |No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP    |substrate  | $F_{gut}$| $f_m$| $f_{m,CYP}$| $A_g$| $A_h$| $B_g$| $B_h$| $C_g$| $C_h$|AUCR |risk |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |:------|:----------|---------:|-----:|-----------:|-----:|-----:|-----:|-----:|-----:|-----:|:----|:----|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CYP2C9 |S-warfarin |         1|     1|        0.91|  0.99|  0.99|     1|     1|     1|     1|1.01 |No   |</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
