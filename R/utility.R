@@ -57,3 +57,29 @@ as.num = function(x, na.strings = "NA") {
   x[na] = NA_real_
   x
 }
+
+#' Nice enumeration of multiple strings
+#'
+#' @param items Items to enumerate as character.
+#' @param conjunction The conjunction between the last and penultmate items.
+#'
+#' @return Enumeration as character.
+#' @export
+#' @keywords internal
+#'
+#' @examples
+#' nice_enumeration("A")
+#' nice_enumeration(c("A", "B"))
+#' nice_enumeration(c("A", "B", "C"))
+#' nice_enumeration(c("A", "B", "C"), conjunction = "or")
+nice_enumeration <- function(items, conjunction = "and") {
+  if (length(items) == 1) {
+    return(items[[1]])
+  }
+  if (length(items) > 1) {
+    return(paste(
+      paste(items[1:length(items) - 1], collapse = ", "), conjunction,
+      items[length(items)]
+    ))
+  }
+}

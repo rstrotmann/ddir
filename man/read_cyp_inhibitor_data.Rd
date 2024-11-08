@@ -34,8 +34,8 @@ The following is an example of a valid input:
     examplinib, CYP1A2,  NA
     examplinib, CYP2B6,  NA,
     examplinib, CYP2C8,  11,   study 001
-    examplinib, CYP2C9,  13.5, study 001
-    examplinib, CYP2C19, 15,   study 001
+    examplinib, CYP2C9,  0.6, study 001
+    examplinib, CYP2C19, 0.25,   study 001
     examplinib, CYP2D6,  NA,
     examplinib, CYP3A4,  12.5, study 001
 
