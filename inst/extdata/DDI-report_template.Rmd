@@ -1,8 +1,8 @@
 ---
 output:
-  word_document: default
-  html_notebook: default
   pdf_document: default
+  html_notebook: default
+  word_document: default
 ---
 
 ```{r echo=F, warning=F, info=F, message=F}
@@ -201,10 +201,11 @@ basic_cyp_inhibition_risk_table(compounds, cyp_inhibition_data)
 
 ### Time-dependent inhibition
 
-As per the ICH M12 guideline, the risk for time-dependent inhibition (TDI) of CYP
-enzymes is assessed based on the formula given in Appendix 1, where
-$R \ge 1.25$ suggest a clinically relevant DDI potential that requires further
-investigation.
+The risk for time-dependent inhibition (TDI) of CYP enzymes is assessed based on
+the formula given in Section '[Time-dependent CYP inhibition]' in Appendix 1,
+where $R \ge 1.25$ suggest a clinically relevant DDI potential that requires
+further investigation (refer to Section 2.1.2.2 of the [ICH M12
+guideline](https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf)).
 
 ```{r results="asis"}
 basic_cyp_tdi_risk_table(compounds, cyp_tdi_data, na.rm=T)
@@ -217,7 +218,7 @@ basic_cyp_tdi_risk_table(compounds, cyp_tdi_data, na.rm=T)
 The basic 'fold-change' approach evaluates whether the maximal change in CYP
 mRNA expression is > 2-fold at concentrations up to 50-fold of the expected
 unbound systemic concentration of the drug (refer to Section 2.1.4.1 of the [ICH
-M12 guidance
+M12 guideline
 document](https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf)).
 
 Basic modeling as per the FDA guideline results in the following risk assessment:
@@ -245,7 +246,8 @@ are calculated, considering the available in vitro data for both direct and
 time-dependent inhibition, and mRNA induction (refer to Section '[Mechanistic static modeling of CYP modulation]' in Appendix 1).
  
 Mechanistic static modeling may be used to investigate CYP inhibition alone, or
-both inhibition and induction effects.
+both inhibition and induction effects. AUC ratios outside the 0.8 to 1.25
+interval are considered to indicate a clinical risk.
 
 ### CYP inhibition only
 
@@ -282,8 +284,9 @@ basic_ugt_inhibition_risk_table(compounds, ugt_inhibition_data)
 ## DDI risk as inhibitor of drug transporters
 
 The metric for the assessment of the drug transporter inhibition risk is
-$R=[I]/IC_{50,u}$. For the relevant perpetrator concentrations, refer to
-Appendix 1, Section '[Inhibition of drug transporters]'.
+$R=[I]/IC_{50,u}$. For the perpetrator concentrations relevant for the
+individual transporters, refer to Section '[Inhibition of drug transporters]' in
+Appendix 1.
 
 Note that OCT1 is currently not covered by the M12 guideline.
 
@@ -458,6 +461,9 @@ $$C_h = 1 + \frac{d*E_{max}*I_h}{I_h+EC_{50}}$$
 with the hepatic inlet concentration $I_h=I_{max,inlet,u}$ and the intestinal
 concentration $I_g=I_{enteric}$ (see above). $d$ is an induction scaling factor
 (assumed to be 1 but can be adjusted based on the experimental conditions).
+
+If the predicted AUC ratio is outside of the 0.8 to 1.25 interval, further
+evaluation is required.
 
 ## Inhibition of drug transporters
 
