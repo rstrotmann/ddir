@@ -77,6 +77,7 @@ nice_enumeration <- function(items, conjunction = "and") {
     return(items[[1]])
   }
   if (length(items) > 1) {
+    # items <- Filter(function(x) x != "", items)
     return(paste(
       paste(items[1:length(items) - 1], collapse = ", "), conjunction,
       items[length(items)]

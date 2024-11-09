@@ -37,3 +37,13 @@ test_that("solubility limitation works", {
 test_that("key concentrations", {
   expect_no_error(key_concentrations(examplinib_parent))
 })
+
+
+test_that("dose", {
+  cpds <- list(
+    make_perpetrator("A", 100, 100, 100),
+    make_perpetrator("A", 200, 100, 100),
+    make_perpetrator("A", 300, 100, 100)
+  )
+  dose(cpds)
+})

@@ -162,6 +162,17 @@ This drug-drug interaction (DDI) precipitant risks assessment report for
 All calculations were done using the
 [`ddir`](https://github.com/rstrotmann/ddir) package, version `r packageVersion("ddir")`.
 
+# Summary
+
+The DDI precipitant potential for `r compound_names_string(compounds)` was
+investigated for the clinical dose of `r dose(compounds)`:
+
+```{r summary, results="asis"}
+cyp_inhibition_risk_summary(compounds, cyp_inhibition_data)
+cyp_tdi_risk_summary(compounds, cyp_tdi_data)
+```
+
+
 # Drug properties
 
 The following physico-chemical, ADME and clinical exposure data were used for

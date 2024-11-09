@@ -230,6 +230,56 @@ name.perpetrator <- function(obj) {
 }
 
 
+#' Oral dose
+#'
+#' @param obj A perpetrator object or list thereof.
+#'
+#' @return Oral dose(s) as character
+#' @export
+#'
+#' @examples
+#' dose(examplinib_parent)
+#' dose(examplinib_metabolite)
+#' dose(examplinib_compounds)
+dose <- function(obj) {
+  UseMethod("dose")
+}
+
+
+#' Oral dose of perpetrator
+#'
+#' @param obj Perpetrator object.
+#'
+#' @return Dose as character.
+#' @export
+#'
+#' @examples
+#' dose(examplinib_parent)
+#' dose(examplinib_metabolite)
+dose.perpetrator <- function(obj) {
+  if(is_oral(obj)) {
+    return(paste0(obj[which(obj$param=="dose"), "value"], " mg"))
+  } else {
+    return(NULL)
+  }
+}
+
+
+#' Oral doses of compound list
+#'
+#' @param obj List of perpetrator objects.
+#'
+#' @return Text output.
+#' @export
+#'
+#' @examples
+#' dose(examplinib_compounds)
+dose.list <- function(obj) {
+  temp <- Map(dose, Filter(is_oral, obj))
+  nice_enumeration(temp)
+}
+
+
 #' Test if Igut of a perpetrator is limited by its solubility
 #'
 #' This function tests whether the solubility of a perpetrator compound is

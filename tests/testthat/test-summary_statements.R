@@ -11,3 +11,4 @@ test_that("CYP inhibition summary", {
     examplinib_compounds, examplinib_cyp_inhibition_data
   )
 })
+

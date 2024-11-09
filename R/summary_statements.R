@@ -32,9 +32,9 @@ cyp_inhibition_risk_summary.perpetrator <- function(perp, cyp_inh) {
   if(nrow(temp) > 0){
     out <- paste0("* ", name(perp),
                   " has a clinical risk for direct inhibition of ",
-                  nice_enumeration(temp$cyp), "\n")
+                  nice_enumeration(temp$cyp))
   } else {
-    out <- ""
+    out <- NULL
   }
   return(out)
 }
@@ -92,9 +92,9 @@ cyp_tdi_risk_summary.perpetrator <- function(perp, cyp_tdi, cyp_kdeg=cyp_turnove
   if(nrow(temp) > 0){
     out <- paste0("* ", name(perp),
                   " has a clinical risk for time-dependent inhibition of ",
-                  nice_enumeration(temp$cyp), "\n")
+                  nice_enumeration(temp$cyp))
   } else {
-    out <- ""
+    out <- NULL
   }
   return(out)
 }
