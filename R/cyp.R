@@ -1,4 +1,4 @@
-#### BASIC MODELING
+### ----- DIRECT CYP INHIBITION -----
 
 #' Basic CYP inhibition risk
 #'
@@ -148,6 +148,9 @@ basic_cyp_inhibition_risk_table.list <- function(perp, ...) {
 }
 
 
+### ----- CYP TDI -----
+
+
 #' Basic modeling of the CYP time-dependent inhibition risk
 #'
 #' This function calculates the risk for time-dependent inhibition of CYP
@@ -186,7 +189,7 @@ basic_cyp_inhibition_risk_table.list <- function(perp, ...) {
 #' @export
 #' @examples
 #' basic_cyp_tdi_risk(examplinib_parent, examplinib_cyp_tdi_data)
-basic_cyp_tdi_risk<- function(perp, cyp_tdi, cyp_kdeg=cyp_turnover) {
+basic_cyp_tdi_risk <- function(perp, cyp_tdi, cyp_kdeg=cyp_turnover) {
   cyp_tdi <- cyp_tdi %>%
     filter(name==name(perp))
 
@@ -272,7 +275,7 @@ basic_cyp_tdi_risk_table.list <- function(perp, ...) {
 
 
 
-#### CYP INDUCTION
+### ----- CYP INDUCTION -----
 
 #' Basic static CYP induction risk
 #'
@@ -487,7 +490,7 @@ kinetic_cyp_induction_risk_table.list <- function(perp, ...) {
 
 
 
-#### MECHANISTIC STATIC MODELING
+### ----- MECHANISTIC STATIC MODELING -----
 
 #' CYP perpetration risk as per mechanistic-static modeling
 #'
@@ -554,6 +557,7 @@ kinetic_cyp_induction_risk_table.list <- function(perp, ...) {
 #' mech_stat_cyp_risk(examplinib_parent, examplinib_cyp_inhibition_data,
 #'   examplinib_cyp_induction_data, examplinib_cyp_tdi_data,
 #'   include_induction = FALSE)
+#' mech_stat_cyp_risk(examplinib_parent, examplinib_cyp_inhibition_data, NULL)
 mech_stat_cyp_risk <- function(
     perp,
     cyp_inh,
@@ -568,6 +572,15 @@ mech_stat_cyp_risk <- function(
   i <- key_concentrations(perp, molar = TRUE)
   Ig <- i["imaxintest"]
   Ih <- i["imaxinletu"]
+
+  if(is.null(cyp_ind)) {
+    cyp_ind <- data.frame(
+      name = "",
+      cyp = "",
+      emax = NA,
+      ec50 = NA,
+      maxc = NA,
+      source = "")}
 
   if(is.null(cyp_tdi)) {
     cyp_tdi = data.frame(

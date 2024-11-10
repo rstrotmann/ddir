@@ -2,7 +2,7 @@
 % Please edit documentation in R/compounds.R
 \name{dose}
 \alias{dose}
-\title{Title}
+\title{Oral dose}
 \usage{
 dose(obj)
 }
@@ -13,5 +13,10 @@ dose(obj)
 Oral dose(s) as character
 }
 \description{
-Title
+Oral dose
+}
+\examples{
+dose(examplinib_parent)
+dose(examplinib_metabolite)
+dose(examplinib_compounds)
 }

@@ -17,6 +17,3 @@ Text output.
 \description{
 Summary statement for CYP inhibition for a list of perpetrators
 }
-\examples{
-cyp_inhibition_risk_summary.list(examplinib_compounds, examplinib_cyp_inhibition_data)
-}

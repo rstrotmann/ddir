@@ -55,8 +55,8 @@ M1,          ka,       NA,
 examplinib, CYP1A2,  NA 
 examplinib, CYP2B6,  NA,
 examplinib, CYP2C8,  11,   study 001
-examplinib, CYP2C9,  13.5, study 001
-examplinib, CYP2C19, 15,   study 001
+examplinib, CYP2C9,  0.6, study 001
+examplinib, CYP2C19, 0.25,   study 001
 examplinib, CYP2D6,  NA,
 examplinib, CYP3A4,  12.5, study 001
 
@@ -168,8 +168,12 @@ The DDI precipitant potential for `r compound_names_string(compounds)` was
 investigated for the clinical dose of `r dose(compounds)`:
 
 ```{r summary, results="asis"}
-cyp_inhibition_risk_summary(compounds, cyp_inhibition_data)
-cyp_tdi_risk_summary(compounds, cyp_tdi_data)
+cat(ddi_risk_summary(
+  compounds,
+  cyp_inhibition_data,
+  cyp_tdi_data,
+  cyp_induction_data, ugt_inhibition_data,
+  transporter_inhibition_data))
 ```
 
 

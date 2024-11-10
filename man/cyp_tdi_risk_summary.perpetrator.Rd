@@ -8,13 +8,22 @@
 }
 \arguments{
 \item{perp}{The perpetrator object.}
+
+\item{cyp_tdi}{The CYP TDI data as data frame. The following fields are expected:
+\itemize{
+\item 'name' The perpetrator compound name as character.
+\item 'cyp' The CYP enzyme as character.
+\item 'ki' The \eqn{K_I} in \eqn{\mu M} as numeric.
+\item 'kinact' The \eqn{k_{inact}} in 1/h as numeric.
+\item 'source' Optional source information as character,
+}}
+
+\item{cyp_kdeg}{The CYP turnover data as data frame. Defaults to the
+built-in reference data, \link{cyp_turnover}.}
 }
 \value{
 Text output.
 }
 \description{
 Summary statement for CYP TDI
-}
-\examples{
-cyp_tdi_risk_summary.perpetrator(examplinib_parent, examplinib_cyp_tdi_data)
 }

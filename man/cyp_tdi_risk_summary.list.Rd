@@ -7,7 +7,9 @@
 \method{cyp_tdi_risk_summary}{list}(perp, ...)
 }
 \arguments{
-\item{perp}{The perpetrator object.}
+\item{perp}{A list of perpetrator objects.}
+
+\item{...}{Further parameters.}
 }
 \value{
 Text output.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/compounds.R
 \name{dose.list}
 \alias{dose.list}
-\title{Title}
+\title{Oral doses of compound list}
 \usage{
 \method{dose}{list}(obj)
 }
@@ -13,7 +13,7 @@
 Text output.
 }
 \description{
-Title
+Oral doses of compound list
 }
 \examples{
 dose(examplinib_compounds)

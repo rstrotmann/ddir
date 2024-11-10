@@ -2,7 +2,7 @@
 % Please edit documentation in R/compounds.R
 \name{dose.perpetrator}
 \alias{dose.perpetrator}
-\title{Title}
+\title{Oral dose of perpetrator}
 \usage{
 \method{dose}{perpetrator}(obj)
 }
@@ -13,7 +13,7 @@
 Dose as character.
 }
 \description{
-Title
+Oral dose of perpetrator
 }
 \examples{
 dose(examplinib_parent)

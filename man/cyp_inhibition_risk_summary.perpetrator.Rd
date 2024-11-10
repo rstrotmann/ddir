@@ -24,7 +24,3 @@ Text output.
 \description{
 Summary statement for CYP inhibition
 }
-\examples{
-cyp_inhibition_risk_summary.perpetrator(examplinib_parent, examplinib_cyp_inhibition_data)
-cyp_inhibition_risk_summary.perpetrator(examplinib_metabolite, examplinib_cyp_inhibition_data)
-}
