@@ -11,7 +11,7 @@ regulatory guideline."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.15.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.15.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -111,14 +111,14 @@ the regulatory threshold is reached for the respective enzyme.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">basic_cyp_inhibition_risk</span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_inhibition_data</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       cyp   ki  kiu      r risk_hep    r_gut risk_intest</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  CYP1A2   NA   NA     NA       NA       NA          NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  CYP2B6   NA   NA     NA       NA       NA          NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  CYP2C8 11.0 11.0 0.0150    FALSE       NA          NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  CYP2C9 13.5 13.5 0.0122    FALSE       NA          NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 CYP2C19 15.0 15.0 0.0110    FALSE       NA          NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  CYP2D6   NA   NA     NA       NA       NA          NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  CYP3A4 12.5 12.5 0.0132    FALSE 292.3264        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       cyp    ki   kiu      r risk_hep    r_gut risk_intest</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  CYP1A2    NA    NA     NA       NA       NA          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  CYP2B6    NA    NA     NA       NA       NA          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  CYP2C8 11.00 11.00 0.0150    FALSE       NA          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  CYP2C9  0.60  0.60 0.2747     TRUE       NA          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 CYP2C19  0.25  0.25 0.6593     TRUE       NA          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  CYP2D6    NA    NA     NA       NA       NA          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  CYP3A4 12.50 12.50 0.0132    FALSE 292.3264        TRUE</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

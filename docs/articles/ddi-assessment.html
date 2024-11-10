@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.15.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.15.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -355,14 +355,14 @@ embedded in R notebook documents can be generated using
 </h3>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/basic_cyp_inhibition_risk.html">basic_cyp_inhibition_risk</a></span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_inhibition_data</span><span class="op">)</span></span>
-<span><span class="co">#&gt;       cyp   ki  kiu      r risk_hep    r_gut risk_intest</span></span>
-<span><span class="co">#&gt; 1  CYP1A2   NA   NA     NA       NA       NA          NA</span></span>
-<span><span class="co">#&gt; 2  CYP2B6   NA   NA     NA       NA       NA          NA</span></span>
-<span><span class="co">#&gt; 3  CYP2C8 11.0 11.0 0.0150    FALSE       NA          NA</span></span>
-<span><span class="co">#&gt; 4  CYP2C9 13.5 13.5 0.0122    FALSE       NA          NA</span></span>
-<span><span class="co">#&gt; 5 CYP2C19 15.0 15.0 0.0110    FALSE       NA          NA</span></span>
-<span><span class="co">#&gt; 6  CYP2D6   NA   NA     NA       NA       NA          NA</span></span>
-<span><span class="co">#&gt; 7  CYP3A4 12.5 12.5 0.0132    FALSE 292.3264        TRUE</span></span>
+<span><span class="co">#&gt;       cyp    ki   kiu      r risk_hep    r_gut risk_intest</span></span>
+<span><span class="co">#&gt; 1  CYP1A2    NA    NA     NA       NA       NA          NA</span></span>
+<span><span class="co">#&gt; 2  CYP2B6    NA    NA     NA       NA       NA          NA</span></span>
+<span><span class="co">#&gt; 3  CYP2C8 11.00 11.00 0.0150    FALSE       NA          NA</span></span>
+<span><span class="co">#&gt; 4  CYP2C9  0.60  0.60 0.2747     TRUE       NA          NA</span></span>
+<span><span class="co">#&gt; 5 CYP2C19  0.25  0.25 0.6593     TRUE       NA          NA</span></span>
+<span><span class="co">#&gt; 6  CYP2D6    NA    NA     NA       NA       NA          NA</span></span>
+<span><span class="co">#&gt; 7  CYP3A4 12.50 12.50 0.0132    FALSE 292.3264        TRUE</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/basic_cyp_inhibition_risk_table.html">basic_cyp_inhibition_risk_table</a></span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_inhibition_data</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
@@ -409,8 +409,8 @@ model</caption>
 </tr>
 <tr class="odd">
 <td align="left">CYP2C8</td>
-<td align="right">11.0</td>
-<td align="right">11.0</td>
+<td align="right">11.00</td>
+<td align="right">11.00</td>
 <td align="right">0.015</td>
 <td align="left">No</td>
 <td align="left"></td>
@@ -418,19 +418,19 @@ model</caption>
 </tr>
 <tr class="even">
 <td align="left">CYP2C9</td>
-<td align="right">13.5</td>
-<td align="right">13.5</td>
-<td align="right">0.012</td>
-<td align="left">No</td>
+<td align="right">0.60</td>
+<td align="right">0.60</td>
+<td align="right">0.275</td>
+<td align="left">Yes</td>
 <td align="left"></td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
 <td align="left">CYP2C19</td>
-<td align="right">15.0</td>
-<td align="right">15.0</td>
-<td align="right">0.011</td>
-<td align="left">No</td>
+<td align="right">0.25</td>
+<td align="right">0.25</td>
+<td align="right">0.659</td>
+<td align="left">Yes</td>
 <td align="left"></td>
 <td align="left"></td>
 </tr>
@@ -445,8 +445,8 @@ model</caption>
 </tr>
 <tr class="odd">
 <td align="left">CYP3A4</td>
-<td align="right">12.5</td>
-<td align="right">12.5</td>
+<td align="right">12.50</td>
+<td align="right">12.50</td>
 <td align="right">0.013</td>
 <td align="left">No</td>
 <td align="left">292.3</td>
@@ -782,20 +782,20 @@ model</caption>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/mech_stat_cyp_risk.html">mech_stat_cyp_risk</a></span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_inhibition_data</span>,</span>
 <span>                   <span class="va">examplinib_cyp_induction_data</span><span class="op">)</span></span>
-<span><span class="co">#&gt;       cyp   substrate  kiu fgut   fm fmcyp        Ag        Ah Bg Bh       Cg</span></span>
-<span><span class="co">#&gt; 1  CYP1A2  tizanidine   NA 1.00 0.95  0.98 1.0000000 1.0000000  1  1 1.000000</span></span>
-<span><span class="co">#&gt; 2  CYP2B6        &lt;NA&gt;   NA   NA   NA    NA 1.0000000 1.0000000  1  1 1.000000</span></span>
-<span><span class="co">#&gt; 3  CYP2C8 repaglinide 11.0 1.00 1.00  0.61 0.6255130 0.9827625  1  1 1.000000</span></span>
-<span><span class="co">#&gt; 4  CYP2C9  S-warfarin 13.5 1.00 1.00  0.91 0.6721244 0.9859096  1  1 1.000000</span></span>
-<span><span class="co">#&gt; 5 CYP2C19  omeprazole 15.0 1.00 1.00  0.87 0.6949088 0.9873008  1  1 1.000000</span></span>
-<span><span class="co">#&gt; 6  CYP2D6 desipramine   NA 1.00 1.00  0.85 1.0000000 1.0000000  1  1 1.000000</span></span>
-<span><span class="co">#&gt; 7  CYP3A4   midazolam 12.5 0.57 0.96  1.00 0.6549452 0.9847995  1  1 6.884569</span></span>
+<span><span class="co">#&gt;       cyp   substrate   kiu fgut   fm fmcyp         Ag        Ah Bg Bh       Cg</span></span>
+<span><span class="co">#&gt; 1  CYP1A2  tizanidine    NA 1.00 0.95  0.98 1.00000000 1.0000000  1  1 1.000000</span></span>
+<span><span class="co">#&gt; 2  CYP2B6        &lt;NA&gt;    NA   NA   NA    NA 1.00000000 1.0000000  1  1 1.000000</span></span>
+<span><span class="co">#&gt; 3  CYP2C8 repaglinide 11.00 1.00 1.00  0.61 0.62551298 0.9827625  1  1 1.000000</span></span>
+<span><span class="co">#&gt; 4  CYP2C9  S-warfarin  0.60 1.00 1.00  0.91 0.08350072 0.7566792  1  1 1.000000</span></span>
+<span><span class="co">#&gt; 5 CYP2C19  omeprazole  0.25 1.00 1.00  0.87 0.03657341 0.5644126  1  1 1.000000</span></span>
+<span><span class="co">#&gt; 6  CYP2D6 desipramine    NA 1.00 1.00  0.85 1.00000000 1.0000000  1  1 1.000000</span></span>
+<span><span class="co">#&gt; 7  CYP3A4   midazolam 12.50 0.57 0.96  1.00 0.65494520 0.9847995  1  1 6.884569</span></span>
 <span><span class="co">#&gt;         Ch      aucr  risk</span></span>
 <span><span class="co">#&gt; 1 1.000000 1.0000000 FALSE</span></span>
 <span><span class="co">#&gt; 2 1.000000        NA    NA</span></span>
 <span><span class="co">#&gt; 3 1.000000 1.0106266 FALSE</span></span>
-<span><span class="co">#&gt; 4 1.000000 1.0129888 FALSE</span></span>
-<span><span class="co">#&gt; 5 1.000000 1.0111717 FALSE</span></span>
+<span><span class="co">#&gt; 4 1.000000 1.2843927  TRUE</span></span>
+<span><span class="co">#&gt; 5 1.000000 1.6102050  TRUE</span></span>
 <span><span class="co">#&gt; 6 1.000000 1.0000000 FALSE</span></span>
 <span><span class="co">#&gt; 7 1.773674 0.2321612  TRUE</span></span>
 <span></span>
@@ -886,14 +886,14 @@ examplinib</caption>
 <td align="right">1.00</td>
 <td align="right">1.00</td>
 <td align="right">0.91</td>
-<td align="right">0.67</td>
-<td align="right">0.99</td>
+<td align="right">0.08</td>
+<td align="right">0.76</td>
 <td align="right">1</td>
 <td align="right">1</td>
 <td align="right">1.00</td>
 <td align="right">1.00</td>
-<td align="left">1.013</td>
-<td align="left">No</td>
+<td align="left">1.284</td>
+<td align="left">Yes</td>
 </tr>
 <tr class="odd">
 <td align="left">CYP2C19</td>
@@ -901,14 +901,14 @@ examplinib</caption>
 <td align="right">1.00</td>
 <td align="right">1.00</td>
 <td align="right">0.87</td>
-<td align="right">0.69</td>
-<td align="right">0.99</td>
+<td align="right">0.04</td>
+<td align="right">0.56</td>
 <td align="right">1</td>
 <td align="right">1</td>
 <td align="right">1.00</td>
 <td align="right">1.00</td>
-<td align="left">1.011</td>
-<td align="left">No</td>
+<td align="left">1.610</td>
+<td align="left">Yes</td>
 </tr>
 <tr class="even">
 <td align="left">CYP2D6</td>
