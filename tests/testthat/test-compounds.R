@@ -8,7 +8,7 @@ test_that("new_perpetrator", {
   temp <- tribble(
     ~param,    ~value,     ~source,
     "name",     "test",      "",
-    "oral",     "TRUE",      "",
+    "oral",     "yes",      "",
     "mw",       "492.6",     "",
     "dose",     "450",       "clinical dose",
     "imaxss",   "3530",      "study 001",
@@ -18,7 +18,8 @@ test_that("new_perpetrator", {
     "fa",       "0.81",      "study 003",
     "fg",       "1",         "default",
     "ka",       "0.00267",   "unknown")
-  new_perpetrator(temp)
+  expect_no_error(
+    new_perpetrator(temp))
 })
 
 
@@ -45,5 +46,8 @@ test_that("dose", {
     make_perpetrator("A", 200, 100, 100),
     make_perpetrator("A", 300, 100, 100)
   )
-  dose(cpds)
+  expect_no_error(
+    dose(cpds)
+  )
 })
+

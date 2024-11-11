@@ -5,6 +5,8 @@
 #' @inheritParams cyp_tdi_risk_summary
 #' @inheritParams cyp_induction_risk_summary
 #' @inheritParams ugt_inhibition_risk_summary
+#' @inheritParams mech_stat_cyp_risk_summary
+#' @inheritParams transporter_inhibition_risk_summary
 #'
 #' @return Text output.
 #' @export
@@ -68,9 +70,9 @@ cyp_inhibition_risk_summary.perpetrator <- function(perp, cyp_inh) {
 
   if(nrow(temp) > 0){
     out <- paste0(
-      "* using basic modeling, ", name(perp),
+      "* ", name(perp),
       " has a clinical risk for direct inhibition of ",
-      nice_enumeration(temp$cyp))
+      nice_enumeration(temp$cyp), " (basic modeling)")
   } else {
     out <- NULL
   }

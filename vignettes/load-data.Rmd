@@ -26,6 +26,7 @@ requirements for the CYP-, UGT- or transporter inhibition data.
 ```{r setup, message = FALSE, warning = FALSE}
 library(ddir)
 library(tidyverse)
+library(knitrdata)
 ```
 
 # Drug properties

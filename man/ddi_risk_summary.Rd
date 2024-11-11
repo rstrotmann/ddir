@@ -60,7 +60,30 @@ expected:
 \item 'source' Optional source information as character.
 }}
 
+\item{transporter_inh}{Transporter inhibition data as data frame. The
+following fields are expected:
+\itemize{
+\item 'name' The perpetrator compound name.
+\item 'cyp' The UGT enzyme as (upper case) character.
+\item 'ic50' The \eqn{IC_{50}} of the inhibition in μM.
+\item 'source' Optional source information as character.
+}}
+
 \item{d}{Scaling factor, defaults to 1.}
+
+\item{include_induction}{Switch to define whether induction effects should be
+included in the calculation (C-terms as per the FDA guideline)}
+
+\item{substr}{The CYP probe substrates to be used as data frame, defaults to
+\link{cyp_reference_substrates}. The data frame is expected to have the following
+fields:
+\itemize{
+\item 'cyp' The CYP enzyme as (upper case) character.
+\item 'substrate' The substrate name as character.
+\item 'fgut' The fraction of the drug escaping gut metabolism.
+\item 'fm' The fraction of the drug that undergoes hepatic metabolism.
+\item 'fmcyp' The fraction metabolized by the respective CYP enzyme.
+}}
 
 \item{cyp_kdeg}{The CYP turnover data as data frame. Defaults to the
 built-in reference data, \link{cyp_turnover}.}

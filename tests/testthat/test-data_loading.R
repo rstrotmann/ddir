@@ -9,7 +9,7 @@ test_that("new_perpetrator - compatibility with old 'type' field", {
   test_p <- tribble(
     ~param,     ~value,      ~source,
     "name",     "test",      "",
-    "type",     "parent",    "",
+    "oral",     "yes",       "",
     "mw",       "492.6",     "",
     "dose",     "450",       "clinical dose",
     "imaxss",   "3530",      "study 001",
@@ -23,7 +23,7 @@ test_that("new_perpetrator - compatibility with old 'type' field", {
   test_m <- tribble(
     ~param,     ~value,      ~source,
     "name",     "test",      "",
-    "type",     "metabolite","",
+    "oral",     "no",       "",
     "mw",       "492.6",     "",
     "dose",     "450",       "clinical dose",
     "imaxss",   "3530",      "study 001",
@@ -34,8 +34,10 @@ test_that("new_perpetrator - compatibility with old 'type' field", {
     "fg",       "1",         "default",
     "ka",       "0.00267",   "unknown")
 
-  new_perpetrator(test_p)
-  new_perpetrator(test_m)
+  expect_no_error({
+    new_perpetrator(test_p)
+    new_perpetrator(test_m)
+  })
 })
 
 
@@ -52,5 +54,7 @@ test_that("read CYP inhibitor data without error", {
     # METABOLITE\n
     M1,         CYP2C9,  4.4,  study 002\n"
 
-  read_inhibitor_data(textConnection(test))
+  expect_no_error(
+    read_inhibitor_data(textConnection(test))
+  )
 })
