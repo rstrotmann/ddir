@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary_statements.R
 \name{ugt_inhibition_risk_summary}
 \alias{ugt_inhibition_risk_summary}
-\title{Title}
+\title{Summary statement for UGT inhibition}
 \usage{
 ugt_inhibition_risk_summary(perp, ugt_inh)
 }
@@ -19,10 +19,10 @@ expected:
 }}
 }
 \value{
-Text output.
+Markdown-formatted text output.
 }
 \description{
-Title
+Summary statement for UGT inhibition
 }
 \examples{
 ugt_inhibition_risk_summary(

@@ -19,7 +19,7 @@ expected:
 }}
 }
 \value{
-Text output.
+Markdown-formatted text output.
 }
 \description{
 Summary statement for CYP inhibition

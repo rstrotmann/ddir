@@ -22,7 +22,7 @@ cyp_tdi_risk_summary(perp, cyp_tdi, cyp_kdeg = cyp_turnover)
 built-in reference data, \link{cyp_turnover}.}
 }
 \value{
-Text.
+Markdown-formatted text output.
 }
 \description{
 Summary statement for CYP TDI

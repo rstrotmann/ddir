@@ -12,7 +12,7 @@
 \item{...}{Further parameters.}
 }
 \value{
-Text output.
+Markdown-formatted text output.
 }
 \description{
 Summary statement for CYP inhibition for a list of perpetrators

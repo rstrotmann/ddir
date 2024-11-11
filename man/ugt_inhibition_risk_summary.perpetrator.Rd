@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary_statements.R
 \name{ugt_inhibition_risk_summary.perpetrator}
 \alias{ugt_inhibition_risk_summary.perpetrator}
-\title{Title}
+\title{Summary statement for UGT inhibition for a precipitant compound}
 \usage{
 \method{ugt_inhibition_risk_summary}{perpetrator}(perp, ugt_inh)
 }
@@ -19,8 +19,8 @@ expected:
 }}
 }
 \value{
-Text output.
+Markdown-formatted text output.
 }
 \description{
-Title
+Summary statement for UGT inhibition for a precipitant compound
 }

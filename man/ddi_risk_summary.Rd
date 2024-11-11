@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary_statements.R
 \name{ddi_risk_summary}
 \alias{ddi_risk_summary}
-\title{Title}
+\title{Overall DDI risk summary text block}
 \usage{
 ddi_risk_summary(
   perp,
@@ -89,10 +89,10 @@ fields:
 built-in reference data, \link{cyp_turnover}.}
 }
 \value{
-Text output.
+Markdown-formatted text output.
 }
 \description{
-Title
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \examples{
 ddi_risk_summary(examplinib_compounds, examplinib_cyp_inhibition_data,

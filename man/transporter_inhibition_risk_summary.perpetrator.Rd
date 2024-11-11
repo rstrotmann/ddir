@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary_statements.R
 \name{transporter_inhibition_risk_summary.perpetrator}
 \alias{transporter_inhibition_risk_summary.perpetrator}
-\title{Title}
+\title{Summary statement for transporter inhibition for a precipitant compound}
 \usage{
 \method{transporter_inhibition_risk_summary}{perpetrator}(
   perp,
@@ -26,8 +26,8 @@ following fields are expected:
 \link{transporter_reference_data} for details.}
 }
 \value{
-Text output
+Markdown-formatted text output.
 }
 \description{
-Title
+Summary statement for transporter inhibition for a precipitant compound
 }

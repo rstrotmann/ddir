@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary_statements.R
 \name{cyp_induction_risk_summary.perpetrator}
 \alias{cyp_induction_risk_summary.perpetrator}
-\title{Title}
+\title{Summary statement for CYP induction for a precipitant compound}
 \usage{
 \method{cyp_induction_risk_summary}{perpetrator}(perp, cyp_ind, d = 1)
 }
@@ -25,8 +25,8 @@ numeric.
 \item{d}{Scaling factor, defaults to 1.}
 }
 \value{
-Text output.
+Markdown-formatted text output.
 }
 \description{
-Title
+Summary statement for CYP induction for a precipitant compound
 }

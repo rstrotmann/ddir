@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary_statements.R
 \name{cyp_tdi_risk_summary.perpetrator}
 \alias{cyp_tdi_risk_summary.perpetrator}
-\title{Summary statement for CYP TDI}
+\title{Summary statement for CYP TDI for a precipitant compound}
 \usage{
 \method{cyp_tdi_risk_summary}{perpetrator}(perp, cyp_tdi, cyp_kdeg = cyp_turnover)
 }
@@ -22,8 +22,8 @@
 built-in reference data, \link{cyp_turnover}.}
 }
 \value{
-Text output.
+Markdown-formatted text output.
 }
 \description{
-Summary statement for CYP TDI
+Summary statement for CYP TDI for a precipitant compound
 }

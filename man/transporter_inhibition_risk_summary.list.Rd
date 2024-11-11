@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary_statements.R
 \name{transporter_inhibition_risk_summary.list}
 \alias{transporter_inhibition_risk_summary.list}
-\title{Title}
+\title{Summary statement for transporter inhibition for a list of compounds}
 \usage{
 \method{transporter_inhibition_risk_summary}{list}(perp, ...)
 }
@@ -12,8 +12,8 @@
 \item{...}{Further parameters.}
 }
 \value{
-Text output.
+Markdown-formatted text output.
 }
 \description{
-Title
+Summary statement for transporter inhibition for a list of compounds
 }

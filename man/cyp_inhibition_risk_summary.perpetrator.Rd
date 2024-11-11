@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary_statements.R
 \name{cyp_inhibition_risk_summary.perpetrator}
 \alias{cyp_inhibition_risk_summary.perpetrator}
-\title{Summary statement for CYP inhibition}
+\title{Summary statement for CYP inhibition for a precipitant compound}
 \usage{
 \method{cyp_inhibition_risk_summary}{perpetrator}(perp, cyp_inh)
 }
@@ -19,8 +19,8 @@ expected:
 }}
 }
 \value{
-Text output.
+Markdown-formatted text output.
 }
 \description{
-Summary statement for CYP inhibition
+Summary statement for CYP inhibition for a precipitant compound
 }

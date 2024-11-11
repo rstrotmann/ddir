@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary_statements.R
 \name{mech_stat_cyp_risk_summary.list}
 \alias{mech_stat_cyp_risk_summary.list}
-\title{Title}
+\title{Summary statement for mechanistic-static modeling of CYP modulation}
 \usage{
 \method{mech_stat_cyp_risk_summary}{list}(perp, ...)
 }
@@ -12,8 +12,8 @@
 \item{...}{Further parameters.}
 }
 \value{
-Text output.
+Markdown-formatted text output.
 }
 \description{
-Title
+Summary statement for mechanistic-static modeling of CYP modulation
 }

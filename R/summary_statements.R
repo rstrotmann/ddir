@@ -1,5 +1,8 @@
 
-#' Title
+#' Overall DDI risk summary text block
+#'
+#' @description
+#' `r lifecycle::badge("experimental")`
 #'
 #' @inheritParams cyp_inhibition_risk_summary
 #' @inheritParams cyp_tdi_risk_summary
@@ -8,7 +11,7 @@
 #' @inheritParams mech_stat_cyp_risk_summary
 #' @inheritParams transporter_inhibition_risk_summary
 #'
-#' @return Text output.
+#' @return Markdown-formatted text output.
 #' @export
 #'
 #' @examples
@@ -47,7 +50,7 @@ ddi_risk_summary <- function(
 #'
 #' @inheritParams basic_cyp_inhibition_risk
 #'
-#' @return Text output.
+#' @return Markdown-formatted text output.
 #' @export
 #'
 #' @examples
@@ -58,11 +61,11 @@ cyp_inhibition_risk_summary <- function(perp, cyp_inh) {
 }
 
 
-#' Summary statement for CYP inhibition
+#' Summary statement for CYP inhibition for a precipitant compound
 #'
 #' @inheritParams cyp_inhibition_risk_summary
 #'
-#' @return Text output.
+#' @return Markdown-formatted text output.
 #' @export
 cyp_inhibition_risk_summary.perpetrator <- function(perp, cyp_inh) {
   temp <- basic_cyp_inhibition_risk(perp, cyp_inh) %>%
@@ -85,7 +88,7 @@ cyp_inhibition_risk_summary.perpetrator <- function(perp, cyp_inh) {
 #' @param perp Perpetrator object.
 #' @param ... Further parameters.
 #'
-#' @return Text output.
+#' @return Markdown-formatted text output.
 #' @export
 cyp_inhibition_risk_summary.list <- function(perp, ...) {
   out <- NULL
@@ -102,7 +105,7 @@ cyp_inhibition_risk_summary.list <- function(perp, ...) {
 #' Summary statement for CYP TDI
 #'
 #' @inheritParams basic_cyp_tdi_risk
-#' @return Text.
+#' @return Markdown-formatted text output.
 #' @export
 #'
 #' @examples
@@ -113,11 +116,11 @@ cyp_tdi_risk_summary <- function(perp, cyp_tdi, cyp_kdeg=cyp_turnover) {
 }
 
 
-#' Summary statement for CYP TDI
+#' Summary statement for CYP TDI for a precipitant compound
 #'
 #' @inheritParams basic_cyp_tdi_risk
 #'
-#' @return Text output.
+#' @return Markdown-formatted text output.
 #' @export
 cyp_tdi_risk_summary.perpetrator <- function(perp, cyp_tdi, cyp_kdeg=cyp_turnover) {
   out <- NULL
@@ -135,12 +138,12 @@ cyp_tdi_risk_summary.perpetrator <- function(perp, cyp_tdi, cyp_kdeg=cyp_turnove
 }
 
 
-#' Summary statement for CYP TDI
+#' Summary statement for CYP TDI for a list of compounds
 #'
 #' @param perp A list of perpetrator objects.
 #' @param ... Further parameters.
 #'
-#' @return Text output.
+#' @return Markdown-formatted text output.
 #' @export
 #' @examples
 #' cyp_tdi_risk_summary(examplinib_compounds, examplinib_cyp_tdi_data)
@@ -156,22 +159,22 @@ cyp_tdi_risk_summary.list <- function(perp, ...) {
 
 ### ----- CYP INDUCTION -----
 
-#' Title
+#' Summary statement for CYP induction
 #'
 #' @inheritParams static_cyp_induction_risk
 #' @inheritParams kinetic_cyp_induction_risk
 #'
-#' @return Text output.
+#' @return Markdown-formatted text output.
 #' @export
 cyp_induction_risk_summary <- function(perp, cyp_ind, d = 1) {
   UseMethod("cyp_induction_risk_summary")
 }
 
 
-#' Title
+#' Summary statement for CYP induction for a precipitant compound
 #'
 #' @inheritParams cyp_induction_risk_summary
-#' @return Text output.
+#' @return Markdown-formatted text output.
 #' @export
 cyp_induction_risk_summary.perpetrator <- function(perp, cyp_ind, d = 1) {
   out <- NULL
@@ -200,12 +203,12 @@ cyp_induction_risk_summary.perpetrator <- function(perp, cyp_ind, d = 1) {
 }
 
 
-#' Title
+#' Summary statement for CYP induction for a list of precipitants
 #'
 #' @param perp A list of perpetrator objects.
 #' @param ... Further arguments.
 #'
-#' @return Text output.
+#' @return Markdown-formatted text output.
 #' @export
 cyp_induction_risk_summary.list <- function(perp, ...) {
   out <- NULL
@@ -220,10 +223,10 @@ cyp_induction_risk_summary.list <- function(perp, ...) {
 ### ----- MECHANISTIC STATIC MODELING -----
 
 
-#' Title
+#' Summary statement for mechanistic-static modeling of CYP modulation
 #'
 #' @inheritParams mech_stat_cyp_risk
-#' @return Text ouput.
+#' @return Markdown-formatted text output.
 #' @export
 #'
 #' @examples
@@ -246,11 +249,11 @@ mech_stat_cyp_risk_summary <- function(
 }
 
 
-#' Title
+#' Summary statement for mechanistic-static modeling of CYP modulation
 #'
 #' @inheritParams mech_stat_cyp_risk
 #'
-#' @return Text output.
+#' @return Markdown-formatted text output.
 #' @export
 mech_stat_cyp_risk_summary.perpetrator <- function(
     perp,
@@ -299,12 +302,12 @@ mech_stat_cyp_risk_summary.perpetrator <- function(
 }
 
 
-#' Title
+#' Summary statement for mechanistic-static modeling of CYP modulation
 #'
 #' @param perp A perpetrator object.
 #' @param ... Further parameters.
 #'
-#' @return Text output.
+#' @return Markdown-formatted text output.
 #' @export
 mech_stat_cyp_risk_summary.list <- function(perp, ...) {
   out <- NULL
@@ -318,11 +321,11 @@ mech_stat_cyp_risk_summary.list <- function(perp, ...) {
 
 ### ----- UGT INHIBITION -----
 
-#' Title
+#' Summary statement for UGT inhibition
 #'
 #' @inheritParams basic_ugt_inhibition_risk
 #'
-#' @return Text output.
+#' @return Markdown-formatted text output.
 #' @export
 #' @examples
 #' ugt_inhibition_risk_summary(
@@ -334,10 +337,10 @@ ugt_inhibition_risk_summary <- function(perp, ugt_inh){
 }
 
 
-#' Title
+#' Summary statement for UGT inhibition for a precipitant compound
 #'
 #' @inheritParams ugt_inhibition_risk_summary
-#' @return Text output.
+#' @return Markdown-formatted text output.
 #' @export
 ugt_inhibition_risk_summary.perpetrator <- function(perp, ugt_inh) {
   out <- NULL
@@ -355,12 +358,12 @@ ugt_inhibition_risk_summary.perpetrator <- function(perp, ugt_inh) {
 }
 
 
-#' Title
+#' Summary statement for UGT inhibition for a list of compounds
 #'
 #' @param perp A perpetrator object.
 #' @param ... Further parameters.
 #'
-#' @return Text output.
+#' @return Markdown-formatted text output.
 #' @export
 ugt_inhibition_risk_summary.list <- function(perp, ...) {
   out <- NULL
@@ -374,11 +377,11 @@ ugt_inhibition_risk_summary.list <- function(perp, ...) {
 
 ### ----- TRANSPORTER INHIBITION -----
 
-#' Title
+#' Summary statement for transporter inhibition
 #'
 #' @inheritParams transporter_inhibition_risk
 #'
-#' @return Text output.
+#' @return Markdown-formatted text output.
 #' @export
 #' @examples
 #' transporter_inhibition_risk_summary(examplinib_parent,
@@ -393,11 +396,11 @@ transporter_inhibition_risk_summary <- function
 }
 
 
-#' Title
+#' Summary statement for transporter inhibition for a precipitant compound
 #'
 #' @inheritParams transporter_inhibition_risk_summary
 #'
-#' @return Text output
+#' @return Markdown-formatted text output.
 #' @export
 transporter_inhibition_risk_summary.perpetrator <- function(
     perp, transporter_inh, transporter_ref = transporter_reference_data) {
@@ -420,12 +423,12 @@ transporter_inhibition_risk_summary.perpetrator <- function(
 }
 
 
-#' Title
+#' Summary statement for transporter inhibition for a list of compounds
 #'
 #' @param perp A perpetrator object.
 #' @param ... Further parameters.
 #'
-#' @return Text output.
+#' @return Markdown-formatted text output.
 #' @export
 transporter_inhibition_risk_summary.list <- function(perp, ...) {
   out <- NULL

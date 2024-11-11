@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary_statements.R
 \name{cyp_induction_risk_summary.list}
 \alias{cyp_induction_risk_summary.list}
-\title{Title}
+\title{Summary statement for CYP induction for a list of precipitants}
 \usage{
 \method{cyp_induction_risk_summary}{list}(perp, ...)
 }
@@ -12,8 +12,8 @@
 \item{...}{Further arguments.}
 }
 \value{
-Text output.
+Markdown-formatted text output.
 }
 \description{
-Title
+Summary statement for CYP induction for a list of precipitants
 }

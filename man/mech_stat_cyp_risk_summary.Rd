@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary_statements.R
 \name{mech_stat_cyp_risk_summary}
 \alias{mech_stat_cyp_risk_summary}
-\title{Title}
+\title{Summary statement for mechanistic-static modeling of CYP modulation}
 \usage{
 mech_stat_cyp_risk_summary(
   perp,
@@ -69,10 +69,10 @@ fields:
 built-in reference data, \link{cyp_turnover}.}
 }
 \value{
-Text ouput.
+Markdown-formatted text output.
 }
 \description{
-Title
+Summary statement for mechanistic-static modeling of CYP modulation
 }
 \examples{
 mech_stat_cyp_risk_summary(examplinib_parent,

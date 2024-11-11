@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary_statements.R
 \name{ugt_inhibition_risk_summary.list}
 \alias{ugt_inhibition_risk_summary.list}
-\title{Title}
+\title{Summary statement for UGT inhibition for a list of compounds}
 \usage{
 \method{ugt_inhibition_risk_summary}{list}(perp, ...)
 }
@@ -12,8 +12,8 @@
 \item{...}{Further parameters.}
 }
 \value{
-Text output.
+Markdown-formatted text output.
 }
 \description{
-Title
+Summary statement for UGT inhibition for a list of compounds
 }

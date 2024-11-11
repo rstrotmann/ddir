@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary_statements.R
 \name{cyp_tdi_risk_summary.list}
 \alias{cyp_tdi_risk_summary.list}
-\title{Summary statement for CYP TDI}
+\title{Summary statement for CYP TDI for a list of compounds}
 \usage{
 \method{cyp_tdi_risk_summary}{list}(perp, ...)
 }
@@ -12,10 +12,10 @@
 \item{...}{Further parameters.}
 }
 \value{
-Text output.
+Markdown-formatted text output.
 }
 \description{
-Summary statement for CYP TDI
+Summary statement for CYP TDI for a list of compounds
 }
 \examples{
 cyp_tdi_risk_summary(examplinib_compounds, examplinib_cyp_tdi_data)
