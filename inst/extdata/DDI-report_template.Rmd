@@ -228,15 +228,17 @@ basic_cyp_tdi_risk_table(compounds, cyp_tdi_data, na.rm=T)
 
 ## Modeling of CYP induction
 
-### Basic 'fold-change' method
+### Basic mRNA 'fold-change' method
 
-The basic 'fold-change' approach evaluates whether the maximal change in CYP
-mRNA expression is > 2-fold at concentrations up to 50-fold of the expected
-unbound systemic concentration of the drug (refer to Section 2.1.4.1 of the [ICH
-M12 guideline
+The basic mRNA 'fold-change' approach evaluates whether the maximal change in
+CYP mRNA expression is $\ge$ 2-fold at concentrations up to 50-fold above the
+expected unbound systemic concentration of the drug (refer to Section 2.1.4.1 of
+the [ICH M12 guideline
 document](https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf)).
 
-Basic modeling as per the FDA guideline results in the following risk assessment:
+Basic modeling as per the ICH M12 guideline results in the following risk
+assessment. Data from studies that did not cover exposures up to 50-fold over
+$C_{max,u}$ are flagged in the below table.
 
 ```{r results="asis"}
 static_cyp_induction_risk_table(compounds, cyp_induction_data, na.rm=T)
@@ -420,10 +422,19 @@ standard values are used unless otherwise indicated.
 Values of $R \ge 1.25$ is considered to indicate a clinically relevant TDI
 potential and suggest the need for further investigation.
 
+## Basic mRNA fold-change method method to assess CYP induction
+
+This basic risk assessment evaluates the mRNA induction for a set of hepatocyte
+batches from different donors. Increases of CYP enzyme mRNA $\ge$ 2-fold at
+at concentrations up to 50-fold above $C_{max,u}$ is considered to indicate a 
+clinical risk for CYP induction.
+
+In the context of this assessment only the worst-case donor data is considered.
+
 ## Basic kinetic modeling of CYP induction
 
 For the basic kinetic modeling of the CYP induction potential, the following
-metric is considered:
+metric is considered (refer to Section 2.1.4.3 of the ICH M12 guideline):
 
 $$R = \frac {1}{1+d* \frac {E_{max}*10*C_{max,ss,u}}{EC_{50,u} + 10*C_{max,ss,u}}}$$
 

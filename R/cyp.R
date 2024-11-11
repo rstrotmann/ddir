@@ -318,12 +318,12 @@ static_cyp_induction_risk <- function(perp, cyp_ind)  {
   i <- key_concentrations(perp, molar=TRUE)
 
   cyp_ind %>%
-    filter(name==name(perp)) %>%
-    mutate(maxc_imaxssu=round(maxc/i["imaxssu"], 1)) %>%
-    mutate(risk=emax>2) %>%
-    mutate(note=case_when(
+    filter(name == name(perp)) %>%
+    mutate(maxc_imaxssu = round(maxc/i["imaxssu"], 1)) %>%
+    mutate(risk = emax>2) %>%
+    mutate(note = case_when(
       maxc_imaxssu<50 ~ "Low maxc",
-      .default="")) %>%
+      .default = "")) %>%
     select(-c(name, ec50))
 }
 
@@ -369,7 +369,7 @@ static_cyp_induction_risk_table.perpetrator <- function(
   if(nrow(temp)!=0) {
     caption <- paste0("Risk for hepatic CYP induction by ", name(perp),
                       conditional_dose_string(perp, show_dose),
-                      ", basic static model")
+                      ", basic mRNA fold-change method")
     out <- knitr::kable(
       temp, caption = caption,
       col.names=labels)
