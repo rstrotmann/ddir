@@ -517,12 +517,13 @@ conc_table.perpetrator <- function(perp, show_dose = FALSE) {
     temp["igut", "parameter"] <- "$I_{gut}$ *"
   }
 
-  colnames(temp) <- c("parameter", "value (ng/ml)", "value (uM)")
+  col_names <- c("parameter", "value ($ng/ml$)", "value ($\\mu M$)")
+  # colnames(temp) <- c("parameter", "value (ng/ml)", "value (uM)")
   rownames(temp) <- NULL
   caption <- paste0("Key perpetrator concentrations for ", name,
                     conditional_dose_string(perp, show_dose))
 
-  out <- knitr::kable(temp, caption = caption)
+  out <- knitr::kable(temp, col.names = col_names, caption = caption)
 
   if(nrow(perp) != 0){
     return(out)
@@ -562,9 +563,9 @@ property_table <- function(obj) {
 #' @export
 property_table.perpetrator <- function(obj){
   labels <- data.frame(
-    param=c("oral", "mw", "dose", "solubility", "imaxss", "fu", "fumic", "rb", "fa",
+    param = c("oral", "mw", "dose", "solubility", "imaxss", "fu", "fumic", "rb", "fa",
             "fg", "ka"),
-    parameter =c("oral", "$MW$ (g/mol)", "$dose$ (mg)", "$solubility$ (mg/l)",
+    parameter = c("oral", "$MW$ (g/mol)", "$dose$ (mg)", "$solubility$ (mg/l)",
                  "$C_{max,ss}$ (ng/ml)",
                  "$f_u$", "$f_{u,mic}$", "$R_B$", "$F_a$", "$F_g$",
                  "$k_a$ (1/min)")

@@ -36,7 +36,7 @@
 #' basic_ugt_inhibition_risk(examplinib_parent, examplinib_ugt_inhibition_data)
 basic_ugt_inhibition_risk <- function(perp, ugt_inh) {
   temp <- ugt_inh %>%
-    filter(name==name(perp))
+    filter(name == name(perp))
 
   i <- key_concentrations(perp, molar=TRUE)
   fumic <- as.num(perp["fumic", "value"])
@@ -85,6 +85,8 @@ basic_ugt_inhibition_risk_table <- function(perp, ugt_inh, na.rm=F,
 basic_ugt_inhibition_risk_table.perpetrator <- function(
     perp, ugt_inh, na.rm=F, show_dose = FALSE) {
   temp <- basic_ugt_inhibition_risk(perp, ugt_inh) %>%
+    mutate(kiu = round(kiu, 2)) %>%
+    mutate(r = round(r, 3)) %>%
     mutate(risk = case_match(
       as.character(risk),
       "TRUE" ~ "Yes", "FALSE" ~ "No", .default = ""))

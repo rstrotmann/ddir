@@ -57,17 +57,17 @@ basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
   fumic <- as.num(perp["fumic", "value"])
 
   out <- ki %>%
-    mutate(ki=as.num(ki)) %>%
-    mutate(kiu=ki*fumic) %>%
+    mutate(ki = as.num(ki)) %>%
+    mutate(kiu = ki*fumic) %>%
     mutate(r=i["imaxssu"]/kiu) %>%
-    mutate(r_gut=case_when(cyp=="CYP3A4" ~ i["igut"]/kiu, .default=NA)) %>%
+    mutate(r_gut = case_when(cyp=="CYP3A4" ~ i["igut"]/kiu, .default=NA)) %>%
     select(-name) %>%
-    mutate(risk_hep=r>0.02) %>%
-    mutate(risk_intest=r_gut>10) %>%
+    mutate(risk_hep = r > 0.02) %>%
+    mutate(risk_intest = r_gut>10) %>%
     # mutate(r=format(r, digits=4)) %>%
-    mutate(r=round(r, digits=4)) %>%
+    mutate(r=round(r, digits = 4)) %>%
     # mutate(r_gut=format(r_gut, digits=4)) %>%
-    mutate(r_gut=round(r_gut, digits=4)) %>%
+    mutate(r_gut=round(r_gut, digits = 4)) %>%
     select(cyp, ki, kiu, r, risk_hep, r_gut, risk_intest)
 
   return(out)
@@ -106,6 +106,7 @@ basic_cyp_inhibition_risk_table <- function(perp, cyp_inh, na.rm = FALSE,
 basic_cyp_inhibition_risk_table.perpetrator <- function(
     perp, cyp_inh, na.rm = FALSE, show_dose = FALSE) {
   temp <- basic_cyp_inhibition_risk(perp, cyp_inh) %>%
+    mutate(kiu = round(kiu, digits = 2)) %>%
     mutate(r = round(r, digits = 3)) %>%
     mutate(r_gut = round(r_gut, 1)) %>%
     mutate(risk_hep = case_match(as.character(risk_hep),

@@ -333,7 +333,7 @@ $$C_{max,ss,u}=I_{max,ss} * f_u$$
 ### Hepatic inlet concentration {-}
 
 The hepatic inlet concentration is considered the relevant perpetrator
-concentration for inhibition of the hepatic uptake transporters OATPB1B1 and
+concentration for inhibition of the hepatic uptake transporters OATP1B1 and
 OATP1B3, and for the hepatic terms in the mechanistic static modeling equation
 (refer to Section '[Mechanistic static modeling of CYP inhibition/induction]').
 

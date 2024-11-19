@@ -56,8 +56,8 @@ transporter_inhibition_risk <- function(
     left_join(transporter_ref %>% mutate(rank = row_number()),
               by="transporter") %>%
     left_join(i, by="i") %>%
-    mutate(r=case_when(is.na(ic50) ~ NA, .default=conc/ic50)) %>%
-    mutate(risk=r>threshold) %>%
+    mutate(r = case_when(is.na(ic50) ~ NA, .default = conc/ic50)) %>%
+    mutate(risk = r > threshold) %>%
     arrange(rank) %>%
     select(transporter, ic50, source, i, r, threshold, risk)
   return(out)
@@ -114,7 +114,8 @@ transporter_inhibition_risk_table.perpetrator <- function(
     mutate(risk = case_match(
       as.character(risk),
       "TRUE" ~ "Yes", "FALSE" ~ "No", .default = "")) %>%
-    mutate(r=round(r, 2)) %>%
+    mutate(r = round(r, 3)) %>%
+    # mutate(r = format(r, digits = 1, scientific = F)) %>%
     # left_join(i_names, by = "i") %>%
     # select(transporter, ic50, source, i_label, r, threshold, risk)
     select(transporter, ic50, source, r, threshold, risk)
