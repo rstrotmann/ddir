@@ -323,7 +323,7 @@ static_cyp_induction_risk <- function(perp, cyp_ind)  {
     mutate(maxc_imaxssu = round(maxc/i["imaxssu"], 1)) %>%
     mutate(risk = emax>2) %>%
     mutate(note = case_when(
-      maxc_imaxssu<50 ~ "Low maxc",
+      maxc_imaxssu < 50 ~ "caution: maximal tested concentration is less than 50-fold Cmax,u!",
       .default = "")) %>%
     select(-c(name, ec50))
 }
@@ -358,6 +358,9 @@ static_cyp_induction_risk_table <- function(
 static_cyp_induction_risk_table.perpetrator <- function(
     perp, cyp_ind, na.rm = F, show_dose = FALSE) {
   temp <- static_cyp_induction_risk(perp, cyp_ind) %>%
+    mutate(note = case_when(
+      maxc_imaxssu < 50 & risk == FALSE ~ "Risk cannot be fully excluded",
+      .default = "")) %>%
     mutate(risk = case_match(
       as.character(risk),
       "TRUE" ~ "Yes", "FALSE" ~ "No", .default = ""))

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.15.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.15.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -100,63 +100,63 @@ Defaults to <code>FALSE.</code></p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Table: Risk for drug transporter inhibition by examplinib</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |transporter | $IC_{50}$|source    |     $R$| threshold|risk |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |:-----------|---------:|:---------|-------:|---------:|:----|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |Pgp_int     |      0.41|study 005 | 8912.39|     10.00|Yes  |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |Pgp_sys     |      0.41|study 005 |    0.40|      0.02|Yes  |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |BCRP_int    |      1.90|study 005 | 1923.20|     10.00|Yes  |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |BCRP_sys    |      1.90|study 005 |    0.09|      0.02|Yes  |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |OATP1B1     |    177.00|study 006 |    0.00|      0.10|No   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |OATP1B3     |     35.00|study 006 |    0.01|      0.10|No   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |OAT1        |    271.00|          |    0.00|      0.10|No   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |OAT3        |    300.00|          |    0.00|      0.10|No   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |BSEP        |     12.80|          |    0.01|      0.10|No   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |OCT1        |      2.30|study 006 |      NA|        NA|     |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |OCT2        |     67.00|study 006 |    0.00|      0.10|No   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |MATE1       |      3.60|study 006 |    0.05|      0.02|Yes  |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |MATE2k      |      1.10|study 006 |    0.15|      0.02|Yes  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |transporter | $IC_{50}$|source    |      $R$| threshold|risk |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |:-----------|---------:|:---------|--------:|---------:|:----|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |Pgp_int     |      0.41|study 005 | 8912.391|     10.00|Yes  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |Pgp_sys     |      0.41|study 005 |    0.402|      0.02|Yes  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |BCRP_int    |      1.90|study 005 | 1923.200|     10.00|Yes  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |BCRP_sys    |      1.90|study 005 |    0.087|      0.02|Yes  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |OATP1B1     |    177.00|study 006 |    0.001|      0.10|No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |OATP1B3     |     35.00|study 006 |    0.006|      0.10|No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |OAT1        |    271.00|          |    0.001|      0.10|No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |OAT3        |    300.00|          |    0.001|      0.10|No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |BSEP        |     12.80|          |    0.013|      0.10|No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |OCT1        |      2.30|study 006 |       NA|        NA|     |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |OCT2        |     67.00|study 006 |    0.002|      0.10|No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |MATE1       |      3.60|study 006 |    0.046|      0.02|Yes  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |MATE2k      |      1.10|study 006 |    0.150|      0.02|Yes  |</span>
 <span class="r-in"><span><span class="fu">transporter_inhibition_risk_table</span><span class="op">(</span><span class="va">examplinib_compounds</span>,</span></span>
 <span class="r-in"><span>  <span class="va">examplinib_transporter_inhibition_data</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Table: Risk for drug transporter inhibition by examplinib</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |transporter | $IC_{50}$|source    |     $R$| threshold|risk |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |:-----------|---------:|:---------|-------:|---------:|:----|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |Pgp_int     |      0.41|study 005 | 8912.39|     10.00|Yes  |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |Pgp_sys     |      0.41|study 005 |    0.40|      0.02|Yes  |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |BCRP_int    |      1.90|study 005 | 1923.20|     10.00|Yes  |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |BCRP_sys    |      1.90|study 005 |    0.09|      0.02|Yes  |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |OATP1B1     |    177.00|study 006 |    0.00|      0.10|No   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |OATP1B3     |     35.00|study 006 |    0.01|      0.10|No   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |OAT1        |    271.00|          |    0.00|      0.10|No   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |OAT3        |    300.00|          |    0.00|      0.10|No   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |BSEP        |     12.80|          |    0.01|      0.10|No   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |OCT1        |      2.30|study 006 |      NA|        NA|     |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |OCT2        |     67.00|study 006 |    0.00|      0.10|No   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |MATE1       |      3.60|study 006 |    0.05|      0.02|Yes  |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |MATE2k      |      1.10|study 006 |    0.15|      0.02|Yes  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |transporter | $IC_{50}$|source    |      $R$| threshold|risk |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |:-----------|---------:|:---------|--------:|---------:|:----|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |Pgp_int     |      0.41|study 005 | 8912.391|     10.00|Yes  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |Pgp_sys     |      0.41|study 005 |    0.402|      0.02|Yes  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |BCRP_int    |      1.90|study 005 | 1923.200|     10.00|Yes  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |BCRP_sys    |      1.90|study 005 |    0.087|      0.02|Yes  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |OATP1B1     |    177.00|study 006 |    0.001|      0.10|No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |OATP1B3     |     35.00|study 006 |    0.006|      0.10|No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |OAT1        |    271.00|          |    0.001|      0.10|No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |OAT3        |    300.00|          |    0.001|      0.10|No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |BSEP        |     12.80|          |    0.013|      0.10|No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |OCT1        |      2.30|study 006 |       NA|        NA|     |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |OCT2        |     67.00|study 006 |    0.002|      0.10|No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |MATE1       |      3.60|study 006 |    0.046|      0.02|Yes  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |MATE2k      |      1.10|study 006 |    0.150|      0.02|Yes  |</span>
 <span class="r-in"><span><span class="fu">transporter_inhibition_risk_table</span><span class="op">(</span><span class="va">examplinib_compounds</span>,</span></span>
 <span class="r-in"><span>  <span class="va">examplinib_transporter_inhibition_data</span>, show_dose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Table: Risk for drug transporter inhibition by examplinib (450 mg)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |transporter | $IC_{50}$|source    |     $R$| threshold|risk |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |:-----------|---------:|:---------|-------:|---------:|:----|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |Pgp_int     |      0.41|study 005 | 8912.39|     10.00|Yes  |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |Pgp_sys     |      0.41|study 005 |    0.40|      0.02|Yes  |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |BCRP_int    |      1.90|study 005 | 1923.20|     10.00|Yes  |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |BCRP_sys    |      1.90|study 005 |    0.09|      0.02|Yes  |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |OATP1B1     |    177.00|study 006 |    0.00|      0.10|No   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |OATP1B3     |     35.00|study 006 |    0.01|      0.10|No   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |OAT1        |    271.00|          |    0.00|      0.10|No   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |OAT3        |    300.00|          |    0.00|      0.10|No   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |BSEP        |     12.80|          |    0.01|      0.10|No   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |OCT1        |      2.30|study 006 |      NA|        NA|     |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |OCT2        |     67.00|study 006 |    0.00|      0.10|No   |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |MATE1       |      3.60|study 006 |    0.05|      0.02|Yes  |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |MATE2k      |      1.10|study 006 |    0.15|      0.02|Yes  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |transporter | $IC_{50}$|source    |      $R$| threshold|risk |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |:-----------|---------:|:---------|--------:|---------:|:----|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |Pgp_int     |      0.41|study 005 | 8912.391|     10.00|Yes  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |Pgp_sys     |      0.41|study 005 |    0.402|      0.02|Yes  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |BCRP_int    |      1.90|study 005 | 1923.200|     10.00|Yes  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |BCRP_sys    |      1.90|study 005 |    0.087|      0.02|Yes  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |OATP1B1     |    177.00|study 006 |    0.001|      0.10|No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |OATP1B3     |     35.00|study 006 |    0.006|      0.10|No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |OAT1        |    271.00|          |    0.001|      0.10|No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |OAT3        |    300.00|          |    0.001|      0.10|No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |BSEP        |     12.80|          |    0.013|      0.10|No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |OCT1        |      2.30|study 006 |       NA|        NA|     |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |OCT2        |     67.00|study 006 |    0.002|      0.10|No   |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |MATE1       |      3.60|study 006 |    0.046|      0.02|Yes  |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |MATE2k      |      1.10|study 006 |    0.150|      0.02|Yes  |</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

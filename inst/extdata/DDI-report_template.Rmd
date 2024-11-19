@@ -237,8 +237,10 @@ the [ICH M12 guideline
 document](https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf)).
 
 Basic modeling as per the ICH M12 guideline results in the following risk
-assessment. Data from studies that did not cover exposures up to 50-fold over
-$C_{max,u}$ are flagged in the below table.
+assessment. Data from CYP induction studies that did not cover a concentration
+range up to 50-fold over $C_{max,ss,u}$ are flagged in the table. In these
+cases, CYP mRNA fold-changes ($E_{max}$) < 2-fold cannot fully exclude a CYP
+induction risk.
 
 ```{r results="asis"}
 static_cyp_induction_risk_table(compounds, cyp_induction_data, na.rm=T)
