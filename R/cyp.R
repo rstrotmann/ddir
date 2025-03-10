@@ -200,8 +200,8 @@ basic_cyp_tdi_risk <- function(perp, cyp_tdi, cyp_kdeg=cyp_turnover) {
   fu <- as.num(perp["fu", "value"])
 
   cyp_tdi %>%
-    mutate(kobs=kinact*5*imaxssu/(ki * fu + 5 * imaxssu)) %>%
-    mutate(fu=fu) %>%
+    mutate(kobs = kinact * 5 * imaxssu / (ki * fumic + 5 * imaxssu)) %>%
+    mutate(fu = fu) %>%
     left_join(cyp_kdeg, by="cyp") %>%
     mutate(kdeg=kdeg_hepatic) %>%
     mutate(r=(kobs + kdeg)/kdeg) %>%
