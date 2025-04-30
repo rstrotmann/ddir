@@ -50,8 +50,16 @@
 #' @examples
 #' basic_cyp_inhibition_risk(examplinib_parent, examplinib_cyp_inhibition_data)
 basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
+  # Validate inputs
+  if (!inherits(perp, "perpetrator")) {
+    stop("perp must be a perpetrator object")
+  }
+  if (is.null(cyp_inh) || nrow(cyp_inh) == 0) {
+    stop("cyp_inh data frame is empty or NULL")
+  }
+
   ki <- cyp_inh %>%
-    filter(name==name(perp))
+    filter(name == name(perp))
 
   i <- key_concentrations(perp, molar=TRUE)
   fumic <- as.num(perp["fumic", "value"])
