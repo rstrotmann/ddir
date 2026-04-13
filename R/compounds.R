@@ -1,22 +1,3 @@
-#' Perpetrator names as comma-separated string
-#'
-#' @description
-#' `r lifecycle::badge("deprecated")`
-#'
-#' @param perps perpetrator objects as a list.
-#' @import lifecycle
-#' @return The output as string.
-#' @export
-#' @keywords internal
-names_string <- function(perps) {
-  lifecycle::deprecate_warn("0.8.1", "names_string()",
-                            "compound_names_string()")
-  return(paste(lapply(
-    perps,
-    function(p) {p[(p$param=="name"), "value"]}), collapse=", "))
-}
-
-
 #' Compound names as single string
 #'
 #' This function returns a single string with the names of the perpetrator
@@ -195,11 +176,31 @@ make_perpetrator <- function(
 #' @examples
 #' print(examplinib_parent)
 print.perpetrator <- function(x, ...) {
-  # line <- paste0(rep("\U2500", 5), collapse="")
   line <- paste0(rep("-", 5), collapse="")
   cat(paste0(line, " DDI perpetrator object ", line, "\n"))
-  x %>%
-    df_to_string(colnames=F) %>%
+
+  perp_units <- tibble::tribble(
+        ~param,    ~unit,
+        "name",      "",
+        "oral",      "",
+          "mw", "g/mol",
+        "dose",    "mg",
+      "imaxss", "ng/ml",
+          "fu",     "",
+       "fumic",      "",
+          "rb",      "",
+          "fa",      "",
+          "fg",      "",
+          "ka",  "/min",
+  "solubility",   "g/l"
+  )
+
+  x |>
+    as.data.frame() |>
+    dplyr::left_join(perp_units, by = "param") |>
+    mutate(value = paste0(value, " ", unit)) |>
+    select(-unit) |>
+    df_to_string(colnames=F) |>
     cat()
 }
 
