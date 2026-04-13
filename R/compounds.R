@@ -151,16 +151,25 @@ new_perpetrator <- function(df) {
 #' @export
 #'
 #' @examples
-#' make_perpetrator("test", 100, 1000, 500)
+#' make_perpetrator("test", 100, 1000, 500, source = c(mw = "study 002"))
 make_perpetrator <- function(
     name, dose, imaxss, mw, type = "parent",
     oral = TRUE, fu = 1, fumic = 1, rb = 1, fa = 1,
-    fg = 1, ka = 0.1, solubility = Inf) {
-  temp <- data.frame(param = c("name", "oral", "mw", "dose", "imaxss",
-                               "fu", "fumic", "rb", "fa", "fg", "ka", "solubility"),
-                     value = c(name, oral, mw, dose, imaxss, fu, fumic,
-                               rb, fa, fg, ka, solubility),
-                     source = rep("", 12))
+    fg = 1, ka = 0.1, solubility = Inf, source = character(0)) {
+  temp <- data.frame(
+    param = c("name", "oral", "mw", "dose", "imaxss", "fu", "fumic", "rb",
+              "fa", "fg", "ka", "solubility"),
+    value = c(name, oral, mw, dose, imaxss, fu, fumic, rb, fa, fg, ka,
+              solubility)
+  )
+
+  source_table <- enframe(source, name = "param", value = "source") |>
+    mutate(param = as.character(param))
+
+  temp <- temp |>
+    left_join(source_table, by = "param") |>
+    mutate(source = case_when(is.na(.data$source) ~ "", .default = .data$source))
+
   new_perpetrator(temp)
 }
 
@@ -200,7 +209,10 @@ print.perpetrator <- function(x, ...) {
     dplyr::left_join(perp_units, by = "param") |>
     mutate(value = paste0(value, " ", unit)) |>
     select(-unit) |>
-    df_to_string(colnames=F) |>
+    mutate(source = case_when(
+      .data$source != "" ~ paste0("(", .data$source, ")"),
+      .default = "")) |>
+    df_to_string(colnames = FALSE) |>
     cat()
 }
 
