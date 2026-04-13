@@ -150,6 +150,19 @@ perpetrator <- function(
     name, dose, imaxss, mw,
     oral = TRUE, fu = 1, fumic = 1, rb = 1, fa = 1,
     fg = 1, ka = 0.1, solubility = Inf, source = character(0)) {
+  # input validation
+  validate_argument(name, "character")
+  validate_argument(dose, "numeric", expect_positive = TRUE)
+  validate_argument(imaxss, "numeric", expect_positive = TRUE)
+  validate_argument(mw, "numeric", expect_positive = TRUE)
+  validate_argument(oral, "logical")
+  validate_fraction(fu)
+  validate_fraction(fumic)
+  validate_fraction(rb)
+  validate_fraction(fa)
+  validate_fraction(fg)
+  validate_argument(solubility, "numeric", expect_positive = TRUE)
+
   temp <- data.frame(
     param = c("name", "oral", "mw", "dose", "imaxss", "fu", "fumic", "rb",
               "fa", "fg", "ka", "solubility"),
