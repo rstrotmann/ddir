@@ -158,10 +158,28 @@ perpetrator <- function(
   validate_argument(oral, "logical")
   validate_fraction(fu)
   validate_fraction(fumic)
-  validate_fraction(rb)
+  validate_argument(rb, "numeric", expect_positive = TRUE)
   validate_fraction(fa)
   validate_fraction(fg)
+  validate_argument(ka, "numeric", expect_positive = TRUE)
   validate_argument(solubility, "numeric", expect_positive = TRUE)
+  validate_argument(source, "character", allow_multiple = TRUE)
+
+  # validate source input
+  if (length(source) > 0) {
+    if (is.null(names(source)) || any(names(source) == "")) {
+      stop("source must be a named character vector")
+    }
+    allowed <- c("name", "oral", "mw", "dose", "imaxss", "fu",
+                 "fumic", "rb", "fa", "fg", "ka", "solubility")
+    unknown <- setdiff(names(source), allowed)
+    if (length(unknown) > 0) {
+      stop(paste0(
+        "source contains unknown parameter name(s): ",
+        nice_enumeration(unknown)
+        ))
+    }
+  }
 
   temp <- data.frame(
     param = c("name", "oral", "mw", "dose", "imaxss", "fu", "fumic", "rb",

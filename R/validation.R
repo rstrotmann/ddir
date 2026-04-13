@@ -85,18 +85,24 @@ validate_argument <- function(
 #' Validate fraction argument
 #'
 #' @param param Numeric.
+#' @param allow_multiple Logical.
 #'
 #' @returns Nothing
 #' @noRd
-validate_fraction <- function(param) {
+validate_fraction <- function(param, allow_multiple = FALSE) {
   # Validate type parameter
   param_name <- deparse(substitute(param))
   if (!is.numeric(param))
     stop(paste0(param_name, " must be numeric!"))
 
-  if (param < 0)
+  if (any(param < 0))
     stop(paste0(param_name, " must be positive"))
 
-  if (param < 0 | param > 1)
+  if (any(param < 0 | param > 1))
     stop(paste0(param_name, " must be between 0 and 1!"))
+
+  # Length checking
+  if (length(param) != 1 && !allow_multiple) {
+    stop(paste0(param_name, " must be a single value"))
+  }
 }
