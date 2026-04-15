@@ -66,7 +66,7 @@ compound_names_string <- function(compounds) {
 #' @import assertr
 #' @import tibble
 #' @import tidyr
-#' @seealso [read_perpetrators()]
+#' @seealso [ddir::read_perpetrators()]
 #' @export
 new_perpetrator <- function(df) {
   default_values <- tribble(
@@ -140,7 +140,7 @@ new_perpetrator <- function(df) {
 #' @param source Source information for the parameters as names character
 #' vector.
 #'
-#' @seealso [read_perpetrators()]
+#' @seealso [ddir::read_perpetrators()]
 #' @return A perpetrator object.
 #' @export
 #'
@@ -288,7 +288,7 @@ name <- function(obj) {
 #' @examples
 #' name(examplinib_parent)
 name.perpetrator <- function(obj) {
-  return(obj["name", "value"])
+  return(obj[obj$param == "name", "value"])
 }
 
 
@@ -320,7 +320,7 @@ dose <- function(obj) {
 #' dose(examplinib_metabolite)
 dose.perpetrator <- function(obj) {
   if(is_oral(obj)) {
-    return(paste0(obj[which(obj$param=="dose"), "value"], " mg"))
+    return(paste0(obj[which(obj$param == "dose"), "value"], " mg"))
   } else {
     return(NULL)
   }
@@ -355,7 +355,7 @@ dose.list <- function(obj) {
 #'
 #' @param obj The perpetrator object.
 #' @return A Boolean value.
-#' @seealso [key_concentrations()]
+#' @seealso [ddir::key_concentrations()]
 #' @export
 #' @examples
 #' is_igut_solubility_limited(examplinib_parent)
@@ -472,8 +472,8 @@ conditional_dose_string <- function(perp, show_dose = TRUE) {
 #' @param qent Enteric blood flow in l/min, defaults to 0.3 l/min = 18 l/h.
 #' @param molar Switch to select output in molar concentrations.
 #' @param obj A perpetrator object.
-#' @seealso [conc_table()]
-#' @seealso [property_table()]
+#' @seealso [ddir::conc_table()]
+#' @seealso [ddir::property_table()]
 #' @return Key perpetrator concentrations in uM (default) or ng/ml as a named
 #' vector.
 #' @export
@@ -482,17 +482,16 @@ conditional_dose_string <- function(perp, show_dose = TRUE) {
 #' key_concentrations(examplinib_parent, molar = FALSE)
 #' key_concentrations(examplinib_metabolite)
 #'
-key_concentrations <- function(obj, qh=1.616, qent=18/60, molar=TRUE) {
-  # type <- obj["type", "value"]
-  oral <- as.logical(obj["oral", "value"])
-  dose <- as.num(obj["dose", "value"])
-  mw <- as.num(obj["mw", "value"])
-  fa <- as.num(obj["fa", "value"])
-  fu <- as.num(obj["fu", "value"])
-  fg <- as.num(obj["fg", "value"])
-  ka <- as.num(obj["ka", "value"])
-  rb <- as.num(obj["rb", "value"])
-  imaxss <- as.num(obj["imaxss", "value"])
+key_concentrations <- function(obj, qh = 1.616, qent = 18/60, molar = TRUE) {
+  oral <- as.logical(obj[obj$param == "oral", "value"])
+  dose <- as.num(obj[obj$param == "dose", "value"])
+  mw <- as.num(obj[obj$param == "mw", "value"])
+  fa <- as.num(obj[obj$param == "fa", "value"])
+  fu <- as.num(obj[obj$param == "fu", "value"])
+  fg <- as.num(obj[obj$param == "fg", "value"])
+  ka <- as.num(obj[obj$param == "ka", "value"])
+  rb <- as.num(obj[obj$param == "rb", "value"])
+  imaxss <- as.num(obj[obj$param == "imaxss", "value"])
 
   # total gut concentration in ng/ml
   if(oral == FALSE) {
@@ -548,7 +547,7 @@ key_concentrations <- function(obj, qh=1.616, qent=18/60, molar=TRUE) {
 #' @param show_dose Show perpetrator dose in table title, defaults to `FALSE.`
 #' @return A markdown-formatted table.
 #' @export
-#' @seealso [key_concentrations()]
+#' @seealso [ddir::key_concentrations()]
 #' @examples
 #' conc_table(examplinib_parent)
 #' conc_table(examplinib_compounds)

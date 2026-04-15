@@ -43,9 +43,9 @@
 #' * 'ki' The \eqn{K_i} in \eqn{\mu M} as numeric.
 #' * 'source' Optional source information as character.
 #' @return A data frame.
-#' @seealso [basic_cyp_inhibition_risk_table()]
-#' @seealso [key_concentrations()]
-#' @seealso [mech_stat_cyp_risk()]
+#' @seealso [ddir::basic_cyp_inhibition_risk_table()]
+#' @seealso [ddir::key_concentrations()]
+#' @seealso [ddir::mech_stat_cyp_risk()]
 #' @export
 #' @examples
 #' basic_cyp_inhibition_risk(examplinib_parent, examplinib_cyp_inhibition_data)
@@ -62,12 +62,12 @@ basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
     filter(name == name(perp))
 
   i <- key_concentrations(perp, molar=TRUE)
-  fumic <- as.num(perp["fumic", "value"])
+  fumic <- as.num(perp[perp$param == "fumic", "value"])
 
   out <- ki %>%
-    mutate(ki = as.num(ki)) %>%
+    # mutate(ki = as.num(ki)) %>%
     mutate(kiu = ki*fumic) %>%
-    mutate(r=i["imaxssu"]/kiu) %>%
+    mutate(r = i["imaxssu"]/kiu) %>%
     mutate(r_gut = case_when(cyp=="CYP3A4" ~ i["igut"]/kiu, .default=NA)) %>%
     select(-name) %>%
     mutate(risk_hep = r > 0.02) %>%
@@ -93,7 +93,7 @@ basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
 #' @param show_dose Show perpetrator dose in table title, defaults to `FALSE.`
 #' @return A markdown-formatted table, or an empty string.
 #' @export
-#' @seealso [basic_cyp_inhibition_risk()]
+#' @seealso [ddir::basic_cyp_inhibition_risk()]
 #' @examples
 #' basic_cyp_inhibition_risk_table(examplinib_parent,
 #'   examplinib_cyp_inhibition_data)
@@ -192,8 +192,8 @@ basic_cyp_inhibition_risk_table.list <- function(perp, ...) {
 #'
 #' @param cyp_kdeg The CYP turnover data as data frame. Defaults to the
 #' built-in reference data, [cyp_turnover].
-#' @seealso [cyp_turnover]
-#' @seealso [read_tdi_data()]
+#' @seealso [ddir::cyp_turnover]
+#' @seealso [ddir::read_tdi_data()]
 #' @return A data frame.
 #' @export
 #' @examples
@@ -225,7 +225,7 @@ basic_cyp_tdi_risk <- function(perp, cyp_tdi, cyp_kdeg=cyp_turnover) {
 #' removed from the output. Defaults to `FALSE`.
 #' @param show_dose Show perpetrator dose in table title, defaults to `FALSE.`
 #' @return A markdown-formatted table.
-#' @seealso [basic_cyp_tdi_risk()]
+#' @seealso [ddir::basic_cyp_tdi_risk()]
 #' @export
 #' @examples
 #' basic_cyp_tdi_risk_table(examplinib_parent, examplinib_cyp_tdi_data)
@@ -345,7 +345,7 @@ static_cyp_induction_risk <- function(perp, cyp_ind)  {
 #' @param show_dose Show perpetrator dose in table title, defaults to `FALSE.`
 #' @return A markdown-formatted table.
 #' @export
-#' @seealso [static_cyp_induction_risk()]
+#' @seealso [ddir::static_cyp_induction_risk()]
 #' @examples
 #' static_cyp_induction_risk_table(examplinib_parent,
 #'   examplinib_cyp_induction_data)
@@ -444,7 +444,7 @@ kinetic_cyp_induction_risk <- function(perp, cyp_ind, d = 1) {
 #' @param show_dose Show perpetrator dose in table title, defaults to `FALSE.`
 #' @return A markdown-formatted table.
 #' @export
-#' @seealso [kinetic_cyp_induction_risk()]
+#' @seealso [ddir::kinetic_cyp_induction_risk()]
 #' @examples
 #' kinetic_cyp_induction_risk_table(examplinib_parent,
 #'   examplinib_cyp_induction_data)
@@ -558,9 +558,9 @@ kinetic_cyp_induction_risk_table.list <- function(perp, ...) {
 #' * 'fmcyp' The fraction metabolized by the respective CYP enzyme.
 #' @return A data frame.
 #' @export
-#' @seealso [mech_stat_cyp_risk_table()]
-#' @seealso [cyp_reference_substrates]
-#' @seealso [cyp_turnover]
+#' @seealso [ddir::mech_stat_cyp_risk_table()]
+#' @seealso [ddir::cyp_reference_substrates]
+#' @seealso [ddir::cyp_turnover]
 #' @examples
 #' mech_stat_cyp_risk(examplinib_parent, examplinib_cyp_inhibition_data,
 #'   examplinib_cyp_induction_data)
@@ -662,8 +662,8 @@ mech_stat_cyp_risk <- function(
 #' \eqn{k_{deg}} data are removed from the output.
 #' @param show_dose Show perpetrator dose in table title, defaults to `FALSE.`
 #' @return A markdown-formatted table.
-#' @seealso [mech_stat_cyp_risk()]
-#' @seealso [cyp_reference_substrates]
+#' @seealso [ddir::mech_stat_cyp_risk()]
+#' @seealso [ddir::cyp_reference_substrates]
 #' @export
 #' @examples
 #' mech_stat_cyp_risk_table(

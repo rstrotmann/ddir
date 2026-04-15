@@ -21,8 +21,8 @@
 #' MATE2k      , 0.02      , imaxssu
 #' }
 #' @source Section 2 of the [ICH M12 guideline](https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf).
-#' @seealso [key_concentrations()]
-#' @seealso [transporter_inhibition_risk()]
+#' @seealso [ddir::key_concentrations()]
+#' @seealso [ddir::transporter_inhibition_risk()]
 "transporter_reference_data"
 
 
@@ -42,8 +42,8 @@
 #' CYP3A4  , midazolam   , 0.57 , 0.96 , 1
 #' }
 #' @source FDA and EMA guidelines.
-#' @seealso [mech_stat_cyp_risk()]
-#' @seealso [mech_stat_cyp_risk_table]
+#' @seealso [ddir::mech_stat_cyp_risk()]
+#' @seealso [ddir::mech_stat_cyp_risk_table]
 "cyp_reference_substrates"
 
 
@@ -108,7 +108,7 @@
 #' * M1, a fictional metabolite of examplinib.
 #'
 #' @source Fictional data, made up for demo purposes.
-#' @seealso [read_perpetrators()]
+#' @seealso [ddir::read_perpetrators()]
 "examplinib_compounds_string"
 
 
@@ -118,7 +118,7 @@
 #' * examplinib, a fictional drug.
 #'
 #' @source Fictional data, made up for demo purposes.
-#' @seealso [read_perpetrators()]
+#' @seealso [ddir::read_perpetrators()]
 "examplinib_compounds_single_string"
 
 
@@ -126,7 +126,7 @@
 #'
 #' A character string containing CYP inhibition data for examplinib and M1.
 #' @source Fictional data for demo purposes.
-#' @seealso [read_inhibitor_data()]
+#' @seealso [ddir::read_inhibitor_data()]
 "examplinib_cyp_inhibition_string"
 
 
@@ -169,7 +169,7 @@
 #'
 #' A character string containing CYP TDI data for examplinib.
 #' @source Fictional data for demo purposes.
-#' @seealso [read_tdi_data()]
+#' @seealso [ddir::read_tdi_data()]
 "examplinib_cyp_tdi_string"
 
 
@@ -188,7 +188,7 @@
 #'
 #' A character string containing CYP induction data for examplinib and M1.
 #' @source Fictional data for demo purposes.
-#' @seealso [read_inducer_data()]
+#' @seealso [ddir::read_inducer_data()]
 "examplinib_cyp_induction_string"
 
 

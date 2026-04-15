@@ -160,6 +160,66 @@ read_cyp_inhibitor_data <- function(source) {
 }
 
 
+#' Make CYP inhibition table
+#'
+#' @param target Name of the target.
+#' @param ki Named list.
+#' @param source Named list.
+#'
+#' @returns A data table.
+#' @export
+#'
+#' @examples
+#' cyp_inhibitor_data(
+#' "examplinib",
+#' c(CYP3A4 = 1, CYP1A2 = 2, CYP2D6 = 3),
+#' source = c(CYP3A4 = "source 1", CYP1A2 = "source 2"))
+#'
+cyp_inhibitor_data <- function(
+    target, ki, source = character(0)
+){
+  # input validation
+  validate_argument(target, "character")
+  validate_named_vector(ki, allowed_names = c(
+    "CYP1A2", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19", "CYP2D6", "CYP3A4"))
+  validate_argument(source, "character", allow_multiple = TRUE)
+
+  # source must either be a named vector or a singleton
+  if (!has_names(source)) {
+    if (length(source) > 1)
+      stop("Source must be a named vector or an unnamed scalar")
+    if (length(source) == 0)
+      source <- ""
+    source_table <- data.frame(
+      cyp = names(ki),
+      source = source
+    )
+  } else {
+    unknown <- setdiff(names(source), names(ki))
+    if (length(unknown) > 0) {
+      stop(paste0(
+        "source contains unknown parameter name(s): ",
+        nice_enumeration(unknown)
+      ))
+    }
+    source_table <- enframe(source, name = "cyp", value = "source") |>
+      mutate(cyp = as.character(cyp))
+  }
+
+  out <- data.frame(
+    name = target,
+    cyp = names(ki),
+    ki = ki
+  )
+
+  out <- out |>
+    left_join(source_table, by = "cyp") |>
+    mutate(source = case_when(is.na(.data$source) ~ "", .default = .data$source))
+
+  out
+}
+
+
 #' Read csv-formatted CYP TDI data
 #'
 #' This function reads comma-separated CYP TDI data from a file or text

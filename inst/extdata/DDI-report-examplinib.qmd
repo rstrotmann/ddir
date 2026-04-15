@@ -1,0 +1,57 @@
+---
+title: "DDI report template"
+format: pdf
+editor: source
+---
+
+```{r echo=F, warning=F, info=F, message=F}
+library(tidyverse)
+library(knitr)
+# library(knitrdata)
+library(ddir)
+
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=TRUE, fig.width=4, fig.height=3, fig.align="center")
+```
+
+```{r ompound_data}
+perp <- perpetrator(
+  "examplinib",
+  dose = 450, imaxss = 3530, mw = 492.6, oral = TRUE, fu = 0.023, fa = 0.81,
+  ka = 0.00267,
+  source = c(dose = "clincial dose", imaxss = "study 001", fu = "study 002",
+             rb = "study 003")
+)
+```
+
+```{r}
+cyp_inh <- cyp_inhibitor_data(
+  "examplinib",
+  ki = c(CYP2C8 =  11, CYP2C9 =  0.6, CYP2C19 = 0.25, CYP3A4 =  12.5),
+  source = "study 001"
+)
+```
+
+```{r}
+property_table(perp)
+conc_table(perp)
+
+basic_cyp_inhibition_risk_table(perp, cyp_inh)
+```
+
+
+
+```{r}
+cyp_inhibition_data <- read_cyp_inhibitor_data(textConnection(
+  cyp_inhibition_text))
+
+cyp_tdi_data <- read_tdi_data(textConnection(cyp_tdi_text))
+
+cyp_induction_data <- read_inducer_data(textConnection(cyp_induction_text))
+
+ugt_inhibition_data <- read_ugt_inhibitor_data(textConnection(
+  ugt_inhibition_text))
+
+transporter_inhibition_data <- read_transporter_inhibitor_data(
+  textConnection(transporter_inhibiton_text))
+```
+

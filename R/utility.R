@@ -64,8 +64,7 @@ as.num = function(x, na.strings = "NA") {
 #' @param conjunction The conjunction between the last and penultmate items.
 #'
 #' @return Enumeration as character.
-#' @export
-#' @keywords internal
+#' @noRd
 #'
 #' @examples
 #' nice_enumeration("A")

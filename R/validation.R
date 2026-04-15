@@ -1,3 +1,9 @@
+validate_perpetrator <- function(object) {
+  if (!inherits(object, "compound"))
+    stop("object must be a perpetrotor object")
+}
+
+
 #' validate function argument
 #'
 #' @param param The argument.
@@ -106,3 +112,50 @@ validate_fraction <- function(param, allow_multiple = FALSE) {
     stop(paste0(param_name, " must be a single value"))
   }
 }
+
+
+#' Test whether object is named
+#'
+#' @param obj Scalar or vector.
+#'
+#' @returns Logical.
+#' @noRd
+has_names <- function(obj) {
+  obj_names <- names(obj)
+  !is.null(obj_names)
+}
+
+
+#' Validate named vector
+#'
+#' @param param Named vector
+#' @param allowed_names Allowed names as character.
+#'
+#' @returns Nothing.
+#' @noRd
+validate_named_vector <- function(
+    param, allowed_names = NULL
+) {
+  # input validation
+  validate_argument(allowed_names, "character", allow_null = TRUE,
+                    allow_multiple = TRUE)
+
+  param_name <- deparse(substitute(param))
+
+  if (length(param) > 0) {
+    if (is.null(names(param)) || any(names(param) == "")) {
+      stop(paste0(param_name, " must be a named vector"))
+    }
+
+    if (!is.null(allowed_names)) {
+      unknown <- setdiff(names(param), allowed_names)
+      if (length(unknown) > 0) {
+        stop(paste0(
+          "allowed_names contains unknown parameter name(s): ",
+          nice_enumeration(unknown)
+        ))
+      }
+    }
+  }
+}
+
