@@ -415,6 +415,24 @@ setMethod("prop", "compound", function(x) {
 
 
 
+setGeneric("conctbl", function(x, round = 2) standardGeneric("conctbl"))
 
+setMethod("conctbl", "compound", function(x, round = 2) {
+  temp <- tibble::tribble(
+    ~parameter,
+    "$I_{gut}$",
+    "$I_{max,ss,u}$",
+    "$I_{max,inlet,u}$",
+    "$I_{max,intestinal}$"
+  ) |>
+    mutate(mass_conc = round(kc(x, molar = FALSE), round)) |>
+    mutate(molar_conc = round(kc(x, molar = TRUE), round))
+
+  col_names <- c("parameter", "value ($ng/ml$)", "value ($\\mu M$)")
+  rownames(temp) <- NULL
+  caption <- paste0("Key perpetrator concentrations for ", x@name)
+
+  knitr::kable(temp, col.names = col_names, caption = caption)
+})
 
 
