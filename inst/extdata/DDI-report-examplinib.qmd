@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=TRUE, fig.width=4, fig.
 ```
 
 ```{r ompound_data}
-perp <- perpetrator(
+perp <- compound(
   "examplinib",
   dose = 450, imaxss = 3530, mw = 492.6, oral = TRUE, fu = 0.023, fa = 0.81,
   ka = 0.00267,

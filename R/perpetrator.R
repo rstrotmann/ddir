@@ -284,6 +284,9 @@ imaxintest <- function(x, qent = 18/60, molar = FALSE) {
 }
 
 
+setGeneric("kc", function(x, qh = 1.616, qent = 18/60, molar = TRUE) standardGeneric("kc"))
+
+
 #' Key perpetrator concentrations
 #'
 #' This function returns the relevant perpetrator concentrations in
@@ -344,7 +347,7 @@ imaxintest <- function(x, qent = 18/60, molar = FALSE) {
 #' @export
 #'
 #' @examples
-key_conc <- function(x, qh = 1.616, qent = 18/60, molar = TRUE) {
+setMethod("kc", "compound", function(x, qh = 1.616, qent = 18/60, molar = TRUE) {
   validate_perpetrator(x)
   c(
     igut = igut(x, molar = molar),
@@ -352,9 +355,62 @@ key_conc <- function(x, qh = 1.616, qent = 18/60, molar = TRUE) {
     imaxinletu = imaxinletu(x, qh = qh, molar = molar),
     imaxintest = imaxintest(x, qent = qent, molar = molar)
   )
-}
+})
 
 
+
+setGeneric("prop", function(x) standardGeneric("prop"))
+
+
+#' Title
+#'
+#' @param compound
+#'
+#' @returns
+#' @export
+#'
+#' @examples
+setMethod("prop", "compound", function(x) {
+  out <- tibble::tribble(
+        ~param,             ~parameter,
+        "oral",                 "oral",
+          "mw",         "$MW$ (g/mol)",
+        "dose",          "$dose$ (mg)",
+  "solubility",  "$solubility$ (mg/l)",
+      "imaxss", "$C_{max,ss}$ (ng/ml)",
+          "fu",                "$f_u$",
+       "fumic",          "$f_{u,mic}$",
+          "rb",                "$R_B$",
+          "fa",                "$F_a$",
+          "fg",                "$F_g$",
+          "ka",        "$k_a$ (1/min)"
+  ) |>
+    mutate(value = c(
+      x@oral, x@mw, x@dose, x@solubility, x@imaxss, x@fu, x@fumic, x@rb, x@fa,
+      x@fg, x@ka))
+
+    out$source <- unlist(lapply(
+      out$param,
+      function(i) {
+        ifelse(
+          !is.na(slot(x, "source")[i]),
+          slot(x, "source")[i],
+          ""
+        )
+      }
+    ))
+
+  if (x@oral == FALSE) {
+    out <- out %>%
+      filter(!(param %in% c("fa", "fg", "ka")))
+  }
+
+  out <- out %>%
+    dplyr::select(parameter, value, source) %>%
+    knitr::kable(caption = paste("Compound parameters for", x@name))
+
+  out
+})
 
 
 
