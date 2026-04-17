@@ -18,7 +18,7 @@ perp <- compound(
   "examplinib",
   dose = 450, imaxss = 3530, mw = 492.6, oral = TRUE, fu = 0.023, fa = 0.81,
   ka = 0.00267,
-  source = c(dose = "clincial dose", imaxss = "study 001", fu = "study 002",
+  source = c(dose = "clinical dose", imaxss = "study 001", fu = "study 002",
              rb = "study 003")
 )
 ```
@@ -32,8 +32,11 @@ cyp_inh <- cyp_inhibitor_data(
 ```
 
 ```{r}
-property_table(perp)
-conc_table(perp)
+# property_table(perp)
+prop(perp)
+
+# conc_table(perp)
+conctbl(perp)
 
 basic_cyp_inhibition_risk_table(perp, cyp_inh)
 ```

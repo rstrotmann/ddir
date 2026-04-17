@@ -151,16 +151,16 @@ setMethod(
 
     out <- tibble::tribble(
            ~name,   ~unit,
-          "name",      NA,
-          "oral",      NA,
+          "name",      "",
+          "oral",      "",
             "mw", "g/mol",
           "dose",    "mg",
         "imaxss", "ng/ml",
-            "fu",      NA,
-         "fumic",      NA,
-            "rb",      NA,
-            "fa",      NA,
-            "fg",      NA,
+            "fu",      "",
+         "fumic",      "",
+            "rb",      "",
+            "fa",      "",
+            "fg",      "",
             "ka",  "/min",
     "solubility", "mg/ml"
     )
@@ -372,22 +372,24 @@ setGeneric("prop", function(x) standardGeneric("prop"))
 #' @examples
 setMethod("prop", "compound", function(x) {
   out <- tibble::tribble(
-        ~param,             ~parameter,
-        "oral",                 "oral",
-          "mw",         "$MW$ (g/mol)",
-        "dose",          "$dose$ (mg)",
-  "solubility",  "$solubility$ (mg/l)",
-      "imaxss", "$C_{max,ss}$ (ng/ml)",
-          "fu",                "$f_u$",
-       "fumic",          "$f_{u,mic}$",
-          "rb",                "$R_B$",
-          "fa",                "$F_a$",
-          "fg",                "$F_g$",
-          "ka",        "$k_a$ (1/min)"
-  ) |>
-    mutate(value = c(
-      x@oral, x@mw, x@dose, x@solubility, x@imaxss, x@fu, x@fumic, x@rb, x@fa,
-      x@fg, x@ka))
+          ~param,             ~parameter,   ~unit,
+          "oral",                 "oral",      "",
+            "mw",         "$MW$ (g/mol)", "g/mol",
+          "dose",          "$dose$ (mg)",    "mg",
+    "solubility",  "$solubility$ (mg/l)",  "mg/l",
+        "imaxss", "$C_{max,ss}$ (ng/ml)", "ng/ml",
+            "fu",                "$f_u$",      "",
+         "fumic",          "$f_{u,mic}$",      "",
+            "rb",                "$R_B$",      "",
+            "fa",                "$F_a$",      "",
+            "fg",                "$F_g$",      "",
+            "ka",        "$k_a$ (1/min)",  "/min"
+    ) |>
+    mutate(value = sapply(
+      c(x@oral, x@mw, x@dose, x@solubility, x@imaxss, x@fu, x@fumic, x@rb,
+        x@fa, x@fg, x@ka),
+      as.character)) |>
+    select(-unit)
 
     out$source <- unlist(lapply(
       out$param,
