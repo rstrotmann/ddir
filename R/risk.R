@@ -447,13 +447,8 @@ mech_stat_cyp_risk <- function(
     cyp_kdeg = cyp_turnover) {
   # input validation
 
-  # fumic <- as.num(perp["fumic", "value"])
   fumic <- perp@fumic
 
-  # i <- key_concentrations(perp, molar = TRUE)
-
-  # Ig <- i["imaxintest"]
-  # Ih <- i["imaxinletu"]
   Ig <- imaxintest(perp)
   Ih <- imaxinletu(perp)
 
@@ -478,7 +473,6 @@ mech_stat_cyp_risk <- function(
   substr <- rename(substr, target = cyp)
 
   out <- cyp_inh@data |>
-    # filter(name == name(perp)) |>
     select(-source) |>
 
     # direct inhibition
@@ -509,7 +503,6 @@ mech_stat_cyp_risk <- function(
     # induction
     left_join(
       cyp_ind@data |>
-        # filter(name == name(perp)) %>%
         select(-source),
       by=c("target")) |>
     mutate(Cg = case_when(
@@ -518,15 +511,14 @@ mech_stat_cyp_risk <- function(
     mutate(Ch = case_when(
       (is.na(ec50) | include_induction == FALSE) ~ 1,
       .default = 1 + (d * emax * Ih / (Ih + ec50))))  |>
-    # select(-name) |>
 
     # substrate
     left_join(substr, by="target") |>
     mutate(aucr = 1 / (Ag * Bg * Cg * (1 - fgut) + fgut) *
              1 / (Ah * Bh * Ch * fm * fmcyp + (1 - fm * fmcyp))) |>
     mutate(risk = aucr > 1.25 | aucr < 0.8) %>%
-    select(c("target", "substrate", "kiu", "fgut", "fm", "fmcyp", "Ag", "Ah", "Bg", "Bh", "Cg", "Ch",
-           aucr, "risk"))
+    select(c("target", "substrate", "kiu", "fgut", "fm", "fmcyp", "Ag", "Ah",
+             "Bg", "Bh", "Cg", "Ch", "aucr", "risk"))
 
   new(
     "ddi_risk",

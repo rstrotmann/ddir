@@ -106,6 +106,7 @@ print(static_cyp_induction_risk(perp, cyp_ind))
 print(kinetic_cyp_induction_risk(perp, cyp_ind))
 
 print(mech_stat_cyp_risk(perp, cyp_inh, cyp_ind, cyp_tdi))
+print(mech_stat_cyp_risk(perp, cyp_inh, cyp_ind, cyp_tdi, include_induction = F))
 ```
 
 
