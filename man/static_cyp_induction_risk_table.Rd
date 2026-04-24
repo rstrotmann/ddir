@@ -2,25 +2,50 @@
 % Please edit documentation in R/cyp.R
 \name{static_cyp_induction_risk_table}
 \alias{static_cyp_induction_risk_table}
-\title{Table of the basic static CYP induction risk}
+\title{#' Basic static CYP induction risk
+#'
+#' @details
+#' The basic fold-change method evaluates whether the maximal fold-change in
+#' mRNA expression for the CYP enzyme, relative to the vehicle control, is >
+#' 2-fold at concentrations up to 50-fold over the unbound Cmax,ss - provided
+#' that concentration-dependent increases in mRNA were observed in vitro.
+#'
+#' If in the in vitro experiments concentrations of 50-fold the unbound Cmax,ss
+#' were not tested, this is noted in the output.
+#'
+#' Also note that the ICH guideline further specifies that the positive control
+#' used in the in vitro studies should result in at least 6-fold mRNA increases,
+#' otherwise an induction risk cannot be ruled out if the mRNA increase for the
+#' CYP enzyme is > 20\% of the positive control. This, as well as the condition
+#' of concentration-dependent increase in mRNA increase (see above), must be
+#' confirmed manually by the user.
+#'
+#' For details, refer to section 2.1.4.1 of the
+#' \href{https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf}{ICH M1s2 guideline}
+#'
+#'
+#' @param perp The perpetrator object or a list thereof.
+#' @param cyp_ind The CYP induction data as data frame. The following fields
+#' are expected:
+#' * 'name' The name of the perpetrator compound as character.
+#' * 'cyp' The CYP enzyme as (upper case) character.
+#' * 'emax' The \eqn{E_{max}}, i.e., the maximum induction effect determined in
+#' vitro as numeric.
+#' * 'ec50' The \eqn{EC_{50}} in \eqn{\mu M} as numeric.
+#' * 'maxc' The maximal concentration in \eqn{\mu M} tested in the in vitro assay as
+#' numeric.
+#' * 'source' Optional source information as character.
+#' @return A data frame.
+#' @export
+#' @examples
+#' static_cyp_induction_risk(examplinib_parent, examplinib_cyp_induction_data)
+static_cyp_induction_risk <- function(perp, cyp_ind)  {
+i <- key_concentrations(perp, molar=TRUE)}
 \usage{
 static_cyp_induction_risk_table(perp, cyp_ind, na.rm = F, show_dose = FALSE)
 }
 \arguments{
-\item{perp}{The perpetrator object or a list thereof.}
-
-\item{cyp_ind}{The CYP induction data as data frame. The following fields
-are expected:
-\itemize{
-\item 'name' The name of the perpetrator compound as character.
-\item 'cyp' The CYP enzyme as (upper case) character.
-\item 'emax' The \eqn{E_{max}}, i.e., the maximum induction effect determined in
-vitro as numeric.
-\item 'ec50' The \eqn{EC_{50}} in \eqn{\mu M} as numeric.
-\item 'maxc' The maximal concentration in \eqn{\mu M} tested in the in vitro assay as
-numeric.
-\item 'source' Optional source information as character.
-}}
+\item{cyp_ind}{}
 
 \item{na.rm}{Switch to define whether rows with lacking \eqn{E_{max}} data
 are removed from the output. Defaults to \code{FALSE}.}
@@ -31,7 +56,7 @@ are removed from the output. Defaults to \code{FALSE}.}
 A markdown-formatted table.
 }
 \description{
-Table of the basic static CYP induction risk
+
 }
 \examples{
 static_cyp_induction_risk_table(examplinib_parent,

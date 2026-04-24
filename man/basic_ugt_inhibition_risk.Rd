@@ -2,13 +2,35 @@
 % Please edit documentation in R/risk.R
 \name{basic_ugt_inhibition_risk}
 \alias{basic_ugt_inhibition_risk}
-\title{Title}
+\title{UGT inhibition risk}
 \usage{
 basic_ugt_inhibition_risk(perp, ugt_inh)
 }
 \arguments{
-\item{ugt_inh}{}
+\item{perp}{The perpetrator object.}
+
+\item{ugt_inh}{UGT inhibition data object.}
+}
+\value{
+DDI risk object.
 }
 \description{
-Title
+Evaluate the clinical risk for reversible inhibition of UGT
+enzymes according to the \href{https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf}{ICH M12 guideline}.
+}
+\details{
+This function assumes that the UGT inhibition data is provided as
+\eqn{IC_{50}}. According to
+\href{https://doi.org/10.1016/0006-2952(73)90196-2}{Cheng, Prusoff 1973}),
+\eqn{K_i} can be assumed to be \eqn{IC_{50}/2} at the experimental conditions
+commonly used in the in vitro inhibition studies where substrate
+concentrations are close to \eqn{K_M}.
+
+The relevant metric for basic modeling of the UGT inhibition risk is
+\eqn{R=C_{max,ss,u}/K_{i,u}}
+
+Refer to Section 2.1.2.1 of the \href{https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf}{ICH M12 guidance document})
+for details.
+
+\eqn{R>0.02} are considered to indicate a potential UGT inhibition risk.
 }

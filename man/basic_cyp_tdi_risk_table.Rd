@@ -2,7 +2,47 @@
 % Please edit documentation in R/cyp.R
 \name{basic_cyp_tdi_risk_table}
 \alias{basic_cyp_tdi_risk_table}
-\title{Basic CYP time-dependent inhibition risk table}
+\title{#' Basic modeling of the CYP time-dependent inhibition risk
+#'
+#' This function calculates the risk for time-dependent inhibition of CYP
+#' enzymes.
+#'
+#' @details
+#' The risk assessment is based on:
+#'
+#' \deqn{R=\frac {k_{obs} + k_{deg}}{k_{deg}}}
+#'
+#' where
+#'
+#' \deqn{k_{obs}=\frac {5*k_{inact}*C_{max,u}}{K_{I,u} + 5 * C_{max,u}}}
+#'
+#' Values of \eqn{R > 1.25} suggest a relevant TDI potential.
+#'
+#' The CYP degradation rates, \eqn{k_{deg}} are physiological constants that
+#' should be derived from the scientific literature. This package provides
+#' standard values for \eqn{k_{deg}} in \link{cyp_turnover} that are commonly used.
+#'
+#' In the present version, only the risk for hepatic TDI for CYP enzymes is
+#' calculated.
+#' @param perp The perpetrator object.
+#' @param cyp_tdi The CYP TDI data as data frame. The following fields are expected:
+#' * 'name' The perpetrator compound name as character.
+#' * 'cyp' The CYP enzyme as character.
+#' * 'ki' The \eqn{K_I} in \eqn{\mu M} as numeric.
+#' * 'kinact' The \eqn{k_{inact}} in 1/h as numeric.
+#' * 'source' Optional source information as character,
+#'
+#' @param cyp_kdeg The CYP turnover data as data frame. Defaults to the
+#' built-in reference data, \link{cyp_turnover}.
+#' @seealso \link{cyp_turnover}
+#' @seealso \code{\link[=read_tdi_data]{read_tdi_data()}}
+#' @return A data frame.
+#' @export
+#' @examples
+#' basic_cyp_tdi_risk(examplinib_parent, examplinib_cyp_tdi_data)
+basic_cyp_tdi_risk <- function(perp, cyp_tdi, cyp_kdeg=cyp_turnover) {
+cyp_tdi <- cyp_tdi \%>\%
+filter(name==name(perp))}
 \usage{
 basic_cyp_tdi_risk_table(
   perp,
@@ -13,17 +53,6 @@ basic_cyp_tdi_risk_table(
 )
 }
 \arguments{
-\item{perp}{The perpetrator object.}
-
-\item{cyp_tdi}{The CYP TDI data as data frame. The following fields are expected:
-\itemize{
-\item 'name' The perpetrator compound name as character.
-\item 'cyp' The CYP enzyme as character.
-\item 'ki' The \eqn{K_I} in \eqn{\mu M} as numeric.
-\item 'kinact' The \eqn{k_{inact}} in 1/h as numeric.
-\item 'source' Optional source information as character,
-}}
-
 \item{cyp_kdeg}{}
 
 \item{na.rm}{Switch to define whether rows with lacking \eqn{K_i} data are
@@ -35,7 +64,13 @@ removed from the output. Defaults to \code{FALSE}.}
 A markdown-formatted table.
 }
 \description{
-Basic CYP time-dependent inhibition risk table
+i <- key_concentrations(perp, molar=TRUE)
+imaxssu <- i\link{"imaxssu"}
+fumic <- as.num(perp\link{"fumic", "value"})
+fu <- as.num(perp\link{"fu", "value"})
+}
+\details{
+
 }
 \examples{
 basic_cyp_tdi_risk_table(examplinib_parent, examplinib_cyp_tdi_data)

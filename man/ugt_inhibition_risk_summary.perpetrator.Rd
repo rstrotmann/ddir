@@ -7,7 +7,9 @@
 \method{ugt_inhibition_risk_summary}{perpetrator}(perp, ugt_inh)
 }
 \arguments{
-\item{ugt_inh}{}
+\item{perp}{The perpetrator object.}
+
+\item{ugt_inh}{UGT inhibition data object.}
 }
 \value{
 Markdown-formatted text output.

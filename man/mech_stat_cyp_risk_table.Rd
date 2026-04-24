@@ -2,7 +2,81 @@
 % Please edit documentation in R/cyp.R
 \name{mech_stat_cyp_risk_table}
 \alias{mech_stat_cyp_risk_table}
-\title{CYP perpetration risk table as per mechanistic-static modeling}
+\title{#' CYP perpetration risk as per mechanistic-static modeling
+#'
+#' @details
+#' In this approach, AUC ratios for CYP-specific probe substrates are calculated
+#' based on their known intestinal and hepatic metabolism. Direct (competitive)
+#' and time-dependent inhibition terms, as well as enzyme induction terms are
+#' considered. For details, refer to section 7.5.1.2 of the \href{https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf}{ICH M12 #' guideline}.
+#'
+#' \deqn{AUCR = \frac{1}{A_g*B_g*C_g* \left(1-F_g \right)+F_g} * \frac{1}{A_h*B_h*C_h*f_m+\left(1-f_m\right)}}
+#'
+#' The individual terms are:
+#'
+#' ## Reversible inhibition
+#'
+#' \deqn{A_g = \frac{1}{1+\frac{I_g}{K_i}}}
+#'
+#' \deqn{A_h = \frac{1}{1+\frac{I_h}{K_i}}}
+#'
+#' ## Time-dependent inhibition
+#'
+#' \deqn{B_g = \frac{k_{deg,g}}{k_{deg,g} + \frac{I_g*k_{inact}}{I_g+K_I}}}
+#'
+#' \deqn{B_h = \frac{k_{deg,h}}{k_{deg,h} + \frac{I_h*k_{inact}}{I_h+K_I}}}
+#'
+#' ## Induction
+#'
+#' \deqn{C_g = 1 + \frac{d*E_{max}*I_g}{I_g+EC_{50}}}
+#'
+#' \deqn{C_h = 1 + \frac{d*E_{max}*I_h}{I_h+EC_{50}}}
+#'
+#' with the hepatic inlet concentration \eqn{I_h=I_{max,inlet,u}} and the
+#' intestinal concentration \eqn{I_g=I_{enteric,u}}, see
+#' \code{\link[=key_concentrations]{key_concentrations()}}.
+#'
+#' \eqn{d} is a scaling factor for the CYP induction term with a standard value
+#' of 1. A different value can be used if warranted by prior experience with the
+#' experimental setup.
+#'
+#' @inheritParams basic_cyp_inhibition_risk
+#' @inheritParams basic_cyp_tdi_risk
+#' @inheritParams kinetic_cyp_induction_risk
+#' @param include_induction Switch to define whether induction effects should be
+#' included in the calculation (C-terms as per the FDA guideline)
+#' @param substr The CYP probe substrates to be used as data frame, defaults to
+#' \link{cyp_reference_substrates}. The data frame is expected to have the following
+#' fields:
+#' * 'cyp' The CYP enzyme as (upper case) character.
+#' * 'substrate' The substrate name as character.
+#' * 'fgut' The fraction of the drug escaping gut metabolism.
+#' * 'fm' The fraction of the drug that undergoes hepatic metabolism.
+#' * 'fmcyp' The fraction metabolized by the respective CYP enzyme.
+#' @return A data frame.
+#' @export
+#' @seealso \code{\link[=mech_stat_cyp_risk_table]{mech_stat_cyp_risk_table()}}
+#' @seealso \link{cyp_reference_substrates}
+#' @seealso \link{cyp_turnover}
+#' @examples
+#' mech_stat_cyp_risk(examplinib_parent, examplinib_cyp_inhibition_data,
+#'   examplinib_cyp_induction_data)
+#' mech_stat_cyp_risk(examplinib_parent, examplinib_cyp_inhibition_data,
+#'   examplinib_cyp_induction_data, examplinib_cyp_tdi_data)
+#' mech_stat_cyp_risk(examplinib_parent, examplinib_cyp_inhibition_data,
+#'   examplinib_cyp_induction_data, examplinib_cyp_tdi_data,
+#'   include_induction = FALSE)
+#' mech_stat_cyp_risk(examplinib_parent, examplinib_cyp_inhibition_data, NULL)
+mech_stat_cyp_risk <- function(
+perp,
+cyp_inh,
+cyp_ind,
+cyp_tdi = NULL,
+d = 1,
+include_induction = TRUE,
+substr = cyp_reference_substrates,
+cyp_kdeg = cyp_turnover) {
+fumic <- as.num(perp\link{"fumic", "value"})}
 \usage{
 mech_stat_cyp_risk_table(
   perp,
@@ -17,48 +91,6 @@ mech_stat_cyp_risk_table(
 )
 }
 \arguments{
-\item{perp}{The perpetrator object.}
-
-\item{cyp_inh}{}
-
-\item{cyp_ind}{The CYP induction data as data frame. The following fields
-are expected:
-\itemize{
-\item 'name' The name of the perpetrator compound as character.
-\item 'cyp' The CYP enzyme as (upper case) character.
-\item 'emax' The \eqn{E_{max}}, i.e., the maximum induction effect determined in
-vitro as numeric.
-\item 'ec50' The \eqn{EC_{50}} in \eqn{\mu M} as numeric.
-\item 'maxc' The maximal concentration in \eqn{\mu M} tested in the in vitro assay as
-numeric.
-\item 'source' Optional source information as character.
-}}
-
-\item{cyp_tdi}{The CYP TDI data as data frame. The following fields are expected:
-\itemize{
-\item 'name' The perpetrator compound name as character.
-\item 'cyp' The CYP enzyme as character.
-\item 'ki' The \eqn{K_I} in \eqn{\mu M} as numeric.
-\item 'kinact' The \eqn{k_{inact}} in 1/h as numeric.
-\item 'source' Optional source information as character,
-}}
-
-\item{include_induction}{Switch to define whether induction effects should be
-included in the calculation (C-terms as per the FDA guideline)}
-
-\item{substr}{The CYP probe substrates to be used as data frame, defaults to
-\link{cyp_reference_substrates}. The data frame is expected to have the following
-fields:
-\itemize{
-\item 'cyp' The CYP enzyme as (upper case) character.
-\item 'substrate' The substrate name as character.
-\item 'fgut' The fraction of the drug escaping gut metabolism.
-\item 'fm' The fraction of the drug that undergoes hepatic metabolism.
-\item 'fmcyp' The fraction metabolized by the respective CYP enzyme.
-}}
-
-\item{cyp_kdeg}{}
-
 \item{na.rm}{Switch to define whether rows with lacking \eqn{K_I} or
 \eqn{k_{deg}} data are removed from the output.}
 
@@ -68,7 +100,12 @@ fields:
 A markdown-formatted table.
 }
 \description{
-CYP perpetration risk table as per mechanistic-static modeling
+i <- key_concentrations(perp, molar = TRUE)
+Ig <- i\link{"imaxintest"}
+Ih <- i\link{"imaxinletu"}
+}
+\details{
+
 }
 \examples{
 mech_stat_cyp_risk_table(

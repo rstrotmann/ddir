@@ -2,7 +2,61 @@
 % Please edit documentation in R/cyp.R
 \name{basic_cyp_inhibition_risk_table}
 \alias{basic_cyp_inhibition_risk_table}
-\title{Basic CYP inhibition risk table}
+\title{#' Basic CYP inhibition risk
+#'
+#' This function evaluates the clinical risk for direct (reversible) CYP
+#' inhibition according to the basic model defined in the relevant
+#' \href{https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf}{regulatory guideline}.
+#'
+#' @details For the basic modeling of direct (reversible) CYP enzyme inhibition,
+#'   the ratio of the relevant inhibitor concentration to the \eqn{K_i} of the
+#'   respective CYP enzyme is considered, i.e., \eqn{R} for hepatic enzymes and
+#'   \eqn{R_{gut}} for intestinal enzymes (refer to Section 2.1.2.1 of the \href{https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf}{ICH #'   M12 guidance #'   document}).
+#'
+#'   ## Liver
+#'
+#'   \deqn{R=\frac{C_{max,ss,u}}{K_{i,u}}}
+#'
+#'   \eqn{R} values > 0.02, i.e., maximal unbound perpetrator concentrations
+#'   50-fold over \eqn{K_i} are considered to indicate a potential clinical CYP
+#'   inhibition risk using this method.
+#'
+#'   ## Intestine
+#'
+#'   \deqn{R_{gut}=\frac{I_{gut}}{K_{i,u}}}
+#'
+#'   where
+#'
+#'   \deqn{I_{gut}=\frac{Dose}{250\ mg}}
+#'
+#'   \eqn{R} values > 10 are considered to indicate a clinical risk for
+#'   intestinal CYP3A inhibition.
+#'
+#'   In the output, the columns \code{risk_hep} and \code{risk_intest} indicate whether
+#'   the regulatory threshold is reached for the respective enzyme.
+#'
+#' @param perp The perpetrator object.
+#' @param cyp_inh CYP inhibition data as data frame. The following fields are
+#'   expected:
+#' * 'name' The name of the perpetrator compound.
+#' * 'cyp' The CYP enzyme as (upper case) character.
+#' * 'ki' The \eqn{K_i} in \eqn{\mu M} as numeric.
+#' * 'source' Optional source information as character.
+#' @return A data frame.
+#' @seealso \code{\link[=basic_cyp_inhibition_risk_table]{basic_cyp_inhibition_risk_table()}}
+#' @seealso \code{\link[=key_concentrations]{key_concentrations()}}
+#' @seealso \code{\link[=mech_stat_cyp_risk]{mech_stat_cyp_risk()}}
+#' @export
+#' @examples
+#' basic_cyp_inhibition_risk(examplinib_parent, examplinib_cyp_inhibition_data)
+basic_cyp_inhibition_risk <- function(perp, cyp_inh) {Validate inputs
+
+if (!inherits(perp, "perpetrator")) {
+stop("perp must be a perpetrator object")
+}
+if (is.null(cyp_inh) || nrow(cyp_inh) == 0) {
+stop("cyp_inh data frame is empty or NULL")
+}}
 \usage{
 basic_cyp_inhibition_risk_table(
   perp,
@@ -14,7 +68,7 @@ basic_cyp_inhibition_risk_table(
 \arguments{
 \item{perp}{The perpetrator object.}
 
-\item{cyp_inh}{}
+\item{cyp_inh}{CYP inhibition data object.}
 
 \item{na.rm}{Switch to define whether rows with lacking \eqn{K_i} data are
 removed from the output (i.e., where \code{ki == NA}). Defaults to \code{FALSE}.}
@@ -25,9 +79,11 @@ removed from the output (i.e., where \code{ki == NA}). Defaults to \code{FALSE}.
 A markdown-formatted table, or an empty string.
 }
 \description{
-This function generates a markdown-formatted table of the direct (reversible)
-CYP inhibition risk assessment. See \code{\link[=basic_cyp_inhibition_risk]{basic_cyp_inhibition_risk()}} for details
-on the calculation of the risk.
+ki <- cyp_inh \%>\%
+filter(name == name(perp))
+}
+\details{
+
 }
 \examples{
 basic_cyp_inhibition_risk_table(examplinib_parent,

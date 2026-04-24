@@ -346,8 +346,6 @@ setGeneric("kc", function(x, qh = 1.616, qent = 18/60, molar = TRUE) standardGen
 #'
 #' @returns
 #' @export
-#'
-#' @examples
 setMethod("kc", "compound", function(x, qh = 1.616, qent = 18/60, molar = TRUE) {
   validate_perpetrator(x)
   c(
@@ -360,6 +358,12 @@ setMethod("kc", "compound", function(x, qh = 1.616, qent = 18/60, molar = TRUE) 
 
 
 
+#' Title
+#'
+#' @param x
+#'
+#' @returns
+#' @export
 setGeneric("prop", function(x) standardGeneric("prop"))
 
 
@@ -369,8 +373,6 @@ setGeneric("prop", function(x) standardGeneric("prop"))
 #'
 #' @returns
 #' @export
-#'
-#' @examples
 setMethod("prop", "compound", function(x) {
   out <- tibble::tribble(
           ~param,             ~parameter,   ~unit,
@@ -416,11 +418,30 @@ setMethod("prop", "compound", function(x) {
 })
 
 
+#' Title
+#'
+#' @param compound
+#'
+#' @returns
+#' @export
 setMethod("print", "compound", function(x) prop(x))
 
 
+#' Title
+#'
+#' @param x
+#' @param round
+#'
+#' @returns
+#' @export
 setGeneric("conctbl", function(x, round = 2) standardGeneric("conctbl"))
 
+#' Title
+#'
+#' @param compound
+#'
+#' @returns
+#' @export
 setMethod("conctbl", "compound", function(x, round = 2) {
   temp <- tibble::tribble(
     ~parameter,

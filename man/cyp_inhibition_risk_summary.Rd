@@ -9,7 +9,7 @@ cyp_inhibition_risk_summary(perp, cyp_inh)
 \arguments{
 \item{perp}{The perpetrator object.}
 
-\item{cyp_inh}{}
+\item{cyp_inh}{CYP inhibition data object.}
 }
 \value{
 Markdown-formatted text output.

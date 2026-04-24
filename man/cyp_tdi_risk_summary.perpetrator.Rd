@@ -7,17 +7,6 @@
 \method{cyp_tdi_risk_summary}{perpetrator}(perp, cyp_tdi, cyp_kdeg = cyp_turnover)
 }
 \arguments{
-\item{perp}{The perpetrator object.}
-
-\item{cyp_tdi}{The CYP TDI data as data frame. The following fields are expected:
-\itemize{
-\item 'name' The perpetrator compound name as character.
-\item 'cyp' The CYP enzyme as character.
-\item 'ki' The \eqn{K_I} in \eqn{\mu M} as numeric.
-\item 'kinact' The \eqn{k_{inact}} in 1/h as numeric.
-\item 'source' Optional source information as character,
-}}
-
 \item{cyp_kdeg}{}
 }
 \value{

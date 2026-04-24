@@ -9,7 +9,7 @@
 \arguments{
 \item{perp}{The perpetrator object.}
 
-\item{cyp_inh}{}
+\item{cyp_inh}{CYP inhibition data object.}
 }
 \value{
 Markdown-formatted text output.

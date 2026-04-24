@@ -2,26 +2,30 @@
 % Please edit documentation in R/cyp.R
 \name{kinetic_cyp_induction_risk_table}
 \alias{kinetic_cyp_induction_risk_table}
-\title{Table of the basic kinetic CYP induction risk}
+\title{#' Basic kinetic CYP induction risk
+#'
+#' @details
+#' Basic kinetic modeling of the CYP induction risk considers:
+#'
+#' \deqn{R = \frac {1}{1 + d * \frac {E_{max}*10*C_{max,ss,u}}{EC_{50,u} + 10 * C_{max,ss,u}}}}
+#'
+#' \eqn{d} is a scaling factor with a standard value of 1. A different value can
+#' be used if warranted by prior experience with the experimental conditions.
+#'
+#' \eqn{R \le 0.8} suggest a relevant in vivo CYP induction potential.
+#'
+#' @inheritParams static_cyp_induction_risk
+#' @param d Scaling factor, defaults to 1.
+#' @return A data frame.
+#' @export
+#' @examples
+#' kinetic_cyp_induction_risk(examplinib_parent, examplinib_cyp_induction_data)
+kinetic_cyp_induction_risk <- function(perp, cyp_ind, d = 1) {
+i <- key_concentrations(perp, molar=TRUE)}
 \usage{
 kinetic_cyp_induction_risk_table(perp, cyp_ind, na.rm = F, show_dose = FALSE)
 }
 \arguments{
-\item{perp}{The perpetrator object or a list thereof.}
-
-\item{cyp_ind}{The CYP induction data as data frame. The following fields
-are expected:
-\itemize{
-\item 'name' The name of the perpetrator compound as character.
-\item 'cyp' The CYP enzyme as (upper case) character.
-\item 'emax' The \eqn{E_{max}}, i.e., the maximum induction effect determined in
-vitro as numeric.
-\item 'ec50' The \eqn{EC_{50}} in \eqn{\mu M} as numeric.
-\item 'maxc' The maximal concentration in \eqn{\mu M} tested in the in vitro assay as
-numeric.
-\item 'source' Optional source information as character.
-}}
-
 \item{na.rm}{Switch to define whether rows with lacking \eqn{E_{max}} data
 are removed from the output. Defaults to \code{FALSE}.}
 
@@ -31,7 +35,7 @@ are removed from the output. Defaults to \code{FALSE}.}
 A markdown-formatted table.
 }
 \description{
-Table of the basic kinetic CYP induction risk
+
 }
 \examples{
 kinetic_cyp_induction_risk_table(examplinib_parent,

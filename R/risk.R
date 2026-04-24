@@ -22,19 +22,6 @@ setClass(
 
 #' Title
 #'
-#' @param object
-#'
-#' @returns
-#' @export
-#'
-#' @examples
-setGeneric("table", function(object) {
-  standardGeneric("table")
-})
-
-
-#' Title
-#'
 #' @param ddi_risk
 #'
 #' @returns
@@ -94,15 +81,45 @@ setMethod(
 
 
 
-#' Title
+#' Basic CYP inhibition risk
 #'
-#' @param perp
-#' @param cyp_inh
+#' Evaluate the clinical risk for direct (reversible) CYP inhibition according
+#' to the basic model defined in the [ICH M12
+#' guideline](https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf).
 #'
-#' @returns
+#' @details For the basic modeling of direct (reversible) CYP enzyme inhibition,
+#'   the ratio of the relevant inhibitor concentration to the \eqn{K_i} of the
+#'   respective CYP enzyme is considered, i.e., \eqn{R} for hepatic enzymes and
+#'   \eqn{R_{gut}} for intestinal enzymes (refer to Section 2.1.2.1 of the [ICH
+#'   M12 guidance
+#'   document](https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf)).
+#'
+#'   ## Liver
+#'
+#'   \deqn{R=\frac{C_{max,ss,u}}{K_{i,u}}}
+#'
+#'   \eqn{R} values > 0.02, i.e., maximal unbound perpetrator concentrations
+#'   50-fold over \eqn{K_i} are considered to indicate a potential clinical CYP
+#'   inhibition risk using this method.
+#'
+#'   ## Intestine
+#'
+#'   \deqn{R_{gut}=\frac{I_{gut}}{K_{i,u}}}
+#'
+#'   where
+#'
+#'   \deqn{I_{gut}=\frac{Dose}{250\ mg}}
+#'
+#'   \eqn{R} values > 10 are considered to indicate a clinical risk for
+#'   intestinal CYP3A inhibition.
+#'
+#'   In the output, the columns `risk_hep` and `risk_intest` indicate whether
+#'   the regulatory threshold is reached.
+#'
+#' @param perp The perpetrator object.
+#' @param cyp_inh CYP inhibition data object.
+#' @return DDI risk object.
 #' @export
-#'
-#' @examples
 basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
   # Validate inputs
   if (!inherits(perp, "compound")) {
@@ -147,15 +164,32 @@ basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
 }
 
 
-#' Title
+#' UGT inhibition risk
 #'
-#' @param perp
-#' @param ugt_inh
+#' Evaluate the clinical risk for reversible inhibition of UGT
+#' enzymes according to the [ICH M12 guideline](https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf).
 #'
-#' @returns
+#' @details
+#' This function assumes that the UGT inhibition data is provided as
+#' \eqn{IC_{50}}. According to
+#' [Cheng, Prusoff 1973](https://doi.org/10.1016/0006-2952(73)90196-2)),
+#' \eqn{K_i} can be assumed to be \eqn{IC_{50}/2} at the experimental conditions
+#' commonly used in the in vitro inhibition studies where substrate
+#' concentrations are close to \eqn{K_M}.
+#'
+#' @details
+#' The relevant metric for basic modeling of the UGT inhibition risk is
+#' \eqn{R=C_{max,ss,u}/K_{i,u}}
+#'
+#' Refer to Section 2.1.2.1 of the [ICH M12 guidance document](https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf))
+#' for details.
+#'
+#' \eqn{R>0.02} are considered to indicate a potential UGT inhibition risk.
+#'
+#' @param perp The perpetrator object.
+#' @param ugt_inh UGT inhibition data object.
+#' @return DDI risk object.
 #' @export
-#'
-#' @examples
 basic_ugt_inhibition_risk <- function(perp, ugt_inh) {
   # Validate inputs
   if (!inherits(perp, "compound")) {

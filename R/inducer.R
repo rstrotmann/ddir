@@ -65,6 +65,14 @@ setValidity(
 })
 
 
+#' Title
+#'
+#' @param inducer
+#'
+#' @returns
+#' @export
+#'
+#' @examples
 setMethod(
   "show", "inducer",
   function(object) {
@@ -83,6 +91,14 @@ setMethod(
 
 
 
+#' Title
+#'
+#' @param inducer
+#'
+#' @returns
+#' @export
+#'
+#' @examples
 setMethod(
   "print", "inducer",
   function(x) {

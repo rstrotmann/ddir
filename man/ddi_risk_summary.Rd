@@ -20,31 +20,11 @@ ddi_risk_summary(
 \arguments{
 \item{perp}{The perpetrator object.}
 
-\item{cyp_inh}{}
+\item{cyp_inh}{CYP inhibition data object.}
 
-\item{cyp_tdi}{The CYP TDI data as data frame. The following fields are expected:
-\itemize{
-\item 'name' The perpetrator compound name as character.
-\item 'cyp' The CYP enzyme as character.
-\item 'ki' The \eqn{K_I} in \eqn{\mu M} as numeric.
-\item 'kinact' The \eqn{k_{inact}} in 1/h as numeric.
-\item 'source' Optional source information as character,
-}}
+\item{cyp_ind}{}
 
-\item{cyp_ind}{The CYP induction data as data frame. The following fields
-are expected:
-\itemize{
-\item 'name' The name of the perpetrator compound as character.
-\item 'cyp' The CYP enzyme as (upper case) character.
-\item 'emax' The \eqn{E_{max}}, i.e., the maximum induction effect determined in
-vitro as numeric.
-\item 'ec50' The \eqn{EC_{50}} in \eqn{\mu M} as numeric.
-\item 'maxc' The maximal concentration in \eqn{\mu M} tested in the in vitro assay as
-numeric.
-\item 'source' Optional source information as character.
-}}
-
-\item{ugt_inh}{}
+\item{ugt_inh}{UGT inhibition data object.}
 
 \item{transporter_inh}{Transporter inhibition data as data frame. The
 following fields are expected:
@@ -55,21 +35,7 @@ following fields are expected:
 \item 'source' Optional source information as character.
 }}
 
-\item{d}{Scaling factor, defaults to 1.}
-
-\item{include_induction}{Switch to define whether induction effects should be
-included in the calculation (C-terms as per the FDA guideline)}
-
-\item{substr}{The CYP probe substrates to be used as data frame, defaults to
-\link{cyp_reference_substrates}. The data frame is expected to have the following
-fields:
-\itemize{
-\item 'cyp' The CYP enzyme as (upper case) character.
-\item 'substrate' The substrate name as character.
-\item 'fgut' The fraction of the drug escaping gut metabolism.
-\item 'fm' The fraction of the drug that undergoes hepatic metabolism.
-\item 'fmcyp' The fraction metabolized by the respective CYP enzyme.
-}}
+\item{d}{}
 
 \item{cyp_kdeg}{}
 }
