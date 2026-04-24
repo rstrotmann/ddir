@@ -260,7 +260,7 @@ portal_term <- function(x, qh = 1.616) {
 #'
 imaxinletu <- function(x, qh = 1.616, molar = FALSE) {
   validate_perpetrator(x)
-  out <- x@imaxss + portal_term(x, qh) * x@fu
+  out <- (x@imaxss + portal_term(x, qh)) * x@fu
   ifelse(molar, out / x@mw, out)
 }
 
