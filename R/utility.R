@@ -83,3 +83,50 @@ nice_enumeration <- function(items, conjunction = "and") {
     ))
   }
 }
+
+
+#' Make column names in markdown format
+#'
+#' @param obj A data frame.
+#'
+#' @returns A character vector.
+#' @noRd
+make_labels <- function(obj) {
+  translation <- tibble::tribble(
+             ~name,                 ~label,
+              "ki",   "$K_{i}$ ($\\mu M$)",
+            "ic50",            "$IC_{50}$",
+               "i",                  "$i$",
+             "kiu", "$K_{i,u}$ ($\\mu M$)",
+               "r",                  "$R$",
+           "r_gut",            "$R_{gut}$",
+        "risk_hep",       "risk (hepatic)",
+     "risk_intest",    "risk (intestinal)",
+          "kinact",    "$k_{inact}$ (1/h)",
+            "kdeg",      "$k_{deg}$ (1/h)",
+              "fu",                "$f_u$",
+            "emax",            "$E_{max}$",
+            "ec50",            "$EC_{50}$",
+           "max_c",   "$max c$ ($\\mu M$)",
+            "aucr",            "$R_{AUC}$",
+           "fmcyp",           "$fm_{CYP}$",
+            "fgut",            "$f_{gut}$"
+     )
+
+
+  as.character(
+    sapply(
+      names(obj),
+      function(x) {
+        temp <- translation[translation$name == x,]
+        ifelse(nrow(temp) == 0, x, temp$label)
+      }
+    )
+  )
+}
+
+
+
+
+c("CYP", "$E_{max}$", "$max c$ ($\\mu M$)", "source",
+  "$max c/C_{max,ss,u}$", "risk", "notes")

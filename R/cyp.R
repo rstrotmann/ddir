@@ -85,7 +85,7 @@ basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
 #' Basic CYP inhibition risk table
 #'
 #' This function generates a markdown-formatted table of the direct (reversible)
-#' CYP inhibition risk assessment. See [basic_cyp_inhibition_risk()] for details
+#' CYP inhibition risk assessment. See [ddir::basic_cyp_inhibition_risk()] for details
 #' on the calculation of the risk.
 #' @inheritParams basic_cyp_inhibition_risk
 #' @param na.rm Switch to define whether rows with lacking \eqn{K_i} data are
@@ -178,7 +178,7 @@ basic_cyp_inhibition_risk_table.list <- function(perp, ...) {
 #'
 #' The CYP degradation rates, \eqn{k_{deg}} are physiological constants that
 #' should be derived from the scientific literature. This package provides
-#' standard values for \eqn{k_{deg}} in [cyp_turnover] that are commonly used.
+#' standard values for \eqn{k_{deg}} in [ddir::cyp_turnover] that are commonly used.
 #'
 #' In the present version, only the risk for hepatic TDI for CYP enzymes is
 #' calculated.
@@ -191,7 +191,7 @@ basic_cyp_inhibition_risk_table.list <- function(perp, ...) {
 #' * 'source' Optional source information as character,
 #'
 #' @param cyp_kdeg The CYP turnover data as data frame. Defaults to the
-#' built-in reference data, [cyp_turnover].
+#' built-in reference data, [ddir::cyp_turnover].
 #' @seealso [ddir::cyp_turnover]
 #' @seealso [ddir::read_tdi_data()]
 #' @return A data frame.
@@ -537,7 +537,7 @@ kinetic_cyp_induction_risk_table.list <- function(perp, ...) {
 #'
 #' with the hepatic inlet concentration \eqn{I_h=I_{max,inlet,u}} and the
 #' intestinal concentration \eqn{I_g=I_{enteric,u}}, see
-#' [`key_concentrations()`].
+#' [ddir::key_concentrations()].
 #'
 #' \eqn{d} is a scaling factor for the CYP induction term with a standard value
 #' of 1. A different value can be used if warranted by prior experience with the
@@ -549,7 +549,7 @@ kinetic_cyp_induction_risk_table.list <- function(perp, ...) {
 #' @param include_induction Switch to define whether induction effects should be
 #' included in the calculation (C-terms as per the FDA guideline)
 #' @param substr The CYP probe substrates to be used as data frame, defaults to
-#' [cyp_reference_substrates]. The data frame is expected to have the following
+#' [ddir::cyp_reference_substrates]. The data frame is expected to have the following
 #' fields:
 #' * 'cyp' The CYP enzyme as (upper case) character.
 #' * 'substrate' The substrate name as character.

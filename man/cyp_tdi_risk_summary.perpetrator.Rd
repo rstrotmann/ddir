@@ -18,8 +18,7 @@
 \item 'source' Optional source information as character,
 }}
 
-\item{cyp_kdeg}{The CYP turnover data as data frame. Defaults to the
-built-in reference data, \link{cyp_turnover}.}
+\item{cyp_kdeg}{}
 }
 \value{
 Markdown-formatted text output.

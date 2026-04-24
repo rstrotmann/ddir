@@ -97,7 +97,7 @@ setValidity("compound", function(object) {
 #' @param source Source information for parameters as named character vector
 #'
 #' @returns
-#' @expor
+#' @export
 #' @examples
 #' compound(
 #' "examplinib", TRUE, 492.6, 450, 3530, fu = 0.023, fa = 0.81, ka = .00267,
@@ -227,6 +227,7 @@ imaxssu <- function(x, molar = FALSE) {
   out <- x@imaxss * x@fu
   ifelse(molar, out / x@mw, out)
 }
+
 
 
 #' Portal contribution to hepatic inlet concentration
@@ -362,7 +363,7 @@ setMethod("kc", "compound", function(x, qh = 1.616, qent = 18/60, molar = TRUE) 
 setGeneric("prop", function(x) standardGeneric("prop"))
 
 
-#' Title
+#' Property table for perpetrator object
 #'
 #' @param compound
 #'
@@ -415,6 +416,7 @@ setMethod("prop", "compound", function(x) {
 })
 
 
+setMethod("print", "compound", function(x) prop(x))
 
 
 setGeneric("conctbl", function(x, round = 2) standardGeneric("conctbl"))

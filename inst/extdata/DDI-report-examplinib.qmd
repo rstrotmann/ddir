@@ -24,21 +24,88 @@ perp <- compound(
 ```
 
 ```{r}
-cyp_inh <- cyp_inhibitor_data(
-  "examplinib",
-  ki = c(CYP2C8 =  11, CYP2C9 =  0.6, CYP2C19 = 0.25, CYP3A4 =  12.5),
-  source = "study 001"
+cyp_inh <- inhibitor(
+  data = tribble(
+    ~target, ~ki, ~source,
+    "CYP2C8",  11,   "study 001",
+    "CYP2C9",  0.6,  "study 001",
+    "CYP2C19", 0.25, "study 001",
+    "CYP3A4",  12.5, "study 001"
+  ),
+  object = "examplinib"
+)
+
+ugt_inh <- inhibitor(
+  data = tibble::tribble(
+      ~target,  ~ki,     ~source,
+     "UGT1A1",   15, "study 009",
+     "UGT1A3",   15, "study 009",
+     "UGT1A4",   15, "study 009",
+     "UGT1A6",   15, "study 009",
+     "UGT1A9",  3.8, "study 009",
+     "UGT2B7",   15, "study 009",
+    "UGT2B15",   15, "study 009",
+    "UGT2B17",  6.1, "study 009",
+  ),
+  object = "examplinib"
+)
+
+transporter_inh <- inhibitor(
+  data = tibble::tribble(
+    ~target, ~ic50,     ~source,
+      "Pgp",  0.41, "study 005",
+     "BCRP",   1.9, "study 005",
+     "OCT1",   2.3, "study 006",
+  "OATP1B1",   177, "study 006",
+  "OATP1B3",    35, "study 006",
+     "OAT1",   271,          NA,
+     "OAT3",   300,          NA,
+     "BSEP",  12.8,          NA,
+     "OCT2",    67, "study 006",
+    "MATE1",   3.6, "study 006",
+   "MATE2k",   1.1, "study 006"
+  ),
+  object = "examplinib"
+)
+
+cyp_tdi <- inhibitor(
+  data = tibble::tribble(
+    ~target, ~ki, ~kinact, ~source,
+    "CYP3A4", 0.17,   0.04, "study 001"
+  ),
+  object = "examplinib"
+)
+
+cyp_ind <- inducer(
+  data =tibble::tribble(
+       ~target, ~emax, ~ec50, ~max_c,     ~source,
+      "CYP1A2",     1,    NA,      5, "study 007",
+      "CYP2B6",     1,    NA,      5, "study 007",
+      "CYP2C8",    NA,    NA,     NA,          NA,
+      "CYP2C9",    NA,    NA,     NA,          NA,
+     "CYP2C19",    NA,    NA,     NA,          NA,
+      "CYP2D6",    NA,    NA,     NA,          NA,
+      "CYP3A4",  7.35,  1.64,      3, "study 007"
+     ),
+  object = "examplinib"
 )
 ```
 
 ```{r}
-# property_table(perp)
-prop(perp)
+print(perp)
 
-# conc_table(perp)
 conctbl(perp)
 
-basic_cyp_inhibition_risk_table(perp, cyp_inh)
+print(basic_cyp_inhibition_risk(perp, cyp_inh))
+print(basic_ugt_inhibition_risk(perp, ugt_inh))
+print(transporter_inh_risk(perp, transporter_inh))
+
+print(basic_cyp_tdi_risk(perp, cyp_tdi))
+
+print(static_cyp_induction_risk(perp, cyp_ind))
+print(kinetic_cyp_induction_risk(perp, cyp_ind))
+
+print(mech_stat_cyp_risk(perp, cyp_inh, cyp_ind, cyp_tdi))
 ```
 
 

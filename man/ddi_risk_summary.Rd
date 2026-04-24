@@ -20,14 +20,7 @@ ddi_risk_summary(
 \arguments{
 \item{perp}{The perpetrator object.}
 
-\item{cyp_inh}{CYP inhibition data as data frame. The following fields are
-expected:
-\itemize{
-\item 'name' The name of the perpetrator compound.
-\item 'cyp' The CYP enzyme as (upper case) character.
-\item 'ki' The \eqn{K_i} in \eqn{\mu M} as numeric.
-\item 'source' Optional source information as character.
-}}
+\item{cyp_inh}{}
 
 \item{cyp_tdi}{The CYP TDI data as data frame. The following fields are expected:
 \itemize{
@@ -51,14 +44,7 @@ numeric.
 \item 'source' Optional source information as character.
 }}
 
-\item{ugt_inh}{UGT inhibition data as data frame, The following fields are
-expected:
-\itemize{
-\item 'name' The name of the perpetrator compound.
-\item 'ugt' The UGT enzyme as (upper case) character.
-\item 'ic50' The \eqn{IC_{50}} in \eqn{\mu M} as numeric.
-\item 'source' Optional source information as character.
-}}
+\item{ugt_inh}{}
 
 \item{transporter_inh}{Transporter inhibition data as data frame. The
 following fields are expected:
@@ -85,8 +71,7 @@ fields:
 \item 'fmcyp' The fraction metabolized by the respective CYP enzyme.
 }}
 
-\item{cyp_kdeg}{The CYP turnover data as data frame. Defaults to the
-built-in reference data, \link{cyp_turnover}.}
+\item{cyp_kdeg}{}
 }
 \value{
 Markdown-formatted text output.

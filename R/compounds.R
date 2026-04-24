@@ -542,7 +542,7 @@ key_concentrations <- function(obj, qh = 1.616, qent = 18/60, molar = TRUE) {
 #'
 #' This function generates a markdown-formatted table of the key perpetrator
 #' concentrations used for the assessment of the DDI perpetrator potential. See
-#' [key_concentrations()] for details on their calculation.
+#' [ddir::key_concentrations()] for details on their calculation.
 #' @param perp The perpetrator object or a list of perpetrator objects.
 #' @param show_dose Show perpetrator dose in table title, defaults to `FALSE.`
 #' @return A markdown-formatted table.

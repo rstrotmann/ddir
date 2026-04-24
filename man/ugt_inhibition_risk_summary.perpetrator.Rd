@@ -7,16 +7,7 @@
 \method{ugt_inhibition_risk_summary}{perpetrator}(perp, ugt_inh)
 }
 \arguments{
-\item{perp}{The perpetrator object.}
-
-\item{ugt_inh}{UGT inhibition data as data frame, The following fields are
-expected:
-\itemize{
-\item 'name' The name of the perpetrator compound.
-\item 'ugt' The UGT enzyme as (upper case) character.
-\item 'ic50' The \eqn{IC_{50}} in \eqn{\mu M} as numeric.
-\item 'source' Optional source information as character.
-}}
+\item{ugt_inh}{}
 }
 \value{
 Markdown-formatted text output.

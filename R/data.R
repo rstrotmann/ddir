@@ -133,10 +133,10 @@
 #' Examplinib CYP inhibition data
 #'
 #' This data frame is a typical input to the following functions:
-#' [basic_cyp_inhibition_risk()]
-#' [basic_cyp_inhibition_risk_table]
-#' [mech_stat_cyp_risk()]
-#' [mech_stat_cyp_risk_table()]
+#' [ddir::basic_cyp_inhibition_risk()]
+#' [ddir::basic_cyp_inhibition_risk_table]
+#' [ddir::mech_stat_cyp_risk()]
+#' [ddir::mech_stat_cyp_risk_table()]
 #'
 #' @details
 #' CYP inhibition data can contain ki data for multiple compounds.
@@ -220,7 +220,7 @@
 #'
 #' A character string containing transporter inhibition data for examplinib and M1.
 #' @source Fictional data for demo purposes.
-#' @seealso [read_transporter_inhibitor_data()]
+#' @seealso [ddir::read_transporter_inhibitor_data()]
 "examplinib_transporter_inhibition_string"
 
 
@@ -250,7 +250,7 @@
 #'
 #' A character string containing UGT inhibition data for examplinib and M1.
 #' @source Fictional data for demo purposes.
-#' @seealso [read_ugt_inhibitor_data()]
+#' @seealso [ddir::read_ugt_inhibitor_data()]
 "examplinib_ugt_inhibition_string"
 
 
@@ -289,7 +289,7 @@
 #' @description
 #' `r lifecycle::badge("deprecated")`
 #'
-#' Please use [`cyp_turnover`] instead.
+#' Please use [ddir::cyp_turnover()] instead.
 #'
 #' @format
 #' A data frame with 6 columns:
@@ -335,8 +335,8 @@
 #'
 #' @description
 #' Mean degradation constants in 1/h for hepatic and intestinal CYP enzymes.
-#' @seealso [basic_cyp_tdi_risk()]
-#' @seealso [mech_stat_cyp_risk()]
+#' @seealso [ddir::basic_cyp_tdi_risk()]
+#' @seealso [ddir::mech_stat_cyp_risk()]
 #'
 #' @format
 #' A data frame with 3 columns

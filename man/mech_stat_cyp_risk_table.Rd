@@ -19,14 +19,7 @@ mech_stat_cyp_risk_table(
 \arguments{
 \item{perp}{The perpetrator object.}
 
-\item{cyp_inh}{CYP inhibition data as data frame. The following fields are
-expected:
-\itemize{
-\item 'name' The name of the perpetrator compound.
-\item 'cyp' The CYP enzyme as (upper case) character.
-\item 'ki' The \eqn{K_i} in \eqn{\mu M} as numeric.
-\item 'source' Optional source information as character.
-}}
+\item{cyp_inh}{}
 
 \item{cyp_ind}{The CYP induction data as data frame. The following fields
 are expected:
@@ -64,8 +57,7 @@ fields:
 \item 'fmcyp' The fraction metabolized by the respective CYP enzyme.
 }}
 
-\item{cyp_kdeg}{The CYP turnover data as data frame. Defaults to the
-built-in reference data, \link{cyp_turnover}.}
+\item{cyp_kdeg}{}
 
 \item{na.rm}{Switch to define whether rows with lacking \eqn{K_I} or
 \eqn{k_{deg}} data are removed from the output.}

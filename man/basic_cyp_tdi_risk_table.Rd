@@ -24,8 +24,7 @@ basic_cyp_tdi_risk_table(
 \item 'source' Optional source information as character,
 }}
 
-\item{cyp_kdeg}{The CYP turnover data as data frame. Defaults to the
-built-in reference data, \link{cyp_turnover}.}
+\item{cyp_kdeg}{}
 
 \item{na.rm}{Switch to define whether rows with lacking \eqn{K_i} data are
 removed from the output. Defaults to \code{FALSE}.}

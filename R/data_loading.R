@@ -77,8 +77,8 @@ read_perpetrators <- function(source) {
 #' @description
 #' `r lifecycle::badge("deprecated")`
 #'
-#' This function is deprecated in favor of [read_cyp_inhibitor_data()],
-#' [read_ugt_inhibitor_data()] or [read_transporter_inhibitor_data()].
+#' This function is deprecated in favor of [ddir::read_cyp_inhibitor_data()],
+#' [ddir::read_ugt_inhibitor_data()] or [ddir::read_transporter_inhibitor_data()].
 #' @details
 #' A valid source is, e.g.,
 #'

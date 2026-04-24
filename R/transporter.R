@@ -23,10 +23,10 @@
 #' * 'ic50' The \eqn{IC_{50}} of the inhibition in μM.
 #' * 'source' Optional source information as character.
 #' @param transporter_ref Transporter reference data, see
-#' [transporter_reference_data] for details.
+#' [ddir::transporter_reference_data] for details.
 #' @return A data frame.
-#' @seealso [transporter_inhibition_risk_table()]
-#' @seealso [read_transporter_inhibitor_data()]
+#' @seealso [ddir::transporter_inhibition_risk_table()]
+#' @seealso [ddir::read_transporter_inhibitor_data()]
 #' @export
 #' @examples
 #' transporter_inhibition_risk(examplinib_parent,
@@ -71,7 +71,7 @@ transporter_inhibition_risk <- function(
 #' output, as logical.
 #' @param show_dose Show_dose Show perpetrator dose in table title, as logical.
 #' Defaults to `FALSE.`
-#' @seealso [transporter_inhibition_risk()]
+#' @seealso [ddir::transporter_inhibition_risk()]
 #' @return A markdown-formatted table.
 #' @export
 #' @examples

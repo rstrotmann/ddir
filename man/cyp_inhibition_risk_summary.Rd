@@ -9,14 +9,7 @@ cyp_inhibition_risk_summary(perp, cyp_inh)
 \arguments{
 \item{perp}{The perpetrator object.}
 
-\item{cyp_inh}{CYP inhibition data as data frame. The following fields are
-expected:
-\itemize{
-\item 'name' The name of the perpetrator compound.
-\item 'cyp' The CYP enzyme as (upper case) character.
-\item 'ki' The \eqn{K_i} in \eqn{\mu M} as numeric.
-\item 'source' Optional source information as character.
-}}
+\item{cyp_inh}{}
 }
 \value{
 Markdown-formatted text output.
