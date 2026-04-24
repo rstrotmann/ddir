@@ -7,7 +7,10 @@
 prop(x)
 }
 \arguments{
-\item{x}{}
+\item{x}{Compound object}
+}
+\value{
+Markdown-formatted text
 }
 \description{
 Title

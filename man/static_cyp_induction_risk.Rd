@@ -7,7 +7,12 @@
 static_cyp_induction_risk(perp, cyp_ind)
 }
 \arguments{
-\item{cyp_ind}{}
+\item{perp}{Perpetrator object}
+
+\item{cyp_ind}{Induction object.}
+}
+\value{
+DDI risk object
 }
 \description{
 Title

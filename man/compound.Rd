@@ -47,6 +47,9 @@ compound(
 
 \item{source}{Source information for parameters as named character vector}
 }
+\value{
+Compound object
+}
 \description{
 Compound class constructor
 }

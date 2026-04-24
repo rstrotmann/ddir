@@ -11,7 +11,14 @@ transporter_inh_risk(
 )
 }
 \arguments{
-\item{transporter_ref}{}
+\item{perp}{Perpetrator object}
+
+\item{transporter_inh}{Inhibitor object.}
+
+\item{transporter_ref}{Data frame.}
+}
+\value{
+DDI risk object
 }
 \description{
 Title

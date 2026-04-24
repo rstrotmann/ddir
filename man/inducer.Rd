@@ -7,7 +7,12 @@
 inducer(data, object = "")
 }
 \arguments{
-\item{object}{}
+\item{data}{data frame}
+
+\item{object}{character}
+}
+\value{
+Inducer object
 }
 \description{
 Title

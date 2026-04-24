@@ -4,6 +4,9 @@
 \name{inducer-class}
 \alias{inducer-class}
 \title{Title}
+\value{
+Inducer object
+}
 \description{
 Title
 }

@@ -7,7 +7,10 @@
 \S4method{print}{inducer}(x)
 }
 \arguments{
-\item{inducer}{}
+\item{inducer}{Inducer object}
+}
+\value{
+markdown-formatted text
 }
 \description{
 Title

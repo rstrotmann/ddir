@@ -3,10 +3,8 @@
 #' @slot object character.
 #' @slot data data.frame.
 #'
-#' @returns
+#' @returns Inducer object
 #' @export
-#'
-#' @examples
 setClass(
   Class = "inducer",
   representation(
@@ -28,13 +26,11 @@ setClass(
 
 #' Title
 #'
-#' @param data
-#' @param object
+#' @param data data frame
+#' @param object character
 #'
-#' @returns
+#' @returns Inducer object
 #' @export
-#'
-#' @examples
 inducer <- function(data, object = "") {
   new("inducer", data = data, object = object)
 }
@@ -67,12 +63,10 @@ setValidity(
 
 #' Title
 #'
-#' @param inducer
+#' @param inducer Inducer object
 #'
-#' @returns
+#' @returns Nothing.
 #' @export
-#'
-#' @examples
 setMethod(
   "show", "inducer",
   function(object) {
@@ -93,12 +87,10 @@ setMethod(
 
 #' Title
 #'
-#' @param inducer
+#' @param inducer Inducer object
 #'
-#' @returns
+#' @returns markdown-formatted text
 #' @export
-#'
-#' @examples
 setMethod(
   "print", "inducer",
   function(x) {

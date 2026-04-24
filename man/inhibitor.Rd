@@ -7,7 +7,12 @@
 inhibitor(data, object = "")
 }
 \arguments{
-\item{data}{}
+\item{data}{Data frame}
+
+\item{object}{Character}
+}
+\value{
+Inhibitor object
 }
 \description{
 Title

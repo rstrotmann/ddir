@@ -7,7 +7,12 @@
 conctbl(x, round = 2)
 }
 \arguments{
-\item{round}{}
+\item{x}{Compound object}
+
+\item{round}{Markdown-formatted text}
+}
+\value{
+Markdown-formatted text
 }
 \description{
 Title

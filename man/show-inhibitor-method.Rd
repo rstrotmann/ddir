@@ -7,7 +7,10 @@
 \S4method{show}{inhibitor}(object)
 }
 \arguments{
-\item{inhibitor}{}
+\item{inhibitor}{Inhibitor object}
+}
+\value{
+Nothing.
 }
 \description{
 Title

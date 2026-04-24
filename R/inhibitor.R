@@ -125,12 +125,11 @@ setClass(
 
 #' Title
 #'
-#' @param data
+#' @param data Data frame
+#' @param object Character
 #'
-#' @returns
+#' @returns Inhibitor object
 #' @export
-#'
-#' @examples
 inhibitor <- function(data, object = "") {
   new("inhibitor", data = data, object = object)
 }
@@ -174,12 +173,10 @@ setValidity("inhibitor", function(object) {
 
 #' Title
 #'
-#' @param inhibitor
+#' @param inhibitor Inhibitor object
 #'
-#' @returns
+#' @returns Nothing.
 #' @export
-#'
-#' @examples
 setMethod(
   "show", "inhibitor",
   function(object) {
@@ -199,12 +196,10 @@ setMethod(
 
 #' Title
 #'
-#' @param inhibitor
+#' @param inhibitor Inhibitor object
 #'
-#' @returns
+#' @returns Markdown-formatted text
 #' @export
-#'
-#' @examples
 setMethod(
   "print", "inhibitor",
   function(x) {

@@ -24,10 +24,8 @@ setClass(
 #'
 #' @param ddi_risk
 #'
-#' @returns
+#' @returns Nothing.
 #' @export
-#'
-#' @examples
 setMethod(
   "show", "ddi_risk",
   function(object) {
@@ -47,10 +45,8 @@ setMethod(
 #'
 #' @param ddi_risk
 #'
-#' @returns
+#' @returns Markdown-formatted text.
 #' @export
-#'
-#' @examples
 setMethod(
   "print", "ddi_risk",
   function(x) {
@@ -231,11 +227,11 @@ basic_ugt_inhibition_risk <- function(perp, ugt_inh) {
 
 #' Title
 #'
-#' @param perp
-#' @param transporter_inh
-#' @param transporter_ref
+#' @param perp Perpetrator object
+#' @param transporter_inh Inhibitor object.
+#' @param transporter_ref Data frame.
 #'
-#' @returns
+#' @returns DDI risk object
 #' @export
 transporter_inh_risk <- function(
     perp,
@@ -301,14 +297,12 @@ transporter_inh_risk <- function(
 
 #' Title
 #'
-#' @param perp
-#' @param cyp_tdi
-#' @param cyp_kdeg
+#' @param perp Perpetrator object.
+#' @param cyp_tdi Inhibitor object.
+#' @param cyp_kdeg Data frame
 #'
-#' @returns
+#' @returns DDI risk object
 #' @export
-#'
-#' @examples
 basic_cyp_tdi_risk <- function(
     perp,
     cyp_tdi,
@@ -365,13 +359,11 @@ basic_cyp_tdi_risk <- function(
 
 #' Title
 #'
-#' @param perp
-#' @param cyp_ind
+#' @param perp Perpetrator object
+#' @param cyp_ind Induction object.
 #'
-#' @returns
+#' @returns DDI risk object
 #' @export
-#'
-#' @examples
 static_cyp_induction_risk <- function(perp, cyp_ind)  {
   # input validation
   if (!inherits(perp, "compound")) {
@@ -420,14 +412,12 @@ static_cyp_induction_risk <- function(perp, cyp_ind)  {
 
 #' Title
 #'
-#' @param perp
-#' @param cyp_ind
-#' @param d
+#' @param perp Perpetrator object
+#' @param cyp_ind Induction object
+#' @param d Numeric
 #'
-#' @returns
+#' @returns DDI risk object
 #' @export
-#'
-#' @examples
 kinetic_cyp_induction_risk <- function(perp, cyp_ind, d=1) {
   # input validation
   if (!inherits(perp, "compound")) {
@@ -470,6 +460,19 @@ kinetic_cyp_induction_risk <- function(perp, cyp_ind, d=1) {
 }
 
 
+#' Title
+#'
+#' @param perp Perpetrator object
+#' @param cyp_inh Inhibitor object
+#' @param cyp_ind Inducer object
+#' @param cyp_tdi Inhibitor object
+#' @param d Numeric
+#' @param include_induction Logical
+#' @param substr Data frame
+#' @param cyp_kdeg Data frame
+#'
+#' @returns DDI risk object
+#' @export
 mech_stat_cyp_risk <- function(
     perp,
     cyp_inh,

@@ -7,7 +7,10 @@
 \S4method{print}{compound}(x)
 }
 \arguments{
-\item{compound}{}
+\item{compound}{Compound object}
+}
+\value{
+markdown-formatted text
 }
 \description{
 Title

@@ -15,6 +15,9 @@
 
 \item{molar}{Output in molar concentration (uM, default).}
 }
+\value{
+Numeric
+}
 \description{
 This function returns the relevant perpetrator concentrations in
 \eqn{\mu M} (default) or ng/ml for a DDI perpetrator compound.

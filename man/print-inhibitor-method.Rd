@@ -7,7 +7,10 @@
 \S4method{print}{inhibitor}(x)
 }
 \arguments{
-\item{inhibitor}{}
+\item{inhibitor}{Inhibitor object}
+}
+\value{
+Markdown-formatted text
 }
 \description{
 Title

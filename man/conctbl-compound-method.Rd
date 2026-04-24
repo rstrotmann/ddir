@@ -7,7 +7,10 @@
 \S4method{conctbl}{compound}(x, round = 2)
 }
 \arguments{
-\item{compound}{}
+\item{compound}{Compound object}
+}
+\value{
+Markdown-formatted text
 }
 \description{
 Title

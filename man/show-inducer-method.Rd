@@ -7,7 +7,10 @@
 \S4method{show}{inducer}(object)
 }
 \arguments{
-\item{inducer}{}
+\item{inducer}{Inducer object}
+}
+\value{
+Nothing.
 }
 \description{
 Title

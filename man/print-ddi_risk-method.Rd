@@ -9,6 +9,9 @@
 \arguments{
 \item{ddi_risk}{}
 }
+\value{
+Markdown-formatted text.
+}
 \description{
 Title
 }

@@ -9,6 +9,9 @@
 \arguments{
 \item{ddi_risk}{}
 }
+\value{
+Nothing.
+}
 \description{
 Title
 }

@@ -53,9 +53,9 @@ setClass(
 
 #' Validity check for compound class
 #'
-#' @param object
+#' @param object Compound object
 #'
-#' @returns
+#' @returns TRUE or error
 #' @noRd
 setValidity("compound", function(object) {
   validate_argument(object@name, "character", allow_empty = TRUE)
@@ -96,7 +96,7 @@ setValidity("compound", function(object) {
 #' @param solubility Aqueous solubility in mg/l.
 #' @param source Source information for parameters as named character vector
 #'
-#' @returns
+#' @returns Compound object
 #' @export
 #' @examples
 #' compound(
@@ -344,7 +344,7 @@ setGeneric("kc", function(x, qh = 1.616, qent = 18/60, molar = TRUE) standardGen
 #' @param qent Enteric blood flow in l/min, defaults to 0.3 l/min = 18 l/h.
 #' @param molar Output in molar concentration (uM, default).
 #'
-#' @returns
+#' @returns Numeric
 #' @export
 setMethod("kc", "compound", function(x, qh = 1.616, qent = 18/60, molar = TRUE) {
   validate_perpetrator(x)
@@ -360,18 +360,18 @@ setMethod("kc", "compound", function(x, qh = 1.616, qent = 18/60, molar = TRUE) 
 
 #' Title
 #'
-#' @param x
+#' @param x Compound object
 #'
-#' @returns
+#' @returns Markdown-formatted text
 #' @export
 setGeneric("prop", function(x) standardGeneric("prop"))
 
 
 #' Property table for perpetrator object
 #'
-#' @param compound
+#' @param compound Compound object
 #'
-#' @returns
+#' @returns Markdown-formatted text
 #' @export
 setMethod("prop", "compound", function(x) {
   out <- tibble::tribble(
@@ -420,27 +420,28 @@ setMethod("prop", "compound", function(x) {
 
 #' Title
 #'
-#' @param compound
+#' @param compound Compound object
 #'
-#' @returns
+#' @returns markdown-formatted text
 #' @export
 setMethod("print", "compound", function(x) prop(x))
 
 
 #' Title
 #'
-#' @param x
-#' @param round
+#' @param x Compound object
+#' @param round Markdown-formatted text
 #'
-#' @returns
+#' @returns Markdown-formatted text
 #' @export
 setGeneric("conctbl", function(x, round = 2) standardGeneric("conctbl"))
 
+
 #' Title
 #'
-#' @param compound
+#' @param compound Compound object
 #'
-#' @returns
+#' @returns Markdown-formatted text
 #' @export
 setMethod("conctbl", "compound", function(x, round = 2) {
   temp <- tibble::tribble(

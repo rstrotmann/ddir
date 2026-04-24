@@ -7,7 +7,14 @@
 basic_cyp_tdi_risk(perp, cyp_tdi, cyp_kdeg = cyp_turnover)
 }
 \arguments{
-\item{cyp_kdeg}{}
+\item{perp}{Perpetrator object.}
+
+\item{cyp_tdi}{Inhibitor object.}
+
+\item{cyp_kdeg}{Data frame}
+}
+\value{
+DDI risk object
 }
 \description{
 Title

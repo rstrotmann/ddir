@@ -7,7 +7,10 @@
 \S4method{prop}{compound}(x)
 }
 \arguments{
-\item{compound}{}
+\item{compound}{Compound object}
+}
+\value{
+Markdown-formatted text
 }
 \description{
 Property table for perpetrator object

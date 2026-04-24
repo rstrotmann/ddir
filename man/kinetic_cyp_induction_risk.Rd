@@ -7,7 +7,14 @@
 kinetic_cyp_induction_risk(perp, cyp_ind, d = 1)
 }
 \arguments{
-\item{d}{}
+\item{perp}{Perpetrator object}
+
+\item{cyp_ind}{Induction object}
+
+\item{d}{Numeric}
+}
+\value{
+DDI risk object
 }
 \description{
 Title
