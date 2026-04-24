@@ -198,6 +198,7 @@ setMethod(
 #'
 igut <- function(x, molar = FALSE) {
   # total gut concentration in ng/ml
+  oral <- x@oral
   if(oral == FALSE) {
     igut <- 0
   } else {
