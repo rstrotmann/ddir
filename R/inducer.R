@@ -1,6 +1,6 @@
-#' Title
+#' DDI CYP inducer data object
 #'
-#' @slot object character.
+#' @slot object The name of the DDI perpetrator as character.
 #' @slot data data.frame.
 #'
 #' @returns Inducer object
@@ -24,14 +24,35 @@ setClass(
 )
 
 
-#' Title
+#' DDI CYP inducer object constructor
 #'
-#' @param data data frame
-#' @param object character
+#' This class constructor expects as the as the data argument a data frome with
+#' the following columns:
+#'
+#' * target: The CYP induction target. Must be one of "CYP1A1", "CYP1A2",
+#' "CYP2A6", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C18", "CYP2C19", "CYP2D6",
+#' "CYP2E1", "CYP2J2", "CYP3A4", "CYP3A5", or "CYP3A7".
+#' * emax: The maximal induction effect.
+#' * ec50: The EC50, i.e., the concentration causing the half-maximal induction
+#' effect.
+#' * max_c: The maximal concentration tested in the assay in uM.
+#' * source: Source information for the parameter.
+#'
+#' @param data Data frame with the columns 'target', 'emax', 'ec50', 'max_c' and
+#'   'source'.
+#' @param object The name of the DDI perpetrator as character.
 #'
 #' @returns Inducer object
 #' @export
 inducer <- function(data, object = "") {
+  if (is.null(data))
+    data <- data.frame(
+      target = character(0),
+      emax = numeric(0),
+      ec50 = numeric(0),
+      max_c = numeric(0),
+      source = character(0)
+    )
   new("inducer", data = data, object = object)
 }
 
@@ -61,9 +82,9 @@ setValidity(
 })
 
 
-#' Title
+#' Show DDI inducer object
 #'
-#' @param inducer Inducer object
+#' @param inducer DDI inducer object
 #'
 #' @returns Nothing.
 #' @export
@@ -84,12 +105,11 @@ setMethod(
 )
 
 
-
-#' Title
+#' Print DDI inducer object
 #'
-#' @param inducer Inducer object
+#' @param inducer DDI inducer object
 #'
-#' @returns markdown-formatted text
+#' @returns Markdown-formatted text
 #' @export
 setMethod(
   "print", "inducer",

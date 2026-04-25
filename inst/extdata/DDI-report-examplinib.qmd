@@ -14,10 +14,10 @@ knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=TRUE, fig.width=4, fig.
 ```
 
 ```{r ompound_data}
-perp <- compound(
+perp <- perpetrator(
   "examplinib",
-  dose = 450, imaxss = 3530, mw = 492.6, oral = TRUE, fu = 0.023, fa = 0.81,
-  ka = 0.00267,
+  dose = 50, imaxss = 566, mw = 420.5, oral = TRUE, fu = 0.046, fa = 1,
+  fg = 1, rb = 0.9, ka = 0.1,
   source = c(dose = "clinical dose", imaxss = "study 001", fu = "study 002",
              rb = "study 003")
 )
@@ -27,10 +27,9 @@ perp <- compound(
 cyp_inh <- inhibitor(
   data = tribble(
     ~target, ~ki, ~source,
-    "CYP2C8",  11,   "study 001",
-    "CYP2C9",  0.6,  "study 001",
-    "CYP2C19", 0.25, "study 001",
-    "CYP3A4",  12.5, "study 001"
+    "CYP2C9",  7.01,  "study 001",
+    "CYP2C19", 48.7, "study 001",
+    "CYP3A4",  100, "study 001"
   ),
   object = "examplinib"
 )
@@ -94,7 +93,7 @@ cyp_ind <- inducer(
 ```{r}
 print(perp)
 
-conctbl(perp)
+key_conc(perp)
 
 print(basic_cyp_inhibition_risk(perp, cyp_inh))
 print(basic_ugt_inhibition_risk(perp, ugt_inh))
@@ -107,22 +106,5 @@ print(kinetic_cyp_induction_risk(perp, cyp_ind))
 
 print(mech_stat_cyp_risk(perp, cyp_inh, cyp_ind, cyp_tdi))
 print(mech_stat_cyp_risk(perp, cyp_inh, cyp_ind, cyp_tdi, include_induction = F))
-```
-
-
-
-```{r}
-cyp_inhibition_data <- read_cyp_inhibitor_data(textConnection(
-  cyp_inhibition_text))
-
-cyp_tdi_data <- read_tdi_data(textConnection(cyp_tdi_text))
-
-cyp_induction_data <- read_inducer_data(textConnection(cyp_induction_text))
-
-ugt_inhibition_data <- read_ugt_inhibitor_data(textConnection(
-  ugt_inhibition_text))
-
-transporter_inhibition_data <- read_transporter_inhibitor_data(
-  textConnection(transporter_inhibiton_text))
 ```
 

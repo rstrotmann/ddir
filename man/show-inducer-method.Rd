@@ -2,16 +2,16 @@
 % Please edit documentation in R/inducer.R
 \name{show,inducer-method}
 \alias{show,inducer-method}
-\title{Title}
+\title{Show DDI inducer object}
 \usage{
 \S4method{show}{inducer}(object)
 }
 \arguments{
-\item{inducer}{Inducer object}
+\item{inducer}{DDI inducer object}
 }
 \value{
 Nothing.
 }
 \description{
-Title
+Show DDI inducer object
 }

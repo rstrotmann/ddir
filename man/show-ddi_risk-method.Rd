@@ -2,16 +2,16 @@
 % Please edit documentation in R/risk.R
 \name{show,ddi_risk-method}
 \alias{show,ddi_risk-method}
-\title{Title}
+\title{Show ddi_risk object}
 \usage{
 \S4method{show}{ddi_risk}(object)
 }
 \arguments{
-\item{ddi_risk}{}
+\item{ddi_risk}{Ddi_risk object.}
 }
 \value{
 Nothing.
 }
 \description{
-Title
+Show ddi_risk object
 }

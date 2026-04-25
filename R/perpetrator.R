@@ -1,4 +1,4 @@
-#' Compound class definition
+#' Perpetrator class definition
 #'
 #' @slot name character.
 #' @slot oral logical.
@@ -14,10 +14,10 @@
 #' @slot solubility numeric.
 #' @slot source character
 #'
-#' @returns A compound class object.
+#' @returns A perpetrator class object.
 #' @export
 setClass(
-  Class = "compound",
+  Class = "perpetrator",
   representation(
     name = "character",
     oral = "logical",
@@ -51,13 +51,13 @@ setClass(
 )
 
 
-#' Validity check for compound class
+#' Validity check for perpetrator class
 #'
-#' @param object Compound object
+#' @param object perpetrator object
 #'
 #' @returns TRUE or error
 #' @noRd
-setValidity("compound", function(object) {
+setValidity("perpetrator", function(object) {
   validate_argument(object@name, "character", allow_empty = TRUE)
   validate_argument(object@oral, "logical")
   validate_argument(object@mw, "numeric", expect_positive = TRUE)
@@ -80,7 +80,7 @@ setValidity("compound", function(object) {
 })
 
 
-#' Compound class constructor
+#' perpetrator class constructor
 #'
 #' @param name Character.
 #' @param oral Oral administration, as logical.
@@ -96,15 +96,15 @@ setValidity("compound", function(object) {
 #' @param solubility Aqueous solubility in mg/l.
 #' @param source Source information for parameters as named character vector
 #'
-#' @returns Compound object
+#' @returns perpetrator object
 #' @export
 #' @examples
-#' compound(
+#' perpetrator(
 #' "examplinib", TRUE, 492.6, 450, 3530, fu = 0.023, fa = 0.81, ka = .00267,
 #' source = c(dose = "clinical dose", imaxss = "study 001", fu = "study 002")
 #' )
 #'
-compound <- function(
+perpetrator <- function(
     name,
     oral,
     mw,
@@ -120,7 +120,7 @@ compound <- function(
     source = character(0)
 ) {
   new(
-    "compound",
+    "perpetrator",
     name = name,
     oral = oral,
     mw = mw,
@@ -137,14 +137,14 @@ compound <- function(
 }
 
 
-#' Print method for compound objects.
+#' Show DDI perpetrator objects.
 #'
-#' @param compound Compound object.
+#' @param perpetrator DDI perpetrator object.
 #'
 #' @returns Nothing.
 #' @export
 setMethod(
-  "show", "compound",
+  "show", "perpetrator",
   function(object) {
     line <- paste0(rep("-", 5), collapse="")
     cat(paste0(line, " DDI perpetrator object ", line, "\n"))
@@ -187,6 +187,56 @@ setMethod(
 )
 
 
+#' Property table for perpetrator object
+#'
+#' @param perpetrator perpetrator object
+#'
+#' @returns Markdown-formatted text
+#' @export
+setMethod("print", "perpetrator", function(x) {
+  out <- tibble::tribble(
+           ~param,             ~parameter,   ~unit,
+           "oral",                 "oral",      "",
+             "mw",         "$MW$ (g/mol)", "g/mol",
+           "dose",          "$dose$ (mg)",    "mg",
+     "solubility",  "$solubility$ (mg/l)",  "mg/l",
+         "imaxss", "$C_{max,ss}$ (ng/ml)", "ng/ml",
+             "fu",                "$f_u$",      "",
+          "fumic",          "$f_{u,mic}$",      "",
+             "rb",                "$R_B$",      "",
+             "fa",                "$F_a$",      "",
+             "fg",                "$F_g$",      "",
+             "ka",        "$k_a$ (1/min)",  "/min"
+     ) |>
+    mutate(value = sapply(
+      c(x@oral, x@mw, x@dose, x@solubility, x@imaxss, x@fu, x@fumic, x@rb,
+        x@fa, x@fg, x@ka),
+      as.character)) |>
+    select(-unit)
+
+  out$source <- unlist(lapply(
+    out$param,
+    function(i) {
+      ifelse(
+        !is.na(slot(x, "source")[i]),
+        slot(x, "source")[i],
+        ""
+      )
+    }
+  ))
+
+  if (x@oral == FALSE) {
+    out <- out %>%
+      filter(!(param %in% c("fa", "fg", "ka")))
+  }
+
+  out <- out %>%
+    dplyr::select(parameter, value, source) %>%
+    knitr::kable(caption = paste("Perpetrator compound parameters for", x@name))
+
+  out
+})
+
 
 #' Maximal gut concentration
 #'
@@ -197,6 +247,8 @@ setMethod(
 #' @export
 #'
 igut <- function(x, molar = FALSE) {
+  validate_perpetrator(x)
+
   # total gut concentration in ng/ml
   oral <- x@oral
   if(oral == FALSE) {
@@ -223,7 +275,7 @@ igut <- function(x, molar = FALSE) {
 #' @returns Numeric.
 #' @export
 #'
-imaxssu <- function(x, molar = FALSE) {
+imaxssu <- function(x, molar = TRUE) {
   validate_perpetrator(x)
   out <- x@imaxss * x@fu
   ifelse(molar, out / x@mw, out)
@@ -258,7 +310,7 @@ portal_term <- function(x, qh = 1.616) {
 #' @returns Numeric.
 #' @export
 #'
-imaxinletu <- function(x, qh = 1.616, molar = FALSE) {
+imaxinletu <- function(x, qh = 1.616, molar = TRUE) {
   validate_perpetrator(x)
   out <- (x@imaxss + portal_term(x, qh)) * x@fu
   ifelse(molar, out / x@mw, out)
@@ -274,7 +326,7 @@ imaxinletu <- function(x, qh = 1.616, molar = FALSE) {
 #' @returns Numeric.
 #' @export
 #'
-imaxintest <- function(x, qent = 18/60, molar = FALSE) {
+imaxintest <- function(x, qent = 18/60, molar = TRUE) {
   validate_perpetrator(x)
   if(x@oral == FALSE) {
     out <- imaxssu(x)
@@ -286,13 +338,10 @@ imaxintest <- function(x, qent = 18/60, molar = FALSE) {
 }
 
 
-setGeneric("kc", function(x, qh = 1.616, qent = 18/60, molar = TRUE) standardGeneric("kc"))
-
-
 #' Key perpetrator concentrations
 #'
-#' This function returns the relevant perpetrator concentrations in
-#' \eqn{\mu M} (default) or ng/ml for a DDI perpetrator compound.
+#' Print a markdown-formatted table of the relevant perpetrator
+#' concentrations in \eqn{\mu M} and ng/ml for a DDI perpetrator compound.
 #'
 #' @details
 #' ## Gut concentration
@@ -340,111 +389,31 @@ setGeneric("kc", function(x, qh = 1.616, qent = 18/60, molar = TRUE) standardGen
 #' Rostami-Hodjegan and Tucker, 2004) the blood-to-plasma ratio and the plasma
 #' binding of the drug are not applicable.
 #'
-#' @param x A perpetrator compound object.
-#' @param qh Hepatic blood flow in l/min, defaults to 1.616 l/min.
-#' @param qent Enteric blood flow in l/min, defaults to 0.3 l/min = 18 l/h.
-#' @param molar Output in molar concentration (uM, default).
+#' @param x DDI perpetrator object.
+#' @param round Number of decimal places.
+#' @param qh Hepatic blood flow in L/min.
+#' @param qent Enteric blood flow in L/min.
 #'
-#' @returns Numeric
+#' @returns Markdown-formatted text.
 #' @export
-setMethod("kc", "compound", function(x, qh = 1.616, qent = 18/60, molar = TRUE) {
+key_conc <- function(
+    x,
+    round = 2,
+    qh = 1.616,
+    qent = 18/60) {
+  # input validation
   validate_perpetrator(x)
-  c(
-    igut = igut(x, molar = molar),
-    imaxssu = imaxssu(x, molar = molar),
-    imaxinletu = imaxinletu(x, qh = qh, molar = molar),
-    imaxintest = imaxintest(x, qent = qent, molar = molar)
-  )
-})
 
-
-
-#' Title
-#'
-#' @param x Compound object
-#'
-#' @returns Markdown-formatted text
-#' @export
-setGeneric("prop", function(x) standardGeneric("prop"))
-
-
-#' Property table for perpetrator object
-#'
-#' @param compound Compound object
-#'
-#' @returns Markdown-formatted text
-#' @export
-setMethod("prop", "compound", function(x) {
-  out <- tibble::tribble(
-          ~param,             ~parameter,   ~unit,
-          "oral",                 "oral",      "",
-            "mw",         "$MW$ (g/mol)", "g/mol",
-          "dose",          "$dose$ (mg)",    "mg",
-    "solubility",  "$solubility$ (mg/l)",  "mg/l",
-        "imaxss", "$C_{max,ss}$ (ng/ml)", "ng/ml",
-            "fu",                "$f_u$",      "",
-         "fumic",          "$f_{u,mic}$",      "",
-            "rb",                "$R_B$",      "",
-            "fa",                "$F_a$",      "",
-            "fg",                "$F_g$",      "",
-            "ka",        "$k_a$ (1/min)",  "/min"
-    ) |>
-    mutate(value = sapply(
-      c(x@oral, x@mw, x@dose, x@solubility, x@imaxss, x@fu, x@fumic, x@rb,
-        x@fa, x@fg, x@ka),
-      as.character)) |>
-    select(-unit)
-
-    out$source <- unlist(lapply(
-      out$param,
-      function(i) {
-        ifelse(
-          !is.na(slot(x, "source")[i]),
-          slot(x, "source")[i],
-          ""
-        )
-      }
-    ))
-
-  if (x@oral == FALSE) {
-    out <- out %>%
-      filter(!(param %in% c("fa", "fg", "ka")))
+  # calculations
+  kc <- function(x, molar = TRUE) {
+    c(
+      igut = igut(x, molar = molar),
+      imaxssu = imaxssu(x, molar = molar),
+      imaxinletu = imaxinletu(x, qh = qh, molar = molar),
+      imaxintest = imaxintest(x, qent = qent, molar = molar)
+    )
   }
 
-  out <- out %>%
-    dplyr::select(parameter, value, source) %>%
-    knitr::kable(caption = paste("Compound parameters for", x@name))
-
-  out
-})
-
-
-#' Title
-#'
-#' @param compound Compound object
-#'
-#' @returns markdown-formatted text
-#' @export
-setMethod("print", "compound", function(x) prop(x))
-
-
-#' Title
-#'
-#' @param x Compound object
-#' @param round Markdown-formatted text
-#'
-#' @returns Markdown-formatted text
-#' @export
-setGeneric("conctbl", function(x, round = 2) standardGeneric("conctbl"))
-
-
-#' Title
-#'
-#' @param compound Compound object
-#'
-#' @returns Markdown-formatted text
-#' @export
-setMethod("conctbl", "compound", function(x, round = 2) {
   temp <- tibble::tribble(
     ~parameter,
     "$I_{gut}$",
@@ -460,6 +429,6 @@ setMethod("conctbl", "compound", function(x, round = 2) {
   caption <- paste0("Key perpetrator concentrations for ", x@name)
 
   knitr::kable(temp, col.names = col_names, caption = caption)
-})
+}
 
 

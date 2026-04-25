@@ -4,7 +4,7 @@
 \alias{imaxintest}
 \title{Intestinal Cmax,u}
 \usage{
-imaxintest(x, qent = 18/60, molar = FALSE)
+imaxintest(x, qent = 18/60, molar = TRUE)
 }
 \arguments{
 \item{x}{A perpetrator compound object.}

@@ -2,16 +2,16 @@
 % Please edit documentation in R/risk.R
 \name{print,ddi_risk-method}
 \alias{print,ddi_risk-method}
-\title{Title}
+\title{Print ddi_risk object}
 \usage{
 \S4method{print}{ddi_risk}(x)
 }
 \arguments{
-\item{ddi_risk}{}
+\item{ddi_risk}{Ddi_risk object.}
 }
 \value{
 Markdown-formatted text.
 }
 \description{
-Title
+Print ddi_risk object
 }

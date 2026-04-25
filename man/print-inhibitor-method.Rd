@@ -2,16 +2,16 @@
 % Please edit documentation in R/inhibitor.R
 \name{print,inhibitor-method}
 \alias{print,inhibitor-method}
-\title{Title}
+\title{Print DDI inhibitor object.}
 \usage{
 \S4method{print}{inhibitor}(x)
 }
 \arguments{
-\item{inhibitor}{Inhibitor object}
+\item{inhibitor}{Inhibitor object.}
 }
 \value{
-Markdown-formatted text
+Markdown-formatted text.
 }
 \description{
-Title
+Print DDI inhibitor object.
 }

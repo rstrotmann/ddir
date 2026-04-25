@@ -3,17 +3,17 @@
 \docType{class}
 \name{inducer-class}
 \alias{inducer-class}
-\title{Title}
+\title{DDI CYP inducer data object}
 \value{
 Inducer object
 }
 \description{
-Title
+DDI CYP inducer data object
 }
 \section{Slots}{
 
 \describe{
-\item{\code{object}}{character.}
+\item{\code{object}}{The name of the DDI perpetrator as character.}
 
 \item{\code{data}}{data.frame.}
 }}

@@ -2,12 +2,36 @@
 % Please edit documentation in R/inhibitor.R
 \name{inhibitor}
 \alias{inhibitor}
-\title{Title}
+\title{DDI inhibition data object constructor.}
 \usage{
 inhibitor(data, object = "")
 }
 \arguments{
-\item{data}{Data frame}
+\item{data}{Data frame with the following fields:
+\subsection{Direct CYP or UGT inhibition}{
+\itemize{
+\item target: The CYP or UGT enzyme target as character.
+\item ki: The ki in uM.
+\item source: Source information (e.g., study name) as character.
+}
+}
+
+\subsection{Time-dependent CYP inhibition}{
+\itemize{
+\item target: The CYP or UGT enzyme target as character.
+\item ki: The ki in uM.
+\item kinact: The kinact in 1/h.
+\item source: Source information (e.g., study name) as character.
+}
+}
+
+\subsection{Transporter inhibition}{
+\itemize{
+\item target: The transporter target as character.
+\item ic50: The IC50 in uM.
+\item source: Source information (e.g., study name) as character.
+}
+}}
 
 \item{object}{Character}
 }
@@ -15,5 +39,5 @@ inhibitor(data, object = "")
 Inhibitor object
 }
 \description{
-Title
+DDI inhibition data object constructor.
 }

@@ -2,16 +2,16 @@
 % Please edit documentation in R/inducer.R
 \name{print,inducer-method}
 \alias{print,inducer-method}
-\title{Title}
+\title{Print DDI inducer object}
 \usage{
 \S4method{print}{inducer}(x)
 }
 \arguments{
-\item{inducer}{Inducer object}
+\item{inducer}{DDI inducer object}
 }
 \value{
-markdown-formatted text
+Markdown-formatted text
 }
 \description{
-Title
+Print DDI inducer object
 }

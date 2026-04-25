@@ -2,16 +2,16 @@
 % Please edit documentation in R/inhibitor.R
 \name{show,inhibitor-method}
 \alias{show,inhibitor-method}
-\title{Title}
+\title{Show DDI inhibitor object.}
 \usage{
 \S4method{show}{inhibitor}(object)
 }
 \arguments{
-\item{inhibitor}{Inhibitor object}
+\item{inhibitor}{Inhibitor object.}
 }
 \value{
 Nothing.
 }
 \description{
-Title
+Show DDI inhibitor object.
 }

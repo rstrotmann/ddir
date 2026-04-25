@@ -4,7 +4,7 @@
 \alias{imaxinletu}
 \title{Cmax,u at the hepatic inlet}
 \usage{
-imaxinletu(x, qh = 1.616, molar = FALSE)
+imaxinletu(x, qh = 1.616, molar = TRUE)
 }
 \arguments{
 \item{x}{A perpetrator compound object.}

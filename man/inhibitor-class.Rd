@@ -3,12 +3,12 @@
 \docType{class}
 \name{inhibitor-class}
 \alias{inhibitor-class}
-\title{Direct inhibitor class definition}
+\title{Inhibitor class definition}
 \value{
 An inhibitor class object.
 }
 \description{
-Direct inhibitor class definition
+Inhibitor class definition
 }
 \section{Slots}{
 

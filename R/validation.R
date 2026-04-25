@@ -1,5 +1,5 @@
 validate_perpetrator <- function(object) {
-  if (!inherits(object, "compound"))
+  if (!inherits(object, "perpetrator"))
     stop("object must be a perpetrotor object")
 }
 

@@ -1,105 +1,4 @@
-# cyp_inhibitor_data <- function(
-#     target, ki, source = character(0)
-# ){
-#   # input validation
-#   validate_argument(target, "character")
-#   validate_named_vector(ki, allowed_names = c(
-#     "CYP1A2", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19", "CYP2D6", "CYP3A4"))
-#   validate_argument(source, "character", allow_multiple = TRUE)
-#
-#   # source must either be a named vector or a singleton
-#   if (!has_names(source)) {
-#     if (length(source) > 1)
-#       stop("Source must be a named vector or an unnamed scalar")
-#     if (length(source) == 0)
-#       source <- ""
-#     source_table <- data.frame(
-#       cyp = names(ki),
-#       source = source
-#     )
-#   } else {
-#     unknown <- setdiff(names(source), names(ki))
-#     if (length(unknown) > 0) {
-#       stop(paste0(
-#         "source contains unknown parameter name(s): ",
-#         nice_enumeration(unknown)
-#       ))
-#     }
-#     source_table <- enframe(source, name = "cyp", value = "source") |>
-#       mutate(cyp = as.character(cyp))
-#   }
-#
-#   out <- data.frame(
-#     name = target,
-#     cyp = names(ki),
-#     ki = ki
-#   )
-#
-#   out <- out |>
-#     left_join(source_table, by = "cyp") |>
-#     mutate(source = case_when(is.na(.data$source) ~ "", .default = .data$source))
-#
-#   out
-# }
-
-
-# direct inhibition
-
-# di <- tibble::tribble(
-#        ~object,   ~target,  ~ki,     ~source,
-#   "examplinib",  "CYP3A4",    1,  "source 1",
-#   "examplinib",  "CYP1A2",    2,  "source 2",
-#   "examplinib",  "CYP2D6",    3,          "",
-#   "examplinib",  "UGT1A1",   15, "study 009",
-#   "examplinib",  "UGT1A3",   15, "study 009",
-#   "examplinib",  "UGT1A4",   15, "study 009",
-#   "examplinib",  "UGT1A6",   15, "study 009",
-#   "examplinib",  "UGT1A9",  3.8, "study 009",
-#   "examplinib",  "UGT2B7",   15, "study 009",
-#   "examplinib", "UGT2B15",   15, "study 009",
-#   "examplinib", "UGT2B17",  6.1, "study 009",
-#   "examplinib",     "Pgp", 0.41, "study 005",
-#   "examplinib",    "BCRP",  1.9, "study 005",
-#   "examplinib",    "OCT1",  2.3, "study 006",
-#   "examplinib", "OATP1B1",  177, "study 006",
-#   "examplinib", "OATP1B3",   35, "study 006",
-#   "examplinib",    "OAT1",  271,          "",
-#   "examplinib",    "OAT3",  300,          "",
-#   "examplinib",    "BSEP", 12.8,          "",
-#   "examplinib",    "OCT2",   67, "study 006",
-#   "examplinib",   "MATE1",  3.6, "study 006",
-#   "examplinib",  "MATE2k",  1.1, "study 006"
-# )
-#
-#
-# di <- tibble::tribble(
-#     ~target,  ~ki,     ~source,
-#    "CYP3A4",    1,  "source 1",
-#    "CYP1A2",    2,  "source 2",
-#    "CYP2D6",    3,          "",
-#    "UGT1A1",   15, "study 009",
-#    "UGT1A3",   15, "study 009",
-#    "UGT1A4",   15, "study 009",
-#    "UGT1A6",   15, "study 009",
-#    "UGT1A9",  3.8, "study 009",
-#    "UGT2B7",   15, "study 009",
-#   "UGT2B15",   15, "study 009",
-#   "UGT2B17",  6.1, "study 009",
-#       "Pgp", 0.41, "study 005",
-#      "bcrp",  1.9, "study 005",
-#      "OCT1",  2.3, "study 006",
-#   "OATP1B1",  177, "study 006",
-#   "OATP1B3",   35, "study 006",
-#      "OAT1",  271,          "",
-#      "OAT3",  300,          "",
-#      "BSEP", 12.8,          "",
-#      "OCT2",   67, "study 006",
-#     "MATE1",  3.6, "study 006",
-#    "MATE2k",  1.1, "study 006"
-# )
-
-
-#' Direct inhibitor class definition
+#' Inhibitor class definition
 #'
 #' @slot object Name of perpetrator.
 #' @slot data Data frame with the fields 'object', 'ki' and 'source'.
@@ -123,14 +22,41 @@ setClass(
 )
 
 
-#' Title
+#' DDI inhibition data object constructor.
 #'
-#' @param data Data frame
+#' @param data Data frame with the following fields:
+#'
+#' ### Direct CYP or UGT inhibition
+#'
+#' * target: The CYP or UGT enzyme target as character.
+#' * ki: The ki in uM.
+#' * source: Source information (e.g., study name) as character.
+#'
+#' ### Time-dependent CYP inhibition
+#'
+#' * target: The CYP or UGT enzyme target as character.
+#' * ki: The ki in uM.
+#' * kinact: The kinact in 1/h.
+#' * source: Source information (e.g., study name) as character.
+#'
+#' ### Transporter inhibition
+#'
+#' * target: The transporter target as character.
+#' * ic50: The IC50 in uM.
+#' * source: Source information (e.g., study name) as character.
+#'
 #' @param object Character
 #'
 #' @returns Inhibitor object
 #' @export
 inhibitor <- function(data, object = "") {
+  if (is.null(data))
+    data <- data.frame(
+      target = character(0),
+      ki = numeric(0),
+      kinact = numeric(0),
+      source = character(0)
+    )
   new("inhibitor", data = data, object = object)
 }
 
@@ -171,9 +97,9 @@ setValidity("inhibitor", function(object) {
 })
 
 
-#' Title
+#' Show DDI inhibitor object.
 #'
-#' @param inhibitor Inhibitor object
+#' @param inhibitor Inhibitor object.
 #'
 #' @returns Nothing.
 #' @export
@@ -194,11 +120,11 @@ setMethod(
 )
 
 
-#' Title
+#' Print DDI inhibitor object.
 #'
-#' @param inhibitor Inhibitor object
+#' @param inhibitor Inhibitor object.
 #'
-#' @returns Markdown-formatted text
+#' @returns Markdown-formatted text.
 #' @export
 setMethod(
   "print", "inhibitor",

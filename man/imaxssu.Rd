@@ -4,7 +4,7 @@
 \alias{imaxssu}
 \title{Cmax,ss,u}
 \usage{
-imaxssu(x, molar = FALSE)
+imaxssu(x, molar = TRUE)
 }
 \arguments{
 \item{x}{A perpetrator compound object.}
