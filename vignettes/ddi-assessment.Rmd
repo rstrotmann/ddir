@@ -82,7 +82,7 @@ examplinib_parent
 The `ddir` package provides multiple options to create perpetrator objects. In the simplest case, the function `make_perpetrator()` can be used:
 
 ```{r}
-perp <- make_perpetrator(
+perp <- perpetrator(
   name = "test",
   dose = 100,
   imaxss = 1000,
@@ -105,22 +105,17 @@ To facilitate the generation of R notebook-based reports, `property_table()` can
 be used to print a markdown-formatted table of the key compound parameters:
 
 ```{r}
-property_table(examplinib_parent)
+print(examplinib_parent)
 ```
 
 # Perpetrator concentrations
 
-The relevant perpetrator concentrations (in $\mu M$) for a perpetrator compound
-can be determined using `key_concentrations()` - please see the documentation to
-this function for details about the calculations. While this function returns a
-named numeric vector of the naked concentrations, a markdown-formatted tabular
-output that can be directly embedded in R notebook documents can be generated
-using `conc_table()':
+The relevant perpetrator concentrations for a perpetrator compound
+can be determined using `key_conc()` - please see the documentation to
+this function for details about the calculations.
 
 ```{r}
-key_concentrations(examplinib_parent)
-
-conc_table(examplinib_parent)
+key_conc(examplinib_parent)
 ```
 
 # Direct enzyme inhibition
@@ -128,25 +123,19 @@ conc_table(examplinib_parent)
 ## CYP enzymes
 
 ```{r}
-basic_cyp_inhibition_risk(examplinib_parent, examplinib_cyp_inhibition_data)
-
-basic_cyp_inhibition_risk_table(examplinib_parent, examplinib_cyp_inhibition_data)
+print(basic_cyp_inhibition_risk(examplinib_parent, examplinib_cyp_inh_parent))
 ```
 
 ## UGT enzymes
 
 ```{r}
-basic_ugt_inhibition_risk(examplinib_parent, examplinib_ugt_inhibition_data)
-
-basic_ugt_inhibition_risk_table(examplinib_parent, examplinib_ugt_inhibition_data)
+print(basic_ugt_inhibition_risk(examplinib_parent, examplinib_ugt_inh_parent))
 ```
 
 # Time-dependent enzyme inhibition
 
 ```{r}
-basic_cyp_tdi_risk(examplinib_parent, examplinib_cyp_tdi_data)
-
-basic_cyp_tdi_risk_table(examplinib_parent, examplinib_cyp_tdi_data)
+print(basic_cyp_tdi_risk(examplinib_parent, examplinib_cyp_tdi_parent))
 ```
 
 # CYP induction
@@ -154,35 +143,26 @@ basic_cyp_tdi_risk_table(examplinib_parent, examplinib_cyp_tdi_data)
 ## Fold-change method
 
 ```{r}
-static_cyp_induction_risk(examplinib_parent, examplinib_cyp_induction_data)
-
-static_cyp_induction_risk_table(examplinib_parent, examplinib_cyp_induction_data)
+print(static_cyp_induction_risk(examplinib_parent, examplinib_cyp_ind_parent))
 ```
 
 ## Basic kinetic model
 
 ```{r}
-kinetic_cyp_induction_risk(examplinib_parent, examplinib_cyp_induction_data)
-
-kinetic_cyp_induction_risk_table(examplinib_parent, examplinib_cyp_induction_data)
+print(kinetic_cyp_induction_risk(examplinib_parent, examplinib_cyp_ind_parent))
 ```
 
 # Mechanistic-static assessment of CYP-related DDI
 
 ```{r}
-mech_stat_cyp_risk(examplinib_parent, examplinib_cyp_inhibition_data,
-                   examplinib_cyp_induction_data)
-
-mech_stat_cyp_risk_table(examplinib_parent, examplinib_cyp_inhibition_data,
-                         examplinib_cyp_induction_data)
+print(mech_stat_cyp_risk(examplinib_parent, examplinib_cyp_inh_parent,
+                   examplinib_cyp_ind_parent))
 ```
 
 # Transporter inhibition
 
 ```{r}
-transporter_inhibition_risk(examplinib_parent, examplinib_transporter_inhibition_data)
-
-transporter_inhibition_risk_table(examplinib_parent, examplinib_transporter_inhibition_data)
+print(transporter_inh_risk(examplinib_parent, examplinib_transporter_inh_parent))
 ```
 
 

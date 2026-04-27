@@ -42,7 +42,6 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="articles/ddi-assessment.html">DDI assessment</a></li>
-    <li><a class="dropdown-item" href="articles/load-data.html">Load compound-specific data</a></li>
   </ul>
 </li>
       </ul>
@@ -62,7 +61,7 @@
 </h1></div>
 <!-- badges: start -->
 <!-- badges: end -->
-<p>This package provides functions for the calculation and documentation of the potential of drugs to act as perpetrators of clinically relevant drug-drug interaction (DDI).</p>
+<p>Functions for the calculation and documentation of the potential of drugs to act as perpetrators of clinically relevant drug-drug interaction (DDI).</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -73,12 +72,13 @@
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<p>The package provides sample data for a fictional drug, <code>examplinib</code>. The following code shows the relevant drug properties for examplinib, and calculates the perpetrator DDI risk for direct CYP inhibition (basic method). Both are provided as markdown-formatted output tables:</p>
+<p>The package provides sample data for a fictional drug, <code>examplinib</code>. The following code shows the relevant drug properties for examplinib, and calculates the perpetrator DDI risk for direct CYP inhibition (basic method). All are provided as markdown-formatted output tables:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">ddir</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/" class="external-link">knitr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="va">examplinib_parent</span></span>
-<span><span class="fu">property_table</span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr>
 <th align="left">parameter</th>
@@ -88,7 +88,7 @@
 <tbody>
 <tr>
 <td align="left">oral</td>
-<td align="left">TRUE</td>
+<td align="left">1</td>
 <td align="left"></td>
 </tr>
 <tr>
@@ -102,6 +102,12 @@
 <span class="math inline">\(dose\)</span> (mg)</td>
 <td align="left">450</td>
 <td align="left">clinical dose</td>
+</tr>
+<tr>
+<td align="left">
+<span class="math inline">\(solubility\)</span> (mg/l)</td>
+<td align="left">Inf</td>
+<td align="left"></td>
 </tr>
 <tr>
 <td align="left">
@@ -140,111 +146,112 @@
 <td align="left">0.00267</td>
 <td align="left">unknown</td>
 </tr>
+</tbody>
+</table>
+<p>Perpetrator compound parameters for examplinib</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">examplinib_cyp_inh_parent</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<thead><tr>
+<th align="left">target</th>
+<th align="right">
+<span class="math inline">\(K_{i}\)</span> (<span class="math inline">\(\mu M\)</span>)</th>
+<th align="left">source</th>
+</tr></thead>
+<tbody>
 <tr>
-<td align="left">
-<span class="math inline">\(solubility\)</span> (mg/l)</td>
-<td align="left">Inf</td>
-<td align="left">default</td>
+<td align="left">CYP2C8</td>
+<td align="right">11.00</td>
+<td align="left">(study 001)</td>
+</tr>
+<tr>
+<td align="left">CYP2C9</td>
+<td align="right">0.60</td>
+<td align="left">(study 001)</td>
+</tr>
+<tr>
+<td align="left">CYP2C19</td>
+<td align="right">0.25</td>
+<td align="left">(study 001)</td>
+</tr>
+<tr>
+<td align="left">CYP3A4</td>
+<td align="right">12.50</td>
+<td align="left">(study 001)</td>
 </tr>
 </tbody>
 </table>
-<p>Compound parameters for examplinib</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">basic_cyp_inhibition_risk_table</span><span class="op">(</span><span class="va">p</span>, <span class="va">examplinib_cyp_inhibition_data</span><span class="op">)</span></span></code></pre></div>
+<p>In vitro inhibition data for examplinib</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="reference/basic_cyp_inhibition_risk.html">basic_cyp_inhibition_risk</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">examplinib_cyp_inh_parent</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="9%">
-<col width="14%">
-<col width="17%">
-<col width="7%">
-<col width="17%">
-<col width="13%">
-<col width="20%">
+<col width="12%">
+<col width="12%">
+<col width="12%">
+<col width="12%">
+<col width="12%">
+<col width="12%">
+<col width="12%">
+<col width="12%">
 </colgroup>
 <thead><tr>
-<th align="left">CYP</th>
+<th align="left">target</th>
 <th align="right">
-<span class="math inline">\(K_{i}\)</span> (µM)</th>
+<span class="math inline">\(K_{i}\)</span> (<span class="math inline">\(\mu M\)</span>)</th>
 <th align="right">
-<span class="math inline">\(K_{i,u}\)</span> (µM)</th>
-<th align="left"><span class="math inline">\(R_1\)</span></th>
+<span class="math inline">\(K_{i,u}\)</span> (<span class="math inline">\(\mu M\)</span>)</th>
+<th align="left">source</th>
+<th align="right"><span class="math inline">\(R\)</span></th>
 <th align="left">risk (hepatic)</th>
-<th align="left"><span class="math inline">\(R_{1,gut}\)</span></th>
+<th align="right"><span class="math inline">\(R_{gut}\)</span></th>
 <th align="left">risk (intestinal)</th>
 </tr></thead>
 <tbody>
 <tr>
-<td align="left">CYP1A2</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-</tr>
-<tr>
-<td align="left">CYP2B6</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-</tr>
-<tr>
 <td align="left">CYP2C8</td>
-<td align="right">11.0</td>
-<td align="right">11.0</td>
-<td align="left">1.015</td>
-<td align="left">FALSE</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="right">11.00</td>
+<td align="right">11.00</td>
+<td align="left">study 001</td>
+<td align="right">0.01</td>
+<td align="left">No</td>
+<td align="right">NA</td>
+<td align="left"></td>
 </tr>
 <tr>
 <td align="left">CYP2C9</td>
-<td align="right">13.5</td>
-<td align="right">13.5</td>
-<td align="left">1.012</td>
-<td align="left">FALSE</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="right">0.60</td>
+<td align="right">0.60</td>
+<td align="left">study 001</td>
+<td align="right">0.27</td>
+<td align="left">Yes</td>
+<td align="right">NA</td>
+<td align="left"></td>
 </tr>
 <tr>
 <td align="left">CYP2C19</td>
-<td align="right">15.0</td>
-<td align="right">15.0</td>
-<td align="left">1.011</td>
-<td align="left">FALSE</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-</tr>
-<tr>
-<td align="left">CYP2D6</td>
+<td align="right">0.25</td>
+<td align="right">0.25</td>
+<td align="left">study 001</td>
+<td align="right">0.66</td>
+<td align="left">Yes</td>
 <td align="right">NA</td>
-<td align="right">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left"></td>
 </tr>
 <tr>
 <td align="left">CYP3A4</td>
-<td align="right">12.5</td>
-<td align="right">12.5</td>
-<td align="left">1.013</td>
-<td align="left">FALSE</td>
-<td align="left">293.3</td>
-<td align="left">TRUE</td>
+<td align="right">12.50</td>
+<td align="right">12.50</td>
+<td align="left">study 001</td>
+<td align="right">0.01</td>
+<td align="left">No</td>
+<td align="right">292.33</td>
+<td align="left">Yes</td>
 </tr>
 </tbody>
 </table>
-<p>Risk for direct CYP inhibition by examplinib (basic model)</p>
-<p>See also: <code>kinetic_cyp_induction_risk_table()</code>, <code>mech_stat_cyp_risk_table()</code>, <code>basic_ugt_inhibition_risk_table()</code>, <code>transporter_inhibition_risk_table()</code></p>
-</div>
-<div class="section level2">
-<h2 id="full-ddi-perpetrator-report">Full DDI perpetrator report<a class="anchor" aria-label="anchor" href="#full-ddi-perpetrator-report"></a>
-</h2>
-<p>As an easy starting point for your own full DDI perpetrator report, load the sample DDI report from the package source or <a href="https://github.com/rstrotmann/ddir/blob/main/R/DDI-report_examplinib.Rmd" class="external-link">github</a>, replace the compound-specific data with the data for your drug, and <code>knit()</code> to a Word or pdf document.</p>
+<p>Direct CYP inhibition risk for examplinib</p>
+<p>See also: <code><a href="reference/kinetic_cyp_induction_risk.html">kinetic_cyp_induction_risk()</a></code>, <code><a href="reference/mech_stat_cyp_risk.html">mech_stat_cyp_risk()</a></code>, <code><a href="reference/basic_ugt_inhibition_risk.html">basic_ugt_inhibition_risk()</a></code>, <code>transporter_inhibition_risk()</code></p>
 <p>Full documentation for <code>ddir</code> can be found together with the source code on <a href="https://github.com/rstrotmann/ddir" class="external-link">github</a>.</p>
 </div>
 </div>

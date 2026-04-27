@@ -131,6 +131,7 @@ basic_ugt_inhibition_risk <- function(perp, ugt_inh) {
     ))
 
   out <- ki |>
+    mutate(ki = ic50/2) |>
     mutate(kiu = ki * perp@fumic) |>
     mutate(r = imaxssu(perp) / kiu) |>
     mutate(risk = r > 0.02) |>
@@ -435,23 +436,10 @@ mech_stat_cyp_risk <- function(
   if (!inherits(cyp_ind, "inducer")) {
     stop("cyp_ind must be an inducer object")
   }
-  if (!inherits(cyp_tdi, "inhibitor")) {
-    stop("cyp_tdi must be an inhibitor object")
-  }
+  if (!is.null(cyp_tdi))
+    if (!inherits(cyp_tdi, "inhibitor"))
+      stop("cyp_tdi must be an inhibitor object")
 
-  # allowed_target <- c("CYP1A2", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19",
-  #                     "CYP2D6", "CYP3A4")
-  # ki <- filter(cyp_inh@data, target %in% allowed_target)
-  # if (nrow(ki) == 0)
-  #   stop("No inhibition data for known CYP enzymes found")
-  #
-  # excluded_target <- setdiff(unique(cyp_inh@data$target), allowed_target)
-  # if (length(excluded_target) > 0)
-  #   warning(paste0(
-  #     "Non-CYP data were excluded (",
-  #     nice_enumeration(excluded_target),
-  #     ")"
-  #   ))
 
   # risk assessment
   fumic <- perp@fumic
