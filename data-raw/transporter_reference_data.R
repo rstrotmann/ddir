@@ -2,38 +2,23 @@
 library(devtools)
 library(usethis)
 
-transporter_reference_data <- tribble(
-  # ~transporter, ~thld, ~ema_thld, ~i,
-  # "Pgp_int",    10.0,      10.00,     "igut",
-  # "Pgp_sys",    0.1,       0.02,      "imaxssu",
-  # "BCRP_int",   10.0,      10.00,     "igut",
-  # "BCRP_sys",   0.1,       0.02,      "imaxssu",
-  # "OCT1",       NA,        0.04,      "imaxinletu",
-  # "OATP1B1",    0.1,       0.04,      "imaxinletu",
-  # "OATP1B3",    0.1,       0.04,      "imaxinletu",
-  # "OAT1",       0.1,       0.04,      "imaxssu",
-  # "OAT3",       0.1,       0.04,      "imaxssu",
-  # "BSEP",       0.1,       0.02,      "imaxssu",
-  # "OCT2",       0.1,       0.02,      "imaxssu",
-  # "MATE1",      0.1,       0.02,      "imaxssu",
-  # "MATE2k",     0.1,       0.02,      "imaxssu"
+transporter_reference_data <- tibble::tribble(
+  ~transporter, ~threshold,           ~i,
+     "Pgp_int",         10,       "igut",
+     "Pgp_sys",       0.02,    "imaxssu",
+    "BCRP_int",         10,       "igut",
+    "BCRP_sys",       0.02,    "imaxssu",
+     "OATP1B1",        0.1, "imaxinletu",
+     "OATP1B3",        0.1, "imaxinletu",
+        "OAT1",        0.1,    "imaxssu",
+        "OAT3",        0.1,    "imaxssu",
+        "BSEP",        0.1,    "imaxssu",
+        "OCT1",         NA,           NA,
+        "OCT2",        0.1,    "imaxssu",
+       "MATE1",       0.02,    "imaxssu",
+      "MATE2k",       0.02,    "imaxssu"
+  )
 
-  ~transporter, ~threshold, ~i,
-  "Pgp_int",    10.0,  "igut",
-  "Pgp_sys",    0.02,  "imaxssu",
-  "BCRP_int",   10.0,  "igut",
-  "BCRP_sys",   0.02,  "imaxssu",
-  # "OCT1",       NA,    "imaxinletu",
-  "OATP1B1",    0.1,   "imaxinletu",
-  "OATP1B3",    0.1,   "imaxinletu",
-  "OAT1",       0.1,   "imaxssu",
-  "OAT3",       0.1,   "imaxssu",
-  "BSEP",       0.1,   "imaxssu",
-  "OCT1",       NA,    NA,
-  "OCT2",       0.1,   "imaxssu",
-  "MATE1",      0.02,   "imaxssu",
-  "MATE2k",     0.02,   "imaxssu"
-)
 
 usethis::use_data(transporter_reference_data, overwrite = TRUE)
 

@@ -111,7 +111,7 @@ setMethod(
     cat(paste("In vitro inhibition data for object", object@object, "\n\n"))
     out <- object@data |>
       mutate(source = case_when(
-        !is.na(source) ~ paste0("(", source, ")"),
+        !is.na(source) & !source == "" ~ paste0("(", source, ")"),
         .default = ""
     ))
 
@@ -138,7 +138,7 @@ setMethod(
 
     out <- x@data |>
       mutate(source = case_when(
-        !is.na(source) ~ paste0("(", source, ")"),
+        !is.na(source) & source != "" ~ paste0("(", source, ")"),
         .default = ""
       )) |>
       # kable(caption = caption, col.names = c("Target", "$K_{i}$", "Source"))

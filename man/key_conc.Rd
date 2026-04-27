@@ -19,7 +19,7 @@ key_conc(x, round = 2, qh = 1.616, qent = 18/60)
 Markdown-formatted text.
 }
 \description{
-This function prints a markdown-formatted table of the relevant perpetrator
+Print a markdown-formatted table of the relevant perpetrator
 concentrations in \eqn{\mu M} and ng/ml for a DDI perpetrator compound.
 }
 \details{

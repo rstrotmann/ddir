@@ -1,3 +1,23 @@
+
+convert_df_to_perp <- function(x) {
+  out <- perpetrator("", TRUE, 0, 0, 0)
+  for (p in c("mw", "dose", "imaxss", "fu", "fummic", "rb", "fa", "fg", "ka", "solubility")) {
+    if (p %in% x$param) {
+      slot(out, p) <- as.numeric(x[x$param == p, "value"])
+    }
+  }
+  if ("name" %in% x$param) slot(out, "name") <- x[x$param == "name", "value"]
+  if ("oral" %in% x$param) slot(out, "oral") <- as.logical(x[x$param == "oral", "value"])
+  source <- x$source
+  names(source) <- x$param
+  slot(out, "source") <- source[source != ""]
+  out
+}
+
+
+
+
+
 #' Read perpetrator information from file or text string
 #'
 #' The input source can either be a file name as string or a text connection.
@@ -27,27 +47,18 @@
 #'
 #' Lines starting with '#' are considered comments and are not evaluated.
 #'
-#' Note that multiple compounds, e.g., the parent and metabolites may be
-#' included in the perpetrator file. The below is an example of a valid compound
-#' file:
-#'
-#' ```{r echo=F, comment=NA}
-#' cat(examplinib_compounds_string)
-#' ```
-#'
 #' @param source The file name or text connection to read from.
 #' @return A perpetrator object if only one compound in the input source, or
 #' list of perpetrator objects.
 #' @import dplyr
-#' @export
-#'
-#' @examples
-#' read_perpetrators(textConnection(examplinib_compounds_string))
+#' @noRd
 read_perpetrators <- function(source) {
-  raw <- as.data.frame(read.csv(source,
-                                col.names=c("name", "param", "value", "source"),
-                                header = F,
-                                comment.char = '#')) %>%
+  raw <- as.data.frame(read.csv(
+    source,
+    col.names=c("name", "param", "value", "source"),
+    header = F,
+    comment.char = '#')
+  ) %>%
     filter(trimws(name) != "") %>%
     dplyr::mutate(across(everything(), trimws)) %>%
     dplyr::group_by(name) %>%
@@ -57,7 +68,13 @@ read_perpetrators <- function(source) {
     as.data.frame()
 
   data <- split(raw, raw$name)
-  out <- lapply(data, function(x) {x <- new_perpetrator(x %>% select(-name))})
+  out <- lapply(
+    data,
+    function(x) {
+      x <- convert_df_to_perp(x)
+    }
+  )
+
   if(length(out) == 1) {
     return(out[[1]])
   } else {
@@ -74,11 +91,6 @@ read_perpetrators <- function(source) {
 #'
 #' Comment lines must start with '#'.
 #'
-#' @description
-#' `r lifecycle::badge("deprecated")`
-#'
-#' This function is deprecated in favor of [ddir::read_cyp_inhibitor_data()],
-#' [ddir::read_ugt_inhibitor_data()] or [ddir::read_transporter_inhibitor_data()].
 #' @details
 #' A valid source is, e.g.,
 #'
@@ -89,12 +101,15 @@ read_perpetrators <- function(source) {
 #' @param source The connection to read from.
 #'
 #' @return A data frame.
+#' @noRd
 read_inhibitor_data <- function(source) {
-  raw <- as.data.frame(read.csv(source,
-                                col.names=c("name", "item", "ki", "source"),
-                                header = F,
-                                blank.lines.skip = TRUE,
-                                comment.char = '#')) %>%
+  raw <- as.data.frame(read.csv(
+    source,
+    col.names=c("name", "item", "ki", "source"),
+    header = F,
+    blank.lines.skip = TRUE,
+    comment.char = '#')
+  ) %>%
     dplyr::mutate(across(everything(), trimws)) %>%
     dplyr::filter(name != "") %>%
     as.data.frame()
@@ -121,13 +136,28 @@ read_inhibitor_data <- function(source) {
 #' @param source The file or text connection to read from.
 #'
 #' @return A data frame.
-#' @export
-#' @examples
-#' read_ugt_inhibitor_data(textConnection(examplinib_ugt_inhibition_string))
+#' @noRd
 read_ugt_inhibitor_data <- function(source) {
   raw <- read_inhibitor_data(source)
   colnames(raw) <- c("name", "ugt", "ic50", "source")
-  return(raw)
+
+  data <- split(raw, raw$name)
+  out <- lapply(
+    data,
+    function(x) {
+      x <- x |>
+        rename(target = ugt) |>
+        mutate(ic50 = as.numeric(ic50)) |>
+        filter(!is.na(ic50))
+      inhibitor(data = select(x, -name), object <- unique(x$name))
+    }
+  )
+
+  if(length(out) == 1) {
+    return(out[[1]])
+  } else {
+    return(out)
+  }
 }
 
 
@@ -150,73 +180,26 @@ read_ugt_inhibitor_data <- function(source) {
 #' ```
 #' @param source The file or text connection to read from.
 #' @return A data frame.
-#' @export
-#' @examples
-#' read_cyp_inhibitor_data(textConnection(examplinib_cyp_inhibition_string))
+#' @noRd
 read_cyp_inhibitor_data <- function(source) {
   raw <- read_inhibitor_data(source)
-  colnames(raw) <- c("name", "cyp", "ki", "source")
-  return(raw)
-}
-
-
-#' Make CYP inhibition table
-#'
-#' @param target Name of the target.
-#' @param ki Named list.
-#' @param source Named list.
-#'
-#' @returns A data table.
-#' @export
-#'
-#' @examples
-#' cyp_inhibitor_data(
-#' "examplinib",
-#' c(CYP3A4 = 1, CYP1A2 = 2, CYP2D6 = 3),
-#' source = c(CYP3A4 = "source 1", CYP1A2 = "source 2"))
-#'
-cyp_inhibitor_data <- function(
-    target, ki, source = character(0)
-){
-  # input validation
-  validate_argument(target, "character")
-  validate_named_vector(ki, allowed_names = c(
-    "CYP1A2", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19", "CYP2D6", "CYP3A4"))
-  validate_argument(source, "character", allow_multiple = TRUE)
-
-  # source must either be a named vector or a singleton
-  if (!has_names(source)) {
-    if (length(source) > 1)
-      stop("Source must be a named vector or an unnamed scalar")
-    if (length(source) == 0)
-      source <- ""
-    source_table <- data.frame(
-      cyp = names(ki),
-      source = source
-    )
-  } else {
-    unknown <- setdiff(names(source), names(ki))
-    if (length(unknown) > 0) {
-      stop(paste0(
-        "source contains unknown parameter name(s): ",
-        nice_enumeration(unknown)
-      ))
+  colnames(raw) <- c("name", "target", "ki", "source")
+  data <- split(raw, raw$name)
+  out <- lapply(
+    data,
+    function(x) {
+      x <- x |>
+        mutate(ki = as.numeric(ki)) |>
+        filter(!is.na(ki))
+      inhibitor(data = select(x, -name), object <- unique(x$name))
     }
-    source_table <- enframe(source, name = "cyp", value = "source") |>
-      mutate(cyp = as.character(cyp))
-  }
-
-  out <- data.frame(
-    name = target,
-    cyp = names(ki),
-    ki = ki
   )
 
-  out <- out |>
-    left_join(source_table, by = "cyp") |>
-    mutate(source = case_when(is.na(.data$source) ~ "", .default = .data$source))
-
-  out
+  if(length(out) == 1) {
+    return(out[[1]])
+  } else {
+    return(out)
+  }
 }
 
 
@@ -240,17 +223,38 @@ cyp_inhibitor_data <- function(
 #' @param source The connection to read from.
 #'
 #' @return A data frame.
-#' @export
+#' @noRd
 read_tdi_data <- function(source) {
-  raw <- as.data.frame(read.csv(source,
-                                col.names=c("name", "cyp", "ki", "kinact", "source"),
-                                header = F,
-                                blank.lines.skip = TRUE,
-                                comment.char = '#')) %>%
-    dplyr::mutate(across(everything(), trimws)) %>%
-    dplyr::filter(name != "") %>%
-    mutate(across(3:4, as.num)) %>%
+  raw <- as.data.frame(read.csv(
+    source,
+    col.names=c("name", "target", "ki", "kinact", "source"),
+    header = F,
+    blank.lines.skip = TRUE,
+    comment.char = '#')
+  ) |>
+    dplyr::mutate(across(everything(), trimws)) |>
+    dplyr::filter(name != "") |>
+    mutate(across(3:4, as.num)) |>
     as.data.frame()
+
+  data <- split(raw, raw$name)
+  out <- lapply(
+    data,
+    function(x) {
+      x <- x |>
+        mutate(ki = as.numeric(ki)) |>
+        filter(!is.na(ki))
+      inhibitor(data = select(x, -name), object <- unique(x$name))
+    }
+  )
+
+  if(length(out) == 1) {
+    return(out[[1]])
+  } else {
+    return(out)
+  }
+
+  out <- inhibitor(select(raw, -name))
   return(raw)
 }
 
@@ -276,20 +280,37 @@ read_tdi_data <- function(source) {
 #' ```
 #' @param source The connection to read from.
 #' @return The data as data frame.
-#' @export
-#' @examples
-#' read_inducer_data(textConnection(examplinib_cyp_induction_string))
-#'
+#' @noRd
 read_inducer_data <- function(source) {
-  raw <- as.data.frame(read.csv(source,
-                                col.names=c("name", "cyp", "emax", "ec50",
-                                            "maxc", "source"),
-                                header = F,
-                                comment.char = '#')) %>%
-    dplyr::mutate(across(everything(), trimws)) %>%
-    mutate(across(3:5, as.num)) %>%
+  raw <- as.data.frame(read.csv(
+    source,
+    col.names=c("name", "cyp", "emax", "ec50",
+                "maxc", "source"),
+    header = F,
+    comment.char = '#')
+  ) |>
+    dplyr::mutate(across(everything(), trimws)) |>
+    mutate(across(3:5, as.num)) |>
     as.data.frame()
-  return(raw)
+
+  data <- split(raw, raw$name)
+  out <- lapply(
+    data,
+    function(x) {
+      x <- x |>
+        mutate(across(c("emax", "ec50", "maxc"), as.numeric)) |>
+        rename(target = cyp) |>
+        mutate(max_c = maxc) |>
+        filter(!is.na(emax))
+      inducer(data = select(x, -name), object <- unique(x$name))
+    }
+  )
+
+  if(length(out) == 1) {
+    return(out[[1]])
+  } else {
+    return(out)
+  }
 }
 
 
@@ -311,12 +332,25 @@ read_inducer_data <- function(source) {
 #' ```
 #' @param source The file or text connection to read from.
 #' @return A data frame.
-#' @export
-#' @examples
-#' read_transporter_inhibitor_data(textConnection(examplinib_transporter_inhibition_string))
+#' @noRd
 read_transporter_inhibitor_data <- function(source) {
   raw <- read_inhibitor_data(source)
-  colnames(raw) <- c("name", "transporter", "ic50", "source")
-  return(raw)
-}
+  colnames(raw) <- c("name", "target", "ic50", "source")
 
+  data <- split(raw, raw$name)
+  out <- lapply(
+    data,
+    function(x) {
+      x <- x |>
+        mutate(ic50 = as.numeric(ic50)) |>
+        filter(!is.na(ic50))
+      inhibitor(data = select(x, -name), object <- unique(x$name))
+    }
+  )
+
+  if(length(out) == 1) {
+    return(out[[1]])
+  } else {
+    return(out)
+  }
+}

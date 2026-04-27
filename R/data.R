@@ -47,16 +47,6 @@
 "cyp_reference_substrates"
 
 
-#' Perpetrator compound data for examplinib and its metabolite
-#'
-#' A list of two: `perpetrator` objects:
-#' * examplinib, a fictional drug.
-#' * M1, a fictional metabolite of examplinib.
-#'
-#' @source Fictional data, made up for demo purposes.
-"examplinib_compounds"
-
-
 #' Perpetrator compound data for examplinib
 #'
 #' @details
@@ -101,76 +91,22 @@
 "examplinib_metabolite"
 
 
-#' Examplinib compound data as string
-#'
-#' A character string containing data for two perpetrator objects:
-#' * examplinib, a fictional drug.
-#' * M1, a fictional metabolite of examplinib.
-#'
-#' @source Fictional data, made up for demo purposes.
-#' @seealso [ddir::read_perpetrators()]
-"examplinib_compounds_string"
-
-
-#' Examplinib compound data for parent only as string
-#'
-#' A character string containing data for one perpetrator object:
-#' * examplinib, a fictional drug.
-#'
-#' @source Fictional data, made up for demo purposes.
-#' @seealso [ddir::read_perpetrators()]
-"examplinib_compounds_single_string"
-
-
-#' Examplinib CYP inhibitor data as string
-#'
-#' A character string containing CYP inhibition data for examplinib and M1.
-#' @source Fictional data for demo purposes.
-#' @seealso [ddir::read_inhibitor_data()]
-"examplinib_cyp_inhibition_string"
-
-
 #' Examplinib CYP inhibition data
 #'
-#' This data frame is a typical input to the following functions:
-#' [ddir::basic_cyp_inhibition_risk()]
-#' [ddir::basic_cyp_inhibition_risk_table]
-#' [ddir::mech_stat_cyp_risk()]
-#' [ddir::mech_stat_cyp_risk_table()]
-#'
 #' @details
-#' CYP inhibition data can contain ki data for multiple compounds.
-#' \preformatted{
-#'       name   param      value    source
-#'         M1    name         M1
-#'         M1  CYP2C9        4.4 study 002
-#' examplinib    name examplinib
-#' examplinib  CYP1A2         NA
-#' examplinib  CYP2B6         NA
-#' examplinib  CYP2C8         11 study 001
-#' examplinib  CYP2C9       13.5 study 001
-#' examplinib CYP2C19         15 study 001
-#' examplinib  CYP2D6         NA
-#' examplinib  CYP3A4       12.5 study 001
-#' }
-#' @format ## `examplinib_cyp_inhibition_data`
-#' A data frame with the columns `name`, `param`, `value` and `source`, where:
-#' * name is the name of the compound for which the data is recorded
-#' * param contains the respective CYP enzyme names.
-#' * value contains the Ki values for the respective CYP enzyme
-#' * source provides information for the source of the respective value, often
-#'     the name of the DMPK study. This entry is optional.
+#' CYP inhibition data for examplinib
 #'
 #' @source Fictional data, made up for demo purposes.
-"examplinib_cyp_inhibition_data"
+"examplinib_cyp_inh_parent"
 
 
-#' Examplinib CYP TDI data as string
+#' Examplinib metabolite CYP inhibition data
 #'
-#' A character string containing CYP TDI data for examplinib.
-#' @source Fictional data for demo purposes.
-#' @seealso [ddir::read_tdi_data()]
-"examplinib_cyp_tdi_string"
+#' @details
+#' CYP inhibition data for examplinib metabolite
+#'
+#' @source Fictional data, made up for demo purposes.
+"examplinib_cyp_inh_metabolite"
 
 
 #' Examplinib CYP TDI data
@@ -181,107 +117,36 @@
 #' examplinib CYP3A4 30.7   0.04 study 001
 #' }
 #' @source Fictional data, made up for demo purposes.
-"examplinib_cyp_tdi_data"
-
-
-#' Examplinib CYP induction data as string
-#'
-#' A character string containing CYP induction data for examplinib and M1.
-#' @source Fictional data for demo purposes.
-#' @seealso [ddir::read_inducer_data()]
-"examplinib_cyp_induction_string"
+"examplinib_cyp_tdi_parent"
 
 
 #' Examplinib CYP induction data
 #'
-#' @details
-#' \preformatted{
-#'       name     cyp  emax ec50 maxc    source
-#' examplinib  CYP1A2  1.00   NA    5 study 007
-#' examplinib  CYP2B6  1.00   NA    5 study 007
-#' examplinib  CYP2C8    NA   NA   NA
-#' examplinib  CYP2C9    NA   NA   NA
-#' examplinib CYP2C19    NA   NA   NA
-#' examplinib  CYP2D6    NA   NA   NA
-#' examplinib  CYP3A4  7.35 1.64    3 study 007
-#'         M1  CYP1A2  1.00   NA    5 study 007
-#'         M1  CYP2B6  6.98 1.86    5 study 007
-#'         M1  CYP2C8    NA   NA   NA
-#'         M1  CYP2C9    NA   NA   NA
-#'         M1 CYP2C19    NA   NA   NA
-#'         M1  CYP2D6    NA   NA   NA
-#'         M1  CYP3A4 22.70 1.10    5 study 007
-#' }
 #' @source Fictional data, made up for demo purposes.
-"examplinib_cyp_induction_data"
+"examplinib_cyp_ind_parent"
 
 
-#' Examplinib transporter inhibition data as string
+#' Examplinib metabolite CYP induction data
 #'
-#' A character string containing transporter inhibition data for examplinib and M1.
-#' @source Fictional data for demo purposes.
-#' @seealso [ddir::read_transporter_inhibitor_data()]
-"examplinib_transporter_inhibition_string"
+#' @source Fictional data, made up for demo purposes.
+"examplinib_cyp_ind_metabolite"
 
 
 #' Examplinib transporter inhibition data
 #'
-#' @details
-#' \preformatted{
-#'       name   param      value    source
-#' examplinib    name examplinib
-#' examplinib     Pgp       0.41 study 005
-#' examplinib    BCRP        1.9 study 005
-#' examplinib    OCT1        2.3 study 006
-#' examplinib OATP1B1        177 study 006
-#' examplinib OATP1B3         35 study 006
-#' examplinib    OAT1        271
-#' examplinib    OAT3        300
-#' examplinib    BSEP       12.8
-#' examplinib    OCT2         67 study 006
-#' examplinib   MATE1        3.6 study 006
-#' examplinib  MATE2k        1.1 study 006
-#' }
 #' @source Fictional data, made up for demo purposes.
-"examplinib_transporter_inhibition_data"
-
-
-#' Examplinib UGT inhibition data as string
-#'
-#' A character string containing UGT inhibition data for examplinib and M1.
-#' @source Fictional data for demo purposes.
-#' @seealso [ddir::read_ugt_inhibitor_data()]
-"examplinib_ugt_inhibition_string"
+"examplinib_transporter_inh_parent"
 
 
 #' Examplinib UGT inhibition data
 #'
-#' @format
-#' A data frame with the columns 'name', 'param', 'value' and 'source'
-#' @details
-#' \preformatted{
-#'       name   param      value    source
-#'         M1    name         M1
-#'         M1  UGT1A1        1.1 study 009
-#'         M1  UGT1A3        5.8 study 009
-#'         M1  UGT1A4        6.2 study 009
-#'         M1  UGT1A6         15 study 009
-#'         M1  UGT1A9        3.6 study 009
-#'         M1  UGT2B7         15 study 009
-#'         M1 UGT2B15        9.6 study 009
-#'         M1 UGT2B17        2.2 study 009
-#' examplinib    name examplinib
-#' examplinib  UGT1A1         15 study 009
-#' examplinib  UGT1A3         15 study 009
-#' examplinib  UGT1A4         15 study 009
-#' examplinib  UGT1A6         15 study 009
-#' examplinib  UGT1A9        3.8 study 009
-#' examplinib  UGT2B7         15 study 009
-#' examplinib UGT2B15         15 study 009
-#' examplinib UGT2B17        6.1 study 009
-#' }
 #' @source Fictional data, made up for demo purposes.
-"examplinib_ugt_inhibition_data"
+"examplinib_ugt_inh_parent"
+
+#' Examplinib metabolite UGT inhibition data
+#'
+#' @source Fictional data, made up for demo purposes.
+"examplinib_ugt_inh_metabolite"
 
 
 #' Hepatic CYP turnover data based on various publications
