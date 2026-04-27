@@ -7,11 +7,11 @@
 ## Citation
 
 Strotmann R (2026). *ddir: Assess the Clinical Drug-Drug Interaction
-Risk for Drug Compounds*. R package version 0.17.0.
+Risk for Drug Compounds*. R package version 0.17.1.
 
     @Manual{,
       title = {ddir: Assess the Clinical Drug-Drug Interaction Risk for Drug Compounds},
       author = {Rainer Strotmann},
       year = {2026},
-      note = {R package version 0.17.0},
+      note = {R package version 0.17.1},
     }
