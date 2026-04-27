@@ -465,7 +465,7 @@ name_vers <- function(item) {
   return(c(name=as.character(item[["Package"]]), version=as.character(item[["Version"]])))
 }
 
-data.frame(lapply(si, name_vers)) %>%
-  t() %>% 
+data.frame(lapply(si, name_vers)) |>
+  t() |> 
   kable(row.names = F)
 ```

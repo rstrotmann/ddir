@@ -58,13 +58,13 @@ read_perpetrators <- function(source) {
     col.names=c("name", "param", "value", "source"),
     header = F,
     comment.char = '#')
-  ) %>%
-    filter(trimws(name) != "") %>%
-    dplyr::mutate(across(everything(), trimws)) %>%
-    dplyr::group_by(name) %>%
+  ) |>
+    filter(trimws(name) != "") |>
+    dplyr::mutate(across(everything(), trimws)) |>
+    dplyr::group_by(name) |>
     dplyr::group_modify(~ tibble::add_row(param="name", value=.y$name,
-                                          source="", .x, , .before=1)) %>%
-    dplyr::ungroup() %>%
+                                          source="", .x, , .before=1)) |>
+    dplyr::ungroup() |>
     as.data.frame()
 
   data <- split(raw, raw$name)

@@ -73,7 +73,7 @@ results <- lapply(seq_len(nrow(drug_inputs)), function(i) {
       source = "literature"
     )
   )
-  risk_tbl <- transporter_inh_risk(perp, trans_inh)@table %>%
+  risk_tbl <- transporter_inh_risk(perp, trans_inh)@table |>
     filter(target == "OAT3")
   tibble(
     drug = row$drug,
@@ -85,11 +85,11 @@ results <- lapply(seq_len(nrow(drug_inputs)), function(i) {
     ddir_risk = risk_tbl$risk[[1]]
   )
 })
-summary_tbl <- bind_rows(results) %>%
+summary_tbl <- bind_rows(results) |>
   mutate(
     across(where(is.numeric), ~ round(.x, 4)),
     delta_r = round(ddir_r - inferred_I_over_IC50, 6)
-  ) %>%
+  ) |>
   select(
     drug,
     paper_aucr_msm_ft044,

@@ -212,7 +212,7 @@ transporter_inh_risk <- function(
                 mutate(target = paste0(target, "_sys"))) %>%
     bind_rows(filter(in_vitro, target %in% c("Pgp", "BCRP")) %>%
                 mutate(target = paste0(target, "_int"))) %>%
-    filter(!target %in% c("Pgp", "BCRP")) %>%
+    filter(!target %in% c("Pgp", "BCRP")) |>
     left_join(
       transporter_ref |>
         mutate(rank = row_number()),

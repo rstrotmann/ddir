@@ -94,5 +94,5 @@ compound file:
 
 ``` r
 read_perpetrators(textConnection(examplinib_compounds_string))
-#> Error in new_perpetrator(x %>% select(-name)): could not find function "new_perpetrator"
+#> Error in new_perpetrator(x |> select(-name)): could not find function "new_perpetrator"
 ```

@@ -226,12 +226,12 @@ setMethod("print", "perpetrator", function(x) {
   ))
 
   if (x@oral == FALSE) {
-    out <- out %>%
+    out <- out |>
       filter(!(param %in% c("fa", "fg", "ka")))
   }
 
-  out <- out %>%
-    dplyr::select(parameter, value, source) %>%
+  out <- out |>
+    dplyr::select(parameter, value, source) |>
     knitr::kable(caption = paste("Perpetrator compound parameters for", x@name))
 
   out

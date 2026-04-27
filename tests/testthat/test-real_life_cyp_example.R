@@ -135,12 +135,12 @@ results[[length(results) + 1]] <- tibble(
 # -------------------------------------------------------------------------
 # Final compact summary
 # -------------------------------------------------------------------------
-summary_tbl <- bind_rows(results) %>%
+summary_tbl <- bind_rows(results) |>
   mutate(
     paper_value = round(paper_value, 4),
     ddir_value  = round(ddir_value, 4),
     abs_delta   = round(abs_delta, 4),
     rel_delta_pct = round(100 * rel_delta, 2)
-  ) %>%
+  ) |>
   select(example, metric, paper_value, ddir_value, abs_delta, rel_delta_pct)
 print(summary_tbl, n = Inf)
