@@ -238,4 +238,4 @@
 #' A data frame with 3 columns
 #'
 #' @source Fully synthetic data set to demonstrate TDI-related calculations
-"in_vitro_сyp3a4_act_sample_data"
+"examplinib_in_vitro_tdi"

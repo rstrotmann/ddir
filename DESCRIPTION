@@ -13,6 +13,9 @@ Depends:
 Imports:
     assertr,
     dplyr,
+    ggplot2,
+    minpack.lm,
+    broom,
     knitr,
     lifecycle,
     magrittr,

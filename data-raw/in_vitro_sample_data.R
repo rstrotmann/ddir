@@ -1,7 +1,7 @@
 ## in vitro CYP3A4 activity after varying pre-incubation times
 ## fully synthetic data
 
-in_vitro_сyp3a4_act_sample_data <- tibble::tribble(
+examplinib_in_vitro_tdi <- tibble::tribble(
   ~TIME, ~CONC_0.2, ~CONC_0.66, ~CONC_2, ~CONC_6.66, ~CONC_20, ~CONC_50, ~CONC_100,
       0,      89.5,       93.5,   112.7,       98.5,     87.4,     91.1,      68.2,
     2.5,      87.7,       97.6,   112.1,       98.8,     82.6,     85.1,      56.1,
@@ -15,4 +15,4 @@ in_vitro_сyp3a4_act_sample_data <- tibble::tribble(
   mutate(CONC = as.numeric(CONC)) |>
   select(-c("GROUP", "PAR"))
 
-usethis::use_data(in_vitro_сyp3a4_act_sample_data, overwrite = TRUE)
+usethis::use_data(examplinib_in_vitro_tdi, overwrite = TRUE)
