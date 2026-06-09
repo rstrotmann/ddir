@@ -74,13 +74,6 @@ tdimod <- function(x, target_name = NULL) {
     return(kinact * x / (kI + x))
   }
 
-  # fit <- nlsLM(
-  #   kobs ~ emax(CONC, kinact, kI),
-  #   data = out$kobs,
-  #   start = list(kinact = 0.03, kI = 10),
-  #   control = nls.lm.control(maxiter = 1000)
-  # )
-
   if (nrow(out$kobs) < 3) {
     warning(
       "At least 3 concentration levels are needed to fit Kinact and KI; ",
@@ -93,7 +86,7 @@ tdimod <- function(x, target_name = NULL) {
       nlsLM(
         kobs ~ emax(CONC, kinact, kI),
         data = out$kobs,
-        start = list(kinact = 0.03, kI = 10),
+        start = emax_nls_start(out$kobs),
         control = nls.lm.control(maxiter = 1000)
       ),
       error = function(e) {
@@ -135,22 +128,37 @@ tdimod <- function(x, target_name = NULL) {
       theme_bw()
   }
 
-  # out$tdi_param <- broom::tidy(fit)
-  #
-  # # TDI parameter plot
-  #
-  # pred <- data.frame(CONC = seq(0, 100, 1))
-  # pred$kobs <- predict(fit, newdata = pred)
-  #
-  # out$tdi_plot <- out$kobs |>
-  #   ggplot(aes(x = CONC, y = kobs)) +
-  #   geom_point(size = 2) +
-  #   geom_errorbar(
-  #     aes(ymin = kobs - std.error, ymax = kobs + std.error),
-  #     width = 2) +
-  #   geom_line(data = pred, aes(x = CONC, y = kobs)) +
-  #   labs(x = "concentration (µM)", y = "kobs (1/min)") +
-  #   theme_bw()
-
   return(out)
+}
+
+
+#' Derive nls starting values for an Emax model of kobs over CONC
+#'
+#' Linearizes kobs = kinact * CONC / (kI + CONC) as CONC / kobs ~ CONC.
+#'
+#' @param kobs_df Data frame with CONC and kobs columns.
+#' @returns A list with kinact and kI starting values.
+#' @noRd
+emax_nls_start <- function(kobs_df) {
+  fallback <- list(kinact = 0.03, kI = 10)
+
+  kobs_fit <- kobs_df[is.finite(kobs_df$kobs) & kobs_df$kobs > 0, ]
+  if (nrow(kobs_fit) < 2)
+    return(fallback)
+
+  lin <- lm(I ~ CONC, data = transform(kobs_fit, I = CONC / kobs))
+  slope <- coef(lin)[["CONC"]]
+  intercept <- coef(lin)[["(Intercept)"]]
+
+  if (!is.finite(slope) || slope <= 0)
+    return(fallback)
+
+  kinact_start <- 1 / slope
+  kI_start <- intercept * kinact_start
+
+  if (!is.finite(kinact_start) || kinact_start <= 0 ||
+      !is.finite(kI_start) || kI_start <= 0)
+    return(fallback)
+
+  list(kinact = kinact_start, kI = kI_start)
 }
