@@ -228,3 +228,14 @@
 "cyp_turnover"
 
 
+#' in vitro sample data for CYP3A4 TDI
+#'
+#' @description
+#' CYP3A4 activity data at different pre-incubation timees and
+#' different concentrations of a time-dependent inhibitor.
+#'
+#' @format
+#' A data frame with 3 columns
+#'
+#' @source Fully synthetic data set to demonstrate TDI-related calculations
+"in_vitro_сyp3a4_act_sample_data"
