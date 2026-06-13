@@ -46,6 +46,7 @@ make_perp_from_Iu <- function(name, mw, Iu, fu = 1) {
     solubility = Inf
   )
 }
+
 # ---- literature inputs ----
 # AUCR predicted (MSM, ft=0.44) from Gomez-Mantilla 2023 Table 17
 # IC50 values from transporter DDI literature context used in that section
@@ -66,15 +67,18 @@ results <- lapply(seq_len(nrow(drug_inputs)), function(i) {
     Iu   = Iu,
     fu   = 1
   )
+
   trans_inh <- inhibitor(
     data.frame(
-      target = "OAT3",
+      object = "OAT3",
       ic50   = row$ic50_oat3_uM,
       source = "literature"
     )
   )
+
   risk_tbl <- transporter_inh_risk(perp, trans_inh)@table |>
-    filter(target == "OAT3")
+    filter(object == "OAT3")
+
   tibble(
     drug = row$drug,
     paper_aucr_msm_ft044 = row$paper_aucr_msm_ft044,
@@ -85,6 +89,7 @@ results <- lapply(seq_len(nrow(drug_inputs)), function(i) {
     ddir_risk = risk_tbl$risk[[1]]
   )
 })
+
 summary_tbl <- bind_rows(results) |>
   mutate(
     across(where(is.numeric), ~ round(.x, 4)),
@@ -100,4 +105,5 @@ summary_tbl <- bind_rows(results) |>
     ddir_threshold,
     ddir_risk
   )
+
 print(summary_tbl, n = Inf)

@@ -76,11 +76,11 @@ test_that("tdimod accepts extra columns in input", {
 test_that("tdimod validates target_name", {
   set.seed(1)
   x <- make_tdi_activity_data(kinact = 0.04, kI = 50)
-  expect_no_error(suppressWarnings(tdimod(x, target_name = NULL)))
-  expect_no_error(suppressWarnings(tdimod(x, target_name = "CYP3A4")))
+  expect_no_error(suppressWarnings(tdimod(x, object = NULL)))
+  expect_no_error(suppressWarnings(tdimod(x, object = "CYP3A4")))
   expect_error(
-    tdimod(x, target_name = 1),
-    "target_name must be a character value"
+    tdimod(x, object = 1),
+    "object must be a character value"
   )
 })
 

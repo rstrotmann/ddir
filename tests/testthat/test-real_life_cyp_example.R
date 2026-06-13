@@ -16,6 +16,7 @@ rel_delta <- function(ddir_value, paper_value) {
   (ddir_value - paper_value) / paper_value
 }
 results <- list()
+
 # -------------------------------------------------------------------------
 # Example 1: Ivosidenib (CYP3A induction; no-gut scenario)
 # Paper (MSM): AUCR ~ 0.46
@@ -34,13 +35,15 @@ perp_ivo <- perpetrator(
   ka         = 1.38 / 60,    # h^-1 to min^-1
   solubility = Inf
 )
+
 res_ivo <- mech_stat_cyp_risk(
   perp = perp_ivo,
-  cyp_inh = inhibitor(data.frame(target = "CYP3A4", ki = NA_real_, source = "none")),
-  cyp_ind = inducer(data.frame(target = "CYP3A4", emax = 21.25, ec50 = 8.6, max_c = 24.59, source = "paper")),
+  cyp_inh = inhibitor(data.frame(object = "CYP3A4", ki = NA_real_, source = "none")),
+  cyp_ind = inducer(data.frame(object = "CYP3A4", emax = 21.25, ec50 = 8.6, max_c = 24.59, source = "paper")),
   cyp_tdi = inhibitor(NULL),
   include_induction = TRUE
 )@table
+
 ivo_ddir <- res_ivo$aucr[[1]]
 ivo_paper <- 0.46
 results[[length(results) + 1]] <- tibble(
@@ -51,6 +54,7 @@ results[[length(results) + 1]] <- tibble(
   abs_delta = ddir_value - paper_value,
   rel_delta = rel_delta(ddir_value, paper_value)
 )
+
 # -------------------------------------------------------------------------
 # Example 2: Voxelotor (CYP3A inhibition, scenario 2; no-gut)
 # Paper (MSM): AUCR ~ 2.27
@@ -69,13 +73,15 @@ perp_vox <- perpetrator(
   ka         = 0.1,
   solubility = Inf
 )
+
 res_vox <- mech_stat_cyp_risk(
   perp = perp_vox,
-  cyp_inh = inhibitor(data.frame(target = "CYP3A4", ki = 0.06, source = "scenario2")),
-  cyp_ind = inducer(data.frame(target = "CYP3A4", emax = NA_real_, ec50 = NA_real_, max_c = NA_real_, source = "none")),
+  cyp_inh = inhibitor(data.frame(object = "CYP3A4", ki = 0.06, source = "scenario2")),
+  cyp_ind = inducer(data.frame(object = "CYP3A4", emax = NA_real_, ec50 = NA_real_, max_c = NA_real_, source = "none")),
   cyp_tdi = inhibitor(NULL),
   include_induction = FALSE
 )@table
+
 vox_ddir <- res_vox$aucr[[1]]
 vox_paper <- 2.27
 results[[length(results) + 1]] <- tibble(
@@ -86,6 +92,7 @@ results[[length(results) + 1]] <- tibble(
   abs_delta = ddir_value - paper_value,
   rel_delta = rel_delta(ddir_value, paper_value)
 )
+
 # -------------------------------------------------------------------------
 # Example 3: PUR1900 inhaled itraconazole basic static
 # Paper: combined R1 ~ 1.35 (ITZ + OH-ITZ)
@@ -106,8 +113,9 @@ perp_pur <- perpetrator(
 )
 res_pur <- basic_cyp_inhibition_risk(
   perp_pur,
-  inhibitor(data.frame(target = "CYP3A4", ki = 0.0013, source = "paper"))
+  inhibitor(data.frame(object = "CYP3A4", ki = 0.0013, source = "paper"))
 )@table
+
 # Parent-only R1 from ddir
 R1_parent <- 1 + res_pur$r[[1]]
 # Add OH-ITZ term manually according to paper method:
@@ -132,6 +140,7 @@ results[[length(results) + 1]] <- tibble(
   abs_delta = NA_real_,
   rel_delta = NA_real_
 )
+
 # -------------------------------------------------------------------------
 # Final compact summary
 # -------------------------------------------------------------------------

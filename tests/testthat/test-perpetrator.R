@@ -188,7 +188,7 @@ test_that("show and print methods render expected sections", {
   show_text <- capture.output(show(x))
   print_text <- capture.output(print(x))
 
-  expect_true(any(grepl("DDI perpetrator object", show_text)))
+  expect_true(any(grepl("DDI perpetrator", show_text)))
   expect_true(any(grepl("examplinib", show_text)))
   expect_true(any(grepl("Perpetrator compound parameters for examplinib", print_text)))
   expect_true(any(grepl("\\$C_\\{max,ss\\}\\$", print_text)))
