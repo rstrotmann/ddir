@@ -1,6 +1,6 @@
 #' Generic DDI risk class definition
 #'
-#' @slot object Name of perpetrator.
+#' @slot precipitant Name of perpetrator.
 #' @slot table Tabulated risk assessment data.
 #'
 #' @returns An ddi_risk class object.

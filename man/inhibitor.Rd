@@ -4,13 +4,13 @@
 \alias{inhibitor}
 \title{DDI inhibition data object constructor.}
 \usage{
-inhibitor(data, object = "")
+inhibitor(data, precipitant = "")
 }
 \arguments{
 \item{data}{Data frame with the following fields:
 \subsection{Direct CYP or UGT inhibition}{
 \itemize{
-\item target: The CYP or UGT enzyme target as character.
+\item object: The CYP or UGT enzyme target as character.
 \item ki: The ki in uM.
 \item source: Source information (e.g., study name) as character.
 }
@@ -18,7 +18,7 @@ inhibitor(data, object = "")
 
 \subsection{Time-dependent CYP inhibition}{
 \itemize{
-\item target: The CYP or UGT enzyme target as character.
+\item object: The CYP or UGT enzyme target as character.
 \item ki: The ki in uM.
 \item kinact: The kinact in 1/h.
 \item source: Source information (e.g., study name) as character.
@@ -27,7 +27,7 @@ inhibitor(data, object = "")
 
 \subsection{Transporter inhibition}{
 \itemize{
-\item target: The transporter target as character.
+\item object: The transporter target as character.
 \item ic50: The IC50 in uM.
 \item source: Source information (e.g., study name) as character.
 }
@@ -40,4 +40,16 @@ Inhibitor object
 }
 \description{
 DDI inhibition data object constructor.
+}
+\examples{
+inhibitor(
+  data = tibble::tribble(
+  ~object, ~ki, ~source,
+  "CYP2C8", 11, "study 001",
+  "CYP2C9", 0.6, "study 001",
+  "CYP2C19", 0.25, "study 001"
+  ),
+  precipitant = "examplinib"
+)
+
 }

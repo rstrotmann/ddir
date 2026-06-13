@@ -68,7 +68,7 @@ tdimod <- function(x, object = NULL) {
     ggplot(aes(x = TIME, y = ACT, group = as.factor(CONC), color = as.factor(CONC))) +
     geom_point(size = 2) +
     geom_line(linetype = "dashed") +
-    labs(x = "time (min)", y = "ln(activity)", color = "concentration (µM)") +
+    labs(x = "time (min)", y = "ln(activity)", color = "concentration (uM)") +
     geom_abline(
       aes(color = as.factor(CONC), slope = TIME, intercept = `(Intercept)`),
       data = pred,

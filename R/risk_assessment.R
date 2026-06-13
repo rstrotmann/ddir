@@ -35,6 +35,7 @@
 #'
 #' @param perp The perpetrator object.
 #' @param cyp_inh CYP inhibition data object.
+#'
 #' @return DDI risk object.
 #' @export
 #' @examples
@@ -67,7 +68,7 @@ basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
     mutate(kiu = ki * perp@fumic) |>
     mutate(r = imaxssu(perp, molar = TRUE) / kiu) |>
     mutate(r_gut = case_when(
-      object == "CYP3A4" ~ igut(perp, molar = TRUE) / kiu,
+      .data$object == "CYP3A4" ~ igut(perp, molar = TRUE) / kiu,
       .default = NA)) |>
     mutate(risk_hep = r > 0.02) |>
     mutate(risk_intest = r_gut > 10)  |>

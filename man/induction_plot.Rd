@@ -4,7 +4,7 @@
 \alias{induction_plot}
 \title{Plot in vitro CYP induction data}
 \usage{
-induction_plot(x, precipitant = "test", type = "REL")
+induction_plot(x, type = "REL")
 }
 \arguments{
 \item{x}{The in vitro data set as data frame. The following fields are
@@ -22,8 +22,6 @@ at the respective precipitant concentration.
 
 FOLD and REL are optional but a column that corresponds to the 'type'
 argument must be present.}
-
-\item{precipitant}{The DDI precipitant, defaults to 'test'.}
 
 \item{type}{The DDI metric, e.g. FOLD or REL, as character. A different type
 can be given but a column of that name must be present in the data set.}

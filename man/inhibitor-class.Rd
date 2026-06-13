@@ -13,7 +13,7 @@ Inhibitor class definition
 \section{Slots}{
 
 \describe{
-\item{\code{object}}{Name of perpetrator.}
+\item{\code{precipitant}}{Name of DDI precipitant.}
 
 \item{\code{data}}{Data frame with the fields 'object', 'ki' and 'source'.}
 }}

@@ -47,3 +47,7 @@ In the output, the columns \code{risk_hep} and \code{risk_intest} indicate wheth
 the regulatory threshold is reached.
 }
 }
+\examples{
+basic_cyp_inhibition_risk(examplinib_parent, examplinib_cyp_inh_parent)
+
+}

@@ -13,7 +13,6 @@
 #'
 #' FOLD and REL are optional but a column that corresponds to the 'type'
 #' argument must be present.
-#' @param precipitant The DDI precipitant, defaults to 'test'.
 #' @param type The DDI metric, e.g. FOLD or REL, as character. A different type
 #' can be given but a column of that name must be present in the data set.
 #'
@@ -69,7 +68,7 @@ induction_plot <- function(x, type = "REL") {
 #'
 #' @examples
 #' indmod(examplinib_in_vitro_ind, precipitant = "examplinib")
-    indmod <- function(x, precipitant = "") {
+indmod <- function(x, precipitant = "") {
   # input validation
   if (!is.data.frame(x))
     stop("x must be a data frame")

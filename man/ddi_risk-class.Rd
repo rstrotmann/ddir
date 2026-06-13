@@ -13,7 +13,7 @@ Generic DDI risk class definition
 \section{Slots}{
 
 \describe{
-\item{\code{object}}{Name of perpetrator.}
+\item{\code{precipitant}}{Name of perpetrator.}
 
 \item{\code{table}}{Tabulated risk assessment data.}
 }}
