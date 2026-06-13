@@ -147,7 +147,7 @@ setMethod(
   "show", "perpetrator",
   function(object) {
     line <- paste0(rep("-", 5), collapse="")
-    cat(paste0(line, " DDI perpetrator object ", line, "\n"))
+    cat(paste0(line, " DDI perpetrator ", line, "\n"))
 
     out <- tibble::tribble(
            ~name,   ~unit,

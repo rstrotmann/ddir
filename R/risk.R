@@ -8,12 +8,12 @@
 setClass(
   Class = "ddi_risk",
   representation(
-    object = "perpetrator",
+    precipitant = "perpetrator",
     table = "data.frame",
     title = "character"
   ),
   prototype(
-    object = new("perpetrator"),
+    precipitant = new("perpetrator"),
     table = data.frame(),
     title = ""
   )
@@ -30,7 +30,7 @@ setMethod(
   function(object) {
     caption <- ifelse(
       object@title == "",
-      paste0("DDI risk for object ", object@object@name),
+      paste0("DDI risk for precipitant ", object@precipitant@name),
       object@title
     )
     temp <- object@table
@@ -51,7 +51,7 @@ setMethod(
     temp <- x@table
     caption <- ifelse(
       x@title == "",
-      paste0("DDI risk for object ", x@object@name),
+      paste0("DDI risk for precipitant ", x@precipitant@name),
       x@title
     )
 

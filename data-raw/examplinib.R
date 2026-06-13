@@ -18,17 +18,20 @@ usethis::use_data(examplinib_parent, overwrite = TRUE)
 usethis::use_data(examplinib_metabolite, overwrite = TRUE)
 
 
+
 ## REVERSIBLE CYP INHIBITION
 
 examplinib_cyp_inhibition_string <- pull_data_string("examplinib_cyp_inhibition.csv")
 
 examplinib_cyp_inhibition_data <-
   read_cyp_inhibitor_data(textConnection(examplinib_cyp_inhibition_string))
+
 examplinib_cyp_inh_parent <- examplinib_cyp_inhibition_data[[1]]
 examplinib_cyp_inh_metabolite <- examplinib_cyp_inhibition_data[[2]]
 
 usethis::use_data(examplinib_cyp_inh_parent, overwrite = TRUE)
 usethis::use_data(examplinib_cyp_inh_metabolite, overwrite = TRUE)
+
 
 
 ## TIME-DEPENDENT CYP INHIBITION
@@ -39,6 +42,8 @@ examplinib_cyp_tdi_parent <- read_tdi_data(textConnection(
   examplinib_cyp_tdi_string))
 
 usethis::use_data(examplinib_cyp_tdi_parent, overwrite = TRUE)
+
+
 
 
 ## CYP INDUCTION
@@ -55,17 +60,20 @@ usethis::use_data(examplinib_cyp_ind_parent, overwrite = TRUE)
 usethis::use_data(examplinib_cyp_ind_metabolite, overwrite = TRUE)
 
 
+
 ## UGT INHIBITION
 
 examplinib_ugt_inhibition_string <- pull_data_string("examplinib_ugt_inhibition.csv")
 
 examplinib_ugt_inhibition_data <-
   read_ugt_inhibitor_data(textConnection(examplinib_ugt_inhibition_string))
+
 examplinib_ugt_inh_parent <- examplinib_ugt_inhibition_data[[1]]
 examplinib_ugt_inh_metabolite <- examplinib_ugt_inhibition_data[[2]]
 
 usethis::use_data(examplinib_ugt_inh_parent, overwrite = TRUE)
 usethis::use_data(examplinib_ugt_inh_metabolite, overwrite = TRUE)
+
 
 
 ## TRANSPORTER INHIBITION

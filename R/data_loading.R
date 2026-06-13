@@ -139,14 +139,14 @@ read_inhibitor_data <- function(source) {
 #' @noRd
 read_ugt_inhibitor_data <- function(source) {
   raw <- read_inhibitor_data(source)
-  colnames(raw) <- c("name", "ugt", "ic50", "source")
+  colnames(raw) <- c("name", "object", "ic50", "source")
 
   data <- split(raw, raw$name)
   out <- lapply(
     data,
     function(x) {
       x <- x |>
-        rename(target = ugt) |>
+        # rename(object = ugt) |>
         mutate(ic50 = as.numeric(ic50)) |>
         filter(!is.na(ic50))
       inhibitor(data = select(x, -name), object <- unique(x$name))
@@ -183,15 +183,17 @@ read_ugt_inhibitor_data <- function(source) {
 #' @noRd
 read_cyp_inhibitor_data <- function(source) {
   raw <- read_inhibitor_data(source)
-  colnames(raw) <- c("name", "target", "ki", "source")
+  colnames(raw) <- c("name", "object", "ki", "source")
   data <- split(raw, raw$name)
   out <- lapply(
     data,
     function(x) {
-      x <- x |>
-        mutate(ki = as.numeric(ki)) |>
-        filter(!is.na(ki))
-      inhibitor(data = select(x, -name), object <- unique(x$name))
+      suppressWarnings(
+        x <- x |>
+          mutate(ki = as.numeric(ki))
+      )
+        # filter(!is.na(ki))
+      inhibitor(data = select(x, -name), precipitant <- unique(x$name))
     }
   )
 
@@ -227,7 +229,7 @@ read_cyp_inhibitor_data <- function(source) {
 read_tdi_data <- function(source) {
   raw <- as.data.frame(read.csv(
     source,
-    col.names=c("name", "target", "ki", "kinact", "source"),
+    col.names=c("name", "object", "ki", "kinact", "source"),
     header = F,
     blank.lines.skip = TRUE,
     comment.char = '#')
@@ -254,8 +256,8 @@ read_tdi_data <- function(source) {
     return(out)
   }
 
-  out <- inhibitor(select(raw, -name))
-  return(raw)
+  # out <- inhibitor(select(raw, -name))
+  # return(raw)
 }
 
 
@@ -335,7 +337,7 @@ read_inducer_data <- function(source) {
 #' @noRd
 read_transporter_inhibitor_data <- function(source) {
   raw <- read_inhibitor_data(source)
-  colnames(raw) <- c("name", "target", "ic50", "source")
+  colnames(raw) <- c("name", "object", "ic50", "source")
 
   data <- split(raw, raw$name)
   out <- lapply(
