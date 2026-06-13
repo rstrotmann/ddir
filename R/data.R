@@ -253,7 +253,7 @@
 #' @format
 #' A data frame with 7 columns
 #' * DONOR Hepatocyte donor
-#' * PRECIPITANT Test precipitant or postive control
+#' * TYPE Test  or positive control
 #' * CONC Precipitant concentration
 #' * OBJECT DDI target
 #' * FOLD mRNA fold change

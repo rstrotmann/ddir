@@ -304,6 +304,8 @@ basic_cyp_tdi_risk <- function(
 #'
 #' @returns DDI risk object
 #' @export
+#' @examples
+#' static_cyp_induction_risk(examplinib_parent, examplinib_cyp_ind_parent)
 static_cyp_induction_risk <- function(perp, cyp_ind)  {
   # input validation
   if (!inherits(perp, "perpetrator")) {
@@ -312,23 +314,25 @@ static_cyp_induction_risk <- function(perp, cyp_ind)  {
   if (!inherits(cyp_ind, "inducer")) {
     stop("cyp_ind must be an induction object")
   }
-  expected_columns <- c("target", "emax", "ec50", "max_c", "source")
+  expected_columns <- c("object", "emax", "ec50", "max_c", "source")
   missing_columns <- setdiff(expected_columns, names(cyp_ind@data))
   if (length(missing_columns) > 0)
     stop(paste0(
       "Missing columns in cyp_ind: ", nice_enumeration(missing_columns)))
 
-  allowed_target <- c("CYP1A2", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19",
+  allowed_object <- c("CYP1A2", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19",
                       "CYP2D6", "CYP3A4")
 
-  in_vitro <- filter(cyp_ind@data, target %in% allowed_target)
+  in_vitro <- filter(cyp_ind@data, object %in% allowed_object)
+
   if (nrow(in_vitro) == 0)
     stop("No CYP induction data for known CYP enzymes found")
-  excluded_target <- setdiff(unique(cyp_ind@data$target), allowed_target)
-  if (length(excluded_target) > 0)
+
+  excluded_object <- setdiff(unique(cyp_ind@data$object), allowed_object)
+  if (length(excluded_object) > 0)
     warning(paste0(
       "Non-CYP data were excluded (",
-      nice_enumeration(excluded_target),
+      nice_enumeration(excluded_object),
       ")"
     ))
 
@@ -359,6 +363,9 @@ static_cyp_induction_risk <- function(perp, cyp_ind)  {
 #'
 #' @returns DDI risk object
 #' @export
+#' @examples
+#' kinetic_cyp_induction_risk(examplinib_parent, examplinib_cyp_ind_parent)
+#'
 kinetic_cyp_induction_risk <- function(perp, cyp_ind, d=1) {
   # input validation
   if (!inherits(perp, "perpetrator")) {
@@ -367,28 +374,33 @@ kinetic_cyp_induction_risk <- function(perp, cyp_ind, d=1) {
   if (!inherits(cyp_ind, "inducer")) {
     stop("cyp_ind must be an inducer object")
   }
-  expected_columns <- c("target", "emax", "ec50", "max_c", "source")
+  expected_columns <- c("object", "emax", "ec50", "max_c", "source")
   missing_columns <- setdiff(expected_columns, names(cyp_ind@data))
   if (length(missing_columns) > 0)
     stop(paste0(
       "Missing columns in cyp_ind: ", nice_enumeration(missing_columns)))
 
-  allowed_target <- c("CYP1A2", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19",
+  allowed_object <- c("CYP1A2", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19",
                       "CYP2D6", "CYP3A4")
 
-  in_vitro <- filter(cyp_ind@data, target %in% allowed_target)
+  in_vitro <- filter(cyp_ind@data, object %in% allowed_object)
+
   if (nrow(in_vitro) == 0)
     stop("No CYP induction data for known CYP enzymes found")
-  excluded_target <- setdiff(unique(cyp_ind@data$target), allowed_target)
-  if (length(excluded_target) > 0)
+
+  excluded_object <- setdiff(unique(cyp_ind@data$object), allowed_object)
+  if (length(excluded_object) > 0)
     warning(paste0(
       "Non-CYP data were excluded (",
-      nice_enumeration(excluded_target),
+      nice_enumeration(excluded_object),
       ")"
     ))
 
   out <- cyp_ind@data |>
-    mutate(r = (1 / (1 + d * emax * 10 * imaxssu(perp) / (ec50 + 10 * imaxssu(perp))))) |>
+    mutate(r = round(
+      (1 / (1 + d * emax * 10 * imaxssu(perp) / (ec50 + 10 * imaxssu(perp)))),
+      3
+    )) |>
     mutate(risk = r <= 0.8)
 
   new(

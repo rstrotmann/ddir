@@ -4,17 +4,17 @@
 \alias{tdimod}
 \title{Derive TDI parameters from enzyme activity data}
 \usage{
-tdimod(x, target_name = NULL)
+tdimod(x, object = NULL)
 }
 \arguments{
 \item{x}{In vitro data as data frame. The following columns are expected:
 \itemize{
-\item TIME Pre-incubation time in minutes
+\item TIME Duration of Pre-incubation with the precipitant and NADPH in minutes
 \item CONC Precipitant concentration in uM
 \item ACT Enzyme activity in percent
 }}
 
-\item{target_name}{The target enzyme name as character or NULL.}
+\item{object}{The DDI target object as character or NULL.}
 }
 \value{
 A list with the following items:
@@ -29,6 +29,13 @@ kobs over CONC.
 }
 \description{
 Derive TDI parameters from enzyme activity data
+}
+\details{
+kobs is fitted to the enzyme activity data as a first-order process for each
+inhibitor concentration.
+kinact (the maximal inhibition rate) and KI (inhibitor concentration at the
+half-maximal kobs) are fitted from kobs over inhibitor concentration using a
+Emax model.
 }
 \examples{
 tdimod(examplinib_in_vitro_tdi)

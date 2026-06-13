@@ -22,7 +22,7 @@ usethis::use_data(examplinib_in_vitro_tdi, overwrite = TRUE)
 ## in vitro CYP3A4 mRNA induction data, fully synthetic
 
 examplinib_in_vitro_ind <- tibble::tribble(
-  ~DONOR,       ~PRECIPITANT, ~CONC,  ~OBJECT,  ~FOLD,  ~REL,                ~SOURCE,
+  ~DONOR,            ~SAMPLE, ~CONC,  ~OBJECT,  ~FOLD,  ~REL,                ~SOURCE,
      "A",             "test",  0.01, "CYP3A4",  0.904, -0.16, "Study examplinib_ind",
      "A",             "test",  0.03, "CYP3A4",   0.94,  -0.1, "Study examplinib_ind",
      "A",             "test",   0.1, "CYP3A4",  1.066,  0.11, "Study examplinib_ind",

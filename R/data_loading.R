@@ -299,7 +299,7 @@ read_inducer_data <- function(source) {
     function(x) {
       x <- x |>
         mutate(across(c("emax", "ec50", "maxc"), as.numeric)) |>
-        rename(target = cyp) |>
+        rename(object = cyp) |>
         mutate(max_c = maxc) |>
         filter(!is.na(emax))
       inducer(data = select(x, -name), object <- unique(x$name))

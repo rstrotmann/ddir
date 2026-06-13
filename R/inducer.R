@@ -8,13 +8,13 @@
 setClass(
   Class = "inducer",
   representation(
-    object = "character",
+    precipitant = "character",
     data = "data.frame"
   ),
   prototype(
-    object = "",
+    precipitant = "",
     data = data.frame(
-      target = character(0),
+      object = character(0),
       emax = numeric(0),
       ec50 = numeric(0),
       max_c = numeric(0),
@@ -26,34 +26,30 @@ setClass(
 
 #' DDI CYP inducer object constructor
 #'
-#' This class constructor expects as the as the data argument a data frome with
-#' the following columns:
-#'
-#' * target: The CYP induction target. Must be one of "CYP1A1", "CYP1A2",
-#' "CYP2A6", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C18", "CYP2C19", "CYP2D6",
-#' "CYP2E1", "CYP2J2", "CYP3A4", "CYP3A5", or "CYP3A7".
-#' * emax: The maximal induction effect.
+#' @param data Data frame with the columns:
+#' * object: The CYP induction target. Must be one of "CYP1A1", "CYP1A2",
+#'   "CYP2A6", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C18", "CYP2C19", "CYP2D6",
+#'   "CYP2E1", "CYP2J2", "CYP3A4", "CYP3A5", or "CYP3A7".
+#' * emax: The maximal induction effect as numeric.
 #' * ec50: The EC50, i.e., the concentration causing the half-maximal induction
-#' effect.
+#'   effect, in uM.
 #' * max_c: The maximal concentration tested in the assay in uM.
 #' * source: Source information for the parameter.
 #'
-#' @param data Data frame with the columns 'target', 'emax', 'ec50', 'max_c' and
-#'   'source'.
-#' @param object The name of the DDI perpetrator as character.
+#' @param precipitant The name of the DDI perpetrator as character.
 #'
 #' @returns Inducer object
 #' @export
-inducer <- function(data, object = "") {
+inducer <- function(data, precipitant = "") {
   if (is.null(data))
     data <- data.frame(
-      target = character(0),
+      object = character(0),
       emax = numeric(0),
       ec50 = numeric(0),
       max_c = numeric(0),
       source = character(0)
     )
-  new("inducer", data = data, object = object)
+  new("inducer", data = data, precipitant = precipitant)
 }
 
 
@@ -61,22 +57,23 @@ inducer <- function(data, object = "") {
 setValidity(
   "inducer",
   function(object) {
-    validate_argument(object@object, "character", allow_empty = TRUE)
+    validate_argument(object@precipitant, "character", allow_empty = TRUE)
 
     # validate data
-    expected_fields <- c('target', "emax", "ec50", "max_c", 'source')
+    expected_fields <- c('object', "emax", "ec50", "max_c", 'source')
     missing_fields <- setdiff(expected_fields, names(object@data))
     if (length(missing_fields) > 0)
       return(paste0("Missing fields: ", nice_enumeration(missing_fields)))
 
-    known_targets <- c(
+    known_objects <- c(
       "CYP1A1", "CYP1A2", "CYP2A6", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C18",
       "CYP2C19", "CYP2D6", "CYP2E1", "CYP2J2", "CYP3A4", "CYP3A5", "CYP3A7")
 
-    unknown_targets <- setdiff(
-      toupper(unique(object@data$target)), toupper(known_targets))
-    if (length(unknown_targets) > 0)
-      warning(paste0("Unknown targets: ", nice_enumeration(unknown_targets)))
+    unknown_objects <- setdiff(
+      toupper(unique(object@data$object)), toupper(known_objects))
+
+    if (length(unknown_objects) > 0)
+      warning(paste0("Unknown objects: ", nice_enumeration(unknown_objects)))
 
     TRUE
 })
@@ -93,10 +90,14 @@ setMethod(
   function(object) {
     line <- paste0(rep("-", 5), collapse="")
     cat(paste0(line, " CYP induction data ", line, "\n"))
-    cat(paste("In vitro induction data for object", object@object, "\n\n"))
+    cat(paste(
+      "In vitro induction data for precipitant",
+      object@precipitant, "\n\n"))
+
     out <- object@data |>
       mutate(source = case_when(
-        !is.na(source) & source != "" ~ paste0("(", source, ")"),
+        # !is.na(source) & source != "" ~ paste0("(", source, ")"),
+        !is.na(source) & source != "" ~ source,
         .default = ""
       ))
 
@@ -115,13 +116,14 @@ setMethod(
   "print", "inducer",
   function(x) {
     caption <- ifelse(
-      x@object != "",
-      paste0("In vitro induction data for ", x@object),
+      x@precipitant != "",
+      paste0("In vitro induction data for ", x@precipitant),
       "")
 
     out <- x@data |>
       mutate(source = case_when(
-        !is.na(source) & source != "" ~ paste0("(", source, ")"),
+        # !is.na(source) & source != "" ~ paste0("(", source, ")"),
+        !is.na(source) & source != "" ~ source,
         .default = ""
       )) |>
       kable(caption = caption, col.names = make_labels(x@data))

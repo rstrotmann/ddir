@@ -17,3 +17,6 @@ DDI risk object
 \description{
 Title
 }
+\examples{
+static_cyp_induction_risk(examplinib_parent, examplinib_cyp_ind_parent)
+}

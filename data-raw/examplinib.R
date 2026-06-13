@@ -8,18 +8,12 @@ pull_data_string <- function(filename) {
 
 ## EXAMPLINIB COMPOUNDS
 
-# examplinib_compounds_string <- pull_data_string("examplinib_compounds.csv")
-# examplinib_compounds_single_string <- pull_data_string("examplinib_compounds_single.csv")
-
 examplinib_compounds <- read_perpetrators(textConnection(
   examplinib_compounds_string))
 
 examplinib_parent <- examplinib_compounds[[1]]
 examplinib_metabolite <- examplinib_compounds[[2]]
 
-# usethis::use_data(examplinib_compounds_string, overwrite = TRUE)
-# usethis::use_data(examplinib_compounds_single_string, overwrite = TRUE)
-# usethis::use_data(examplinib_compounds, overwrite = TRUE)
 usethis::use_data(examplinib_parent, overwrite = TRUE)
 usethis::use_data(examplinib_metabolite, overwrite = TRUE)
 
@@ -33,7 +27,6 @@ examplinib_cyp_inhibition_data <-
 examplinib_cyp_inh_parent <- examplinib_cyp_inhibition_data[[1]]
 examplinib_cyp_inh_metabolite <- examplinib_cyp_inhibition_data[[2]]
 
-# usethis::use_data(examplinib_cyp_inhibition_string, overwrite = TRUE)
 usethis::use_data(examplinib_cyp_inh_parent, overwrite = TRUE)
 usethis::use_data(examplinib_cyp_inh_metabolite, overwrite = TRUE)
 
@@ -45,7 +38,6 @@ examplinib_cyp_tdi_string <- pull_data_string("examplinib_cyp_tdi.csv")
 examplinib_cyp_tdi_parent <- read_tdi_data(textConnection(
   examplinib_cyp_tdi_string))
 
-# usethis::use_data(examplinib_cyp_tdi_string, overwrite = TRUE)
 usethis::use_data(examplinib_cyp_tdi_parent, overwrite = TRUE)
 
 
@@ -55,10 +47,10 @@ examplinib_cyp_induction_string <- pull_data_string("examplinib_cyp_induction.cs
 
 examplinib_cyp_induction_data <- read_inducer_data(textConnection(
   examplinib_cyp_induction_string))
+
 examplinib_cyp_ind_parent <- examplinib_cyp_induction_data[[1]]
 examplinib_cyp_ind_metabolite <- examplinib_cyp_induction_data[[2]]
 
-# usethis::use_data(examplinib_cyp_induction_string, overwrite = TRUE)
 usethis::use_data(examplinib_cyp_ind_parent, overwrite = TRUE)
 usethis::use_data(examplinib_cyp_ind_metabolite, overwrite = TRUE)
 
@@ -72,7 +64,6 @@ examplinib_ugt_inhibition_data <-
 examplinib_ugt_inh_parent <- examplinib_ugt_inhibition_data[[1]]
 examplinib_ugt_inh_metabolite <- examplinib_ugt_inhibition_data[[2]]
 
-# usethis::use_data(examplinib_ugt_inhibition_string, overwrite = TRUE)
 usethis::use_data(examplinib_ugt_inh_parent, overwrite = TRUE)
 usethis::use_data(examplinib_ugt_inh_metabolite, overwrite = TRUE)
 
@@ -86,5 +77,4 @@ examplinib_transporter_inh_parent <-
   read_transporter_inhibitor_data(textConnection(
     examplinib_transporter_inhibition_string))
 
-# usethis::use_data(examplinib_transporter_inhibition_string, overwrite = TRUE)
 usethis::use_data(examplinib_transporter_inh_parent, overwrite = TRUE)

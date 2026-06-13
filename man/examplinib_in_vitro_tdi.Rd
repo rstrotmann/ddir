@@ -5,7 +5,13 @@
 \alias{examplinib_in_vitro_tdi}
 \title{in vitro sample data for CYP3A4 TDI}
 \format{
-A data frame with 3 columns
+A data frame with 4 columns
+\itemize{
+\item TIME Pre-incubation time in minutes.
+\item CONC Precipitant concentration in uM.
+\item ACT Enzyme activity in percent of initial.
+\item SOURCE Source study report
+}
 }
 \source{
 Fully synthetic data set to demonstrate TDI-related calculations

@@ -4,30 +4,26 @@
 \alias{inducer}
 \title{DDI CYP inducer object constructor}
 \usage{
-inducer(data, object = "")
+inducer(data, precipitant = "")
 }
 \arguments{
-\item{data}{Data frame with the columns 'target', 'emax', 'ec50', 'max_c' and
-'source'.}
+\item{data}{Data frame with the columns:
+\itemize{
+\item object: The CYP induction target. Must be one of "CYP1A1", "CYP1A2",
+"CYP2A6", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C18", "CYP2C19", "CYP2D6",
+"CYP2E1", "CYP2J2", "CYP3A4", "CYP3A5", or "CYP3A7".
+\item emax: The maximal induction effect as numeric.
+\item ec50: The EC50, i.e., the concentration causing the half-maximal induction
+effect, in uM.
+\item max_c: The maximal concentration tested in the assay in uM.
+\item source: Source information for the parameter.
+}}
 
-\item{object}{The name of the DDI perpetrator as character.}
+\item{precipitant}{The name of the DDI perpetrator as character.}
 }
 \value{
 Inducer object
 }
 \description{
-This class constructor expects as the as the data argument a data frome with
-the following columns:
-}
-\details{
-\itemize{
-\item target: The CYP induction target. Must be one of "CYP1A1", "CYP1A2",
-"CYP2A6", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C18", "CYP2C19", "CYP2D6",
-"CYP2E1", "CYP2J2", "CYP3A4", "CYP3A5", or "CYP3A7".
-\item emax: The maximal induction effect.
-\item ec50: The EC50, i.e., the concentration causing the half-maximal induction
-effect.
-\item max_c: The maximal concentration tested in the assay in uM.
-\item source: Source information for the parameter.
-}
+DDI CYP inducer object constructor
 }
