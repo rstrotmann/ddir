@@ -1,17 +1,24 @@
 #' Derive TDI parameters from enzyme activity data
 #'
+#' @details
+#' kobs is fitted to the enzyme activity data as a first-order process for each
+#' inhibitor concentration.
+#' kinact (the maximal inhibition rate) and KI (inhibitor concentration at the
+#' half-maximal kobs) are fitted from kobs over inhibitor concentration using a
+#' Emax model.
+#'
 #' @param x In vitro data as data frame. The following columns are expected:
-#' * TIME Pre-incubation time in minutes
+#' * TIME Duration of Pre-incubation with the precipitant and NADPH in minutes
 #' * CONC Precipitant concentration in uM
 #' * ACT Enzyme activity in percent
-#' @param target_name The target enzyme name as character or NULL.
+#' @param object The DDI target object as character or NULL.
 #'
 #' @returns A list with the following items:
 #' * data The input data with linear models of ACT over TIME by CONC.
 #' * kobs The kobs parameters by precipitant concentration.
 #' * kobs_plot A ggplot object showing the kobs fit to the ACT data.
 #' * tdi_param The TDI parameters, Kinact and KI, derived from an Emax model of
-#' kobs over CONC.
+#'   kobs over CONC.
 #' * tdi_plot A ggplot object showing the Emnax modeling of kobs over CONC.
 #' @import ggplot2
 #' @import tidyr
@@ -21,7 +28,7 @@
 #'
 #' @examples
 #' tdimod(examplinib_in_vitro_tdi)
-tdimod <- function(x, target_name = NULL) {
+tdimod <- function(x, object = NULL) {
   # input validation
   if (!is.data.frame(x))
     stop("x must be a data frame")
@@ -31,7 +38,7 @@ tdimod <- function(x, target_name = NULL) {
   if (length(missing_cols) > 0)
     stop(paste0("Missing column(s) in input: ", nice_enumeration(missing_cols)))
 
-  validate_argument(target_name, "character", allow_null = TRUE)
+  validate_argument(object, "character", allow_null = TRUE)
 
   # business logic
   out <- list()

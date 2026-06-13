@@ -235,7 +235,31 @@
 #' different concentrations of a time-dependent inhibitor.
 #'
 #' @format
-#' A data frame with 3 columns
+#' A data frame with 4 columns
+#' * TIME Pre-incubation time in minutes.
+#' * CONC Precipitant concentration in uM.
+#' * ACT Enzyme activity in percent of initial.
+#' * SOURCE Source study report
 #'
 #' @source Fully synthetic data set to demonstrate TDI-related calculations
 "examplinib_in_vitro_tdi"
+
+
+#' in vitro sample data for CYP3A4 mRNA induction
+#'
+#' @description
+#' CYP3A4 mRNA fold-change data at different precipitant concentrations
+#'
+#' @format
+#' A data frame with 7 columns
+#' * DONOR Hepatocyte donor
+#' * PRECIPITANT Test precipitant or postive control
+#' * CONC Precipitant concentration
+#' * OBJECT DDI target
+#' * FOLD mRNA fold change
+#' * REL mRNA induction in percent relative to positive control
+#' * SOURCE Source study report
+#'
+#' @source Fully synthetic data set to demonstrate CYP mRNA induction data
+#' evaluation.
+"examplinib_in_vitro_ind"
