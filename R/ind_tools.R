@@ -23,25 +23,26 @@
 #' @examples
 #' induction_plot(examplinib_in_vitro_ind)
 #' induction_plot(examplinib_in_vitro_ind, type = "FOLD")
-induction_plot <- function(x, precipitant = "test", type = "REL") {
+induction_plot <- function(x, type = "REL") {
   # input validation
   if (!is.data.frame(x))
     stop("x must be a data frame")
 
-  validate_argument(precipitant, "character")
+  # validate_argument(precipitant, "character")
   validate_argument(type, "character")
 
-  expected_cols <- c("DONOR", "PRECIPITANT", "CONC", "OBJECT", type)
+  expected_cols <- c("DONOR", "SAMPLE", "CONC", "OBJECT", type)
   missing_cols <- setdiff(expected_cols, names(x))
   if (length(missing_cols) > 0)
     stop(paste0("Missing column(s) in input: ", nice_enumeration(missing_cols)))
 
-  if (!precipitant %in% unique(x$PRECIPITANT))
-    stop(paste0("Precipitant ", precipitant, " not in data set."))
+  # if (!precipitant %in% unique(x$PRECIPITANT))
+  #   stop(paste0("Precipitant ", precipitant, " not in data set."))
 
   # business logic
   x |>
-    filter(PRECIPITANT == precipitant) |>
+    # filter(PRECIPITANT == precipitant) |>
+    filter(SAMPLE == "test") |>
     filter(!is.na(.data[[type]])) |>
     ggplot(aes(x = CONC, y = .data[[type]], group = DONOR)) +
     geom_point() +
