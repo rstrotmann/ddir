@@ -21,10 +21,21 @@ indmod(x, precipitant = "")
 \item{precipitant}{The precipitant as character.}
 }
 \value{
-A list.
+A list with the elements:
+\itemize{
+\item data The original data, model and model parameters for each fit.
+\item fold_plot A ggplot object showing the original data and the fits.
+\item ind_param The ec50, hill (n) and emax parameters by donor and DDI object.
+\item inducer An inducer object representing the model parameters from the donor
+with the highest Emax per DDI object.
+}
 }
 \description{
-Analyze in vitro CYP induction data
+Fit a 3-parameter hill function to the mRNA induction data from each
+donor and DDI object.
+}
+\details{
+\deqn{f = 1 + \frac{(E_{max}) * C^n}{(EC_{50}^n + C^n)}}
 }
 \examples{
 indmod(examplinib_in_vitro_ind, precipitant = "examplinib")

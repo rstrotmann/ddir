@@ -35,9 +35,6 @@ induction_plot <- function(x, type = "REL") {
   if (length(missing_cols) > 0)
     stop(paste0("Missing column(s) in input: ", nice_enumeration(missing_cols)))
 
-  # if (!precipitant %in% unique(x$PRECIPITANT))
-  #   stop(paste0("Precipitant ", precipitant, " not in data set."))
-
   # business logic
   x |>
     # filter(PRECIPITANT == precipitant) |>
@@ -53,6 +50,13 @@ induction_plot <- function(x, type = "REL") {
 
 #' Analyze in vitro CYP induction data
 #'
+#' Fit a 3-parameter hill function to the mRNA induction data from each
+#' donor and DDI object.
+#'
+#' @details
+#'
+#' \deqn{f = 1 + \frac{(E_{max}) * C^n}{(EC_{50}^n + C^n)}}
+#'
 #' @param x In vitro induction data as data frame with the columns:
 #' * DONOR The hepatocyte donor
 #' * SAMPLE "test" or "positive_control"
@@ -63,7 +67,13 @@ induction_plot <- function(x, type = "REL") {
 #' * SOURCE Source information
 #' @param precipitant The precipitant as character.
 #'
-#' @returns A list.
+#' @returns A list with the elements:
+#' * data The original data, model and model parameters for each fit.
+#' * fold_plot A ggplot object showing the original data and the fits.
+#' * ind_param The ec50, hill (n) and emax parameters by donor and DDI object.
+#' * inducer An inducer object representing the model parameters from the donor
+#' with the highest Emax per DDI object.
+#'
 #' @export
 #'
 #' @examples
