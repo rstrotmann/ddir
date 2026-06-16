@@ -68,3 +68,48 @@ examplinib_in_vitro_ind <- tibble::tribble(
   )
 
 usethis::use_data(examplinib_in_vitro_ind, overwrite = TRUE)
+
+
+## in vitro CYP3A4 mRNA induction data with down-regulation, fully synthetic
+
+examplinib_in_vitro_ind1 <-tibble::tribble(
+  ~DONOR, ~SAMPLE, ~CONC,  ~OBJECT, ~FOLD,                ~SOURCE,
+     "A",  "test",   0.1, "CYP1A2", 0.951, "Study examplinib_ind",
+     "A",  "test",   0.1, "CYP2B6", 0.925, "Study examplinib_ind",
+     "A",  "test",   0.1, "CYP3A4", 0.614, "Study examplinib_ind",
+     "A",  "test",     1, "CYP1A2", 0.849, "Study examplinib_ind",
+     "A",  "test",     1, "CYP2B6", 1.069, "Study examplinib_ind",
+     "A",  "test",     1, "CYP3A4", 0.912, "Study examplinib_ind",
+     "A",  "test",     5, "CYP1A2", 0.212, "Study examplinib_ind",
+     "A",  "test",     5, "CYP2B6", 0.355, "Study examplinib_ind",
+     "A",  "test",     5, "CYP3A4", 0.973, "Study examplinib_ind",
+     "A",  "test",    10, "CYP1A2", 0.087, "Study examplinib_ind",
+     "A",  "test",    10, "CYP2B6", 0.188, "Study examplinib_ind",
+     "A",  "test",    10, "CYP3A4", 0.285, "Study examplinib_ind",
+     "B",  "test",   0.1, "CYP1A2", 1.471, "Study examplinib_ind",
+     "B",  "test",   0.1, "CYP2B6", 1.286, "Study examplinib_ind",
+     "B",  "test",   0.1, "CYP3A4", 1.428, "Study examplinib_ind",
+     "B",  "test",     1, "CYP1A2", 1.535, "Study examplinib_ind",
+     "B",  "test",     1, "CYP2B6", 1.356, "Study examplinib_ind",
+     "B",  "test",     1, "CYP3A4",  1.79, "Study examplinib_ind",
+     "B",  "test",     5, "CYP1A2", 0.661, "Study examplinib_ind",
+     "B",  "test",     5, "CYP2B6", 0.716, "Study examplinib_ind",
+     "B",  "test",     5, "CYP3A4", 1.372, "Study examplinib_ind",
+     "B",  "test",    10, "CYP1A2", 0.188, "Study examplinib_ind",
+     "B",  "test",    10, "CYP2B6", 0.341, "Study examplinib_ind",
+     "B",  "test",    10, "CYP3A4", 0.293, "Study examplinib_ind",
+     "C",  "test",   0.1, "CYP1A2", 1.092, "Study examplinib_ind",
+     "C",  "test",   0.1, "CYP2B6", 0.978, "Study examplinib_ind",
+     "C",  "test",   0.1, "CYP3A4", 0.841, "Study examplinib_ind",
+     "C",  "test",     1, "CYP1A2", 0.878, "Study examplinib_ind",
+     "C",  "test",     1, "CYP2B6",  0.85, "Study examplinib_ind",
+     "C",  "test",     1, "CYP3A4",  1.06, "Study examplinib_ind",
+     "C",  "test",     5, "CYP1A2", 0.159, "Study examplinib_ind",
+     "C",  "test",     5, "CYP2B6",  0.32, "Study examplinib_ind",
+     "C",  "test",     5, "CYP3A4", 0.829, "Study examplinib_ind",
+     "C",  "test",    10, "CYP1A2", 0.072, "Study examplinib_ind",
+     "C",  "test",    10, "CYP2B6", 0.107, "Study examplinib_ind",
+     "C",  "test",    10, "CYP3A4", 0.286, "Study examplinib_ind"
+  )
+
+usethis::use_data(examplinib_in_vitro_ind1, overwrite = TRUE)

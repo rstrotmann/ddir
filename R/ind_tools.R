@@ -96,12 +96,12 @@ indmod <- function(x, precipitant = "") {
   # business logic
   x <- mutate(x, ID = paste0(OBJECT, "_", DONOR))
 
-  sigm3 <- function(c, emax, ec50, n) {
-    1 + (emax - 1) / (1 + exp(-(c - ec50) / n))
-  }
+  # sigm3 <- function(c, emax, ec50, n) {
+  #   1 + (emax - 1) / (1 + exp(-(c - ec50) / n))
+  # }
 
   hill3 <- function(c, emax, ec50, n) {
-    1 + (emax) * c^n / (ec50^n +c^n)
+    1 + (emax - 1) * c^n / (ec50^n + c^n)
   }
 
   out <- list()
@@ -115,6 +115,8 @@ indmod <- function(x, precipitant = "") {
         FOLD ~ hill3(CONC, emax_obs, ec50, n),
         data = data,
         start = list(ec50 = 1, n = 1),
+        lower = c(ec50 = 0, n = 1),
+        upper = c(ec50 = 100, n = NA),
         control = nls.lm.control(maxiter = 1000)
       )
     )) |>
