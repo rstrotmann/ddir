@@ -66,6 +66,8 @@ induction_plot <- function(x, type = "REL") {
 #' * REL The fold change relative to positive control.
 #' * SOURCE Source information
 #' @param precipitant The precipitant as character.
+#' @param use_emax_obs Constrain Emax to the observed Emax (default). If FALSE,
+#' Emax will be fitted.
 #'
 #' @returns A list with the elements:
 #' * data The original data, model and model parameters for each fit.
@@ -78,7 +80,7 @@ induction_plot <- function(x, type = "REL") {
 #'
 #' @examples
 #' indmod(examplinib_in_vitro_ind, precipitant = "examplinib")
-indmod <- function(x, precipitant = "") {
+indmod <- function(x, precipitant = "", use_emax_obs = TRUE) {
   # input validation
   if (!is.data.frame(x))
     stop("x must be a data frame")
@@ -96,31 +98,66 @@ indmod <- function(x, precipitant = "") {
   # business logic
   x <- mutate(x, ID = paste0(.data$OBJECT, "_", .data$DONOR))
 
-  # sigm3 <- function(c, emax, ec50, n) {
-  #   1 + (emax - 1) / (1 + exp(-(c - ec50) / n))
-  # }
+  sigm3 <- function(c, emax, ec50, n) {
+    1 + (emax - 1) / (1 + exp(-(c - ec50) / n))
+  }
 
   hill3 <- function(c, emax, ec50, n) {
-    1 + (emax ) * c^n / (ec50^n + c^n)
+    1 + (emax - 1) * c^n / (ec50^n + c^n)
   }
 
   out <- list()
 
-  out$data <- x |>
+  # out$data <- x |>
+  #   filter(.data$SAMPLE == "test") |>
+  #   nest_by(DONOR, OBJECT, ID) |>
+  #   mutate(emax_obs = max(data$FOLD, na.rm = TRUE) - 1) |>
+    # mutate(mod = list(
+    #   nlsLM(
+    #     FOLD ~ hill3(CONC, emax, ec50, n),
+    #     data = data,
+    #     start = list(emax = 2, ec50 = .1, n = 1),
+    #     lower = c(emax = NA, ec50 = 0, n = 1),
+    #     upper = c(emax = NA, ec50 = 100, n = 5),
+    #     control = nls.lm.control(maxiter = 1000)
+    #   )
+    # )) |>
+    # mutate(modpar = list(broom::tidy(mod)))
+
+  temp <- x |>
     filter(.data$SAMPLE == "test") |>
     nest_by(DONOR, OBJECT, ID) |>
-    mutate(emax_obs = max(data$FOLD, na.rm = TRUE) - 1) |>
-    mutate(mod = list(
-      nlsLM(
-        FOLD ~ hill3(CONC, emax_obs, ec50, n),
-        data = data,
-        start = list(ec50 = 1, n = 1),
-        lower = c(ec50 = 0, n = 1),
-        upper = c(ec50 = 100, n = NA),
-        control = nls.lm.control(maxiter = 1000)
-      )
-    )) |>
-    mutate(modpar = list(broom::tidy(mod)))
+    mutate(emax_obs = max(data$FOLD, na.rm = TRUE) - 1)
+
+  if (use_emax_obs == TRUE) {
+    out$data <- temp |>
+      mutate(mod = list(
+        nlsLM(
+          FOLD ~ hill3(CONC, emax_obs, ec50, n),
+          data = data,
+          start = list(ec50 = .1, n = 1),
+          lower = c(ec50 = 0, n = 1),
+          upper = c(ec50 = 100, n = 5),
+          control = nls.lm.control(maxiter = 1000)
+        )
+      )) |>
+      mutate(modpar = list(broom::tidy(mod)))
+  } else {
+    out$data <- temp |>
+      mutate(mod = list(
+        nlsLM(
+          FOLD ~ hill3(CONC, emax, ec50, n),
+          data = data,
+          start = list(emax = 2, ec50 = .1, n = 1),
+          lower = c(emax = NA, ec50 = 0, n = 1),
+          upper = c(emax = NA, ec50 = 100, n = 5),
+          control = nls.lm.control(maxiter = 1000)
+        )
+      )) |>
+      mutate(modpar = list(broom::tidy(mod)))
+  }
+
+
 
   # curve plot data set
   pred <- data.frame(
@@ -139,8 +176,9 @@ indmod <- function(x, precipitant = "") {
   out$fold_plot <- ggplot(data = NULL, aes(x = CONC, y = FOLD, color = OBJECT)) +
     geom_line(data = pred) +
     geom_point(data = filter(x, SAMPLE == "test", !is.na(FOLD)), size = 2) +
-    facet_wrap(~ID) +
-    # scale_x_log10() +
+    facet_wrap(~ID, scales = "free") +
+    scale_x_log10() +
+    expand_limits(y = 0) +
     theme_bw() +
     theme(legend.position = "none")
 
