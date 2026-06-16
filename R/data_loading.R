@@ -10,7 +10,7 @@ convert_df_to_perp <- function(x) {
   if ("oral" %in% x$param) slot(out, "oral") <- as.logical(x[x$param == "oral", "value"])
   source <- x$source
   names(source) <- x$param
-  slot(out, "source") <- source[source != ""]
+  methods::slot(out, "source") <- source[source != ""]
   out
 }
 

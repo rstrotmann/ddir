@@ -94,7 +94,7 @@ indmod <- function(x, precipitant = "") {
     stop("SAMPLE must be 'test' or 'positive_control'")
 
   # business logic
-  x <- mutate(x, ID = paste0(OBJECT, "_", DONOR))
+  x <- mutate(x, ID = paste0(.data$OBJECT, "_", .data$DONOR))
 
   # sigm3 <- function(c, emax, ec50, n) {
   #   1 + (emax - 1) / (1 + exp(-(c - ec50) / n))
@@ -107,7 +107,7 @@ indmod <- function(x, precipitant = "") {
   out <- list()
 
   out$data <- x |>
-    filter(SAMPLE == "test") |>
+    filter(.data$SAMPLE == "test") |>
     nest_by(DONOR, OBJECT, ID) |>
     mutate(emax_obs = max(data$FOLD, na.rm = TRUE) - 1) |>
     mutate(mod = list(

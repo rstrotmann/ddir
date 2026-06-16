@@ -37,6 +37,7 @@
 #' @param cyp_inh CYP inhibition data object.
 #'
 #' @return DDI risk object.
+#' @importFrom methods new
 #' @export
 #' @examples
 #' basic_cyp_inhibition_risk(examplinib_parent, examplinib_cyp_inh_parent)
@@ -52,7 +53,7 @@ basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
 
   allowed_object <- c("CYP1A2", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19",
                       "CYP2D6", "CYP3A4")
-  ki <- filter(cyp_inh@data, object %in% allowed_object)
+  ki <- filter(cyp_inh@data, .data$object %in% allowed_object)
   if (nrow(ki) == 0)
     stop("No inhibition data for known CYP enzymes found")
   excluded_object <- setdiff(unique(cyp_inh@data$object), allowed_object)
@@ -74,9 +75,9 @@ basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
     mutate(risk_intest = r_gut > 10)  |>
     mutate(r = round(r, digits = 4)) |>
     mutate(r_gut = round(r_gut, digits = 4)) |>
-    select(object, ki, kiu, source, r, risk_hep, r_gut, risk_intest)
+    select(c("object", "ki", "kiu", "source", "r", "risk_hep", "r_gut", "risk_intest"))
 
-  new(
+  methods::new(
     "ddi_risk",
     table = out,
     precipitant = perp,
@@ -111,6 +112,7 @@ basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
 #' @param perp The perpetrator object.
 #' @param ugt_inh UGT inhibition data object.
 #' @return DDI risk object.
+#' @importFrom methods new
 #' @export
 basic_ugt_inhibition_risk <- function(perp, ugt_inh) {
   # Validate inputs
@@ -123,7 +125,7 @@ basic_ugt_inhibition_risk <- function(perp, ugt_inh) {
 
   allowed_objects <- c("UGT1A1", "UGT1A3", "UGT1A4", "UGT1A6", "UGT1A9",
                       "UGT2B7", "UGT2B15", "UGT2B17")
-  ki <- filter(ugt_inh@data, object %in% allowed_objects)
+  ki <- filter(ugt_inh@data, .data$object %in% allowed_objects)
   if (nrow(ki) == 0)
     stop("No inhibition data for known UGT enzymes found")
   excluded_objects <- setdiff(unique(ugt_inh@data$target), allowed_objects)
@@ -136,13 +138,13 @@ basic_ugt_inhibition_risk <- function(perp, ugt_inh) {
 
   out <- ki |>
     mutate(ki = ic50/2) |>
-    mutate(kiu = ki * perp@fumic) |>
-    mutate(r = imaxssu(perp) / kiu) |>
-    mutate(risk = r > 0.02) |>
-    mutate(r = round(r, digits = 4)) |>
-    select(object, ki, kiu, source, r, risk)
+    mutate(kiu = .data$ki * perp@fumic) |>
+    mutate(r = imaxssu(perp) / .data$kiu) |>
+    mutate(risk = .data$r > 0.02) |>
+    mutate(r = round(.data$r, digits = 4)) |>
+    select(c("object", "ki", "kiu", "source", "r", "risk"))
 
-  new(
+  methods::new(
     "ddi_risk",
     table = out,
     precipitant = perp,
@@ -246,6 +248,7 @@ transporter_inh_risk <- function(
 #' @param cyp_kdeg Data frame
 #'
 #' @returns DDI risk object
+#' @importFrom methods new
 #' @export
 basic_cyp_tdi_risk <- function(
     perp,
@@ -268,7 +271,7 @@ basic_cyp_tdi_risk <- function(
   allowed_object <- c("CYP1A2", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19",
                       "CYP2D6", "CYP3A4")
 
-  in_vitro <- filter(cyp_tdi@data, object %in% allowed_object)
+  in_vitro <- filter(cyp_tdi@data, .data$object %in% allowed_object)
   if (nrow(in_vitro) == 0)
     stop("No TDI data for known CYP enzymes found")
   excluded_objects <- setdiff(unique(cyp_tdi@data$object), allowed_object)
@@ -289,9 +292,9 @@ basic_cyp_tdi_risk <- function(
     mutate(kdeg = kdeg_hepatic) |>
     mutate(r = (kobs + kdeg) / kdeg) |>
     mutate(risk = (r > 1.25)) |>
-    select(object, ki, fu, kinact, kdeg, source, r, risk)
+    select(c("object", "ki", "fu", "kinact", "kdeg", "source", "r", "risk"))
 
-  new(
+  methods::new(
     "ddi_risk",
     table = out,
     precipitant = perp,
