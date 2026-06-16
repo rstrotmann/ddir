@@ -101,7 +101,7 @@ indmod <- function(x, precipitant = "") {
   # }
 
   hill3 <- function(c, emax, ec50, n) {
-    1 + (emax - 1) * c^n / (ec50^n + c^n)
+    1 + (emax ) * c^n / (ec50^n + c^n)
   }
 
   out <- list()
