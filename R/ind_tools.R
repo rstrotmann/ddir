@@ -138,7 +138,7 @@ indmod <- function(x, precipitant = "") {
     geom_line(data = pred) +
     geom_point(data = filter(x, SAMPLE == "test", !is.na(FOLD)), size = 2) +
     facet_wrap(~ID) +
-    scale_x_log10() +
+    # scale_x_log10() +
     theme_bw() +
     theme(legend.position = "none")
 
