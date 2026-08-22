@@ -21,7 +21,7 @@
 #' MATE2k      , 0.02      , imaxssu
 #' }
 #' @source Section 2 of the [ICH M12 guideline](https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf).
-#' @seealso [ddir::key_concentrations()]
+#' @seealso [ddir::key_conc_table()]
 #' @seealso [ddir::transporter_inhibition_risk()]
 "transporter_reference_data"
 

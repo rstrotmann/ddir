@@ -36,7 +36,7 @@
 #
 #
 # test_that("key concentrations", {
-#   expect_no_error(key_concentrations(examplinib_parent))
+#   expect_no_error(key_conc_table(examplinib_parent))
 # })
 #
 #

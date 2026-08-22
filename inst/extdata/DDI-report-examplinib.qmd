@@ -123,7 +123,7 @@ The following perpetrator concentrations were calculated as described in
 Appendix 1:
 
 ```{r results="asis"}
-key_conc(perp)
+key_conc_table(perp)
 ```
 
 # DDI risk as inhibitor or inducer of drug-metabolizing enzymes

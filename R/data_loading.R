@@ -1,7 +1,7 @@
 
 convert_df_to_perp <- function(x) {
   out <- perpetrator("", TRUE, 0, 0, 0)
-  for (p in c("mw", "dose", "imaxss", "fu", "fummic", "rb", "fa", "fg", "ka", "solubility")) {
+  for (p in c("mw", "dose", "imaxss", "fu", "fumic", "rb", "fa", "fg", "ka", "solubility")) {
     if (p %in% x$param) {
       slot(out, p) <- as.numeric(x[x$param == p, "value"])
     }

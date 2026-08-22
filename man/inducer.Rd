@@ -27,3 +27,9 @@ Inducer object
 \description{
 DDI CYP inducer object constructor
 }
+\examples{
+inducer(data.frame(object = "CYP3A4", emax = 2, ec50 = .1, max_c = 100,
+source = "test source"), precipitant = "test")
+
+inducer(data = NULL, precipitant = "test")
+}

@@ -4,7 +4,7 @@
 \alias{indmod}
 \title{Analyze in vitro CYP induction data}
 \usage{
-indmod(x, precipitant = "")
+indmod(x, precipitant = "", use_emax_obs = TRUE)
 }
 \arguments{
 \item{x}{In vitro induction data as data frame with the columns:
@@ -19,6 +19,9 @@ indmod(x, precipitant = "")
 }}
 
 \item{precipitant}{The precipitant as character.}
+
+\item{use_emax_obs}{Constrain Emax to the observed Emax (default). If FALSE,
+Emax will be fitted.}
 }
 \value{
 A list with the elements:

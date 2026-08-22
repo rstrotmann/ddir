@@ -22,22 +22,27 @@
 #' @examples
 #' induction_plot(examplinib_in_vitro_ind)
 #' induction_plot(examplinib_in_vitro_ind, type = "FOLD")
-induction_plot <- function(x, type = "REL") {
+induction_plot <- function(
+    x,
+    type = "REL"
+) {
   # input validation
-  if (!is.data.frame(x))
-    stop("x must be a data frame")
-
-  # validate_argument(precipitant, "character")
-  validate_argument(type, "character")
-
-  expected_cols <- c("DONOR", "SAMPLE", "CONC", "OBJECT", type)
-  missing_cols <- setdiff(expected_cols, names(x))
-  if (length(missing_cols) > 0)
-    stop(paste0("Missing column(s) in input: ", nice_enumeration(missing_cols)))
+  validate_argument(type, values = c("FOLD", "REL"))
+  validate_df_argument(x, values = c("DONOR", "SAMPLE", "CONC", "OBJECT", type))
+  #
+  # if (!is.data.frame(x))
+  #   stop("x must be a data frame")
+  #
+  # # validate_argument(precipitant, "character")
+  # validate_argument(type, "character")
+  #
+  # expected_cols <- c("DONOR", "SAMPLE", "CONC", "OBJECT", type)
+  # missing_cols <- setdiff(expected_cols, names(x))
+  # if (length(missing_cols) > 0)
+  #   stop(paste0("Missing column(s) in input: ", nice_enumeration(missing_cols)))
 
   # business logic
-  x |>
-    # filter(PRECIPITANT == precipitant) |>
+  p <- x |>
     filter(SAMPLE == "test") |>
     filter(!is.na(.data[[type]])) |>
     ggplot(aes(x = CONC, y = .data[[type]], group = DONOR)) +
@@ -45,6 +50,8 @@ induction_plot <- function(x, type = "REL") {
     geom_line() +
     facet_wrap(~OBJECT) +
     theme_bw()
+
+  p
 }
 
 

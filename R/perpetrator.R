@@ -61,14 +61,14 @@ setValidity("perpetrator", function(object) {
   validate_argument(object@name, "character", allow_empty = TRUE)
   validate_argument(object@oral, "logical")
   validate_argument(object@mw, "numeric", expect_positive = TRUE)
-  validate_argument(object@dose, "numeric", expect_positive = TRUE)
+  validate_argument(object@dose, "numeric", expect_positive = TRUE, allow_na = TRUE)
   validate_argument(object@imaxss, "numeric", expect_positive = TRUE)
-  validate_fraction(object@fu)
-  validate_fraction(object@fumic)
-  validate_fraction(object@rb)
-  validate_fraction(object@fa)
-  validate_fraction(object@fg)
-  validate_argument(object@ka, "numeric", expect_positive = TRUE)
+  validate_argument(object@fu, "fraction")
+  validate_argument(object@fumic, "fraction")
+  validate_argument(object@rb, "numeric", expect_positive = TRUE)
+  validate_argument(object@fa, "fraction", allow_na = TRUE)
+  validate_argument(object@fg, "fraction", allow_na = TRUE)
+  validate_argument(object@ka, "numeric", expect_positive = TRUE, allow_na = TRUE)
   validate_argument(object@solubility, "numeric", expect_positive = TRUE)
   validate_argument(object@source, "character", allow_multiple = TRUE, allow_empty = TRUE)
 
@@ -146,8 +146,7 @@ perpetrator <- function(
 setMethod(
   "show", "perpetrator",
   function(object) {
-    line <- paste0(rep("-", 5), collapse="")
-    cat(paste0(line, " DDI perpetrator ", line, "\n"))
+    cat(paste0(hline(), " DDI perpetrator ", hline(), "\n"))
 
     out <- tibble::tribble(
            ~name,   ~unit,
@@ -173,7 +172,8 @@ setMethod(
         ifelse(
           !is.na(slot(object, "source")[x]),
           paste0("(", slot(object, "source")[x], ")"),
-          "")
+          ""
+        )
       }
     ))
 
@@ -329,12 +329,12 @@ imaxinletu <- function(x, qh = 1.616, molar = TRUE) {
 imaxintest <- function(x, qent = 18/60, molar = TRUE) {
   validate_perpetrator(x)
   if(x@oral == FALSE) {
-    out <- imaxssu(x)
+    out <- imaxssu(x, molar = molar)
   } else {
     out <- x@dose * x@fa * x@ka / qent * 1000
+    ifelse(molar, out / x@mw, out)
   }
 
-  ifelse(molar, out / x@mw, out)
 }
 
 
@@ -396,7 +396,7 @@ imaxintest <- function(x, qent = 18/60, molar = TRUE) {
 #'
 #' @returns Markdown-formatted text.
 #' @export
-key_conc <- function(
+key_conc_table <- function(
     x,
     round = 2,
     qh = 1.616,

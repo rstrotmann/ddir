@@ -1,3 +1,14 @@
+#' Horizontal line using unicode characters
+#'
+#' @param length Line length.
+#'
+#' @returns A character string.
+#' @noRd
+hline <- function(length = 8) {
+  paste0(rep("\U2500", length), collapse = "")
+}
+
+
 #' Render data frame to character.
 #'
 #' This function renders a data frame into a string object.
@@ -9,12 +20,14 @@
 #' included in the output.
 #' @param n The number of lines to be rendered. If NULL (default), all lines
 #' are rendered.
+#' @param label_empty annotate empty data set, as logical.
 #'
 #' @return The data frame representation as character.
 #' @import stringr
 #' @import utils
 #' @noRd
-df_to_string <- function(df, indent="", n=NULL, colnames=TRUE){
+df_to_string <- function(df, indent = "", n = NULL, colnames = TRUE,
+                         label_empty = TRUE){
   df <- as.data.frame(df)
   max.widths <- as.numeric(
     lapply(rbind(df, names(df)),
@@ -29,16 +42,28 @@ df_to_string <- function(df, indent="", n=NULL, colnames=TRUE){
     }
     return(out)
   }
+
   out <- NULL
+
   if(colnames){
     out <- render.line(data.frame(as.list(names(df))))
   }
+
   if(!is.null(n)){
     df <- head(df, n=n)
   }
-  for(i in 1:nrow(df)){
-    out <- paste(out, render.line(df[i,]), sep="\n")
+
+  if (nrow(df) > 0) {
+    for(i in 1:nrow(df)){
+      out <- paste(out, render.line(df[i,]), sep="\n")
+    }
+  } else {
+    if (label_empty == TRUE)
+      out <- paste(out, "(empty data set)", sep="\n")
   }
+
+
+
   return(stringr::str_trim(out))
 }
 
@@ -128,5 +153,6 @@ make_labels <- function(obj) {
 
 
 
-c("CYP", "$E_{max}$", "$max c$ ($\\mu M$)", "source",
-  "$max c/C_{max,ss,u}$", "risk", "notes")
+
+# c("CYP", "$E_{max}$", "$max c$ ($\\mu M$)", "source",
+#   "$max c/C_{max,ss,u}$", "risk", "notes")

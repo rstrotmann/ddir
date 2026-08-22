@@ -72,7 +72,6 @@ inhibitor <- function(data, precipitant = "") {
 }
 
 
-
 #' Validity check for inhibitor class
 #'
 #' @param object Inhibitor object.
@@ -117,8 +116,8 @@ setValidity("inhibitor", function(object) {
 setMethod(
   "show", "inhibitor",
   function(object) {
-    line <- paste0(rep("-", 5), collapse="")
-    cat(paste0(line, " DDI inhibition data ", line, "\n"))
+    cat(paste0(hline(), " DDI inhibition data ", hline(), "\n"))
+
     cat(paste(
       "In vitro inhibition data for precipitant", object@precipitant, "\n\n"))
     out <- object@data |>
@@ -143,12 +142,12 @@ setMethod(
   "print", "inhibitor",
   function(x) {
     caption <- ifelse(
-      x@object != "",
+      x@precipitant != "",
       paste0("In vitro inhibition data for ", x@precipitant),
-      "")
+      ""
+    )
 
     col_names <- make_labels(x@data)
-
     out <- x@data |>
       mutate(source = case_when(
         # !is.na(source) & source != "" ~ paste0("(", source, ")"),

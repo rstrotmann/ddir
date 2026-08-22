@@ -69,7 +69,6 @@ test_that("perpetrator constructor validates argument types and ranges", {
   expect_error(make_test_perpetrator(imaxss = -1), "must be positive")
   expect_error(make_test_perpetrator(fu = 1.1), "must be between 0 and 1")
   expect_error(make_test_perpetrator(fumic = 1.1), "must be between 0 and 1")
-  expect_error(make_test_perpetrator(rb = 1.1), "must be between 0 and 1")
   expect_error(make_test_perpetrator(fa = 1.1), "must be between 0 and 1")
   expect_error(make_test_perpetrator(fg = 1.1), "must be between 0 and 1")
   expect_error(make_test_perpetrator(ka = -0.1), "must be positive")
@@ -91,7 +90,7 @@ test_that("perpetrator concentration functions reject non-perpetrator objects", 
   expect_error(imaxssu("not-a-perpetrator"), "object must be a perpetrotor object")
   expect_error(imaxinletu("not-a-perpetrator"), "object must be a perpetrotor object")
   expect_error(imaxintest("not-a-perpetrator"), "object must be a perpetrotor object")
-  expect_error(key_conc("not-a-perpetrator"), "object must be a perpetrotor object")
+  expect_error(key_conc_table("not-a-perpetrator"), "object must be a perpetrotor object")
 })
 
 
@@ -161,19 +160,20 @@ test_that("imaxintest returns expected values for oral and non-oral compounds", 
   qent <- 18 / 60
 
   oral_mass <- 450 * 0.81 * 0.00267 / qent * 1000
-  iv_nonmolar <- imaxssu(iv_x, molar = TRUE)
-  iv_molar <- iv_nonmolar / iv_x@mw
+  iv_mass <- 3530 * 0.023
 
   expect_equal(imaxintest(oral_x, qent = qent, molar = FALSE), oral_mass)
   expect_equal(imaxintest(oral_x, qent = qent, molar = TRUE), oral_mass / 492.6)
-  expect_equal(imaxintest(iv_x, qent = qent, molar = FALSE), iv_nonmolar)
-  expect_equal(imaxintest(iv_x, qent = qent, molar = TRUE), iv_molar)
+  expect_equal(imaxintest(iv_x, qent = qent, molar = FALSE), iv_mass)
+  expect_equal(imaxintest(iv_x, qent = qent, molar = TRUE), iv_mass / 492.6)
+  expect_equal(imaxintest(iv_x, qent = qent, molar = FALSE), imaxssu(iv_x, molar = FALSE))
+  expect_equal(imaxintest(iv_x, qent = qent, molar = TRUE), imaxssu(iv_x, molar = TRUE))
 })
 
 
-test_that("key_conc returns a formatted table with key concentration labels", {
+test_that("key_conc_table returns a formatted table with key concentration labels", {
   x <- make_test_perpetrator()
-  output <- capture.output(key_conc(x, round = 2))
+  output <- capture.output(key_conc_table(x, round = 2))
 
   expect_true(any(grepl("Key perpetrator concentrations for examplinib", output)))
   expect_true(any(grepl("\\$I_\\{gut\\}\\$", output)))

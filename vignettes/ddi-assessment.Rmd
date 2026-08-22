@@ -111,11 +111,11 @@ print(examplinib_parent)
 # Perpetrator concentrations
 
 The relevant perpetrator concentrations for a perpetrator compound
-can be determined using `key_conc()` - please see the documentation to
+can be determined using `key_conc_table()` - please see the documentation to
 this function for details about the calculations.
 
 ```{r}
-key_conc(examplinib_parent)
+key_conc_table(examplinib_parent)
 ```
 
 # Direct enzyme inhibition

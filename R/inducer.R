@@ -90,8 +90,9 @@ setValidity("inducer", function(object) {
 setMethod(
   "show", "inducer",
   function(object) {
-    line <- paste0(rep("-", 5), collapse="")
-    cat(paste0(line, " CYP induction data ", line, "\n"))
+    # line <- paste0(rep("-", 5), collapse="")
+    # cat(paste0(line, " CYP induction data ", line, "\n"))
+    cat(paste0(hline(), " CYP induction data ", hline(), "\n"))
     cat(paste(
       "In vitro induction data for precipitant",
       object@precipitant, "\n\n"))

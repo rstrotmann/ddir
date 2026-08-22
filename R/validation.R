@@ -8,7 +8,7 @@ validate_perpetrator <- function(object) {
 #'
 #' @param param The argument.
 #' @param type The expected parameter type (one of 'character', 'logical',
-#' 'numeric' or 'date').
+#' 'numeric', 'fraction' or 'date').
 #' @param allow_null Allow NULL values.
 #' @param allow_empty Allow empty values.
 #' @param allow_multiple Allow multiple values.
@@ -20,7 +20,7 @@ validate_perpetrator <- function(object) {
 #' @noRd
 validate_argument <- function(
     param,
-    type = c("character", "logical", "numeric", "date"),
+    type = c("character", "logical", "numeric", "fraction", "date"),
     allow_null = FALSE,
     allow_empty = FALSE,
     allow_multiple = FALSE,
@@ -51,13 +51,19 @@ validate_argument <- function(
   if ((type == "character" && !is.character(param)) ||
       (type == "logical" && !is.logical(param)) ||
       (type == "numeric" && !is.numeric(param)) ||
-      (type == "date" && !is.Date(param))) {
+      (type == "fraction" && !is.numeric(param)) ||
+      (type == "date" && !inherits(param, "Date"))) {
     stop(paste0(param_name, " must be a ", type, " value"))
+  }
+
+  if (type == "fraction") {
+    if (any(param < 0 | param > 1, na.rm = TRUE))
+      stop(paste0(param_name, " must be between 0 and 1!"))
   }
 
   # positive
   if (type == "numeric" && expect_positive) {
-    if (any(param < 0))
+    if (any(param < 0, na.rm = TRUE))
       stop(paste0(param_name, " must be positive"))
   }
 
@@ -71,7 +77,7 @@ validate_argument <- function(
     type == "character" &&
     !allow_empty &&
     length(param) > 0 &&
-    any(nchar(param) == 0)
+    any(nchar(param) == 0, na.rm = TRUE)
   ) {
     stop(paste0(param_name, " must be a non-empty string"))
   }
@@ -88,29 +94,41 @@ validate_argument <- function(
 }
 
 
-#' Validate fraction argument
+#' Validate function argument as data frame
 #'
-#' @param param Numeric.
-#' @param allow_multiple Logical.
+#' @param param The argument.
+#' @param expected_fields Expected columns in the data frame.
+#' @param allow_null Allow NULL.
 #'
-#' @returns Nothing
+#' @returns Nothing or stop.
 #' @noRd
-validate_fraction <- function(param, allow_multiple = FALSE) {
-  # Validate type parameter
+validate_df_argument <- function(
+    param,
+    expected_fields = NULL,
+    allow_null = FALSE
+) {
   param_name <- deparse(substitute(param))
-  if (!is.numeric(param))
-    stop(paste0(param_name, " must be numeric!"))
 
-  if (any(param < 0))
-    stop(paste0(param_name, " must be positive"))
-
-  if (any(param < 0 | param > 1))
-    stop(paste0(param_name, " must be between 0 and 1!"))
-
-  # Length checking
-  if (length(param) != 1 && !allow_multiple) {
-    stop(paste0(param_name, " must be a single value"))
+  # Check for NULL first
+  if (is.null(param)) {
+    if (allow_null) {
+      return(invisible(NULL))
+    } else {
+      stop(paste0(param_name, " must not be NULL"))
+    }
   }
+
+  if (!inherits(param, "data.frame"))
+    stop(paste0(param_name, " must be a data.frame"))
+
+  missing_fields <- setdiff(expected_fields, names(param))
+  if (length(missing_fields) > 0) {
+    stop(paste0(
+      "Missing columns in ", param_name, ": ",
+      nice_enumeration(missing_fields)
+    ))
+  }
+  invisible(NULL)
 }
 
 
