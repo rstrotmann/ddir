@@ -69,10 +69,11 @@ setValidity("induction_experiment", function(object) {
 setMethod(
   "show", "induction_experiment",
   function(object) {
-    line <- paste0(rep("=", 5), collapse="")
+    # line <- paste0(rep("=", 5), collapse="")
+    line <- hline()
     cat(paste(line, "CYP induction experiment", line, "\n"))
     cat(paste(
-      "Experiental data for in vitro CYP induction",
+      "Experiental data for in vitro CYP induction by",
       object@precipitant, "\n\n"))
 
     out <- object@data |>

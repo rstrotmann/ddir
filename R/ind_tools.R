@@ -28,18 +28,8 @@ induction_plot <- function(
 ) {
   # input validation
   validate_argument(type, values = c("FOLD", "REL"))
-  validate_df_argument(x, values = c("DONOR", "SAMPLE", "CONC", "OBJECT", type))
-  #
-  # if (!is.data.frame(x))
-  #   stop("x must be a data frame")
-  #
-  # # validate_argument(precipitant, "character")
-  # validate_argument(type, "character")
-  #
-  # expected_cols <- c("DONOR", "SAMPLE", "CONC", "OBJECT", type)
-  # missing_cols <- setdiff(expected_cols, names(x))
-  # if (length(missing_cols) > 0)
-  #   stop(paste0("Missing column(s) in input: ", nice_enumeration(missing_cols)))
+  validate_df_argument(
+    x, expected_fields = c("DONOR", "SAMPLE", "CONC", "OBJECT", type))
 
   # business logic
   p <- x |>
@@ -61,6 +51,9 @@ induction_plot <- function(
 #' donor and DDI object.
 #'
 #' @details
+#'
+#' @description
+#' `r lifecycle::badge("experimental")`
 #'
 #' \deqn{f = 1 + \frac{(E_{max}) * C^n}{(EC_{50}^n + C^n)}}
 #'
@@ -86,24 +79,19 @@ induction_plot <- function(
 #' @export
 #'
 #' @examples
-#' indmod(examplinib_in_vitro_ind, precipitant = "examplinib")
-indmod <- function(x, precipitant = "", use_emax_obs = TRUE) {
+#' indmod(induction_experiment(examplinib_in_vitro_ind, "examplinib"))
+indmod <- function(
+    x,
+    use_emax_obs = TRUE
+) {
   # input validation
-  if (!is.data.frame(x))
-    stop("x must be a data frame")
+  if (!inherits(x, "induction_experiment"))
+    stop("input must be an in vitro induction experiment object!")
 
-  validate_argument(precipitant, "character")
-
-  expected_cols <- c("DONOR", "SAMPLE", "CONC", "OBJECT", "FOLD")
-  missing_cols <- setdiff(expected_cols, names(x))
-  if (length(missing_cols) > 0)
-    stop(paste0("Missing column(s) in input: ", nice_enumeration(missing_cols)))
-
-  if (any(!x$SAMPLE %in% c("test", "positive_control")))
-    stop("SAMPLE must be 'test' or 'positive_control'")
+  validate_argument(use_emax_obs, "logical")
 
   # business logic
-  x <- mutate(x, ID = paste0(.data$OBJECT, "_", .data$DONOR))
+  data <- mutate(x@data, ID = paste0(.data$OBJECT, "_", .data$DONOR))
 
   sigm3 <- function(c, emax, ec50, n) {
     1 + (emax - 1) / (1 + exp(-(c - ec50) / n))
@@ -115,23 +103,7 @@ indmod <- function(x, precipitant = "", use_emax_obs = TRUE) {
 
   out <- list()
 
-  # out$data <- x |>
-  #   filter(.data$SAMPLE == "test") |>
-  #   nest_by(DONOR, OBJECT, ID) |>
-  #   mutate(emax_obs = max(data$FOLD, na.rm = TRUE) - 1) |>
-    # mutate(mod = list(
-    #   nlsLM(
-    #     FOLD ~ hill3(CONC, emax, ec50, n),
-    #     data = data,
-    #     start = list(emax = 2, ec50 = .1, n = 1),
-    #     lower = c(emax = NA, ec50 = 0, n = 1),
-    #     upper = c(emax = NA, ec50 = 100, n = 5),
-    #     control = nls.lm.control(maxiter = 1000)
-    #   )
-    # )) |>
-    # mutate(modpar = list(broom::tidy(mod)))
-
-  temp <- x |>
+  temp <- data |>
     filter(.data$SAMPLE == "test") |>
     nest_by(DONOR, OBJECT, ID) |>
     mutate(emax_obs = max(data$FOLD, na.rm = TRUE) - 1)
@@ -164,13 +136,11 @@ indmod <- function(x, precipitant = "", use_emax_obs = TRUE) {
       mutate(modpar = list(broom::tidy(mod)))
   }
 
-
-
   # curve plot data set
   pred <- data.frame(
     CONC = 10^seq(
-      log10(min(x$CONC, na.rm = TRUE)),
-      log10(max(x$CONC, na.rm = TRUE)),
+      log10(min(data$CONC, na.rm = TRUE)),
+      log10(max(data$CONC, na.rm = TRUE)),
       length.out = 100)
   )
 
@@ -182,10 +152,11 @@ indmod <- function(x, precipitant = "", use_emax_obs = TRUE) {
 
   out$fold_plot <- ggplot(data = NULL, aes(x = CONC, y = FOLD, color = OBJECT)) +
     geom_line(data = pred) +
-    geom_point(data = filter(x, SAMPLE == "test", !is.na(FOLD)), size = 2) +
+    geom_point(data = filter(data, SAMPLE == "test", !is.na(FOLD)), size = 2) +
     facet_wrap(~ID, scales = "free") +
     scale_x_log10() +
     expand_limits(y = 0) +
+    labs(title = paste("In vitro CYP induction by", x@precipitant)) +
     theme_bw() +
     theme(legend.position = "none")
 
@@ -195,7 +166,7 @@ indmod <- function(x, precipitant = "", use_emax_obs = TRUE) {
     select(-c("ID", "data", "mod"))
 
   # make inducer object from the donor that has the respective highers emax
-  max_c <- x |>
+  max_c <- data |>
     reframe(
       max_c = max(CONC, na.rm = TRUE), .by = c("ID", "SOURCE"))
 
@@ -209,7 +180,7 @@ indmod <- function(x, precipitant = "", use_emax_obs = TRUE) {
     select(object = OBJECT, emax = emax_obs, ec50 = estimate, max_c, source = SOURCE) |>
     mutate(ec50 = round(ec50, 2))
 
-  out$inducer <- inducer(temp, precipitant = precipitant)
+  out$inducer <- inducer(temp, precipitant = x@precipitant)
 
   out
 

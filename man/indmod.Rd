@@ -4,7 +4,7 @@
 \alias{indmod}
 \title{Analyze in vitro CYP induction data}
 \usage{
-indmod(x, precipitant = "", use_emax_obs = TRUE)
+indmod(x, use_emax_obs = TRUE)
 }
 \arguments{
 \item{x}{In vitro induction data as data frame with the columns:
@@ -18,10 +18,10 @@ indmod(x, precipitant = "", use_emax_obs = TRUE)
 \item SOURCE Source information
 }}
 
-\item{precipitant}{The precipitant as character.}
-
 \item{use_emax_obs}{Constrain Emax to the observed Emax (default). If FALSE,
 Emax will be fitted.}
+
+\item{precipitant}{The precipitant as character.}
 }
 \value{
 A list with the elements:
@@ -34,12 +34,15 @@ with the highest Emax per DDI object.
 }
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
+\deqn{f = 1 + \frac{(E_{max}) * C^n}{(EC_{50}^n + C^n)}}
+}
+\details{
 Fit a 3-parameter hill function to the mRNA induction data from each
 donor and DDI object.
 }
-\details{
-\deqn{f = 1 + \frac{(E_{max}) * C^n}{(EC_{50}^n + C^n)}}
-}
 \examples{
-indmod(examplinib_in_vitro_ind, precipitant = "examplinib")
+indmod(examplinib_in_vitro_ind)
+indmod(induction_experiment(examplinib_in_vitro_ind))
 }
