@@ -43,6 +43,5 @@ Fit a 3-parameter hill function to the mRNA induction data from each
 donor and DDI object.
 }
 \examples{
-indmod(examplinib_in_vitro_ind)
-indmod(induction_experiment(examplinib_in_vitro_ind))
+indmod(induction_experiment(examplinib_in_vitro_ind, "examplinib"))
 }

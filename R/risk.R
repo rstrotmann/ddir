@@ -68,6 +68,6 @@ setMethod(
           .default = "No"
         )
       )) |>
-      kable(caption = caption, col.names = make_labels(x@table))
+      knitr::kable(caption = caption, col.names = make_labels(x@table))
   }
 )

@@ -3,11 +3,11 @@ convert_df_to_perp <- function(x) {
   out <- perpetrator("", TRUE, 0, 0, 0)
   for (p in c("mw", "dose", "imaxss", "fu", "fumic", "rb", "fa", "fg", "ka", "solubility")) {
     if (p %in% x$param) {
-      slot(out, p) <- as.numeric(x[x$param == p, "value"])
+      methods::slot(out, p) <- as.numeric(x[x$param == p, "value"])
     }
   }
-  if ("name" %in% x$param) slot(out, "name") <- x[x$param == "name", "value"]
-  if ("oral" %in% x$param) slot(out, "oral") <- as.logical(x[x$param == "oral", "value"])
+  if ("name" %in% x$param) methods::slot(out, "name") <- x[x$param == "name", "value"]
+  if ("oral" %in% x$param) methods::slot(out, "oral") <- as.logical(x[x$param == "oral", "value"])
   source <- x$source
   names(source) <- x$param
   methods::slot(out, "source") <- source[source != ""]

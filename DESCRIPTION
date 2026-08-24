@@ -12,6 +12,7 @@ Depends:
     R (>= 3.5)
 Imports:
     assertr,
+    methods,
     dplyr,
     ggplot2,
     minpack.lm,

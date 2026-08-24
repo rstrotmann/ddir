@@ -164,14 +164,14 @@ setMethod(
     "solubility", "mg/ml"
     )
 
-    out$value <- unlist(lapply(out$name, function(x) slot(object, x)))
+    out$value <- unlist(lapply(out$name, function(x) methods::slot(object, x)))
 
     out$source <- unlist(lapply(
       out$name,
       function(x) {
         ifelse(
-          !is.na(slot(object, "source")[x]),
-          paste0("(", slot(object, "source")[x], ")"),
+          !is.na(methods::slot(object, "source")[x]),
+          paste0("(", methods::slot(object, "source")[x], ")"),
           ""
         )
       }
@@ -218,8 +218,8 @@ setMethod("print", "perpetrator", function(x) {
     out$param,
     function(i) {
       ifelse(
-        !is.na(slot(x, "source")[i]),
-        slot(x, "source")[i],
+        !is.na(methods::slot(x, "source")[i]),
+        methods::slot(x, "source")[i],
         ""
       )
     }

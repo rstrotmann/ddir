@@ -129,7 +129,7 @@ setMethod(
         !is.na(source) & source != "" ~ source,
         .default = ""
       )) |>
-      kable(caption = caption, col.names = make_labels(x@data))
+      knitr::kable(caption = caption, col.names = make_labels(x@data))
 
     out
   }

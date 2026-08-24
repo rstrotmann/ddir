@@ -1,0 +1,29 @@
+Name: Perpetrator
+Description: Inserts a perpetrator constructor at the cursor position
+Binding: perpetrator_addin
+Interactive: false
+
+Name: CYP inhibitor
+Description: Inserts a CYP inhibitor constructor at the cursor position
+Binding: cyp_inh_addin
+Interactive: false
+
+Name: UGT inhibitor
+Description: Inserts a UGT inhibitor constructor at the cursor position
+Binding: ugt_inh_addin
+Interactive: false
+
+Name: Transporter inhibitor
+Description: Inserts a transporter inhibitor constructor at the cursor position
+Binding: transp_inh_addin
+Interactive: false
+
+Name: CYP inducer
+Description: Inserts a CYP inducer constructor at the cursor position
+Binding: cyp_ind_addin
+Interactive: false
+
+Name: Appendix
+Description: Inserts the standard report appendix at the cursor position
+Binding: appendix_addin
+Interactive: false

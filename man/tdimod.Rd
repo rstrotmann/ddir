@@ -28,7 +28,7 @@ kobs over CONC.
 }
 }
 \description{
-Derive TDI parameters from enzyme activity data
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \details{
 kobs is fitted to the enzyme activity data as a first-order process for each

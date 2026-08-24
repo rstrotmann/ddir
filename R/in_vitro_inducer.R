@@ -100,7 +100,7 @@ setMethod(
         !is.na(SOURCE) & SOURCE != "" ~ SOURCE,
         .default = ""
       )) |>
-      kable(caption = caption, col.names = make_labels(x@data))
+      knitr::kable(caption = caption, col.names = make_labels(x@data))
 
     out
   }
@@ -109,12 +109,14 @@ setMethod(
 
 setMethod(
   "plot", "induction_experiment",
-  function(x, type = "FOLD") {
+  function(x, type = "FOLD", ...) {
     caption <- ifelse(
       x@precipitant != "",
       paste0("Experimental CYP induction data for ", x@precipitant),
       "")
 
-    induction_plot(x@data, type = type)
+    induction_plot(x@data, type = type, ...) +
+      labs(x = paste(x@precipitant, "uM"),
+           title = paste("CYP induction by", x@precipitant))
   }
 )

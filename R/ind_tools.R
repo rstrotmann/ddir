@@ -24,24 +24,29 @@
 #' induction_plot(examplinib_in_vitro_ind, type = "FOLD")
 induction_plot <- function(
     x,
-    type = "REL"
+    type = "REL",
+    log = TRUE
 ) {
   # input validation
   validate_argument(type, values = c("FOLD", "REL"))
   validate_df_argument(
     x, expected_fields = c("DONOR", "SAMPLE", "CONC", "OBJECT", type))
+  validate_argument(log, "logical")
 
   # business logic
   p <- x |>
     filter(SAMPLE == "test") |>
     filter(!is.na(.data[[type]])) |>
-    ggplot(aes(x = CONC, y = .data[[type]], group = DONOR)) +
+    ggplot(aes(x = CONC, y = .data[[type]], group = DONOR, color = DONOR)) +
     geom_point() +
     geom_line() +
-    facet_wrap(~OBJECT) +
+    facet_wrap(~OBJECT, scales = "free") +
     theme_bw()
 
-  p
+  if (isTRUE(log))
+    p <- p + scale_x_log10()
+
+  return(p)
 }
 
 
@@ -93,13 +98,17 @@ indmod <- function(
   # business logic
   data <- mutate(x@data, ID = paste0(.data$OBJECT, "_", .data$DONOR))
 
-  sigm3 <- function(c, emax, ec50, n) {
-    1 + (emax - 1) / (1 + exp(-(c - ec50) / n))
+  # sigm3 <- function(c, emax, ec50, n) {
+  #   1 + (emax - 1) / (1 + exp(-(c - ec50) / n))
+  # }
+
+  sigm <- function(c, emax, ec50, h) {
+    1 + (emax - 1) / (1 + exp(-(log(c) - log(ec50))/h))
   }
 
-  hill3 <- function(c, emax, ec50, n) {
-    1 + (emax - 1) * c^n / (ec50^n + c^n)
-  }
+  # hill3 <- function(c, emax, ec50, n) {
+  #   1 + (emax - 1) * c^n / (ec50^n + c^n)
+  # }
 
   out <- list()
 
@@ -108,11 +117,39 @@ indmod <- function(
     nest_by(DONOR, OBJECT, ID) |>
     mutate(emax_obs = max(data$FOLD, na.rm = TRUE) - 1)
 
+  # if (use_emax_obs == TRUE) {
+  #   out$data <- temp |>
+  #     mutate(mod = list(
+  #       nlsLM(
+  #         FOLD ~ hill3(CONC, emax_obs, ec50, n),
+  #         data = data,
+  #         start = list(ec50 = .1, n = 1),
+  #         lower = c(ec50 = 0, n = 1),
+  #         upper = c(ec50 = 100, n = 5),
+  #         control = nls.lm.control(maxiter = 1000)
+  #       )
+  #     )) |>
+  #     mutate(modpar = list(broom::tidy(mod)))
+  # } else {
+  #   out$data <- temp |>
+  #     mutate(mod = list(
+  #       nlsLM(
+  #         FOLD ~ hill3(CONC, emax, ec50, n),
+  #         data = data,
+  #         start = list(emax = 2, ec50 = .1, n = 1),
+  #         lower = c(emax = NA, ec50 = 0, n = 1),
+  #         upper = c(emax = NA, ec50 = 100, n = 5),
+  #         control = nls.lm.control(maxiter = 1000)
+  #       )
+  #     )) |>
+  #     mutate(modpar = list(broom::tidy(mod)))
+  # }
+
   if (use_emax_obs == TRUE) {
     out$data <- temp |>
       mutate(mod = list(
         nlsLM(
-          FOLD ~ hill3(CONC, emax_obs, ec50, n),
+          FOLD ~ sigm(CONC, emax_obs, ec50, n),
           data = data,
           start = list(ec50 = .1, n = 1),
           lower = c(ec50 = 0, n = 1),
@@ -125,7 +162,7 @@ indmod <- function(
     out$data <- temp |>
       mutate(mod = list(
         nlsLM(
-          FOLD ~ hill3(CONC, emax, ec50, n),
+          FOLD ~ sigm(CONC, emax, ec50, n),
           data = data,
           start = list(emax = 2, ec50 = .1, n = 1),
           lower = c(emax = NA, ec50 = 0, n = 1),

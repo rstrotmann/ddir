@@ -154,7 +154,7 @@ setMethod(
         !is.na(source) & source != "" ~ source,
         .default = ""
       )) |>
-      kable(caption = caption, col.names = col_names)
+      knitr::kable(caption = caption, col.names = col_names)
 
     out
   }

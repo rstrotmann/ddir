@@ -7,6 +7,9 @@
 #' half-maximal kobs) are fitted from kobs over inhibitor concentration using a
 #' Emax model.
 #'
+#' @description
+#' `r lifecycle::badge("experimental")`
+#'
 #' @param x In vitro data as data frame. The following columns are expected:
 #' * TIME Duration of Pre-incubation with the precipitant and NADPH in minutes
 #' * CONC Precipitant concentration in uM
@@ -45,26 +48,26 @@ tdimod <- function(x, object = NULL) {
 
   # derive kobs
   out$data <- x |>
-    nest_by(CONC) |>
+    nest_by(.data$CONC) |>
     mutate(mod = list(lm(log(ACT) ~ TIME, data = data))) |>
     mutate(modpar = list(broom::tidy(mod)))
 
   temp <- out$data |>
-    unnest(modpar)
+    unnest("modpar")
 
   out$kobs <- temp |>
     filter(term == "TIME") |>
-    mutate(kobs = -estimate) |>
-    select(CONC, kobs, std.error, p.value)
+    mutate(kobs = -.data$estimate) |>
+    select(c("CONC", "kobs", "std.error", "p.value"))
 
   # kobs_plot
   pred <- temp |>
-    select(CONC, term, estimate) |>
+    select(c("CONC", "term", "estimate")) |>
     pivot_wider(names_from = "term", values_from = "estimate")
 
   out$kobs_plot <- x |>
-    arrange(CONC, TIME) |>
-    mutate(ACT = log(ACT)) |>
+    arrange(.data$CONC, .data$TIME) |>
+    mutate(ACT = log(.data$ACT)) |>
     ggplot(aes(x = TIME, y = ACT, group = as.factor(CONC), color = as.factor(CONC))) +
     geom_point(size = 2) +
     geom_line(linetype = "dashed") +

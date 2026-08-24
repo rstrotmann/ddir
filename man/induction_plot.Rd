@@ -4,7 +4,7 @@
 \alias{induction_plot}
 \title{Plot in vitro CYP induction data}
 \usage{
-induction_plot(x, type = "REL")
+induction_plot(x, type = "REL", log = TRUE)
 }
 \arguments{
 \item{x}{The in vitro data set as data frame. The following fields are
