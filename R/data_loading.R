@@ -59,9 +59,9 @@ read_perpetrators <- function(source) {
     header = F,
     comment.char = '#')
   ) |>
-    filter(trimws(name) != "") |>
+    filter(trimws(.data$name) != "") |>
     dplyr::mutate(across(everything(), trimws)) |>
-    dplyr::group_by(name) |>
+    dplyr::group_by(.data$name) |>
     dplyr::group_modify(~ tibble::add_row(param="name", value=.y$name,
                                           source="", .x, , .before=1)) |>
     dplyr::ungroup() |>
@@ -111,7 +111,7 @@ read_inhibitor_data <- function(source) {
     comment.char = '#')
   ) %>%
     dplyr::mutate(across(everything(), trimws)) %>%
-    dplyr::filter(name != "") %>%
+    dplyr::filter(.data$name != "") %>%
     as.data.frame()
   return(raw)
 }
@@ -149,7 +149,7 @@ read_ugt_inhibitor_data <- function(source) {
         # rename(object = ugt) |>
         mutate(ic50 = as.numeric(ic50)) |>
         filter(!is.na(ic50))
-      inhibitor(data = select(x, -name), object <- unique(x$name))
+      inhibitor(data = select(x, -"name"), object <- unique(x$name))
     }
   )
 
@@ -193,7 +193,7 @@ read_cyp_inhibitor_data <- function(source) {
           mutate(ki = as.numeric(ki))
       )
         # filter(!is.na(ki))
-      inhibitor(data = select(x, -name), precipitant <- unique(x$name))
+      inhibitor(data = select(x, -"name"), precipitant <- unique(x$name))
     }
   )
 
@@ -246,7 +246,7 @@ read_tdi_data <- function(source) {
       x <- x |>
         mutate(ki = as.numeric(ki)) |>
         filter(!is.na(ki))
-      inhibitor(data = select(x, -name), object <- unique(x$name))
+      inhibitor(data = select(x, -"name"), object <- unique(x$name))
     }
   )
 
@@ -301,10 +301,10 @@ read_inducer_data <- function(source) {
     function(x) {
       x <- x |>
         mutate(across(c("emax", "ec50", "maxc"), as.numeric)) |>
-        rename(object = cyp) |>
-        mutate(max_c = maxc) |>
-        filter(!is.na(emax))
-      inducer(data = select(x, -name), object <- unique(x$name))
+        rename(object = .data$cyp) |>
+        mutate(max_c = .data$maxc) |>
+        filter(!is.na(.data$emax))
+      inducer(data = select(x, -"name"), object <- unique(x$name))
     }
   )
 
@@ -346,7 +346,7 @@ read_transporter_inhibitor_data <- function(source) {
       x <- x |>
         mutate(ic50 = as.numeric(ic50)) |>
         filter(!is.na(ic50))
-      inhibitor(data = select(x, -name), object <- unique(x$name))
+      inhibitor(data = select(x, -"name"), object <- unique(x$name))
     }
   )
 

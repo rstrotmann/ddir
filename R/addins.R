@@ -29,20 +29,13 @@ cyp_inh_addin <- function() {
     r"(inhibitor(
   data = tibble::tribble(
     ~object, ~ki, ~source,
-   "CYP1A1",  NA,      "",
    "CYP1A2",  NA,      "",
-   "CYP2A6",  NA,      "",
    "CYP2B6",  NA,      "",
    "CYP2C8",  NA,      "",
    "CYP2C9",  NA,      "",
-  "CYP2C18",  NA,      "",
   "CYP2C19",  NA,      "",
    "CYP2D6",  NA,      "",
-   "CYP2E1",  NA,      "",
-   "CYP2J2",  NA,      "",
    "CYP3A4",  NA,      "",
-   "CYP3A5",  NA,      "",
-   "CYP3A7",  NA,      ""
   ),
   precipitant = "name"
 ))"

@@ -1,3 +1,12 @@
+#' In vitro induction data set
+#'
+#' @slot precipitant character.
+#' @slot data data.frame.
+#'
+#' @returns
+#' @export
+#'
+#' @examples
 setClass(Class = "induction_experiment",
   representation(
    precipitant = "character",

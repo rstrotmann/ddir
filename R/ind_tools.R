@@ -15,8 +15,10 @@
 #' argument must be present.
 #' @param type The DDI metric, e.g. FOLD or REL, as character. A different type
 #' can be given but a column of that name must be present in the data set.
+#' @param log Plot logarithmic x axis, as logical.
 #'
 #' @returns A ggplot object.
+#' @import ggplot2
 #' @export
 #'
 #' @examples
@@ -35,7 +37,7 @@ induction_plot <- function(
 
   # business logic
   p <- x |>
-    filter(SAMPLE == "test") |>
+    filter(.data$SAMPLE == "test") |>
     filter(!is.na(.data[[type]])) |>
     ggplot(aes(x = CONC, y = .data[[type]], group = DONOR, color = DONOR)) +
     geom_point() +
@@ -81,6 +83,7 @@ induction_plot <- function(
 #' * inducer An inducer object representing the model parameters from the donor
 #' with the highest Emax per DDI object.
 #'
+#' @import ggplot2
 #' @export
 #'
 #' @examples
@@ -98,10 +101,6 @@ indmod <- function(
   # business logic
   data <- mutate(x@data, ID = paste0(.data$OBJECT, "_", .data$DONOR))
 
-  # sigm3 <- function(c, emax, ec50, n) {
-  #   1 + (emax - 1) / (1 + exp(-(c - ec50) / n))
-  # }
-
   sigm <- function(c, emax, ec50, h) {
     1 + (emax - 1) / (1 + exp(-(log(c) - log(ec50))/h))
   }
@@ -114,7 +113,7 @@ indmod <- function(
 
   temp <- data |>
     filter(.data$SAMPLE == "test") |>
-    nest_by(DONOR, OBJECT, ID) |>
+    nest_by(.data$DONOR, .data$OBJECT, .data$ID) |>
     mutate(emax_obs = max(data$FOLD, na.rm = TRUE) - 1)
 
   # if (use_emax_obs == TRUE) {
@@ -181,7 +180,7 @@ indmod <- function(
       length.out = 100)
   )
 
-  temp <- lapply(out$data$mod, function(x) predict(x, newdata = pred))
+  temp <- lapply(out$data$mod, function(x) stats::predict(x, newdata = pred))
   names(temp) <- out$data$ID
   pred <- bind_cols(pred, temp) |>
     pivot_longer(cols = -1, names_to = "ID", values_to = "FOLD") |>
@@ -210,12 +209,12 @@ indmod <- function(
   temp <- out$data |>
     unnest(modpar) |>
     select(-c("data", "mod")) |>
-    group_by(OBJECT) |>
+    group_by(.data$OBJECT) |>
     filter(emax_obs == max(emax_obs, na.rm = TRUE)) |>
     filter(term == "ec50") |>
     left_join(max_c, by = "ID") |>
     select(object = OBJECT, emax = emax_obs, ec50 = estimate, max_c, source = SOURCE) |>
-    mutate(ec50 = round(ec50, 2))
+    mutate(ec50 = round(.data$ec50, 2))
 
   out$inducer <- inducer(temp, precipitant = x@precipitant)
 

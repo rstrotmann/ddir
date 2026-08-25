@@ -44,8 +44,7 @@ setClass(
 #' * object: The transporter target as character.
 #' * ic50: The IC50 in uM.
 #' * source: Source information (e.g., study name) as character.
-#'
-#' @param object Character
+#' @param precipitant The name of the precipitant.
 #'
 #' @returns Inhibitor object
 #' @export

@@ -174,9 +174,13 @@ basic_ugt_inhibition_risk <- function(perp, ugt_inh) {
 #' @param perp Perpetrator object.
 #' @param transporter_inh Inhibitor object.
 #' @param transporter_ref Data frame.
+#' @param qh Hepatic blood flow in l/min, defaults to 1.616 l/min.
 #'
 #' @returns DDI risk object.
 #' @export
+#' @examples
+#' transporter_inh_risk(examplinib_parent, examplinib_transporter_inh_parent)
+#'
 transporter_inh_risk <- function(
     perp,
     transporter_inh,
@@ -194,7 +198,7 @@ transporter_inh_risk <- function(
   allowed_objects <- c("Pgp", "BCRP", "OATP1B1", "OATP1B3", "OAT1", "OAT3",
                       "BSEP", "OCT1", "OCT2", "MATE1", "MATE2k")
 
-  in_vitro <- filter(transporter_inh@data, object %in% allowed_objects)
+  in_vitro <- filter(transporter_inh@data, .data$object %in% allowed_objects)
   if (nrow(in_vitro) == 0)
     stop("No inhibition data for known transporters found")
   excluded_objects <- setdiff(unique(transporter_inh@data$object), allowed_objects)
@@ -225,11 +229,11 @@ transporter_inh_risk <- function(
       by = "object") |>
     left_join(perp_conc, by = "i") |>
     mutate(r = case_when(
-      is.na(ic50) ~ NA,
-      .default = conc / ic50)) |>
-    mutate(risk = r >= threshold) |>
-    arrange(rank) |>
-    select(object, ic50, source, i, r, threshold, risk)
+      is.na(.data$ic50) ~ NA,
+      .default = .data$conc / .data$ic50)) |>
+    mutate(risk = .data$r >= threshold) |>
+    arrange(.data$rank) |>
+    select(all_of(c("object", "ic50", "source", "i", "r", "threshold", "risk")))
 
   new(
     "ddi_risk",
@@ -330,7 +334,7 @@ static_cyp_induction_risk <- function(perp, cyp_ind)  {
   allowed_object <- c("CYP1A2", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19",
                       "CYP2D6", "CYP3A4")
 
-  in_vitro <- filter(cyp_ind@data, object %in% allowed_object)
+  in_vitro <- filter(cyp_ind@data, .data$object %in% allowed_object)
 
   if (nrow(in_vitro) == 0)
     stop("No CYP induction data for known CYP enzymes found")
@@ -345,12 +349,12 @@ static_cyp_induction_risk <- function(perp, cyp_ind)  {
 
   # assess risk
   out <- cyp_ind@data |>
-    mutate(maxc_imaxssu = round(max_c / imaxssu(perp), 1)) |>
-    mutate(risk = emax >= 2)|>
+    mutate(maxc_imaxssu = round(.data$max_c / imaxssu(perp), 1)) |>
+    mutate(risk = .data$emax >= 2)|>
     mutate(note = case_when(
-      maxc_imaxssu < 50 ~ "Not tested up to 50-fold Cmax,u",
+      .data$maxc_imaxssu < 50 ~ "Not tested up to 50-fold Cmax,u",
       .default = "")) |>
-    select(-c(ec50, maxc_imaxssu))
+    select(-c("ec50", "maxc_imaxssu"))
 
   new(
     "ddi_risk",
@@ -390,7 +394,7 @@ kinetic_cyp_induction_risk <- function(perp, cyp_ind, d=1) {
   allowed_object <- c("CYP1A2", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19",
                       "CYP2D6", "CYP3A4")
 
-  in_vitro <- filter(cyp_ind@data, object %in% allowed_object)
+  in_vitro <- filter(cyp_ind@data, .data$object %in% allowed_object)
 
   if (nrow(in_vitro) == 0)
     stop("No CYP induction data for known CYP enzymes found")
@@ -420,16 +424,49 @@ kinetic_cyp_induction_risk <- function(perp, cyp_ind, d=1) {
 }
 
 
-#' Title
+#' Mechanistic-static risk assessment
 #'
-#' @param perp Perpetrator object
-#' @param cyp_inh Inhibitor object
-#' @param cyp_ind Inducer object
-#' @param cyp_tdi Inhibitor object
-#' @param d Numeric
-#' @param include_induction Logical
-#' @param substr Data frame
-#' @param cyp_kdeg Data frame
+#' @details For the basic modeling of direct (reversible) CYP enzyme inhibition,
+#'   the ratio of the relevant inhibitor concentration to the \eqn{K_i} of the
+#'   respective CYP enzyme is considered, i.e., \eqn{R} for hepatic enzymes and
+#'   \eqn{R_{gut}} for intestinal enzymes (refer to Section 2.1.2.1 of the [ICH
+#'   M12 guidance
+#'   document](https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf)).
+#'
+#'   ## Liver
+#'
+#'   \deqn{R=\frac{C_{max,ss,u}}{K_{i,u}}}
+#'
+#'   \eqn{R} values > 0.02, i.e., maximal unbound perpetrator concentrations
+#'   50-fold over \eqn{K_i} are considered to indicate a potential clinical CYP
+#'   inhibition risk using this method.
+#'
+#'   ## Intestine
+#'
+#'   \deqn{R_{gut}=\frac{I_{gut}}{K_{i,u}}}
+#'
+#'   where
+#'
+#'   \deqn{I_{gut}=\frac{Dose}{250\ mg}}
+#'
+#'   \eqn{R} values > 10 are considered to indicate a clinical risk for
+#'   intestinal CYP3A inhibition.
+#'
+#'   In the output, the columns `risk_hep` and `risk_intest` indicate whether
+#'   the regulatory threshold is reached for the respective enzyme.
+#'
+#' @param perp Perpetrator object.
+#' @param cyp_inh Inhibitor object.
+#' @param cyp_ind Inducer object.
+#' @param cyp_tdi Inhibitor object.
+#' @param d Hepatocyte batch scaling factor, defaults to 1.
+#' @param include_induction Logical.
+#' @param substr The CYP probe substrates to be used as data frame, defaults to
+#' `ddir::cyp_reference_substrates`.
+#' @param cyp_kdeg The CYP turnover data as data frame. Defaults to the built-in
+#' reference data `ddir::cyp_turnover`.
+#' @param qh Hepatic blood flow in l/min, defaults to 1.616 l/min.
+#' @param qent Enteric blood flow in l/min, defaults to 0.3 l/min (18 l/h).
 #'
 #' @returns DDI risk object
 #' @export
@@ -467,7 +504,6 @@ mech_stat_cyp_risk <- function(
     if (!inherits(cyp_tdi, "inhibitor"))
       stop("cyp_tdi must be an inhibitor object")
 
-
   # risk assessment
   fumic <- perp@fumic
   Ig <- imaxintest(perp, qent = qent)
@@ -480,9 +516,6 @@ mech_stat_cyp_risk <- function(
   if(is.null(cyp_tdi)) {
     cyp_tdi <- inhibitor(NULL)
   }
-
-  # cyp_kdeg <- rename(cyp_kdeg, target = cyp)
-  # substr <- rename(substr, target = cyp)
 
   out <- cyp_inh@data |>
     select(-source) |>

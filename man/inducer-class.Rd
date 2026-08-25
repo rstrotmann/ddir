@@ -13,7 +13,7 @@ DDI CYP inducer data object
 \section{Slots}{
 
 \describe{
-\item{\code{object}}{The name of the DDI perpetrator as character.}
+\item{\code{precipitant}}{The name of the DDI perpetrator as character.}
 
 \item{\code{data}}{data.frame.}
 }}

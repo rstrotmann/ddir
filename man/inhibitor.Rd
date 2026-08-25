@@ -33,7 +33,7 @@ inhibitor(data, precipitant = "")
 }
 }}
 
-\item{object}{Character}
+\item{precipitant}{The name of the precipitant.}
 }
 \value{
 Inhibitor object

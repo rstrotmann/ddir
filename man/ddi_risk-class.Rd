@@ -16,5 +16,7 @@ Generic DDI risk class definition
 \item{\code{precipitant}}{Name of perpetrator.}
 
 \item{\code{table}}{Tabulated risk assessment data.}
+
+\item{\code{title}}{Title as character.}
 }}
 

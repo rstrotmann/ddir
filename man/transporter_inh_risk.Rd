@@ -17,6 +17,8 @@ transporter_inh_risk(
 \item{transporter_inh}{Inhibitor object.}
 
 \item{transporter_ref}{Data frame.}
+
+\item{qh}{Hepatic blood flow in l/min, defaults to 1.616 l/min.}
 }
 \value{
 DDI risk object.
@@ -37,4 +39,8 @@ of concern are:\tabular{lll}{
    \eqn{C_{max,ss,u}} \tab renal basolateral transporters OAT1, OAT3 and OCT2 \tab 0.1 \cr
    \eqn{C_{max,ss,u}} \tab apical transporters MATE1 and MATE2-K \tab 0.02 \cr
 }
+}
+\examples{
+transporter_inh_risk(examplinib_parent, examplinib_transporter_inh_parent)
+
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/risk_assessment.R
 \name{mech_stat_cyp_risk}
 \alias{mech_stat_cyp_risk}
-\title{Title}
+\title{Mechanistic-static risk assessment}
 \usage{
 mech_stat_cyp_risk(
   perp,
@@ -18,27 +18,62 @@ mech_stat_cyp_risk(
 )
 }
 \arguments{
-\item{perp}{Perpetrator object}
+\item{perp}{Perpetrator object.}
 
-\item{cyp_inh}{Inhibitor object}
+\item{cyp_inh}{Inhibitor object.}
 
-\item{cyp_ind}{Inducer object}
+\item{cyp_ind}{Inducer object.}
 
-\item{cyp_tdi}{Inhibitor object}
+\item{cyp_tdi}{Inhibitor object.}
 
-\item{d}{Numeric}
+\item{d}{Hepatocyte batch scaling factor, defaults to 1.}
 
-\item{include_induction}{Logical}
+\item{include_induction}{Logical.}
 
-\item{substr}{Data frame}
+\item{substr}{The CYP probe substrates to be used as data frame, defaults to
+\code{ddir::cyp_reference_substrates}.}
 
-\item{cyp_kdeg}{Data frame}
+\item{cyp_kdeg}{The CYP turnover data as data frame. Defaults to the built-in
+reference data \code{ddir::cyp_turnover}.}
+
+\item{qh}{Hepatic blood flow in l/min, defaults to 1.616 l/min.}
+
+\item{qent}{Enteric blood flow in l/min, defaults to 0.3 l/min (18 l/h).}
 }
 \value{
 DDI risk object
 }
 \description{
-Title
+Mechanistic-static risk assessment
+}
+\details{
+For the basic modeling of direct (reversible) CYP enzyme inhibition,
+the ratio of the relevant inhibitor concentration to the \eqn{K_i} of the
+respective CYP enzyme is considered, i.e., \eqn{R} for hepatic enzymes and
+\eqn{R_{gut}} for intestinal enzymes (refer to Section 2.1.2.1 of the \href{https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-guideline-drug-interaction-studies-step-5_en.pdf}{ICH M12 guidance document}).
+\subsection{Liver}{
+
+\deqn{R=\frac{C_{max,ss,u}}{K_{i,u}}}
+
+\eqn{R} values > 0.02, i.e., maximal unbound perpetrator concentrations
+50-fold over \eqn{K_i} are considered to indicate a potential clinical CYP
+inhibition risk using this method.
+}
+
+\subsection{Intestine}{
+
+\deqn{R_{gut}=\frac{I_{gut}}{K_{i,u}}}
+
+where
+
+\deqn{I_{gut}=\frac{Dose}{250\ mg}}
+
+\eqn{R} values > 10 are considered to indicate a clinical risk for
+intestinal CYP3A inhibition.
+
+In the output, the columns \code{risk_hep} and \code{risk_intest} indicate whether
+the regulatory threshold is reached for the respective enzyme.
+}
 }
 \examples{
 mech_stat_cyp_risk(

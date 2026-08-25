@@ -142,6 +142,7 @@ perpetrator <- function(
 #' @param perpetrator DDI perpetrator object.
 #'
 #' @returns Nothing.
+#' @import methods
 #' @export
 setMethod(
   "show", "perpetrator",
@@ -192,6 +193,7 @@ setMethod(
 #' @param perpetrator perpetrator object
 #'
 #' @returns Markdown-formatted text
+#' @import methods
 #' @export
 setMethod("print", "perpetrator", function(x) {
   out <- tibble::tribble(

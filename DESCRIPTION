@@ -11,7 +11,6 @@ License: MIT + file LICENSE
 Depends: 
     R (>= 3.5)
 Imports:
-    assertr,
     methods,
     dplyr,
     ggplot2,
@@ -19,14 +18,13 @@ Imports:
     broom,
     knitr,
     lifecycle,
-    magrittr,
     methods,
     stringr,
     tibble,
     tidyr,
     rstudioapi,
-    fs,
-    methods
+    methods,
+    stats
 Suggests: 
     rmarkdown,
     testthat (>= 3.0.0)

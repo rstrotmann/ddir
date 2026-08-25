@@ -2,6 +2,7 @@
 #'
 #' @slot precipitant Name of perpetrator.
 #' @slot table Tabulated risk assessment data.
+#' @slot title Title as character.
 #'
 #' @returns An ddi_risk class object.
 #' @export
@@ -24,6 +25,7 @@ setClass(
 #'
 #' @param ddi_risk Ddi_risk object.
 #' @returns Nothing.
+#' @import methods
 #' @export
 setMethod(
   "show", "ddi_risk",
@@ -43,7 +45,9 @@ setMethod(
 #' Print ddi_risk object
 #'
 #' @param ddi_risk Ddi_risk object.
+#'
 #' @returns Markdown-formatted text.
+#' @import methods
 #' @export
 setMethod(
   "print", "ddi_risk",

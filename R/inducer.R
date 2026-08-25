@@ -1,6 +1,6 @@
 #' DDI CYP inducer data object
 #'
-#' @slot object The name of the DDI perpetrator as character.
+#' @slot precipitant The name of the DDI perpetrator as character.
 #' @slot data data.frame.
 #'
 #' @returns Inducer object

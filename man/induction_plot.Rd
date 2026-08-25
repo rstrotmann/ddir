@@ -25,6 +25,8 @@ argument must be present.}
 
 \item{type}{The DDI metric, e.g. FOLD or REL, as character. A different type
 can be given but a column of that name must be present in the data set.}
+
+\item{log}{Plot logarithmic x axis, as logical.}
 }
 \value{
 A ggplot object.

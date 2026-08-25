@@ -119,7 +119,7 @@ tdimod <- function(x, object = NULL) {
       geom_errorbar(
         aes(ymin = kobs - std.error, ymax = kobs + std.error),
         width = 2) +
-      labs(x = "concentration (µM)", y = "kobs (1/min)") +
+      labs(x = "concentration (uM)", y = "kobs (1/min)") +
       theme_bw()
   } else {
     out$tdi_param <- broom::tidy(fit)
@@ -134,7 +134,7 @@ tdimod <- function(x, object = NULL) {
         aes(ymin = kobs - std.error, ymax = kobs + std.error),
         width = 2) +
       geom_line(data = pred, aes(x = CONC, y = kobs)) +
-      labs(x = "concentration (µM)", y = "kobs (1/min)") +
+      labs(x = "concentration (uM)", y = "kobs (1/min)") +
       theme_bw()
   }
 
@@ -156,9 +156,9 @@ emax_nls_start <- function(kobs_df) {
   if (nrow(kobs_fit) < 2)
     return(fallback)
 
-  lin <- lm(I ~ CONC, data = transform(kobs_fit, I = CONC / kobs))
-  slope <- coef(lin)[["CONC"]]
-  intercept <- coef(lin)[["(Intercept)"]]
+  lin <- stats::lm(I ~ CONC, data = transform(kobs_fit, I = CONC / kobs))
+  slope <- stats::coef(lin)[["CONC"]]
+  intercept <- stats::coef(lin)[["(Intercept)"]]
 
   if (!is.finite(slope) || slope <= 0)
     return(fallback)

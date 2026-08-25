@@ -30,7 +30,5 @@ CYP3A4  , midazolam   , 0.57 , 0.96 , 1
 }
 \seealso{
 \code{\link[=mech_stat_cyp_risk]{mech_stat_cyp_risk()}}
-
-\link{mech_stat_cyp_risk_table}
 }
 \keyword{datasets}
