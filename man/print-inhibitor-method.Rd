@@ -7,7 +7,7 @@
 \S4method{print}{inhibitor}(x)
 }
 \arguments{
-\item{inhibitor}{Inhibitor object.}
+\item{x}{An \code{inhibitor} object.}
 }
 \value{
 Markdown-formatted text.

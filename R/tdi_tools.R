@@ -49,14 +49,14 @@ tdimod <- function(x, object = NULL) {
   # derive kobs
   out$data <- x |>
     nest_by(.data$CONC) |>
-    mutate(mod = list(lm(log(ACT) ~ TIME, data = data))) |>
-    mutate(modpar = list(broom::tidy(mod)))
+    mutate(mod = list(stats::lm(log(ACT) ~ TIME, data = data))) |>
+    mutate(modpar = list(broom::tidy(.data$mod)))
 
   temp <- out$data |>
     unnest("modpar")
 
   out$kobs <- temp |>
-    filter(term == "TIME") |>
+    filter(.data$term == "TIME") |>
     mutate(kobs = -.data$estimate) |>
     select(c("CONC", "kobs", "std.error", "p.value"))
 
@@ -68,12 +68,20 @@ tdimod <- function(x, object = NULL) {
   out$kobs_plot <- x |>
     arrange(.data$CONC, .data$TIME) |>
     mutate(ACT = log(.data$ACT)) |>
-    ggplot(aes(x = TIME, y = ACT, group = as.factor(CONC), color = as.factor(CONC))) +
+    ggplot(aes(
+      x = .data$TIME,
+      y = .data$ACT,
+      group = as.factor(.data$CONC),
+      color = as.factor(.data$CONC))
+    ) +
     geom_point(size = 2) +
     geom_line(linetype = "dashed") +
     labs(x = "time (min)", y = "ln(activity)", color = "concentration (uM)") +
     geom_abline(
-      aes(color = as.factor(CONC), slope = TIME, intercept = `(Intercept)`),
+      aes(
+        color = as.factor(.data$CONC),
+        slope = .data$TIME,
+        intercept = .data$`(Intercept)`),
       data = pred,
       show.legend = FALSE) +
     theme_bw() +
@@ -114,10 +122,11 @@ tdimod <- function(x, object = NULL) {
     out$tdi_param <- NULL
 
     out$tdi_plot <- out$kobs |>
-      ggplot(aes(x = CONC, y = kobs)) +
+      ggplot(aes(x = .data$CONC, y = .data$kobs)) +
       geom_point(size = 2) +
       geom_errorbar(
-        aes(ymin = kobs - std.error, ymax = kobs + std.error),
+        aes(ymin = .data$kobs - .data$std.error,
+            ymax = .data$kobs + .data$std.error),
         width = 2) +
       labs(x = "concentration (uM)", y = "kobs (1/min)") +
       theme_bw()
@@ -125,15 +134,18 @@ tdimod <- function(x, object = NULL) {
     out$tdi_param <- broom::tidy(fit)
 
     pred <- data.frame(CONC = seq(0, max(out$kobs$CONC), length.out = 100))
-    pred$kobs <- predict(fit, newdata = pred)
+    pred$kobs <- stats::predict(fit, newdata = pred)
 
     out$tdi_plot <- out$kobs |>
-      ggplot(aes(x = CONC, y = kobs)) +
+      ggplot(aes(x = .data$CONC, y = .data$kobs)) +
       geom_point(size = 2) +
       geom_errorbar(
-        aes(ymin = kobs - std.error, ymax = kobs + std.error),
+        aes(
+          ymin = .data$kobs - .data$std.error,
+          ymax = .data$kobs + .data$std.error
+        ),
         width = 2) +
-      geom_line(data = pred, aes(x = CONC, y = kobs)) +
+      geom_line(data = pred, aes(x = .data$CONC, y = .data$kobs)) +
       labs(x = "concentration (uM)", y = "kobs (1/min)") +
       theme_bw()
   }
@@ -156,7 +168,10 @@ emax_nls_start <- function(kobs_df) {
   if (nrow(kobs_fit) < 2)
     return(fallback)
 
-  lin <- stats::lm(I ~ CONC, data = transform(kobs_fit, I = CONC / kobs))
+  lin <- stats::lm(
+    I ~ CONC,
+    data = mutate(kobs_fit, I = .data$CONC / .data$kobs)
+    )
   slope <- stats::coef(lin)[["CONC"]]
   intercept <- stats::coef(lin)[["(Intercept)"]]
 

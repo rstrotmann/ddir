@@ -7,7 +7,7 @@
 \S4method{show}{ddi_risk}(object)
 }
 \arguments{
-\item{ddi_risk}{Ddi_risk object.}
+\item{object}{A \code{ddi_risk} object.}
 }
 \value{
 Nothing.

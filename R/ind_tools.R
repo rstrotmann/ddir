@@ -39,7 +39,12 @@ induction_plot <- function(
   p <- x |>
     filter(.data$SAMPLE == "test") |>
     filter(!is.na(.data[[type]])) |>
-    ggplot(aes(x = CONC, y = .data[[type]], group = DONOR, color = DONOR)) +
+    ggplot(aes(
+      x = .data$CONC,
+      y = .data[[type]],
+      group = .data$DONOR,
+      color = .data$DONOR)
+    ) +
     geom_point() +
     geom_line() +
     facet_wrap(~OBJECT, scales = "free") +
@@ -72,7 +77,6 @@ induction_plot <- function(
 #' * FOLD The mRNA or activity fold change.
 #' * REL The fold change relative to positive control.
 #' * SOURCE Source information
-#' @param precipitant The precipitant as character.
 #' @param use_emax_obs Constrain Emax to the observed Emax (default). If FALSE,
 #' Emax will be fitted.
 #'
@@ -105,44 +109,12 @@ indmod <- function(
     1 + (emax - 1) / (1 + exp(-(log(c) - log(ec50))/h))
   }
 
-  # hill3 <- function(c, emax, ec50, n) {
-  #   1 + (emax - 1) * c^n / (ec50^n + c^n)
-  # }
-
   out <- list()
 
   temp <- data |>
     filter(.data$SAMPLE == "test") |>
     nest_by(.data$DONOR, .data$OBJECT, .data$ID) |>
     mutate(emax_obs = max(data$FOLD, na.rm = TRUE) - 1)
-
-  # if (use_emax_obs == TRUE) {
-  #   out$data <- temp |>
-  #     mutate(mod = list(
-  #       nlsLM(
-  #         FOLD ~ hill3(CONC, emax_obs, ec50, n),
-  #         data = data,
-  #         start = list(ec50 = .1, n = 1),
-  #         lower = c(ec50 = 0, n = 1),
-  #         upper = c(ec50 = 100, n = 5),
-  #         control = nls.lm.control(maxiter = 1000)
-  #       )
-  #     )) |>
-  #     mutate(modpar = list(broom::tidy(mod)))
-  # } else {
-  #   out$data <- temp |>
-  #     mutate(mod = list(
-  #       nlsLM(
-  #         FOLD ~ hill3(CONC, emax, ec50, n),
-  #         data = data,
-  #         start = list(emax = 2, ec50 = .1, n = 1),
-  #         lower = c(emax = NA, ec50 = 0, n = 1),
-  #         upper = c(emax = NA, ec50 = 100, n = 5),
-  #         control = nls.lm.control(maxiter = 1000)
-  #       )
-  #     )) |>
-  #     mutate(modpar = list(broom::tidy(mod)))
-  # }
 
   if (use_emax_obs == TRUE) {
     out$data <- temp |>
@@ -156,7 +128,7 @@ indmod <- function(
           control = nls.lm.control(maxiter = 1000)
         )
       )) |>
-      mutate(modpar = list(broom::tidy(mod)))
+      mutate(modpar = list(broom::tidy(.data$mod)))
   } else {
     out$data <- temp |>
       mutate(mod = list(
@@ -169,7 +141,7 @@ indmod <- function(
           control = nls.lm.control(maxiter = 1000)
         )
       )) |>
-      mutate(modpar = list(broom::tidy(mod)))
+      mutate(modpar = list(broom::tidy(.data$mod)))
   }
 
   # curve plot data set
@@ -184,11 +156,17 @@ indmod <- function(
   names(temp) <- out$data$ID
   pred <- bind_cols(pred, temp) |>
     pivot_longer(cols = -1, names_to = "ID", values_to = "FOLD") |>
-    separate(ID, c("OBJECT", "DONOR"), "_", remove = FALSE)
+    separate(.data$ID, c("OBJECT", "DONOR"), "_", remove = FALSE)
 
-  out$fold_plot <- ggplot(data = NULL, aes(x = CONC, y = FOLD, color = OBJECT)) +
+  out$fold_plot <- ggplot(
+    data = NULL,
+    aes(
+      x = .data$CONC,
+      y = .data$FOLD,
+      color = .data$OBJECT
+    )) +
     geom_line(data = pred) +
-    geom_point(data = filter(data, SAMPLE == "test", !is.na(FOLD)), size = 2) +
+    geom_point(data = filter(data, .data$SAMPLE == "test", !is.na(.data$FOLD)), size = 2) +
     facet_wrap(~ID, scales = "free") +
     scale_x_log10() +
     expand_limits(y = 0) +
@@ -197,23 +175,29 @@ indmod <- function(
     theme(legend.position = "none")
 
   out$ind_param <- out$data |>
-    unnest(modpar) |>
+    unnest(.data$modpar) |>
     ungroup() |>
     select(-c("ID", "data", "mod"))
 
   # make inducer object from the donor that has the respective highers emax
   max_c <- data |>
     reframe(
-      max_c = max(CONC, na.rm = TRUE), .by = c("ID", "SOURCE"))
+      max_c = max(.data$CONC, na.rm = TRUE), .by = c("ID", "SOURCE"))
 
   temp <- out$data |>
-    unnest(modpar) |>
+    unnest(.data$modpar) |>
     select(-c("data", "mod")) |>
     group_by(.data$OBJECT) |>
-    filter(emax_obs == max(emax_obs, na.rm = TRUE)) |>
-    filter(term == "ec50") |>
+    filter(.data$emax_obs == max(.data$emax_obs, na.rm = TRUE)) |>
+    filter(.data$term == "ec50") |>
     left_join(max_c, by = "ID") |>
-    select(object = OBJECT, emax = emax_obs, ec50 = estimate, max_c, source = SOURCE) |>
+    select(
+      object = .data$OBJECT,
+      emax = .data$emax_obs,
+      ec50 = .data$estimate,
+      max_c,
+      source = .data$SOURCE
+    ) |>
     mutate(ec50 = round(.data$ec50, 2))
 
   out$inducer <- inducer(temp, precipitant = x@precipitant)

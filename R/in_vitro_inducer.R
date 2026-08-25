@@ -3,10 +3,8 @@
 #' @slot precipitant character.
 #' @slot data data.frame.
 #'
-#' @returns
+#' @returns An induction_experiment object
 #' @export
-#'
-#' @examples
 setClass(Class = "induction_experiment",
   representation(
    precipitant = "character",
@@ -75,6 +73,12 @@ setValidity("induction_experiment", function(object) {
 })
 
 
+#' Show method for induction_experiment objects
+#'
+#' @param object An `induction_experiment` object.
+#'
+#' @returns Nothing.
+#' @export
 setMethod(
   "show", "induction_experiment",
   function(object) {
@@ -96,6 +100,12 @@ setMethod(
 )
 
 
+#' Pring method for induction_experiment objects
+#'
+#' @param x An `induction_experiment` object.
+#'
+#' @returns Nothing.
+#' @export
 setMethod(
   "print", "induction_experiment",
   function(x) {
@@ -116,6 +126,14 @@ setMethod(
 )
 
 
+#' Plot method for induction_experiment objects
+#'
+#' @param x An `induction_experiment` object.
+#' @param type Metric to plot, `"FOLD"` or `"REL"`.
+#' @param ... Further arguments.
+#'
+#' @returns A ggplot object.
+#' @export
 setMethod(
   "plot", "induction_experiment",
   function(x, type = "FOLD", ...) {

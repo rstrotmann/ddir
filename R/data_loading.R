@@ -229,13 +229,13 @@ read_cyp_inhibitor_data <- function(source) {
 read_tdi_data <- function(source) {
   raw <- as.data.frame(read.csv(
     source,
-    col.names=c("name", "object", "ki", "kinact", "source"),
+    col.names = c("name", "object", "ki", "kinact", "source"),
     header = F,
     blank.lines.skip = TRUE,
     comment.char = '#')
   ) |>
     dplyr::mutate(across(everything(), trimws)) |>
-    dplyr::filter(name != "") |>
+    dplyr::filter(.data$name != "") |>
     mutate(across(3:4, as.num)) |>
     as.data.frame()
 
@@ -245,7 +245,7 @@ read_tdi_data <- function(source) {
     function(x) {
       x <- x |>
         mutate(ki = as.numeric(ki)) |>
-        filter(!is.na(ki))
+        filter(!is.na(.data$ki))
       inhibitor(data = select(x, -"name"), object <- unique(x$name))
     }
   )

@@ -7,7 +7,7 @@
 \S4method{print}{inducer}(x)
 }
 \arguments{
-\item{inducer}{DDI inducer object}
+\item{x}{An \code{inducer} object.}
 }
 \value{
 Markdown-formatted text

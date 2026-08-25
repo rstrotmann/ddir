@@ -83,7 +83,7 @@ setValidity("inducer", function(object) {
 
 #' Show DDI inducer object
 #'
-#' @param inducer DDI inducer object
+#' @param object An `inducer` object.
 #'
 #' @returns Nothing.
 #' @export
@@ -111,7 +111,7 @@ setMethod(
 
 #' Print DDI inducer object
 #'
-#' @param inducer DDI inducer object
+#' @param x An `inducer` object.
 #'
 #' @returns Markdown-formatted text
 #' @export

@@ -7,7 +7,7 @@
 \S4method{print}{ddi_risk}(x)
 }
 \arguments{
-\item{ddi_risk}{Ddi_risk object.}
+\item{x}{A \code{ddi_risk} object.}
 }
 \value{
 Markdown-formatted text.

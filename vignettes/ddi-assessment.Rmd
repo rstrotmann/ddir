@@ -8,6 +8,7 @@ vignette: >
 ---
 
 ```{r, include = FALSE}
+library(ddir)
 library(knitr)
 
 knitr::opts_chunk$set(
@@ -18,13 +19,7 @@ knitr::opts_chunk$set(
 
 This vignette shows how to assess the potential of a drug to act as a
 perpetrator of drug-drug interactions with CYP and UGT enzymes and drug
-transporters. The live code contained in this document relies on the following R
-packages:
-
-```{r setup, message = FALSE, warning = FALSE}
-library(ddir)
-library(tidyverse)
-```
+transporters.
 
 # Regulatory background
 

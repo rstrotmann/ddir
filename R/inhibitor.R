@@ -108,7 +108,7 @@ setValidity("inhibitor", function(object) {
 
 #' Show DDI inhibitor object.
 #'
-#' @param inhibitor Inhibitor object.
+#' @param object An `inhibitor` object.
 #'
 #' @returns Nothing.
 #' @export
@@ -133,7 +133,7 @@ setMethod(
 
 #' Print DDI inhibitor object.
 #'
-#' @param inhibitor Inhibitor object.
+#' @param x An `inhibitor` object.
 #'
 #' @returns Markdown-formatted text.
 #' @export

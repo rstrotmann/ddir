@@ -7,7 +7,7 @@
 \S4method{show}{perpetrator}(object)
 }
 \arguments{
-\item{perpetrator}{DDI perpetrator object.}
+\item{object}{A \code{perpetrator} object.}
 }
 \value{
 Nothing.

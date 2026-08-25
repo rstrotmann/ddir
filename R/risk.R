@@ -23,7 +23,8 @@ setClass(
 
 #' Show ddi_risk object
 #'
-#' @param ddi_risk Ddi_risk object.
+#' @param object A `ddi_risk` object.
+#'
 #' @returns Nothing.
 #' @import methods
 #' @export
@@ -44,7 +45,7 @@ setMethod(
 
 #' Print ddi_risk object
 #'
-#' @param ddi_risk Ddi_risk object.
+#' @param x A `ddi_risk` object.
 #'
 #' @returns Markdown-formatted text.
 #' @import methods

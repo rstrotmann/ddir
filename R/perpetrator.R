@@ -139,7 +139,7 @@ perpetrator <- function(
 
 #' Show DDI perpetrator objects.
 #'
-#' @param perpetrator DDI perpetrator object.
+#' @param object A `perpetrator` object.
 #'
 #' @returns Nothing.
 #' @import methods
@@ -190,7 +190,7 @@ setMethod(
 
 #' Property table for perpetrator object
 #'
-#' @param perpetrator perpetrator object
+#' @param x A `perpetrator` object.
 #'
 #' @returns Markdown-formatted text
 #' @import methods

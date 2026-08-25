@@ -7,7 +7,7 @@
 \S4method{show}{inducer}(object)
 }
 \arguments{
-\item{inducer}{DDI inducer object}
+\item{object}{An \code{inducer} object.}
 }
 \value{
 Nothing.

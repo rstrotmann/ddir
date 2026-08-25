@@ -7,7 +7,7 @@
 \S4method{show}{inhibitor}(object)
 }
 \arguments{
-\item{inhibitor}{Inhibitor object.}
+\item{object}{An \code{inhibitor} object.}
 }
 \value{
 Nothing.

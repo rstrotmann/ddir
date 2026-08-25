@@ -7,7 +7,7 @@
 \S4method{print}{perpetrator}(x)
 }
 \arguments{
-\item{perpetrator}{perpetrator object}
+\item{x}{A \code{perpetrator} object.}
 }
 \value{
 Markdown-formatted text

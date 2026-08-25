@@ -4,6 +4,9 @@
 \name{induction_experiment-class}
 \alias{induction_experiment-class}
 \title{In vitro induction data set}
+\value{
+An induction_experiment object
+}
 \description{
 In vitro induction data set
 }

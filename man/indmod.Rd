@@ -20,8 +20,6 @@ indmod(x, use_emax_obs = TRUE)
 
 \item{use_emax_obs}{Constrain Emax to the observed Emax (default). If FALSE,
 Emax will be fitted.}
-
-\item{precipitant}{The precipitant as character.}
 }
 \value{
 A list with the elements:
