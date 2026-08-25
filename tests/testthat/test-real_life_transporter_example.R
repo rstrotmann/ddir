@@ -1,109 +1,97 @@
-# # Transporter inhibition analogue script (3 drugs)
-# # ------------------------------------------------
-# # Case study: Baricitinib (OAT3 victim) with:
-# # - Probenecid 1000 mg BID
-# # - Ibuprofen 400 mg QD
-# # - Diclofenac 100 mg BID
-# #
-# # Literature basis:
-# # - Gomez-Mantilla et al., Clin Pharmacokinet 2023 (PMC10042977), Table 17
-# # - Posada et al., Clin Transl Sci 2017 (baricitinib transporter DDI context)
-# #
-# # IMPORTANT:
-# # This script uses a consistency-check workflow:
-# # 1) Take reported MSM AUCR (ft = 0.44) from the paper
-# # 2) Back-calculate Iu/IC50
-# # 3) Feed those into ddir::transporter_inh_risk() as perpetrator profiles
-# # So this verifies internal consistency with ddir's transporter ratio calculations.
-# suppressPackageStartupMessages({
-#   library(pkgload)
-#   library(dplyr)
-#   library(tibble)
-# })
-# pkgload::load_all(".")
-# # ---- helpers ----
-# infer_i_over_ic50 <- function(aucr, ft = 0.44) {
-#   # AUCR = 1 / ((1-ft) + ft/(1 + I/Ki))
-#   d <- 1 / aucr
-#   ft / (d - (1 - ft)) - 1
-# }
-# make_perp_from_Iu <- function(name, mw, Iu, fu = 1) {
-#   # Set imaxss so that imaxssu(perp, molar=TRUE) == Iu
-#   # imaxssu(molar=TRUE) = (imaxss * fu) / mw
-#   imaxss_required <- Iu * mw / fu
-#   perpetrator(
-#     name       = name,
-#     oral       = FALSE,       # focus on systemic OAT3
-#     mw         = mw,
-#     dose       = 1,
-#     imaxss     = imaxss_required,
-#     fu         = fu,
-#     fumic      = 1,
-#     rb         = 1,
-#     fa         = 1,
-#     fg         = 1,
-#     ka         = 0.1,
-#     solubility = Inf
-#   )
-# }
+# Transporter inhibition cases from Gomez-Mantilla et al., Clin Pharmacokinet 2023,
+# Table 17 (baricitinib / OAT3 victims) and Posada et al., Clin Transl Sci 2017.
 #
-# # ---- literature inputs ----
-# # AUCR predicted (MSM, ft=0.44) from Gomez-Mantilla 2023 Table 17
-# # IC50 values from transporter DDI literature context used in that section
-# drug_inputs <- tribble(
-#   ~drug,         ~mw,     ~ic50_oat3_uM, ~paper_aucr_msm_ft044,
-#   "probenecid",  285.36,  4.4,           1.67,
-#   "ibuprofen",   206.28,  4.4,           1.11,
-#   "diclofenac",  296.15,  3.8,           1.00
-# )
-# # ---- run consistency checks with ddir ----
-# results <- lapply(seq_len(nrow(drug_inputs)), function(i) {
-#   row <- drug_inputs[i, ]
-#   i_over_ic50 <- infer_i_over_ic50(row$paper_aucr_msm_ft044, ft = 0.44)
-#   Iu <- i_over_ic50 * row$ic50_oat3_uM
-#   perp <- make_perp_from_Iu(
-#     name = row$drug,
-#     mw   = row$mw,
-#     Iu   = Iu,
-#     fu   = 1
-#   )
-#
-#   trans_inh <- inhibitor(
-#     data.frame(
-#       object = "OAT3",
-#       ic50   = row$ic50_oat3_uM,
-#       source = "literature"
-#     )
-#   )
-#
-#   risk_tbl <- transporter_inh_risk(perp, trans_inh)@table |>
-#     filter(object == "OAT3")
-#
-#   tibble(
-#     drug = row$drug,
-#     paper_aucr_msm_ft044 = row$paper_aucr_msm_ft044,
-#     inferred_Iu_uM = Iu,
-#     inferred_I_over_IC50 = i_over_ic50,
-#     ddir_r = risk_tbl$r[[1]],                # should match inferred_I_over_IC50
-#     ddir_threshold = risk_tbl$threshold[[1]],
-#     ddir_risk = risk_tbl$risk[[1]]
-#   )
-# })
-#
-# summary_tbl <- bind_rows(results) |>
-#   mutate(
-#     across(where(is.numeric), ~ round(.x, 4)),
-#     delta_r = round(ddir_r - inferred_I_over_IC50, 6)
-#   ) |>
-#   select(
-#     drug,
-#     paper_aucr_msm_ft044,
-#     inferred_Iu_uM,
-#     inferred_I_over_IC50,
-#     ddir_r,
-#     delta_r,
-#     ddir_threshold,
-#     ddir_risk
-#   )
-#
-# print(summary_tbl, n = Inf)
+# Workflow: take the published MSM AUCR (ft = 0.44), back-calculate Iu/IC50,
+# and check that transporter_inh_risk() recovers that ratio.
+
+
+infer_i_over_ic50 <- function(aucr, ft = 0.44) {
+  d <- 1 / aucr
+  ft / (d - (1 - ft)) - 1
+}
+
+
+make_perp_from_Iu <- function(name, mw, Iu, fu = 1) {
+  perpetrator(
+    name       = name,
+    oral       = FALSE,
+    mw         = mw,
+    dose       = 1,
+    imaxss     = Iu * mw / fu,
+    fu         = fu,
+    fumic      = 1,
+    rb         = 1,
+    fa         = 1,
+    fg         = 1,
+    ka         = 0.1,
+    solubility = Inf
+  )
+}
+
+
+test_that("probenecid OAT3 I/IC50 recovered from Gomez-Mantilla 2023 AUCR 1.67 is a risk", {
+  ic50 <- 4.4
+  paper_aucr <- 1.67
+  i_over_ic50 <- infer_i_over_ic50(paper_aucr, ft = 0.44)
+  Iu <- i_over_ic50 * ic50
+  perp <- make_perp_from_Iu("probenecid", mw = 285.36, Iu = Iu)
+  inh <- inhibitor(
+    tibble::tribble(
+      ~object, ~ic50, ~source,
+      "OAT3" ,   4.4, "Gomez-Mantilla 2023 Table 17"
+    ),
+    precipitant = "probenecid"
+  )
+  tbl <- transporter_inh_risk(perp, inh)@table
+  oat3 <- tbl[tbl$object == "OAT3", ]
+
+  expect_equal(imaxssu(perp, molar = TRUE), Iu)
+  expect_equal(oat3$r, i_over_ic50)
+  expect_equal(oat3$threshold, 0.1)
+  expect_gt(oat3$r, 0.1)
+  expect_true(oat3$risk)
+})
+
+
+test_that("ibuprofen OAT3 I/IC50 recovered from Gomez-Mantilla 2023 AUCR 1.11 is a risk", {
+  ic50 <- 4.4
+  paper_aucr <- 1.11
+  i_over_ic50 <- infer_i_over_ic50(paper_aucr, ft = 0.44)
+  Iu <- i_over_ic50 * ic50
+  perp <- make_perp_from_Iu("ibuprofen", mw = 206.28, Iu = Iu)
+  inh <- inhibitor(
+    tibble::tribble(
+      ~object, ~ic50, ~source,
+      "OAT3" ,   4.4, "Gomez-Mantilla 2023 Table 17"
+    ),
+    precipitant = "ibuprofen"
+  )
+  tbl <- transporter_inh_risk(perp, inh)@table
+  oat3 <- tbl[tbl$object == "OAT3", ]
+
+  expect_equal(oat3$r, i_over_ic50)
+  expect_gt(oat3$r, 0.1)
+  expect_true(oat3$risk)
+})
+
+
+test_that("diclofenac OAT3 I/IC50 recovered from Gomez-Mantilla 2023 AUCR 1.00 is not a risk", {
+  ic50 <- 3.8
+  paper_aucr <- 1.00
+  i_over_ic50 <- infer_i_over_ic50(paper_aucr, ft = 0.44)
+  Iu <- i_over_ic50 * ic50
+  perp <- make_perp_from_Iu("diclofenac", mw = 296.15, Iu = Iu)
+  inh <- inhibitor(
+    tibble::tribble(
+      ~object, ~ic50, ~source,
+      "OAT3" ,   3.8, "Gomez-Mantilla 2023 Table 17"
+    ),
+    precipitant = "diclofenac"
+  )
+  tbl <- transporter_inh_risk(perp, inh)@table
+  oat3 <- tbl[tbl$object == "OAT3", ]
+
+  expect_equal(oat3$r, i_over_ic50)
+  expect_equal(oat3$r, 0, tolerance = 1e-10)
+  expect_false(oat3$risk)
+})
