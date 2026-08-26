@@ -80,6 +80,8 @@ cyp_ind_calcitriol |>
 
 x <- induction_experiment(cyp_ind_calcitriol, "calcitriol")
 
+indmod(x, use_emax_obs = F, individual_donors = F)
+
 data <- mutate(x@data, ID = paste0(.data$OBJECT, "_", .data$DONOR))
 
 sigm <- function(c, emax, ec50) {
@@ -90,8 +92,8 @@ out <- list()
 
 temp <- data |>
   filter(.data$SAMPLE == "test") |>
-  nest_by(DONOR, OBJECT, ID) #|>
-  # mutate(emax_obs = max(data$FOLD, na.rm = TRUE))
+  nest_by(DONOR, OBJECT, ID) |>
+  mutate(emax_obs = max(data$FOLD, na.rm = TRUE))
 
 out$data <- temp |>
   mutate(mod = list(
@@ -119,7 +121,7 @@ pred <- bind_cols(pred, temp) |>
   pivot_longer(cols = -1, names_to = "ID", values_to = "FOLD") |>
   separate(ID, c("OBJECT", "DONOR"), "_", remove = FALSE)
 
-out$fold_plot <- ggplot(data = NULL, aes(x = CONC, y = FOLD, color = OBJECT)) +
+ggplot(data = NULL, aes(x = CONC, y = FOLD, color = OBJECT)) +
   geom_line(data = pred) +
   geom_point(data = filter(data, SAMPLE == "test", !is.na(FOLD)), size = 2) +
   facet_wrap(~ID, scales = "free") +

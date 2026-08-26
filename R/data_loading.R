@@ -255,9 +255,6 @@ read_tdi_data <- function(source) {
   } else {
     return(out)
   }
-
-  # out <- inhibitor(select(raw, -name))
-  # return(raw)
 }
 
 

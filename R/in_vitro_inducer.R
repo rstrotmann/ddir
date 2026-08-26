@@ -15,7 +15,7 @@ setClass(Class = "induction_experiment",
    data = data.frame(
      DONOR = character(0),
      SAMPLE = character(0),
-     CONC = character(0),
+     CONC = numeric(0),
      OBJECT = character(0),
      FOLD = numeric(0),
      REL = numeric(0),
@@ -40,7 +40,7 @@ induction_experiment <- function(data = NULL, precipitant = "") {
     data = data.frame(
       DONOR = character(0),
       SAMPLE = character(0),
-      CONC = character(0),
+      CONC = numeric(0),
       OBJECT = character(0),
       FOLD = numeric(0),
       REL = numeric(0),

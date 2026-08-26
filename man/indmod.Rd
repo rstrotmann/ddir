@@ -4,7 +4,7 @@
 \alias{indmod}
 \title{Analyze in vitro CYP induction data}
 \usage{
-indmod(x, use_emax_obs = TRUE)
+indmod(x, use_emax_obs = TRUE, individual_donors = TRUE)
 }
 \arguments{
 \item{x}{In vitro induction data as data frame with the columns:
@@ -20,6 +20,8 @@ indmod(x, use_emax_obs = TRUE)
 
 \item{use_emax_obs}{Constrain Emax to the observed Emax (default). If FALSE,
 Emax will be fitted.}
+
+\item{individual_donors}{Plot donors on individual panels.}
 }
 \value{
 A list with the elements:

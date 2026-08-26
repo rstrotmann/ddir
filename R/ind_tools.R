@@ -69,16 +69,10 @@ induction_plot <- function(
 #'
 #' \deqn{f = 1 + \frac{(E_{max}) * C^n}{(EC_{50}^n + C^n)}}
 #'
-#' @param x In vitro induction data as data frame with the columns:
-#' * DONOR The hepatocyte donor
-#' * SAMPLE "test" or "positive_control"
-#' * CONC The preipitant concentration in uM.
-#' * OBJECT The DDI object.
-#' * FOLD The mRNA or activity fold change.
-#' * REL The fold change relative to positive control.
-#' * SOURCE Source information
+#' @param x In vitro induction data as induction_experiment object.
 #' @param use_emax_obs Constrain Emax to the observed Emax (default). If FALSE,
 #' Emax will be fitted.
+#' @param individual_donors Plot donors on individual panels.
 #'
 #' @returns A list with the elements:
 #' * data The original data, model and model parameters for each fit.
@@ -94,37 +88,74 @@ induction_plot <- function(
 #' indmod(induction_experiment(examplinib_in_vitro_ind, "examplinib"))
 indmod <- function(
     x,
-    use_emax_obs = TRUE
+    use_emax_obs = TRUE,
+    individual_donors = TRUE
 ) {
   # input validation
   if (!inherits(x, "induction_experiment"))
     stop("input must be an in vitro induction experiment object!")
 
   validate_argument(use_emax_obs, "logical")
+  validate_argument(individual_donors, "logical")
 
   # business logic
-  data <- mutate(x@data, ID = paste0(.data$OBJECT, "_", .data$DONOR))
+  data <- mutate(x@data, ID = paste0(.data$OBJECT, "_", .data$DONOR)) |>
+    filter(CONC > 0)
 
-  sigm <- function(c, emax, ec50, h) {
-    1 + (emax - 1) / (1 + exp(-(log(c) - log(ec50))/h))
+  # sigm <- function(c, emax, ec50, h) {
+  #   1 + (emax - 1) / (1 + exp(-(log(c) - log(ec50))/h))
+  # }
+
+  sigm <- function(c, emax, ec50) {
+    1 + (emax / (1 + exp(log(ec50) - log(c))))
   }
 
   out <- list()
 
+  # prepare data set
   temp <- data |>
     filter(.data$SAMPLE == "test") |>
     nest_by(.data$DONOR, .data$OBJECT, .data$ID) |>
     mutate(emax_obs = max(data$FOLD, na.rm = TRUE) - 1)
 
+  # non-linear modeling
+  # if (use_emax_obs == TRUE) {
+  #   out$data <- temp |>
+  #     mutate(mod = list(
+  #       nlsLM(
+  #         FOLD ~ sigm(CONC, emax_obs, ec50, n),
+  #         data = data,
+  #         start = list(ec50 = .1, n = 1),
+  #         lower = c(ec50 = 0, n = 1),
+  #         upper = c(ec50 = 100, n = 5),
+  #         control = nls.lm.control(maxiter = 1000)
+  #       )
+  #     )) |>
+  #     mutate(modpar = list(broom::tidy(.data$mod)))
+  # } else {
+  #   out$data <- temp |>
+  #     mutate(mod = list(
+  #       nlsLM(
+  #         FOLD ~ sigm(CONC, emax, ec50, n),
+  #         data = data,
+  #         start = list(emax = 2, ec50 = .1, n = 1),
+  #         lower = c(emax = NA, ec50 = 0, n = 1),
+  #         upper = c(emax = NA, ec50 = 100, n = 5),
+  #         control = nls.lm.control(maxiter = 1000)
+  #       )
+  #     )) |>
+  #     mutate(modpar = list(broom::tidy(.data$mod)))
+  # }
+
   if (use_emax_obs == TRUE) {
     out$data <- temp |>
       mutate(mod = list(
         nlsLM(
-          FOLD ~ sigm(CONC, emax_obs, ec50, n),
+          FOLD ~ sigm(CONC, emax_obs, ec50),
           data = data,
-          start = list(ec50 = .1, n = 1),
-          lower = c(ec50 = 0, n = 1),
-          upper = c(ec50 = 100, n = 5),
+          start = list(ec50 = .1),
+          lower = c(ec50 = 0),
+          upper = c(ec50 = 100),
           control = nls.lm.control(maxiter = 1000)
         )
       )) |>
@@ -133,18 +164,18 @@ indmod <- function(
     out$data <- temp |>
       mutate(mod = list(
         nlsLM(
-          FOLD ~ sigm(CONC, emax, ec50, n),
+          FOLD ~ sigm(CONC, emax, ec50),
           data = data,
-          start = list(emax = 2, ec50 = .1, n = 1),
-          lower = c(emax = NA, ec50 = 0, n = 1),
-          upper = c(emax = NA, ec50 = 100, n = 5),
+          start = list(emax = 2, ec50 = .1),
+          lower = c(emax = NA, ec50 = 0),
+          upper = c(emax = NA, ec50 = 100),
           control = nls.lm.control(maxiter = 1000)
         )
       )) |>
       mutate(modpar = list(broom::tidy(.data$mod)))
   }
 
-  # curve plot data set
+  # make curve plot data set
   pred <- data.frame(
     CONC = 10^seq(
       log10(min(data$CONC, na.rm = TRUE)),
@@ -158,26 +189,37 @@ indmod <- function(
     pivot_longer(cols = -1, names_to = "ID", values_to = "FOLD") |>
     separate(.data$ID, c("OBJECT", "DONOR"), "_", remove = FALSE)
 
-  out$fold_plot <- ggplot(
-    data = NULL,
-    aes(
+  # make output plot
+  out$fold_plot <- ggplot(data = NULL, aes(
       x = .data$CONC,
       y = .data$FOLD,
-      color = .data$OBJECT
+      color = .data$OBJECT,
+      group = .data$ID
     )) +
     geom_line(data = pred) +
     geom_point(data = filter(data, .data$SAMPLE == "test", !is.na(.data$FOLD)), size = 2) +
-    facet_wrap(~ID, scales = "free") +
     scale_x_log10() +
     expand_limits(y = 0) +
     labs(title = paste("In vitro CYP induction by", x@precipitant)) +
-    theme_bw() +
-    theme(legend.position = "none")
+    theme_bw()
+
+  if (isTRUE(individual_donors)) {
+    out$fold_plot <- out$fold_plot +
+      facet_wrap(~ID, scales = "free") +
+      theme(legend.position = "none")
+  } else {
+    out$fold_plot <- out$fold_plot +
+      aes(color = .data$DONOR) +
+      facet_wrap(~OBJECT, scales = "free") +
+      theme(legend.position = "bottom")
+  }
 
   out$ind_param <- out$data |>
     unnest(.data$modpar) |>
     ungroup() |>
-    select(-c("ID", "data", "mod"))
+    select(-c("ID", "data", "mod")) |>
+    relocate("OBJECT", "DONOR", "term") |>
+    arrange(.data$OBJECT, .data$DONOR, .data$term)
 
   # make inducer object from the donor that has the respective highers emax
   max_c <- data |>
