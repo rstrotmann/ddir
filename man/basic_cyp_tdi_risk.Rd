@@ -19,3 +19,7 @@ DDI risk object
 \description{
 Title
 }
+\examples{
+basic_cyp_tdi_risk(examplinib_parent, examplinib_cyp_tdi_parent)
+
+}

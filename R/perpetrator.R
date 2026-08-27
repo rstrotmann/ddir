@@ -278,8 +278,18 @@ igut <- function(x, molar = FALSE) {
 #' @export
 #'
 imaxssu <- function(x, molar = TRUE) {
+  # input validation
   validate_perpetrator(x)
-  out <- x@imaxss * x@fu
+
+  # business logic
+  # if (x@fu < 0.01) {
+  #   fu <- 0.01
+  #   warning("fu is < 1% and was set to 1%!")
+  # } else {
+  #   fu = x@fu
+  # }
+  fu = x@fu
+  out <- x@imaxss * fu
   ifelse(molar, out / x@mw, out)
 }
 

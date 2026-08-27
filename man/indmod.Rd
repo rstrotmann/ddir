@@ -7,16 +7,7 @@
 indmod(x, use_emax_obs = TRUE, individual_donors = TRUE)
 }
 \arguments{
-\item{x}{In vitro induction data as data frame with the columns:
-\itemize{
-\item DONOR The hepatocyte donor
-\item SAMPLE "test" or "positive_control"
-\item CONC The preipitant concentration in uM.
-\item OBJECT The DDI object.
-\item FOLD The mRNA or activity fold change.
-\item REL The fold change relative to positive control.
-\item SOURCE Source information
-}}
+\item{x}{In vitro induction data as induction_experiment object.}
 
 \item{use_emax_obs}{Constrain Emax to the observed Emax (default). If FALSE,
 Emax will be fitted.}

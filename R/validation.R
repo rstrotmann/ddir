@@ -1,6 +1,63 @@
-validate_perpetrator <- function(object) {
-  if (!inherits(object, "perpetrator"))
-    stop("object must be a perpetrotor object")
+#' Validate perpetrator argument
+#'
+#' @param obj Perpetrator object.
+#'
+#' @returns Nothing.
+#' @noRd
+validate_perpetrator <- function(obj) {
+  obj_name <- deparse(substitute(obj))
+
+  if (!inherits(obj, "perpetrator"))
+    stop(paste(obj_name, "must be a perpetrotor object"))
+
+  invisible(NULL)
+}
+
+#' Validate inhibitor argument
+#'
+#' @param obj Inhibitor object
+#' @param expected_fields Character or NULL.
+#'
+#' @returns
+#' @noRd
+validate_inhibitor <- function(obj, expected_fields = NULL) {
+  obj_name <- deparse(substitute(obj))
+
+  if (!inherits(obj, "inhibitor"))
+    stop(paste(obj_name, "must be an inhibitor object"))
+
+  missing_fields <- setdiff(expected_fields, names(obj@data))
+  if (length(missing_fields) > 0) {
+    stop(paste0(
+      "Missing columns in ", obj_name, ": ",
+      nice_enumeration(missing_fields)
+    ))
+  }
+  invisible(NULL)
+}
+
+
+#' Validate inducer argument
+#'
+#' @param obj Inducer object.
+#' @param expected_fields Character or NULL.
+#'
+#' @returns Nothing.
+#' @noRd
+validate_inducer <- function(obj, expected_fields = NULL) {
+  obj_name <- deparse(substitute(obj))
+
+  if (!inherits(obj, "inducer"))
+    stop(paste(obj_name, "must be an inducer object"))
+
+  missing_fields <- setdiff(expected_fields, names(obj@data))
+  if (length(missing_fields) > 0) {
+    stop(paste0(
+      "Missing columns in ", obj_name, ": ",
+      nice_enumeration(missing_fields)
+    ))
+  }
+  invisible(NULL)
 }
 
 

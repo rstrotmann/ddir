@@ -576,7 +576,7 @@ test_that("basic_cyp_tdi_risk rejects wrong classes, missing columns, and empty 
 
   expect_error(
     basic_cyp_tdi_risk("not-a-perp", tdi),
-    "perp must be a perpetrator object"
+    "perp must be a perpetrotor object"
   )
   expect_error(
     basic_cyp_tdi_risk(perp, "not-an-inhibitor"),
@@ -674,12 +674,13 @@ test_that("static_cyp_induction_risk rejects wrong classes and empty allowed CYP
 
   expect_error(
     static_cyp_induction_risk("not-a-perp", ind),
-    "perp must be a perpetrator object"
+    "perp must be a perpetrotor object"
   )
   expect_error(
     static_cyp_induction_risk(perp, "not-an-inducer"),
-    "cyp_ind must be an induction object"
+    "cyp_ind must be an inducer object"
   )
+
   expect_error(
     static_cyp_induction_risk(perp, only_3a5),
     "No CYP induction data for known CYP enzymes found"

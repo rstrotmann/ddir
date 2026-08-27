@@ -254,23 +254,30 @@ transporter_inh_risk <- function(
 #' @returns DDI risk object
 #' @importFrom methods new
 #' @export
+#' @examples
+#' basic_cyp_tdi_risk(examplinib_parent, examplinib_cyp_tdi_parent)
+#'
 basic_cyp_tdi_risk <- function(
     perp,
     cyp_tdi,
     cyp_kdeg = cyp_turnover
 ) {
   # input validation
-  if (!inherits(perp, "perpetrator")) {
-    stop("perp must be a perpetrator object")
-  }
-  if (!inherits(cyp_tdi, "inhibitor")) {
-    stop("cyp_tdi must be an inhibitor object")
-  }
-  expected_columns <- c("object", "ki", "kinact", "source")
-  missing_columns <- setdiff(expected_columns, names(cyp_tdi@data))
-  if (length(missing_columns) > 0)
-    stop(paste0(
-      "Missing columns in cyp_tdi: ", nice_enumeration(missing_columns)))
+  # if (!inherits(perp, "perpetrator")) {
+  #   stop("perp must be a perpetrator object")
+  # }
+  validate_perpetrator(perp)
+
+  # if (!inherits(cyp_tdi, "inhibitor")) {
+  #   stop("cyp_tdi must be an inhibitor object")
+  # }
+  validate_inhibitor(cyp_tdi, expected_fields = c("object", "ki", "kinact", "source"))
+
+  # expected_columns <- c("object", "ki", "kinact", "source")
+  # missing_columns <- setdiff(expected_columns, names(cyp_tdi@data))
+  # if (length(missing_columns) > 0)
+  #   stop(paste0(
+  #     "Missing columns in cyp_tdi: ", nice_enumeration(missing_columns)))
 
   allowed_object <- c("CYP1A2", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19",
                       "CYP2D6", "CYP3A4")
@@ -286,16 +293,17 @@ basic_cyp_tdi_risk <- function(
       ")"
     ))
 
-  # cyp_kdeg <- cyp_kdeg |>
-  #   rename(target = cyp)
-
+  # business logic
   out <- cyp_tdi@data |>
-    mutate(kobs = .data$kinact * 5 * imaxssu(perp) / (.data$ki * perp@fumic + 5 * imaxssu(perp))) |>
+    mutate(
+      kobs = .data$kinact * 5 * imaxssu(perp) /
+        (.data$ki * perp@fumic + 5 * imaxssu(perp))
+    ) |>
     mutate(fu = perp@fu) |>
     left_join(cyp_kdeg, by = "object") |>
     mutate(kdeg = kdeg_hepatic) |>
     mutate(r = (kobs + kdeg) / kdeg) |>
-    mutate(risk = (r > 1.25)) |>
+    mutate(risk = (r >= 1.25)) |>
     select(c("object", "ki", "fu", "kinact", "kdeg", "source", "r", "risk"))
 
   methods::new(
@@ -319,17 +327,20 @@ basic_cyp_tdi_risk <- function(
 #' static_cyp_induction_risk(examplinib_parent, examplinib_cyp_ind_parent)
 static_cyp_induction_risk <- function(perp, cyp_ind)  {
   # input validation
-  if (!inherits(perp, "perpetrator")) {
-    stop("perp must be a perpetrator object")
-  }
-  if (!inherits(cyp_ind, "inducer")) {
-    stop("cyp_ind must be an induction object")
-  }
-  expected_columns <- c("object", "emax", "ec50", "max_c", "source")
-  missing_columns <- setdiff(expected_columns, names(cyp_ind@data))
-  if (length(missing_columns) > 0)
-    stop(paste0(
-      "Missing columns in cyp_ind: ", nice_enumeration(missing_columns)))
+  # if (!inherits(perp, "perpetrator")) {
+  #   stop("perp must be a perpetrator object")
+  # }
+  validate_perpetrator(perp)
+
+  # if (!inherits(cyp_ind, "inducer")) {
+  #   stop("cyp_ind must be an induction object")
+  # }
+  validate_inducer(cyp_ind, expected_fields = c("object", "emax", "ec50", "max_c", "source"))
+  # expected_columns <- c("object", "emax", "ec50", "max_c", "source")
+  # missing_columns <- setdiff(expected_columns, names(cyp_ind@data))
+  # if (length(missing_columns) > 0)
+  #   stop(paste0(
+  #     "Missing columns in cyp_ind: ", nice_enumeration(missing_columns)))
 
   allowed_object <- c("CYP1A2", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19",
                       "CYP2D6", "CYP3A4")

@@ -89,11 +89,11 @@ test_that("perpetrator constructor validates source names", {
 
 
 test_that("perpetrator concentration functions reject non-perpetrator objects", {
-  expect_error(igut("not-a-perpetrator"), "object must be a perpetrotor object")
-  expect_error(imaxssu("not-a-perpetrator"), "object must be a perpetrotor object")
-  expect_error(imaxinletu("not-a-perpetrator"), "object must be a perpetrotor object")
-  expect_error(imaxintest("not-a-perpetrator"), "object must be a perpetrotor object")
-  expect_error(key_conc_table("not-a-perpetrator"), "object must be a perpetrotor object")
+  expect_error(igut("not-a-perpetrator"), "x must be a perpetrotor object")
+  expect_error(imaxssu("not-a-perpetrator"), "x must be a perpetrotor object")
+  expect_error(imaxinletu("not-a-perpetrator"), "x must be a perpetrotor object")
+  expect_error(imaxintest("not-a-perpetrator"), "x must be a perpetrotor object")
+  expect_error(key_conc_table("not-a-perpetrator"), "x must be a perpetrotor object")
 })
 
 
@@ -435,7 +435,7 @@ test_that("portal_term scales inversely with qh and includes fa and fg", {
 
 
 test_that("portal_term rejects non-perpetrator objects", {
-  expect_error(portal_term("not-a-perpetrator"), "object must be a perpetrotor object")
+  expect_error(portal_term("not-a-perpetrator"), "x must be a perpetrotor object")
 })
 
 
