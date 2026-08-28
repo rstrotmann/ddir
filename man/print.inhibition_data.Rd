@@ -4,7 +4,7 @@
 \alias{print.inhibition_data}
 \title{Print method for inhibition_data objects}
 \usage{
-print.inhibition_data(x, ...)
+\method{print}{inhibition_data}(x, ...)
 }
 \arguments{
 \item{x}{The inhibition}

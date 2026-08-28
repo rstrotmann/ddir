@@ -7,7 +7,7 @@
 
 
 liver_only_midazolam <- tibble::tribble(
-  ~object,  ~substrate, ~fgut,  ~fm, ~fmcyp,
+  ~object ,  ~substrate, ~fgut,  ~fm, ~fmcyp,
   "CYP3A4", "midazolam",     1, 0.96,      1
 )
 
@@ -29,16 +29,16 @@ test_that("ivosidenib CYP3A4 MSM without gut matches Gomez-Mantilla 2023 AUCR 0.
     ka         = 1.38 / 60,
     solubility = Inf
   )
-  inh <- inhibitor(
+  inh <- inhibition_data(
     tibble::tribble(
-      ~object, ~ki, ~source,
-      "CYP3A4",  NA, "none"
+      ~object , ~ki, ~source,
+      "CYP3A4",  NA,  "none"
     ),
     precipitant = "ivosidenib"
   )
-  ind <- inducer(
+  ind <- induction_data(
     tibble::tribble(
-      ~object, ~emax, ~ec50, ~max_c, ~source,
+      ~object , ~emax, ~ec50, ~max_c,            ~source,
       "CYP3A4", 21.25,   8.6,  24.59, "Gomez-Mantilla 2023"
     ),
     precipitant = "ivosidenib"
@@ -51,7 +51,7 @@ test_that("ivosidenib CYP3A4 MSM without gut matches Gomez-Mantilla 2023 AUCR 0.
     cyp_tdi = NULL,
     include_induction = TRUE,
     substr = liver_only_midazolam
-  )@table
+  )
   Iu <- imaxssu(perp, molar = TRUE)
   Ch <- 1 + 21.25 * Iu / (Iu + 8.6)
   expected_aucr <- 1 / (Ch * 0.96 + (1 - 0.96))
@@ -80,21 +80,18 @@ test_that("ivosidenib is a kinetic and static CYP3A4 induction risk", {
     ka         = 1.38 / 60,
     solubility = Inf
   )
-  ind <- inducer(
+  ind <- induction_data(
     tibble::tribble(
-      ~object, ~emax, ~ec50, ~max_c, ~source,
+      ~object , ~emax, ~ec50, ~max_c,            ~source,
       "CYP3A4", 21.25,   8.6,  24.59, "Gomez-Mantilla 2023"
     ),
     precipitant = "ivosidenib"
   )
 
-  static <- static_cyp_induction_risk(perp, ind)@table
-  kinetic <- kinetic_cyp_induction_risk(perp, ind)@table
+  static <- static_cyp_induction_risk(perp, ind)
+  kinetic <- kinetic_cyp_induction_risk(perp, ind)
   Iu <- imaxssu(perp, molar = TRUE)
-  expected_r3 <- round(
-    1 / (1 + 21.25 * 10 * Iu / (8.6 + 10 * Iu)),
-    3
-  )
+  expected_r3 <- 1 / (1 + 21.25 * 10 * Iu / (8.6 + 10 * Iu))
 
   expect_true(static$risk)
   expect_equal(kinetic$r, expected_r3)
@@ -118,17 +115,17 @@ test_that("voxelotor CYP3A4 MSM without gut is close to Gomez-Mantilla scenario 
     ka         = 0.1,
     solubility = Inf
   )
-  inh <- inhibitor(
+  inh <- inhibition_data(
     tibble::tribble(
-      ~object,  ~ki, ~source,
+      ~object ,  ~ki,     ~source,
       "CYP3A4", 0.06, "scenario 2"
     ),
     precipitant = "voxelotor"
   )
-  ind <- inducer(
+  ind <- induction_data(
     tibble::tribble(
-      ~object, ~emax, ~ec50, ~max_c, ~source,
-      "CYP3A4",    NA,    NA,     NA, "none"
+      ~object , ~emax, ~ec50, ~max_c, ~source,
+      "CYP3A4",    NA,    NA,     NA,  "none"
     ),
     precipitant = "voxelotor"
   )
@@ -140,7 +137,7 @@ test_that("voxelotor CYP3A4 MSM without gut is close to Gomez-Mantilla scenario 
     cyp_tdi = NULL,
     include_induction = FALSE,
     substr = liver_only_midazolam
-  )@table
+  )
   Iu <- imaxssu(perp, molar = TRUE)
   Ah <- 1 / (1 + Iu / 0.06)
   expected_aucr <- 1 / (Ah * 0.96 + (1 - 0.96))
@@ -169,14 +166,14 @@ test_that("PUR1900 itraconazole basic R1 with OH-itraconazole matches Bergagnini
     ka         = 0.1,
     solubility = Inf
   )
-  inh <- inhibitor(
+  inh <- inhibition_data(
     tibble::tribble(
-      ~object,    ~ki, ~source,
+      ~object ,    ~ki,               ~source,
       "CYP3A4", 0.0013, "Bergagnini-Kolev 2023"
     ),
     precipitant = "PUR1900_itraconazole"
   )
-  tbl <- basic_cyp_inhibition_risk(perp, inh)@table
+  tbl <- basic_cyp_inhibition_risk(perp, inh)
   parent_r1 <- 1 + tbl$r
   oh_term <- (0.0120 * 0.016) / 0.0023
   combined_r1 <- parent_r1 + oh_term
@@ -205,20 +202,17 @@ test_that("rifampicin mRNA parameters from Almond 2016 are a strong kinetic CYP3
     ka         = 0.01,
     solubility = Inf
   )
-  ind <- inducer(
+  ind <- induction_data(
     tibble::tribble(
-      ~object, ~emax, ~ec50, ~max_c, ~source,
+      ~object , ~emax, ~ec50, ~max_c,              ~source,
       "CYP3A4",  28.9,  0.71,     10, "Almond 2016 Table 2"
     ),
     precipitant = "rifampicin"
   )
-  static <- static_cyp_induction_risk(perp, ind)@table
-  kinetic <- kinetic_cyp_induction_risk(perp, ind)@table
+  static <- static_cyp_induction_risk(perp, ind)
+  kinetic <- kinetic_cyp_induction_risk(perp, ind)
   Iu <- imaxssu(perp, molar = TRUE)
-  expected_r3 <- round(
-    1 / (1 + 28.9 * 10 * Iu / (0.71 + 10 * Iu)),
-    3
-  )
+  expected_r3 <- 1 / (1 + 28.9 * 10 * Iu / (0.71 + 10 * Iu))
 
   expect_true(static$risk)
   expect_equal(kinetic$r, expected_r3)
@@ -228,9 +222,9 @@ test_that("rifampicin mRNA parameters from Almond 2016 are a strong kinetic CYP3
 
 
 test_that("BI 425809 CYP3A4 mRNA Emax from Desch 2023 is a static induction risk", {
-  ind <- inducer(
+  ind <- induction_data(
     tibble::tribble(
-      ~object, ~emax, ~ec50, ~max_c, ~source,
+      ~object , ~emax, ~ec50, ~max_c,     ~source,
       "CYP3A4",  18.7,  1.96,     50, "Desch 2023"
     ),
     precipitant = "BI 425809"
@@ -249,7 +243,7 @@ test_that("BI 425809 CYP3A4 mRNA Emax from Desch 2023 is a static induction risk
     ka         = 0.01,
     solubility = Inf
   )
-  static <- static_cyp_induction_risk(perp, ind)@table
+  static <- static_cyp_induction_risk(perp, ind)
 
   expect_true(static$risk)
   expect_equal(static$emax, 18.7)

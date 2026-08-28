@@ -100,7 +100,7 @@ indmod <- function(
 
   # business logic
   data <- mutate(x@data, ID = paste0(.data$OBJECT, "_", .data$DONOR)) |>
-    filter(CONC > 0)
+    filter(.data$CONC > 0)
 
   # sigm <- function(c, emax, ec50, h) {
   #   1 + (emax - 1) / (1 + exp(-(log(c) - log(ec50))/h))

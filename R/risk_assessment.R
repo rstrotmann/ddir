@@ -457,8 +457,8 @@ mech_stat_cyp_risk <- function(
   # input validation
   validate_perpetrator(perp)
   validate_inhibition_data(cyp_inh)
-  validate_inhibition_data(cyp_tdi)
-  validate_induction_data(cyp_ind)
+  validate_inhibition_data(cyp_tdi, allow_null = TRUE)
+  validate_induction_data(cyp_ind, allow_null = TRUE)
 
   # risk assessment
   fumic <- perp$fumic
@@ -466,11 +466,12 @@ mech_stat_cyp_risk <- function(
   Ih <- imaxinletu(perp, qh = qh)
 
   if(is.null(cyp_ind)) {
-    cyp_ind <- inducer(NULL)
+    cyp_ind <- induction_data(NULL)
   }
 
   if(is.null(cyp_tdi)) {
-    cyp_tdi <- inhibitor(NULL)
+    cyp_tdi <- inhibition_data(NULL) |>
+      mutate(kinact = numeric())
   }
 
   out <- cyp_inh |>

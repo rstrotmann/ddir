@@ -4,6 +4,22 @@
 #' @param precipitant The precipitant name as character.
 #'
 #' @returns An inhibition_data object.
+#' @noRd
+new_induction_data <- function(data = NULL, precipitant = "") {
+  structure(
+    data,
+    class = unique(c("induction_data", class(data))),
+    precipitant = precipitant
+  )
+}
+
+
+#' induction_data constructor alias
+#'
+#' @param data A data frame with the columns object, ki and source.
+#' @param precipitant The precipitant name as character.
+#'
+#' @returns An inhibition_data object.
 #' @export
 induction_data <- function(data = NULL, precipitant = "") {
   if (is.null(data)) {
@@ -15,9 +31,8 @@ induction_data <- function(data = NULL, precipitant = "") {
       source = character()
     )
   }
-  out <- data
-  class(out) <- c("induction_data", "data.frame")
-  attr(out, "precipitant") <- precipitant
+
+  out <- new_induction_data(as.data.frame(data), precipitant)
 
   validate_induction_data(out)
   out
@@ -33,7 +48,7 @@ induction_data <- function(data = NULL, precipitant = "") {
 #' @export
 #' @noRd
 dplyr_reconstruct.induction_data <- function(data, template) {
-  induction_data(data, attr(template, "precipitant"))
+  new_induction_data(data, attr(template, "precipitant"))
 }
 
 
@@ -45,9 +60,9 @@ dplyr_reconstruct.induction_data <- function(data, template) {
 #' @returns Nothing.
 #' @import dplyr
 #' @import knitr
-#' @export
+#' @exportS3Method ddir::print
 print.induction_data <- function(x, ...) {
-  validate_induction_data(x)
+  # validate_induction_data(x)
 
   if (isTRUE(getOption("knitr.in.progress"))) {
     x |>

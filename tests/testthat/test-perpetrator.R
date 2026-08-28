@@ -21,24 +21,31 @@ make_test_perpetrator <- function(...) {
 }
 
 
-test_that("perpetrator constructor populates all slots", {
+with_knitr <- function(expr) {
+  old <- options(knitr.in.progress = TRUE)
+  on.exit(options(old), add = TRUE)
+  force(expr)
+}
+
+
+test_that("perpetrator constructor populates all fields", {
   x <- make_test_perpetrator()
 
-  expect_s4_class(x, "perpetrator")
-  expect_identical(x@name, "examplinib")
-  expect_identical(x@oral, TRUE)
-  expect_equal(x@mw, 492.6)
-  expect_equal(x@dose, 450)
-  expect_equal(x@imaxss, 3530)
-  expect_equal(x@fu, 0.023)
-  expect_equal(x@fumic, 1)
-  expect_equal(x@rb, 1)
-  expect_equal(x@fa, 0.81)
-  expect_equal(x@fg, 1)
-  expect_equal(x@ka, 0.00267)
-  expect_identical(x@solubility, Inf)
+  expect_s3_class(x, "perpetrator")
+  expect_identical(x$name, "examplinib")
+  expect_identical(x$oral, TRUE)
+  expect_equal(x$mw, 492.6)
+  expect_equal(x$dose, 450)
+  expect_equal(x$imaxss, 3530)
+  expect_equal(x$fu, 0.023)
+  expect_equal(x$fumic, 1)
+  expect_equal(x$rb, 1)
+  expect_equal(x$fa, 0.81)
+  expect_equal(x$fg, 1)
+  expect_equal(x$ka, 0.00267)
+  expect_identical(x$solubility, Inf)
   expect_identical(
-    unname(x@source[c("dose", "imaxss", "fu")]),
+    unname(x$source[c("dose", "imaxss", "fu")]),
     c("clinical dose", "study 001", "study 002")
   )
 })
@@ -53,20 +60,31 @@ test_that("perpetrator constructor applies defaults", {
     imaxss = 1000
   )
 
-  expect_equal(x@fu, 1)
-  expect_equal(x@fumic, 1)
-  expect_equal(x@rb, 1)
-  expect_equal(x@fa, 1)
-  expect_equal(x@fg, 1)
-  expect_equal(x@ka, 0.1)
-  expect_identical(x@solubility, Inf)
-  expect_length(x@source, 0)
+  expect_s3_class(x, "perpetrator")
+  expect_equal(x$fu, 1)
+  expect_equal(x$fumic, 1)
+  expect_equal(x$rb, 1)
+  expect_equal(x$fa, 1)
+  expect_equal(x$fg, 1)
+  expect_equal(x$ka, 0.1)
+  expect_identical(x$solubility, Inf)
+  expect_length(x$source, 0)
+})
+
+
+test_that("empty perpetrator() constructor is valid", {
+  expect_no_error(x <- perpetrator())
+  expect_s3_class(x, "perpetrator")
+  expect_identical(x$name, "")
 })
 
 
 test_that("perpetrator constructor validates argument types and ranges", {
-  expect_error(make_test_perpetrator(name = 1), "invalid class|must be a character value")
-  expect_error(make_test_perpetrator(oral = 1), "invalid class|must be a logical value")
+  expect_error(make_test_perpetrator(name = 1), "must be a character value")
+  expect_error(
+    make_test_perpetrator(oral = c(TRUE, FALSE)),
+    "must be a single value"
+  )
   expect_error(make_test_perpetrator(mw = -1), "must be positive")
   expect_error(make_test_perpetrator(dose = -1), "must be positive")
   expect_error(make_test_perpetrator(imaxss = -1), "must be positive")
@@ -76,24 +94,33 @@ test_that("perpetrator constructor validates argument types and ranges", {
   expect_error(make_test_perpetrator(fg = 1.1), "must be between 0 and 1")
   expect_error(make_test_perpetrator(ka = -0.1), "must be positive")
   expect_error(make_test_perpetrator(solubility = -1), "must be positive")
-  expect_error(make_test_perpetrator(source = 1), "invalid class|must be a character value")
+  expect_error(make_test_perpetrator(source = 1), "must be a character value")
 })
 
 
 test_that("perpetrator constructor validates source names", {
   expect_error(
     make_test_perpetrator(source = c(bad_name = "some source")),
-    "unxpected source"
+    "unknown parameter name"
+  )
+  expect_error(
+    make_test_perpetrator(source = c(foo = "a", bar = "b")),
+    "unknown parameter name"
+  )
+  expect_error(
+    make_test_perpetrator(source = "study note"),
+    "must be a named vector"
   )
 })
 
 
 test_that("perpetrator concentration functions reject non-perpetrator objects", {
-  expect_error(igut("not-a-perpetrator"), "x must be a perpetrotor object")
-  expect_error(imaxssu("not-a-perpetrator"), "x must be a perpetrotor object")
-  expect_error(imaxinletu("not-a-perpetrator"), "x must be a perpetrotor object")
-  expect_error(imaxintest("not-a-perpetrator"), "x must be a perpetrotor object")
-  expect_error(key_conc_table("not-a-perpetrator"), "x must be a perpetrotor object")
+  expect_error(igut("not-a-perpetrator"), "must be a perpetrotor object")
+  expect_error(imaxssu("not-a-perpetrator"), "must be a perpetrotor object")
+  expect_error(imaxinletu("not-a-perpetrator"), "must be a perpetrotor object")
+  expect_error(imaxintest("not-a-perpetrator"), "must be a perpetrotor object")
+  expect_error(key_conc_table("not-a-perpetrator"), "must be a perpetrotor object")
+  expect_error(portal_term("not-a-perpetrator"), "must be a perpetrotor object")
 })
 
 
@@ -186,22 +213,55 @@ test_that("key_conc_table returns a formatted table with key concentration label
 })
 
 
-test_that("show and print methods render expected sections", {
+test_that("print renders a console table with source notes", {
   x <- make_test_perpetrator()
-  show_text <- capture.output(show(x))
-  print_text <- capture.output(print(x))
+  text <- paste(capture.output(print.perpetrator(x)), collapse = "\n")
 
-  expect_true(any(grepl("DDI perpetrator", show_text)))
-  expect_true(any(grepl("examplinib", show_text)))
-  expect_true(any(grepl("Perpetrator compound parameters for examplinib", print_text)))
-  expect_true(any(grepl("\\$C_\\{max,ss\\}\\$", print_text)))
-  expect_true(any(grepl("\\$f_\\{u,mic\\}\\$", print_text)))
+  expect_match(text, "DDI precipitant")
+  expect_match(text, "examplinib")
+  expect_match(text, "492.6")
+  expect_match(text, "0.023")
+  expect_match(text, "clinical dose")
+  expect_match(text, "study 001")
+  expect_match(text, "study 002")
 })
 
 
-test_that("validObject accepts a complete perpetrator", {
-  expect_true(validObject(make_test_perpetrator()))
-  expect_true(validObject(new("perpetrator")))
+test_that("print without source notes does not add empty source labels", {
+  x <- make_test_perpetrator(source = character(0))
+  text <- paste(capture.output(print.perpetrator(x)), collapse = "\n")
+
+  expect_false(grepl("clinical dose", text))
+  expect_false(grepl("\\(\\)", text))
+})
+
+
+test_that("print in knitr returns a kable of oral parameters", {
+  x <- make_test_perpetrator()
+  text <- with_knitr(paste(capture.output(print.perpetrator(x)), collapse = "\n"))
+
+  expect_match(text, "Perpetrator compound parameters for examplinib")
+  expect_match(text, "\\$F_a\\$")
+  expect_match(text, "\\$F_g\\$")
+  expect_match(text, "\\$k_a\\$")
+  expect_match(text, "\\$R_B\\$")
+  expect_match(text, "\\$C_\\{max,ss\\}\\$")
+  expect_match(text, "\\$f_\\{u,mic\\}\\$")
+  expect_match(text, "mg/l")
+  expect_match(text, "clinical dose")
+  expect_match(text, "study 001")
+})
+
+
+test_that("print in knitr omits fa, fg, and ka for non-oral compounds", {
+  x <- make_test_perpetrator(oral = FALSE)
+  text <- with_knitr(paste(capture.output(print.perpetrator(x)), collapse = "\n"))
+
+  expect_false(grepl("\\$F_a\\$", text))
+  expect_false(grepl("\\$F_g\\$", text))
+  expect_false(grepl("\\$k_a\\$", text))
+  expect_match(text, "\\$MW\\$")
+  expect_match(text, "\\$C_\\{max,ss\\}\\$")
 })
 
 
@@ -214,16 +274,15 @@ test_that("perpetrator allows empty name and NA dose, fa, fg, and ka", {
     ka = NA_real_
   )
 
-  expect_identical(x@name, "")
-  expect_true(is.na(x@dose))
-  expect_true(is.na(x@fa))
-  expect_true(is.na(x@fg))
-  expect_true(is.na(x@ka))
-  expect_true(validObject(x))
+  expect_identical(x$name, "")
+  expect_true(is.na(x$dose))
+  expect_true(is.na(x$fa))
+  expect_true(is.na(x$fg))
+  expect_true(is.na(x$ka))
 })
 
 
-test_that("perpetrator allows fraction boundaries, rb above 1, and zero numeric slots", {
+test_that("perpetrator allows fraction boundaries, rb above 1, and zero numeric fields", {
   x <- make_test_perpetrator(
     mw = 0,
     imaxss = 0,
@@ -236,19 +295,19 @@ test_that("perpetrator allows fraction boundaries, rb above 1, and zero numeric 
     solubility = 0
   )
 
-  expect_equal(x@fu, 0)
-  expect_equal(x@fumic, 1)
-  expect_equal(x@rb, 1.4)
-  expect_equal(x@fa, 0)
-  expect_equal(x@fg, 1)
-  expect_equal(x@mw, 0)
-  expect_equal(x@imaxss, 0)
-  expect_equal(x@ka, 0)
-  expect_equal(x@solubility, 0)
+  expect_equal(x$fu, 0)
+  expect_equal(x$fumic, 1)
+  expect_equal(x$rb, 1.4)
+  expect_equal(x$fa, 0)
+  expect_equal(x$fg, 1)
+  expect_equal(x$mw, 0)
+  expect_equal(x$imaxss, 0)
+  expect_equal(x$ka, 0)
+  expect_equal(x$solubility, 0)
 })
 
 
-test_that("perpetrator rejects NA in slots that do not allow it", {
+test_that("perpetrator rejects NA in fields that do not allow it", {
   expect_error(make_test_perpetrator(name = NA_character_), "must not contain NA")
   expect_error(make_test_perpetrator(oral = NA), "must not contain NA")
   expect_error(make_test_perpetrator(mw = NA_real_), "must not contain NA")
@@ -260,18 +319,15 @@ test_that("perpetrator rejects NA in slots that do not allow it", {
 })
 
 
-test_that("perpetrator rejects length-2 name and unnamed extra source is allowed", {
+test_that("perpetrator rejects a length-2 name", {
   expect_error(
     make_test_perpetrator(name = c("a", "b")),
     "must be a single value"
   )
-
-  unnamed <- make_test_perpetrator(source = "study note")
-  expect_identical(unnamed@source, "study note")
 })
 
 
-test_that("perpetrator accepts source names that match slot names", {
+test_that("perpetrator accepts source names that match field names", {
   source <- c(
     name = "label",
     oral = "route",
@@ -289,68 +345,7 @@ test_that("perpetrator accepts source names that match slot names", {
   )
   x <- make_test_perpetrator(source = source)
 
-  expect_identical(x@source, source)
-})
-
-
-test_that("perpetrator rejects multiple unexpected source names", {
-  expect_error(
-    make_test_perpetrator(source = c(foo = "a", bar = "b")),
-    "unxpected source"
-  )
-})
-
-
-test_that("show includes source annotations, units, and all slots", {
-  x <- make_test_perpetrator()
-  show_text <- paste(capture.output(show(x)), collapse = "\n")
-
-  expect_match(show_text, "g/mol")
-  expect_match(show_text, "ng/ml")
-  expect_match(show_text, "mg/ml")
-  expect_match(show_text, "/min")
-  expect_match(show_text, "\\(clinical dose\\)")
-  expect_match(show_text, "\\(study 001\\)")
-  expect_match(show_text, "\\(study 002\\)")
-  expect_match(show_text, "492.6")
-  expect_match(show_text, "0.023")
-})
-
-
-test_that("show without source notes does not add parentheses", {
-  x <- make_test_perpetrator(source = character(0))
-  show_text <- paste(capture.output(show(x)), collapse = "\n")
-
-  expect_false(grepl("\\(clinical dose\\)", show_text))
-  expect_false(grepl("\\(\\)", show_text))
-})
-
-
-test_that("print returns a knitr_kable table of oral parameters", {
-  x <- make_test_perpetrator()
-  out <- print(x)
-  text <- paste(capture.output(print(x)), collapse = "\n")
-
-  expect_s3_class(out, "knitr_kable")
-  expect_match(text, "\\$F_a\\$")
-  expect_match(text, "\\$F_g\\$")
-  expect_match(text, "\\$k_a\\$")
-  expect_match(text, "\\$R_B\\$")
-  expect_match(text, "mg/l")
-  expect_match(text, "clinical dose")
-  expect_match(text, "study 001")
-})
-
-
-test_that("print omits fa, fg, and ka for non-oral compounds", {
-  x <- make_test_perpetrator(oral = FALSE)
-  text <- paste(capture.output(print(x)), collapse = "\n")
-
-  expect_false(grepl("\\$F_a\\$", text))
-  expect_false(grepl("\\$F_g\\$", text))
-  expect_false(grepl("\\$k_a\\$", text))
-  expect_match(text, "\\$MW\\$")
-  expect_match(text, "\\$C_\\{max,ss\\}\\$")
+  expect_identical(x$source, source)
 })
 
 
@@ -397,7 +392,7 @@ test_that("imaxssu defaults to molar concentration", {
 
   expect_equal(imaxssu(x), imaxssu(x, molar = TRUE))
   expect_equal(imaxssu(x, molar = FALSE), 3530 * 0.023)
-  expect_equal(imaxssu(x, molar = TRUE) * x@mw, imaxssu(x, molar = FALSE))
+  expect_equal(imaxssu(x, molar = TRUE) * x$mw, imaxssu(x, molar = FALSE))
 })
 
 
@@ -431,11 +426,6 @@ test_that("portal_term scales inversely with qh and includes fa and fg", {
   expect_equal(half_qh, 2 * default_qh)
   expect_equal(no_fa, 0)
   expect_equal(half_fg, 0.5 * default_qh)
-})
-
-
-test_that("portal_term rejects non-perpetrator objects", {
-  expect_error(portal_term("not-a-perpetrator"), "x must be a perpetrotor object")
 })
 
 
@@ -546,23 +536,13 @@ test_that("key_conc_table uses IV branches for gut and intestinal terms", {
 })
 
 
-test_that("package examplinib perpetrator objects are valid", {
-  expect_s4_class(examplinib_parent, "perpetrator")
-  expect_s4_class(examplinib_metabolite, "perpetrator")
-  expect_true(validObject(examplinib_parent))
-  expect_true(validObject(examplinib_metabolite))
-  expect_true(examplinib_parent@oral)
-  expect_false(examplinib_metabolite@oral)
-  expect_true(is.na(examplinib_metabolite@dose))
-  expect_no_error(igut(examplinib_parent))
-  expect_no_error(imaxssu(examplinib_parent))
-  expect_no_error(imaxinletu(examplinib_parent))
-  expect_no_error(imaxintest(examplinib_parent))
-  expect_no_error(key_conc_table(examplinib_parent))
-  expect_equal(igut(examplinib_metabolite, molar = FALSE), 0)
-  expect_equal(
-    imaxintest(examplinib_metabolite, molar = FALSE),
-    imaxssu(examplinib_metabolite, molar = FALSE)
-  )
+test_that("package examplinib perpetrator object is valid", {
+  expect_s3_class(examplinib, "perpetrator")
+  expect_true(examplinib$oral)
+  expect_identical(examplinib$name, "examplinib")
+  expect_no_error(igut(examplinib))
+  expect_no_error(imaxssu(examplinib))
+  expect_no_error(imaxinletu(examplinib))
+  expect_no_error(imaxintest(examplinib))
+  expect_no_error(key_conc_table(examplinib))
 })
-

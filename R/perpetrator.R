@@ -75,7 +75,7 @@ perpetrator <- function(
 #'
 #' @returns A markdown-formatted table.
 #' @import dplyr
-#' @export
+#' @exportS3Method ddir::print
 print.perpetrator <- function(x, ...) {
   out <- tibble::tribble(
            ~param,             ~parameter,   ~unit,
@@ -118,8 +118,10 @@ print.perpetrator <- function(x, ...) {
       knitr::kable(caption = paste("Perpetrator compound parameters for", x$name)) |>
       print()
   } else {
-    out |>
-      dplyr::select(-"parameter")
+    cat(paste(hline(), "DDI precipitant", x$name, hline(), "\n"))
+    dplyr::select(out, -"parameter") |>
+      df_to_string() |>
+      cat()
   }
 }
 
@@ -287,6 +289,9 @@ imaxintest <- function(x, qent = 18/60, molar = TRUE) {
 #'
 #' @returns Markdown-formatted text.
 #' @export
+#' @examples
+#' key_conc_table(examplinib)
+#'
 key_conc_table <- function(
     x,
     round = 2,
@@ -317,7 +322,7 @@ key_conc_table <- function(
 
   col_names <- c("parameter", "value ($ng/ml$)", "value ($\\mu M$)")
   rownames(temp) <- NULL
-  caption <- paste0("Key perpetrator concentrations for ", x@name)
+  caption <- paste0("Key perpetrator concentrations for ", x$name)
 
   knitr::kable(temp, col.names = col_names, caption = caption)
 }

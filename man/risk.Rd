@@ -2,7 +2,7 @@
 % Please edit documentation in R/risk.R
 \name{risk}
 \alias{risk}
-\title{DDI risk object constructor}
+\title{DDI risk object constructor alias}
 \usage{
 risk(table, precipitant, title = NULL)
 }
@@ -17,5 +17,5 @@ risk(table, precipitant, title = NULL)
 A risk object.
 }
 \description{
-DDI risk object constructor
+DDI risk object constructor alias
 }

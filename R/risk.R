@@ -1,4 +1,22 @@
-#' DDI risk object constructor
+#' DDI risk object constructor alias
+#'
+#' @param table The risk table.
+#' @param precipitant The precipitant.
+#' @param title The title for printing.
+#'
+#' @returns A risk object.
+#' @noRd
+new_risk <- function(table, precipitant, title = NULL) {
+  structure(
+    table,
+    class = unique(c("risk", class(table))),
+    precipitant = precipitant,
+    title = title
+  )
+}
+
+
+#' DDI risk object constructor alias
 #'
 #' @param table The risk table.
 #' @param precipitant The precipitant.
@@ -12,25 +30,39 @@ risk <- function(table, precipitant, title = NULL) {
   validate_argument(precipitant, "character")
   validate_argument(title, "character", allow_null = TRUE)
 
-  # business logic
-  out <- table
-  class(out) <- c("risk", "data.frame")
-  attr(out, "precipitant") <- precipitant
-  attr(out, "title") <- title
+  new_risk(table, precipitant, title)
+}
 
-  out
+
+#' reconstruct risk object
+#'
+#' @param data The risk table.
+#' @param template The attributes.
+#'
+#' @returns A risk object.
+#' @export
+#' @noRd
+dplyr_reconstruct.risk <- function(data, template) {
+  new_risk(
+    data,
+    precipitant = attr(template, "precipitant"),
+    title = attr(template, "title")
+  )
 }
 
 
 #' Print risk object
 #'
 #' @param x The risk object.
+#' @param ... Further arguments.
 #'
 #' @returns Nothing or a markdodwn-formatted table
-#' @export
-print.risk <- function(x) {
+#' @exportS3Method ddir::print
+print.risk <- function(x, ...) {
   caption <- attr(x, "title")
-  x <- mutate(x, across(any_of("r"), function(i) round(i, 3)))
+  x <- mutate(x, across(any_of(
+    c("r", "aucr", "Ag", "Ah", "Bg", "Bh", "Cg", "Ch")),
+    function(i) round(i, 2)))
 
   if (isTRUE(getOption("knitr.in.progress"))) {
     caption <- ifelse(
@@ -38,7 +70,7 @@ print.risk <- function(x) {
       paste0("DDI risk for precipitant ", attr(x, "precipitant")),
       caption
     )
-    x$table |>
+    x |>
       knitr::kable(caption = caption)
   } else {
     cat(paste(hline(), "Clinical DDI risk assessment",  hline(), "\n"))

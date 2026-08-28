@@ -25,46 +25,25 @@ validate_perpetrator <- function(object) {
   validate_argument(object$solubility, "numeric", expect_positive = TRUE)
   validate_argument(object$source, "character", allow_multiple = TRUE, allow_empty = TRUE)
 
-  unexpected_source <- setdiff(names(object$source), names(object))
-  if (length(unexpected_source) > 0)
-    return(paste0("unxpected source: ", nice_enumeration(unexpected_source)))
+  validate_named_vector(object$source, allowed_names = names(object))
 
-  invisible(NULL)
-}
-
-
-#' Validate inhibitor argument
-#'
-#' @param obj Inhibitor object
-#' @param expected_fields Character or NULL.
-#'
-#' @returns Nothing.
-#' @noRd
-validate_inhibitor <- function(obj, expected_fields = NULL) {
-  obj_name <- deparse(substitute(obj))
-
-  if (!inherits(obj, "inhibitor"))
-    stop(paste(obj_name, "must be an inhibitor object"))
-
-  missing_fields <- setdiff(expected_fields, names(obj@data))
-  if (length(missing_fields) > 0) {
-    stop(paste0(
-      "Missing columns in ", obj_name, ": ",
-      nice_enumeration(missing_fields)
-    ))
-  }
   invisible(NULL)
 }
 
 
 #' Validate inhibition_data object
 #'
+#' @param allow_null Logical.
 #' @param obj Inhibitor object
-#' @param expected_fields Character or NULL.
 #'
 #' @returns Nothing.
 #' @noRd
-validate_inhibition_data <- function(obj) {
+validate_inhibition_data <- function(obj, allow_null = FALSE) {
+  if (isTRUE(allow_null)) {
+    if (is.null(obj))
+      return(invisible(NULL))
+  }
+
   obj_name <- deparse(substitute(obj))
 
   if (!inherits(obj, "inhibition_data"))
@@ -99,38 +78,21 @@ validate_inhibition_data <- function(obj) {
 }
 
 
-#' Validate inducer argument
-#'
-#' @param obj Inducer object.
-#' @param expected_fields Character or NULL.
-#'
-#' @returns Nothing.
-#' @noRd
-validate_inducer <- function(obj, expected_fields = NULL) {
-  obj_name <- deparse(substitute(obj))
-
-  if (!inherits(obj, "inducer"))
-    stop(paste(obj_name, "must be an inducer object"))
-
-  missing_fields <- setdiff(expected_fields, names(obj@data))
-  if (length(missing_fields) > 0) {
-    stop(paste0(
-      "Missing columns in ", obj_name, ": ",
-      nice_enumeration(missing_fields)
-    ))
-  }
-  invisible(NULL)
-}
-
-
 #' Validate induction_data object
 #'
 #' @param obj Induction_data object.
+#' @param allow_null Logical.
 #'
 #' @returns Nothing.
 #' @noRd
-validate_induction_data <- function(obj) {
+validate_induction_data <- function(obj, allow_null = FALSE) {
+  if (isTRUE(allow_null)) {
+    if (is.null(obj))
+      return(invisible(NULL))
+  }
+
   obj_name <- deparse(substitute(obj))
+
   expected_fields <- c("object", "emax", "ec50", "max_c", "source")
 
   if (!inherits(obj, "induction_data"))

@@ -70,13 +70,13 @@ the formal analysis. In the scope of this package, these key parameters are
 aggregated into a 'perpetrator' object. The package contains a sample
 perpetrator object for the ficitional drug 'examplinib':
 
-```{r}
-examplinib_parent
+```{r results="asis"}
+examplinib
 ```
 
-The `ddir` package provides multiple options to create perpetrator objects. In the simplest case, the function `make_perpetrator()` can be used:
+The function `perpetrator()` can be used to create custom perpetrator objects:
 
-```{r}
+```{r results="asis"}
 perp <- perpetrator(
   name = "test",
   dose = 100,
@@ -93,71 +93,90 @@ perp <- perpetrator(
 )
 ```
 
-Other options are presented in a dedicated vignette (see
-`vignette("load-data")`).
-
-To facilitate the generation of R notebook-based reports, `property_table()` can
-be used to print a markdown-formatted table of the key compound parameters:
-
-```{r}
-print(examplinib_parent)
-```
-
 # Perpetrator concentrations
 
 The relevant perpetrator concentrations for a perpetrator compound
 can be determined using `key_conc_table()` - please see the documentation to
 this function for details about the calculations.
 
-```{r}
-key_conc_table(examplinib_parent)
+```{r results="asis"}
+key_conc_table(examplinib)
 ```
 
 # Direct enzyme inhibition
 
 ## CYP enzymes
 
+In vitro CYP inhibition data is expected as `inhibition_data` object that can 
+be constructed like so:
+
 ```{r}
-print(basic_cyp_inhibition_risk(examplinib_parent, examplinib_cyp_inh_parent))
+cyp_inh <- inhibition_data(
+  tibble::tribble(
+    ~object,  ~ki,     ~source,
+   "CYP1A2",   NA,          NA,
+   "CYP2B6",   NA,          NA,
+   "CYP2C8",   11, "study 001",
+   "CYP2C9",  0.6, "study 001",
+  "CYP2C19", 0.25, "study 001",
+   "CYP2D6",   NA,          NA,
+   "CYP3A4", 12.5, "study 001"
+  ),
+  precipitant = "examplinib"
+)
+```
+
+Printing this object yields a convenient table view: 
+
+```{r}
+print(cyp_inh)
+```
+
+The function to assess the clinical risk for direct CYP inhibition,
+`ddir::basic_cyp_inhibition_risk()`, takes a precipitant object and a CYP
+inhibition data object:
+
+
+```{r results="asis"}
+print(basic_cyp_inhibition_risk(examplinib, cyp_inh))
 ```
 
 ## UGT enzymes
 
-```{r}
-print(basic_ugt_inhibition_risk(examplinib_parent, examplinib_ugt_inh_parent))
+```{r results="asis"}
+print(basic_ugt_inhibition_risk(examplinib, examplinib_ugt_inhibition))
 ```
 
 # Time-dependent enzyme inhibition
 
-```{r}
-print(basic_cyp_tdi_risk(examplinib_parent, examplinib_cyp_tdi_parent))
+```{r results="asis"}
+print(basic_cyp_tdi_risk(examplinib, examplinib_cyp_tdi))
 ```
 
 # CYP induction
 
 ## Fold-change method
 
-```{r}
-print(static_cyp_induction_risk(examplinib_parent, examplinib_cyp_ind_parent))
+```{r results="asis"}
+print(static_cyp_induction_risk(examplinib, examplinib_cyp_induction))
 ```
 
 ## Basic kinetic model
 
-```{r}
-print(kinetic_cyp_induction_risk(examplinib_parent, examplinib_cyp_ind_parent))
+```{r results="asis"}
+print(kinetic_cyp_induction_risk(examplinib, examplinib_cyp_induction))
 ```
 
 # Mechanistic-static assessment of CYP-related DDI
 
-```{r}
-print(mech_stat_cyp_risk(examplinib_parent, examplinib_cyp_inh_parent,
-                   examplinib_cyp_ind_parent))
+```{r results="asis"}
+print(mech_stat_cyp_risk(examplinib, examplinib_cyp_inhibition, examplinib_cyp_induction, examplinib_cyp_tdi))
 ```
 
 # Transporter inhibition
 
-```{r}
-print(transporter_inh_risk(examplinib_parent, examplinib_transporter_inh_parent))
+```{r results="asis"}
+print(transporter_inh_risk(examplinib, examplinib_transporter_inhibition))
 ```
 
 

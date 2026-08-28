@@ -35,14 +35,14 @@ test_that("probenecid OAT3 I/IC50 recovered from Gomez-Mantilla 2023 AUCR 1.67 i
   i_over_ic50 <- infer_i_over_ic50(paper_aucr, ft = 0.44)
   Iu <- i_over_ic50 * ic50
   perp <- make_perp_from_Iu("probenecid", mw = 285.36, Iu = Iu)
-  inh <- inhibitor(
+  inh <- inhibition_data(
     tibble::tribble(
-      ~object, ~ic50, ~source,
+      ~object, ~ic50,                      ~source,
       "OAT3" ,   4.4, "Gomez-Mantilla 2023 Table 17"
     ),
     precipitant = "probenecid"
   )
-  tbl <- transporter_inh_risk(perp, inh)@table
+  tbl <- transporter_inh_risk(perp, inh)
   oat3 <- tbl[tbl$object == "OAT3", ]
 
   expect_equal(imaxssu(perp, molar = TRUE), Iu)
@@ -59,14 +59,14 @@ test_that("ibuprofen OAT3 I/IC50 recovered from Gomez-Mantilla 2023 AUCR 1.11 is
   i_over_ic50 <- infer_i_over_ic50(paper_aucr, ft = 0.44)
   Iu <- i_over_ic50 * ic50
   perp <- make_perp_from_Iu("ibuprofen", mw = 206.28, Iu = Iu)
-  inh <- inhibitor(
+  inh <- inhibition_data(
     tibble::tribble(
-      ~object, ~ic50, ~source,
+      ~object, ~ic50,                      ~source,
       "OAT3" ,   4.4, "Gomez-Mantilla 2023 Table 17"
     ),
     precipitant = "ibuprofen"
   )
-  tbl <- transporter_inh_risk(perp, inh)@table
+  tbl <- transporter_inh_risk(perp, inh)
   oat3 <- tbl[tbl$object == "OAT3", ]
 
   expect_equal(oat3$r, i_over_ic50)
@@ -81,14 +81,14 @@ test_that("diclofenac OAT3 I/IC50 recovered from Gomez-Mantilla 2023 AUCR 1.00 i
   i_over_ic50 <- infer_i_over_ic50(paper_aucr, ft = 0.44)
   Iu <- i_over_ic50 * ic50
   perp <- make_perp_from_Iu("diclofenac", mw = 296.15, Iu = Iu)
-  inh <- inhibitor(
+  inh <- inhibition_data(
     tibble::tribble(
-      ~object, ~ic50, ~source,
+      ~object, ~ic50,                      ~source,
       "OAT3" ,   3.8, "Gomez-Mantilla 2023 Table 17"
     ),
     precipitant = "diclofenac"
   )
-  tbl <- transporter_inh_risk(perp, inh)@table
+  tbl <- transporter_inh_risk(perp, inh)
   oat3 <- tbl[tbl$object == "OAT3", ]
 
   expect_equal(oat3$r, i_over_ic50)

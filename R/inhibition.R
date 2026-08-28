@@ -1,5 +1,19 @@
-
 #' inhibition_data constructor
+#'
+#' @param data A data frame with the columns object, ki and source.
+#' @param precipitant The precipitant name as character.
+#'
+#' @returns An inhibition_data object.
+#' @noRd
+new_inhibition_data <- function(data, precipitant = "") {
+  structure(
+    data,
+    class = unique(c("inhibition_data", class(data))),
+    precipitant = precipitant
+  )
+}
+
+#' inhibition_data constructor alias
 #'
 #' @param data A data frame with the columns object, ki and source.
 #' @param precipitant The precipitant name as character.
@@ -9,15 +23,10 @@
 inhibition_data <- function(data = NULL, precipitant = "") {
   if (is.null(data)) {
     data <- data.frame(
-      object = character(),
-      ki = numeric(),
-      source = character()
+      object = character(), ki = numeric(), source = character()
     )
   }
-  out <- data
-  class(out) <- c("inhibition_data", "data.frame")
-  attr(out, "precipitant") <- precipitant
-
+  out <- new_inhibition_data(as.data.frame(data), precipitant)
   validate_inhibition_data(out)
   out
 }
@@ -32,7 +41,7 @@ inhibition_data <- function(data = NULL, precipitant = "") {
 #' @export
 #' @noRd
 dplyr_reconstruct.inhibition_data <- function(data, template) {
-  inhibition_data(data, attr(template, "precipitant"))
+  new_inhibition_data(data, attr(template, "precipitant"))
 }
 
 
@@ -44,9 +53,9 @@ dplyr_reconstruct.inhibition_data <- function(data, template) {
 #' @returns Nothing.
 #' @import dplyr
 #' @import knitr
-#' @export
+#' @exportS3Method ddir::print
 print.inhibition_data <- function(x, ...) {
-  validate_inhibition_data(x)
+  # validate_inhibition_data(x)
 
   if (isTRUE(getOption("knitr.in.progress"))) {
    x |>

@@ -2,7 +2,7 @@
 % Please edit documentation in R/induction.R
 \name{induction_data}
 \alias{induction_data}
-\title{induction_data constructor}
+\title{induction_data constructor alias}
 \usage{
 induction_data(data = NULL, precipitant = "")
 }
@@ -15,5 +15,5 @@ induction_data(data = NULL, precipitant = "")
 An inhibition_data object.
 }
 \description{
-induction_data constructor
+induction_data constructor alias
 }

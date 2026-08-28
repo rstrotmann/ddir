@@ -72,3 +72,7 @@ Rostami-Hodjegan and Tucker, 2004) the blood-to-plasma ratio and the plasma
 binding of the drug are not applicable.
 }
 }
+\examples{
+key_conc_table(examplinib)
+
+}

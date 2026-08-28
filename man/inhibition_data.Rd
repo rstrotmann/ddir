@@ -2,7 +2,7 @@
 % Please edit documentation in R/inhibition.R
 \name{inhibition_data}
 \alias{inhibition_data}
-\title{inhibition_data constructor}
+\title{inhibition_data constructor alias}
 \usage{
 inhibition_data(data = NULL, precipitant = "")
 }
@@ -15,5 +15,5 @@ inhibition_data(data = NULL, precipitant = "")
 An inhibition_data object.
 }
 \description{
-inhibition_data constructor
+inhibition_data constructor alias
 }

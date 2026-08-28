@@ -4,7 +4,7 @@
 \alias{print.induction_data}
 \title{Print method for induction_data objects}
 \usage{
-print.induction_data(x, ...)
+\method{print}{induction_data}(x, ...)
 }
 \arguments{
 \item{x}{The inhibition}

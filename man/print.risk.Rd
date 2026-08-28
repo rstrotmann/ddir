@@ -4,10 +4,12 @@
 \alias{print.risk}
 \title{Print risk object}
 \usage{
-print.risk(x)
+\method{print}{risk}(x, ...)
 }
 \arguments{
 \item{x}{The risk object.}
+
+\item{...}{Further arguments.}
 }
 \value{
 Nothing or a markdodwn-formatted table

@@ -4,7 +4,7 @@
 \alias{print.perpetrator}
 \title{Print perpetrator object as markdown}
 \usage{
-print.perpetrator(x, ...)
+\method{print}{perpetrator}(x, ...)
 }
 \arguments{
 \item{x}{The perpetrator object.}
