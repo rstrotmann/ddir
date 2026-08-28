@@ -2,14 +2,14 @@
 % Please edit documentation in R/perpetrator.R
 \name{perpetrator}
 \alias{perpetrator}
-\title{perpetrator class constructor}
+\title{Perpetrator class definition}
 \usage{
 perpetrator(
-  name,
-  oral,
-  mw,
-  dose,
-  imaxss,
+  name = "",
+  oral = TRUE,
+  mw = 0,
+  dose = 0,
+  imaxss = 0,
   fu = 1,
   fumic = 1,
   rb = 1,
@@ -21,42 +21,52 @@ perpetrator(
 )
 }
 \arguments{
-\item{name}{Character.}
+\item{name}{character.}
 
-\item{oral}{Oral administration, as logical.}
+\item{oral}{logical.}
 
-\item{mw}{Molecular weight in g/mol.}
+\item{mw}{numeric.}
 
-\item{dose}{Administered dose in mg.}
+\item{dose}{numeric.}
 
-\item{imaxss}{Cmax at steady state in ng/ml.}
+\item{imaxss}{numeric.}
 
-\item{fu}{Fraction unbound.}
+\item{fu}{numeric.}
 
-\item{fumic}{Fraction unbound in microsomes.}
+\item{fumic}{numeric.}
 
-\item{rb}{blood cell distribution.}
+\item{rb}{numeric.}
 
-\item{fa}{Fraction absorbed.}
+\item{fa}{numeric.}
 
-\item{fg}{Fraction escaping gut metabolism.}
+\item{fg}{numeric.}
 
-\item{ka}{Absorption constant in 1/min.}
+\item{ka}{numeric.}
 
-\item{solubility}{Aqueous solubility in mg/l.}
+\item{solubility}{numeric.}
 
-\item{source}{Source information for parameters as named character vector}
+\item{source}{character}
 }
 \value{
-perpetrator object
+A perpetrator class object.
 }
 \description{
-perpetrator class constructor
+Perpetrator class definition
 }
 \examples{
 perpetrator(
-"examplinib", TRUE, 492.6, 450, 3530, fu = 0.023, fa = 0.81, ka = .00267,
-source = c(dose = "clinical dose", imaxss = "study 001", fu = "study 002")
+  name = "examplinib",
+  oral = TRUE,
+  mw = 492.6,
+  dose = 450,
+  imaxss = 3530,
+  fu = 0.023,
+  fumic = 1,
+  rb = 1,
+  fa = 0.81,
+  fg = 1,
+  ka = 0.00267,
+  solubility = Inf,
+  source = c(dose = "clinical dose", imaxss = "study 001", fu = "study 002")
 )
-
 }

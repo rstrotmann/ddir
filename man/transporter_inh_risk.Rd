@@ -41,6 +41,6 @@ of concern are:\tabular{lll}{
 }
 }
 \examples{
-transporter_inh_risk(examplinib_parent, examplinib_transporter_inh_parent)
+transporter_inh_risk(examplinib, examplinib_transporter_inhibition)
 
 }

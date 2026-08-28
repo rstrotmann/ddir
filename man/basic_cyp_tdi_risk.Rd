@@ -2,24 +2,25 @@
 % Please edit documentation in R/risk_assessment.R
 \name{basic_cyp_tdi_risk}
 \alias{basic_cyp_tdi_risk}
-\title{Title}
+\title{CYP time-dependent inhibition risk}
 \usage{
 basic_cyp_tdi_risk(perp, cyp_tdi, cyp_kdeg = cyp_turnover)
 }
 \arguments{
 \item{perp}{Perpetrator object.}
 
-\item{cyp_tdi}{Inhibitor object.}
+\item{cyp_tdi}{inhibition_data object.}
 
-\item{cyp_kdeg}{Data frame}
+\item{cyp_kdeg}{CYP turnover rates as data frame, defaults to
+\link{cyp_turnover}.}
 }
 \value{
-DDI risk object
+DDI risk object.
 }
 \description{
-Title
+CYP time-dependent inhibition risk
 }
 \examples{
-basic_cyp_tdi_risk(examplinib_parent, examplinib_cyp_tdi_parent)
+basic_cyp_tdi_risk(examplinib, examplinib_cyp_tdi)
 
 }

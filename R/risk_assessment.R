@@ -40,23 +40,21 @@
 #' @importFrom methods new
 #' @export
 #' @examples
-#' basic_cyp_inhibition_risk(examplinib_parent, examplinib_cyp_inh_parent)
+#' basic_cyp_inhibition_risk(examplinib, examplinib_cyp_inhibition)
 #'
 basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
-  # Validate inputs
-  if (!inherits(perp, "perpetrator")) {
-    stop("perp must be a perpetrator object")
-  }
-  if (!inherits(cyp_inh, "inhibitor")) {
-    stop("cyp_inh must be an inhibitor object")
-  }
+  # input validation
+  validate_perpetrator(perp)
+  validate_inhibition_data(cyp_inh)
+  if (perp$name != attr(cyp_inh, "precipitant"))
+    warning("Perpetrator name and precipitant do not match!")
 
   allowed_object <- c("CYP1A2", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19",
                       "CYP2D6", "CYP3A4")
-  ki <- filter(cyp_inh@data, .data$object %in% allowed_object)
+  ki <- filter(cyp_inh, .data$object %in% allowed_object)
   if (nrow(ki) == 0)
     stop("No inhibition data for known CYP enzymes found")
-  excluded_object <- setdiff(unique(cyp_inh@data$object), allowed_object)
+  excluded_object <- setdiff(unique(cyp_inh$object), allowed_object)
   if (length(excluded_object) > 0)
     warning(paste0(
       "Non-CYP data were excluded (",
@@ -64,9 +62,9 @@ basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
       ")"
     ))
 
-  # risk assessmen
+  # business logic
   out <- ki |>
-    mutate(kiu = ki * perp@fumic) |>
+    mutate(kiu = ki * perp$fumic) |>
     mutate(r = imaxssu(perp, molar = TRUE) / kiu) |>
     mutate(r_gut = case_when(
       .data$object == "CYP3A4" ~ igut(perp, molar = TRUE) / kiu,
@@ -77,13 +75,11 @@ basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
     mutate(r_gut = round(r_gut, digits = 4)) |>
     select(c("object", "ki", "kiu", "source", "r", "risk_hep", "r_gut", "risk_intest"))
 
-  methods::new(
-    "ddi_risk",
-    table = out,
-    precipitant = perp,
-    title = paste0(
-      "Direct CYP inhibition risk for ", perp@name
-    ))
+  risk(
+    out,
+    precipitant = perp$name,
+    title = paste0("Direct CYP inhibition risk for ", perp$name)
+  )
 }
 
 
@@ -114,21 +110,22 @@ basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
 #' @return DDI risk object.
 #' @importFrom methods new
 #' @export
+#' @examples
+#' basic_ugt_inhibition_risk(examplinib, examplinib_ugt_inhibition)
+#'
 basic_ugt_inhibition_risk <- function(perp, ugt_inh) {
-  # Validate inputs
-  if (!inherits(perp, "perpetrator")) {
-    stop("perp must be a perpetrator object")
-  }
-  if (!inherits(ugt_inh, "inhibitor")) {
-    stop("ugt_inh must be an inhibitor object")
-  }
+  # input validation
+  validate_perpetrator(perp)
+  validate_inhibition_data(ugt_inh)
+  if (perp$name != attr(ugt_inh, "precipitant"))
+    warning("Perpetrator name and precipitant do not match!")
 
   allowed_objects <- c("UGT1A1", "UGT1A3", "UGT1A4", "UGT1A6", "UGT1A9",
                       "UGT2B7", "UGT2B15", "UGT2B17")
-  ki <- filter(ugt_inh@data, .data$object %in% allowed_objects)
+  ki <- filter(ugt_inh, .data$object %in% allowed_objects)
   if (nrow(ki) == 0)
     stop("No inhibition data for known UGT enzymes found")
-  excluded_objects <- setdiff(unique(ugt_inh@data$target), allowed_objects)
+  excluded_objects <- setdiff(unique(ugt_inh$target), allowed_objects)
   if (length(excluded_objects) > 0)
     warning(paste0(
       "Non-UGT data were excluded (",
@@ -137,20 +134,18 @@ basic_ugt_inhibition_risk <- function(perp, ugt_inh) {
     ))
 
   out <- ki |>
-    mutate(ki = ic50/2) |>
-    mutate(kiu = .data$ki * perp@fumic) |>
+    # mutate(ki = ic50/2) |>
+    mutate(kiu = .data$ki * perp$fumic) |>
     mutate(r = imaxssu(perp) / .data$kiu) |>
     mutate(risk = .data$r > 0.02) |>
     mutate(r = round(.data$r, digits = 4)) |>
     select(c("object", "ki", "kiu", "source", "r", "risk"))
 
-  methods::new(
-    "ddi_risk",
-    table = out,
-    precipitant = perp,
-    title = paste0(
-      "UGT inhibition risk for ", perp@name
-    ))
+  risk(
+    out,
+    precipitant = perp$name,
+    title = paste0("UGT inhibition risk for ", perp$name)
+  )
 }
 
 
@@ -179,7 +174,7 @@ basic_ugt_inhibition_risk <- function(perp, ugt_inh) {
 #' @returns DDI risk object.
 #' @export
 #' @examples
-#' transporter_inh_risk(examplinib_parent, examplinib_transporter_inh_parent)
+#' transporter_inh_risk(examplinib, examplinib_transporter_inhibition)
 #'
 transporter_inh_risk <- function(
     perp,
@@ -188,20 +183,19 @@ transporter_inh_risk <- function(
     qh = 1.616
 ){
   # input validation
-  if (!inherits(perp, "perpetrator")) {
-    stop("perp must be a perpetrator object")
-  }
-  if (!inherits(transporter_inh, "inhibitor")) {
-    stop("transporter_inh must be an inhibitor object")
-  }
+  validate_perpetrator(perp)
+  validate_inhibition_data(transporter_inh)
+
+  if (perp$name != attr(transporter_inh, "precipitant"))
+    warning("Perpetrator name and precipitant do not match!")
 
   allowed_objects <- c("Pgp", "BCRP", "OATP1B1", "OATP1B3", "OAT1", "OAT3",
                       "BSEP", "OCT1", "OCT2", "MATE1", "MATE2k")
 
-  in_vitro <- filter(transporter_inh@data, .data$object %in% allowed_objects)
+  in_vitro <- filter(transporter_inh, .data$object %in% allowed_objects)
   if (nrow(in_vitro) == 0)
     stop("No inhibition data for known transporters found")
-  excluded_objects <- setdiff(unique(transporter_inh@data$object), allowed_objects)
+  excluded_objects <- setdiff(unique(transporter_inh$object), allowed_objects)
   if (length(excluded_objects) > 0)
     warning(paste0(
       "Non-transporter data were excluded (",
@@ -215,13 +209,11 @@ transporter_inh_risk <- function(
              imaxinletu(perp, qh = qh, molar = TRUE))
   )
 
-  # transporter_ref <- rename(transporter_ref, target = transporter)
-
-  out <- in_vitro %>%
-    bind_rows(filter(in_vitro, .data$object %in% c("Pgp", "BCRP")) %>%
-                mutate(object = paste0(.data$object, "_sys"))) %>%
-    bind_rows(filter(in_vitro, .data$object %in% c("Pgp", "BCRP")) %>%
-                mutate(object = paste0(.data$object, "_int"))) %>%
+  out <- in_vitro |>
+    bind_rows(filter(in_vitro, .data$object %in% c("Pgp", "BCRP")) |>
+                mutate(object = paste0(.data$object, "_sys"))) |>
+    bind_rows(filter(in_vitro, .data$object %in% c("Pgp", "BCRP")) |>
+                mutate(object = paste0(.data$object, "_int"))) |>
     filter(!.data$object %in% c("Pgp", "BCRP")) |>
     left_join(
       transporter_ref |>
@@ -235,27 +227,23 @@ transporter_inh_risk <- function(
     arrange(.data$rank) |>
     select(all_of(c("object", "ic50", "source", "i", "r", "threshold", "risk")))
 
-  new(
-    "ddi_risk",
-    table = out,
-    precipitant = perp,
-    title = paste0(
-      "Transporter inhibition risk for ", perp@name
-    ))
+  risk(out, precipitant = perp$name, title = paste0(
+    "Transporter inhibition risk for ", perp$name
+  ))
 }
 
 
-#' Title
+#' CYP time-dependent inhibition risk
 #'
 #' @param perp Perpetrator object.
-#' @param cyp_tdi Inhibitor object.
-#' @param cyp_kdeg Data frame
+#' @param cyp_tdi inhibition_data object.
+#' @param cyp_kdeg CYP turnover rates as data frame, defaults to
+#' [ddir::cyp_turnover].
 #'
-#' @returns DDI risk object
-#' @importFrom methods new
+#' @returns DDI risk object.
 #' @export
 #' @examples
-#' basic_cyp_tdi_risk(examplinib_parent, examplinib_cyp_tdi_parent)
+#' basic_cyp_tdi_risk(examplinib, examplinib_cyp_tdi)
 #'
 basic_cyp_tdi_risk <- function(
     perp,
@@ -263,29 +251,21 @@ basic_cyp_tdi_risk <- function(
     cyp_kdeg = cyp_turnover
 ) {
   # input validation
-  # if (!inherits(perp, "perpetrator")) {
-  #   stop("perp must be a perpetrator object")
-  # }
   validate_perpetrator(perp)
-
-  # if (!inherits(cyp_tdi, "inhibitor")) {
-  #   stop("cyp_tdi must be an inhibitor object")
-  # }
-  validate_inhibitor(cyp_tdi, expected_fields = c("object", "ki", "kinact", "source"))
-
-  # expected_columns <- c("object", "ki", "kinact", "source")
-  # missing_columns <- setdiff(expected_columns, names(cyp_tdi@data))
-  # if (length(missing_columns) > 0)
-  #   stop(paste0(
-  #     "Missing columns in cyp_tdi: ", nice_enumeration(missing_columns)))
+  validate_inhibition_data(cyp_tdi)
+  expected_columns <- c("object", "ki", "kinact", "source")
+  missing_columns <- setdiff(expected_columns, names(cyp_tdi))
+  if (length(missing_columns) > 0)
+    stop(paste0(
+      "Missing columns in cyp_tdi: ", nice_enumeration(missing_columns)))
 
   allowed_object <- c("CYP1A2", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19",
                       "CYP2D6", "CYP3A4")
 
-  in_vitro <- filter(cyp_tdi@data, .data$object %in% allowed_object)
+  in_vitro <- filter(cyp_tdi, .data$object %in% allowed_object)
   if (nrow(in_vitro) == 0)
     stop("No TDI data for known CYP enzymes found")
-  excluded_objects <- setdiff(unique(cyp_tdi@data$object), allowed_object)
+  excluded_objects <- setdiff(unique(cyp_tdi$object), allowed_object)
   if (length(excluded_objects) > 0)
     warning(paste0(
       "Non-CYP data were excluded (",
@@ -294,63 +274,49 @@ basic_cyp_tdi_risk <- function(
     ))
 
   # business logic
-  out <- cyp_tdi@data |>
+  out <- cyp_tdi |>
     mutate(
       kobs = .data$kinact * 5 * imaxssu(perp) /
-        (.data$ki * perp@fumic + 5 * imaxssu(perp))
+        (.data$ki * perp$fumic + 5 * imaxssu(perp))
     ) |>
-    mutate(fu = perp@fu) |>
+    mutate(fu = perp$fu) |>
     left_join(cyp_kdeg, by = "object") |>
-    mutate(kdeg = kdeg_hepatic) |>
-    mutate(r = (kobs + kdeg) / kdeg) |>
-    mutate(risk = (r >= 1.25)) |>
+    mutate(kdeg = .data$kdeg_hepatic) |>
+    mutate(r = (.data$kobs + .data$kdeg) / .data$kdeg) |>
+    mutate(risk = (.data$r >= 1.25)) |>
     select(c("object", "ki", "fu", "kinact", "kdeg", "source", "r", "risk"))
 
-  methods::new(
-    "ddi_risk",
-    table = out,
-    precipitant = perp,
-    title = paste0(
-      "Time-dependent CYP inhibition risk for ", perp@name
-    ))
+  risk(
+    out,
+    precipitant = perp$name,
+    title = paste0("Time-dependent CYP inhibition risk for ", perp$name)
+  )
 }
 
 
-#' Title
+#' Static risk assessment for CYP induction
 #'
-#' @param perp Perpetrator object
+#' @param perp Perpetrator object.
 #' @param cyp_ind Induction object.
 #'
 #' @returns DDI risk object
 #' @export
 #' @examples
-#' static_cyp_induction_risk(examplinib_parent, examplinib_cyp_ind_parent)
+#' static_cyp_induction_risk(examplinib, examplinib_cyp_induction)
 static_cyp_induction_risk <- function(perp, cyp_ind)  {
   # input validation
-  # if (!inherits(perp, "perpetrator")) {
-  #   stop("perp must be a perpetrator object")
-  # }
   validate_perpetrator(perp)
-
-  # if (!inherits(cyp_ind, "inducer")) {
-  #   stop("cyp_ind must be an induction object")
-  # }
-  validate_inducer(cyp_ind, expected_fields = c("object", "emax", "ec50", "max_c", "source"))
-  # expected_columns <- c("object", "emax", "ec50", "max_c", "source")
-  # missing_columns <- setdiff(expected_columns, names(cyp_ind@data))
-  # if (length(missing_columns) > 0)
-  #   stop(paste0(
-  #     "Missing columns in cyp_ind: ", nice_enumeration(missing_columns)))
+  validate_induction_data(cyp_ind)
 
   allowed_object <- c("CYP1A2", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19",
                       "CYP2D6", "CYP3A4")
 
-  in_vitro <- filter(cyp_ind@data, .data$object %in% allowed_object)
+  in_vitro <- filter(cyp_ind, .data$object %in% allowed_object)
 
   if (nrow(in_vitro) == 0)
     stop("No CYP induction data for known CYP enzymes found")
 
-  excluded_object <- setdiff(unique(cyp_ind@data$object), allowed_object)
+  excluded_object <- setdiff(unique(cyp_ind$object), allowed_object)
   if (length(excluded_object) > 0)
     warning(paste0(
       "Non-CYP data were excluded (",
@@ -359,7 +325,7 @@ static_cyp_induction_risk <- function(perp, cyp_ind)  {
     ))
 
   # assess risk
-  out <- cyp_ind@data |>
+  out <- cyp_ind |>
     mutate(maxc_imaxssu = round(.data$max_c / imaxssu(perp), 1)) |>
     mutate(risk = .data$emax >= 2)|>
     mutate(note = case_when(
@@ -367,50 +333,39 @@ static_cyp_induction_risk <- function(perp, cyp_ind)  {
       .default = "")) |>
     select(-c("ec50", "maxc_imaxssu"))
 
-  new(
-    "ddi_risk",
-    table = out,
-    precipitant = perp,
-    title = paste0(
-      "Static CYP induction risk for ", perp@name
-    ))
+  risk(
+    out,
+    precipitant = perp$name,
+    paste0("Static CYP induction risk for ", perp$name)
+  )
 }
 
 
-#' Title
+#' Kinetic assessment of CYP induction risk
 #'
 #' @param perp Perpetrator object
-#' @param cyp_ind Induction object
-#' @param d Numeric
+#' @param cyp_ind induction_data object.
+#' @param d Scaling factor, defaults to 1.
 #'
 #' @returns DDI risk object
 #' @export
 #' @examples
-#' kinetic_cyp_induction_risk(examplinib_parent, examplinib_cyp_ind_parent)
+#' kinetic_cyp_induction_risk(examplinib, examplinib_cyp_induction)
 #'
-kinetic_cyp_induction_risk <- function(perp, cyp_ind, d=1) {
+kinetic_cyp_induction_risk <- function(perp, cyp_ind, d = 1) {
   # input validation
-  if (!inherits(perp, "perpetrator")) {
-    stop("perp must be a perpetrator object")
-  }
-  if (!inherits(cyp_ind, "inducer")) {
-    stop("cyp_ind must be an inducer object")
-  }
-  expected_columns <- c("object", "emax", "ec50", "max_c", "source")
-  missing_columns <- setdiff(expected_columns, names(cyp_ind@data))
-  if (length(missing_columns) > 0)
-    stop(paste0(
-      "Missing columns in cyp_ind: ", nice_enumeration(missing_columns)))
+  validate_perpetrator(perp)
+  validate_induction_data(cyp_ind)
 
   allowed_object <- c("CYP1A2", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19",
                       "CYP2D6", "CYP3A4")
 
-  in_vitro <- filter(cyp_ind@data, .data$object %in% allowed_object)
+  in_vitro <- filter(cyp_ind, .data$object %in% allowed_object)
 
   if (nrow(in_vitro) == 0)
     stop("No CYP induction data for known CYP enzymes found")
 
-  excluded_object <- setdiff(unique(cyp_ind@data$object), allowed_object)
+  excluded_object <- setdiff(unique(cyp_ind$object), allowed_object)
   if (length(excluded_object) > 0)
     warning(paste0(
       "Non-CYP data were excluded (",
@@ -418,20 +373,18 @@ kinetic_cyp_induction_risk <- function(perp, cyp_ind, d=1) {
       ")"
     ))
 
-  out <- cyp_ind@data |>
-    mutate(r = round(
-      (1 / (1 + d * emax * 10 * imaxssu(perp) / (ec50 + 10 * imaxssu(perp)))),
-      3
-    )) |>
+  # business logic
+  out <- cyp_ind |>
+    mutate(r = 1 / (1 + d * .data$emax * 10 * imaxssu(perp) /
+                      (.data$ec50 + 10 * imaxssu(perp)))
+    ) |>
     mutate(risk = r <= 0.8)
 
-  new(
-    "ddi_risk",
-    table = out,
-    precipitant = perp,
-    title = paste0(
-      "Kinetic CYP induction risk for ", perp@name
-    ))
+  risk(
+    out,
+    precipitant = perp$name,
+    paste0("Kinetic CYP induction risk for ", perp$name)
+  )
 }
 
 
@@ -483,10 +436,10 @@ kinetic_cyp_induction_risk <- function(perp, cyp_ind, d=1) {
 #' @export
 #' @examples
 #' mech_stat_cyp_risk(
-#'   examplinib_parent,
-#'   examplinib_cyp_inh_parent,
-#'   examplinib_cyp_ind_parent,
-#'   examplinib_cyp_tdi_parent
+#'   examplinib,
+#'   examplinib_cyp_inhibition,
+#'   examplinib_cyp_induction,
+#'   examplinib_cyp_tdi
 #'  )
 #'
 mech_stat_cyp_risk <- function(
@@ -502,21 +455,13 @@ mech_stat_cyp_risk <- function(
     qent = 18/60
 ) {
   # input validation
-  if (!inherits(perp, "perpetrator")) {
-    stop("perp must be a perpetrator object")
-  }
-  if (!inherits(cyp_inh, "inhibitor")) {
-    stop("cyp_inh must be an inhibitor object")
-  }
-  if (!inherits(cyp_ind, "inducer")) {
-    stop("cyp_ind must be an inducer object")
-  }
-  if (!is.null(cyp_tdi))
-    if (!inherits(cyp_tdi, "inhibitor"))
-      stop("cyp_tdi must be an inhibitor object")
+  validate_perpetrator(perp)
+  validate_inhibition_data(cyp_inh)
+  validate_inhibition_data(cyp_tdi)
+  validate_induction_data(cyp_ind)
 
   # risk assessment
-  fumic <- perp@fumic
+  fumic <- perp$fumic
   Ig <- imaxintest(perp, qent = qent)
   Ih <- imaxinletu(perp, qh = qh)
 
@@ -528,59 +473,59 @@ mech_stat_cyp_risk <- function(
     cyp_tdi <- inhibitor(NULL)
   }
 
-  out <- cyp_inh@data |>
-    select(-source) |>
+  out <- cyp_inh |>
+    as.data.frame() |>
 
     # direct inhibition
-    mutate(kiu = ki * fumic) |>
+    mutate(kiu = .data$ki * fumic) |>
     mutate(Ag = case_when(
-      !is.na(ki) ~ 1 / (1 + (Ig / kiu)),
+      !is.na(.data$ki) ~ 1 / (1 + (Ig / .data$kiu)),
       .default = 1)) |>
     mutate(Ah = case_when(
-      !is.na(ki) ~ 1 / (1 + (Ih / kiu)),
+      !is.na(.data$ki) ~ 1 / (1 + (Ih / .data$kiu)),
       .default = 1)) |>
 
     # TDI
     left_join(
-      cyp_tdi@data %>%
-        mutate(ki_tdi = ki) |>
-        select(-c(ki, source)),
+      cyp_tdi |>
+        as.data.frame() |>
+        mutate(ki_tdi = .data$ki) |>
+        select(-c("ki", "source")),
       by = "object") |>
     left_join(cyp_kdeg, by = "object") |>
     mutate(Bg = case_when(
-      !is.na(ki_tdi) ~ kdeg_intestinal / (kdeg_intestinal +
-                                            (Ig * kinact /(Ig + ki_tdi))),
+      !is.na(.data$ki_tdi) ~ .data$kdeg_intestinal /
+        (.data$kdeg_intestinal + (Ig * .data$kinact /(Ig + .data$ki_tdi))),
       .default = 1)) |>
     mutate(Bh = case_when(
-      !is.na(ki_tdi) ~ kdeg_hepatic / (kdeg_hepatic +
-                                         (Ih * kinact / (Ih + ki_tdi))),
+      !is.na(.data$ki_tdi) ~ .data$kdeg_hepatic /
+        (.data$kdeg_hepatic + (Ih * .data$kinact / (Ih + .data$ki_tdi))),
       .default = 1)) |>
 
     # induction
     left_join(
-      cyp_ind@data |>
-        select(-source),
+      cyp_ind |>
+        as.data.frame() |>
+        select(-"source"),
       by = c("object")) |>
     mutate(Cg = case_when(
-      (is.na(ec50) | include_induction == FALSE) ~ 1,
-      .default = 1 + (d * emax * Ig / (Ig + ec50)))) |>
+      (is.na(.data$ec50) | include_induction == FALSE) ~ 1,
+      .default = 1 + (d * .data$emax * Ig / (Ig + .data$ec50)))) |>
     mutate(Ch = case_when(
-      (is.na(ec50) | include_induction == FALSE) ~ 1,
-      .default = 1 + (d * emax * Ih / (Ih + ec50))))  |>
+      (is.na(.data$ec50) | include_induction == FALSE) ~ 1,
+      .default = 1 + (d * .data$emax * Ih / (Ih + .data$ec50))))  |>
 
     # substrate
-    left_join(substr, by="object") |>
-    mutate(aucr = 1 / (Ag * Bg * Cg * (1 - fgut) + fgut) *
-             1 / (Ah * Bh * Ch * fm * fmcyp + (1 - fm * fmcyp))) |>
-    mutate(risk = aucr > 1.25 | aucr < 0.8) %>%
+    left_join(substr, by = "object") |>
+    mutate(aucr = 1 / (Ag * Bg * Cg * (1 - .data$fgut) + .data$fgut) *
+             1 / (Ah * Bh * Ch * .data$fm * .data$fmcyp + (1 - .data$fm * .data$fmcyp))) |>
+    mutate(risk = .data$aucr > 1.25 | .data$aucr < 0.8) |>
     select(c("object", "substrate", "kiu", "fgut", "fm", "fmcyp", "Ag", "Ah",
              "Bg", "Bh", "Cg", "Ch", "aucr", "risk"))
 
-  new(
-    "ddi_risk",
-    table = out,
-    precipitant = perp,
-    title = paste0(
-      "Mechanistic-static CYP inhibition risk for ", perp@name
-    ))
+  risk(
+    out,
+    precipitant = perp$name,
+    paste0("Mechanistic-static risk assessment for ", perp$name)
+  )
 }

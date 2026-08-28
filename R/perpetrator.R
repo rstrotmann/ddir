@@ -1,39 +1,38 @@
 #' Perpetrator class definition
 #'
-#' @slot name character.
-#' @slot oral logical.
-#' @slot mw numeric.
-#' @slot dose numeric.
-#' @slot imaxss numeric.
-#' @slot fu numeric.
-#' @slot fumic numeric.
-#' @slot rb numeric.
-#' @slot fa numeric.
-#' @slot fg numeric.
-#' @slot ka numeric.
-#' @slot solubility numeric.
-#' @slot source character
+#' @param name character.
+#' @param oral logical.
+#' @param mw numeric.
+#' @param dose numeric.
+#' @param imaxss numeric.
+#' @param fu numeric.
+#' @param fumic numeric.
+#' @param rb numeric.
+#' @param fa numeric.
+#' @param fg numeric.
+#' @param ka numeric.
+#' @param solubility numeric.
+#' @param source character
 #'
 #' @returns A perpetrator class object.
 #' @export
-setClass(
-  Class = "perpetrator",
-  representation(
-    name = "character",
-    oral = "logical",
-    mw = "numeric",
-    dose = "numeric",
-    imaxss = "numeric",
-    fu = "numeric",
-    fumic = "numeric",
-    rb = "numeric",
-    fa = "numeric",
-    fg = "numeric",
-    ka = "numeric",
-    solubility = "numeric",
-    source = "character"
-  ),
-  prototype(
+#' @examples
+#' perpetrator(
+#'   name = "examplinib",
+#'   oral = TRUE,
+#'   mw = 492.6,
+#'   dose = 450,
+#'   imaxss = 3530,
+#'   fu = 0.023,
+#'   fumic = 1,
+#'   rb = 1,
+#'   fa = 0.81,
+#'   fg = 1,
+#'   ka = 0.00267,
+#'   solubility = Inf,
+#'   source = c(dose = "clinical dose", imaxss = "study 001", fu = "study 002")
+#' )
+perpetrator <- function(
     name = "",
     oral = TRUE,
     mw = 0,
@@ -47,155 +46,37 @@ setClass(
     ka = 0.1,
     solubility = Inf,
     source = character(0)
+){
+  x <- structure(
+    list(
+      name = name, oral = as.logical(oral), mw = mw, dose = dose, imaxss = imaxss,
+      fu = fu, fumic = fumic, rb = rb, fa = fa, fg = fg, ka = ka,
+      solubility = solubility, source = source
+    ),
+    class = c("perpetrator", "list")
   )
-)
 
+  validate_perpetrator(x)
 
-#' Validity check for perpetrator class
-#'
-#' @param object perpetrator object
-#'
-#' @returns TRUE or error
-#' @noRd
-setValidity("perpetrator", function(object) {
-  validate_argument(object@name, "character", allow_empty = TRUE)
-  validate_argument(object@oral, "logical")
-  validate_argument(object@mw, "numeric", expect_positive = TRUE)
-  validate_argument(object@dose, "numeric", expect_positive = TRUE, allow_na = TRUE)
-  validate_argument(object@imaxss, "numeric", expect_positive = TRUE)
-  validate_argument(object@fu, "fraction")
-  validate_argument(object@fumic, "fraction")
-  validate_argument(object@rb, "numeric", expect_positive = TRUE)
-  validate_argument(object@fa, "fraction", allow_na = TRUE)
-  validate_argument(object@fg, "fraction", allow_na = TRUE)
-  validate_argument(object@ka, "numeric", expect_positive = TRUE, allow_na = TRUE)
-  validate_argument(object@solubility, "numeric", expect_positive = TRUE)
-  validate_argument(object@source, "character", allow_multiple = TRUE, allow_empty = TRUE)
-
-  unexpected_source <- setdiff(names(object@source), slotNames(object))
-  if (length(unexpected_source) > 0)
-    return(paste0("unxpected source: ", nice_enumeration(unexpected_source)))
-
-  TRUE
-})
-
-
-#' perpetrator class constructor
-#'
-#' @param name Character.
-#' @param oral Oral administration, as logical.
-#' @param mw Molecular weight in g/mol.
-#' @param dose Administered dose in mg.
-#' @param imaxss Cmax at steady state in ng/ml.
-#' @param fu Fraction unbound.
-#' @param fumic Fraction unbound in microsomes.
-#' @param rb blood cell distribution.
-#' @param fa Fraction absorbed.
-#' @param fg Fraction escaping gut metabolism.
-#' @param ka Absorption constant in 1/min.
-#' @param solubility Aqueous solubility in mg/l.
-#' @param source Source information for parameters as named character vector
-#'
-#' @returns perpetrator object
-#' @export
-#' @examples
-#' perpetrator(
-#' "examplinib", TRUE, 492.6, 450, 3530, fu = 0.023, fa = 0.81, ka = .00267,
-#' source = c(dose = "clinical dose", imaxss = "study 001", fu = "study 002")
-#' )
-#'
-perpetrator <- function(
-    name,
-    oral,
-    mw,
-    dose,
-    imaxss,
-    fu = 1,
-    fumic = 1,
-    rb = 1,
-    fa = 1,
-    fg = 1,
-    ka = 0.1,
-    solubility = Inf,
-    source = character(0)
-) {
-  new(
-    "perpetrator",
-    name = name,
-    oral = oral,
-    mw = mw,
-    dose = dose,
-    imaxss = imaxss,
-    fu = fu,
-    fumic = fumic,
-    rb = rb,
-    fa = fa,
-    fg = fg,
-    ka = ka,
-    solubility = solubility,
-    source = source)
+  return(x)
 }
 
 
-#' Show DDI perpetrator objects.
+# print <- function(obj) {
+#   UseMethod("print")
+# }
+
+
+
+#' Print perpetrator object as markdown
 #'
-#' @param object A `perpetrator` object.
+#' @param x The perpetrator object.
+#' @param ... Further arguments.
 #'
-#' @returns Nothing.
-#' @import methods
+#' @returns A markdown-formatted table.
+#' @import dplyr
 #' @export
-setMethod(
-  "show", "perpetrator",
-  function(object) {
-    cat(paste0(hline(), " DDI perpetrator ", hline(), "\n"))
-
-    out <- tibble::tribble(
-           ~name,   ~unit,
-          "name",      "",
-          "oral",      "",
-            "mw", "g/mol",
-          "dose",    "mg",
-        "imaxss", "ng/ml",
-            "fu",      "",
-         "fumic",      "",
-            "rb",      "",
-            "fa",      "",
-            "fg",      "",
-            "ka",  "/min",
-    "solubility", "mg/ml"
-    )
-
-    out$value <- unlist(lapply(out$name, function(x) methods::slot(object, x)))
-
-    out$source <- unlist(lapply(
-      out$name,
-      function(x) {
-        ifelse(
-          !is.na(methods::slot(object, "source")[x]),
-          paste0("(", methods::slot(object, "source")[x], ")"),
-          ""
-        )
-      }
-    ))
-
-    out <- out |>
-      mutate(value = paste0(value, " ", unit)) |>
-      select(-unit) |>
-      df_to_string(colnames = FALSE)
-
-    cat(df_to_string(out, colnames = FALSE))
-  }
-)
-
-
-#' Property table for perpetrator object
-#'
-#' @param x A `perpetrator` object.
-#'
-#' @returns Markdown-formatted text
-#' @import methods
-#' @export
-setMethod("print", "perpetrator", function(x) {
+print.perpetrator <- function(x, ...) {
   out <- tibble::tribble(
            ~param,             ~parameter,   ~unit,
            "oral",                 "oral",      "",
@@ -210,34 +91,37 @@ setMethod("print", "perpetrator", function(x) {
              "fg",                "$F_g$",      "",
              "ka",        "$k_a$ (1/min)",  "/min"
      ) |>
-    mutate(value = sapply(
-      c(x@oral, x@mw, x@dose, x@solubility, x@imaxss, x@fu, x@fumic, x@rb,
-        x@fa, x@fg, x@ka),
+    dplyr::mutate(value = sapply(
+      c(x$oral, x$mw, x$dose, x$solubility, x$imaxss, x$fu, x$fumic, x$rb,
+        x$fa, x$fg, x$ka),
       as.character)) |>
-    select(-unit)
+    dplyr::select(-"unit")
 
   out$source <- unlist(lapply(
     out$param,
     function(i) {
       ifelse(
-        !is.na(methods::slot(x, "source")[i]),
-        methods::slot(x, "source")[i],
+        !is.na(x$source[i]),
+        x$source[i],
         ""
       )
     }
   ))
 
-  if (x@oral == FALSE) {
-    out <- out |>
-      filter(!(param %in% c("fa", "fg", "ka")))
+  if (isTRUE(getOption("knitr.in.progress"))) {
+    if (x$oral == FALSE) {
+      out <- out |>
+        dplyr::filter(!(param %in% c("fa", "fg", "ka")))
+    }
+    out |>
+      dplyr::select(parameter, value, source) |>
+      knitr::kable(caption = paste("Perpetrator compound parameters for", x$name)) |>
+      print()
+  } else {
+    out |>
+      dplyr::select(-"parameter")
   }
-
-  out <- out |>
-    dplyr::select(parameter, value, source) |>
-    knitr::kable(caption = paste("Perpetrator compound parameters for", x@name))
-
-  out
-})
+}
 
 
 #' Maximal gut concentration
@@ -252,20 +136,20 @@ igut <- function(x, molar = FALSE) {
   validate_perpetrator(x)
 
   # total gut concentration in ng/ml
-  oral <- x@oral
+  oral <- x$oral
   if(oral == FALSE) {
     igut <- 0
   } else {
-    igut <- x@dose / 250 * 1e+6
+    igut <- x$dose / 250 * 1e+6
   }
 
-  sol <- x@solubility * 1000
+  sol <- x$solubility * 1000
   if (!is.na(sol) &igut > sol) {
     igut <- sol
     warning(paste0("Caution: Igut is limited by solubility!"))
   }
 
-  ifelse(molar, igut / x@mw, igut)
+  ifelse(molar, igut / x$mw, igut)
 }
 
 
@@ -281,16 +165,9 @@ imaxssu <- function(x, molar = TRUE) {
   # input validation
   validate_perpetrator(x)
 
-  # business logic
-  # if (x@fu < 0.01) {
-  #   fu <- 0.01
-  #   warning("fu is < 1% and was set to 1%!")
-  # } else {
-  #   fu = x@fu
-  # }
-  fu = x@fu
-  out <- x@imaxss * fu
-  ifelse(molar, out / x@mw, out)
+  fu = x$fu
+  out <- x$imaxss * fu
+  ifelse(molar, out / x$mw, out)
 }
 
 
@@ -305,10 +182,10 @@ imaxssu <- function(x, molar = TRUE) {
 #'
 portal_term <- function(x, qh = 1.616) {
   validate_perpetrator(x)
-  if(x@oral == FALSE) {
+  if(x$oral == FALSE) {
     0
   } else {
-    x@dose * x@fa * x@fg * x@ka / qh / x@rb * 1000
+    x$dose * x$fa * x$fg * x$ka / qh / x$rb * 1000
   }
 }
 
@@ -324,8 +201,9 @@ portal_term <- function(x, qh = 1.616) {
 #'
 imaxinletu <- function(x, qh = 1.616, molar = TRUE) {
   validate_perpetrator(x)
-  out <- (x@imaxss + portal_term(x, qh)) * x@fu
-  ifelse(molar, out / x@mw, out)
+
+  out <- (x$imaxss + portal_term(x, qh)) * x$fu
+  ifelse(molar, out / x$mw, out)
 }
 
 
@@ -340,11 +218,12 @@ imaxinletu <- function(x, qh = 1.616, molar = TRUE) {
 #'
 imaxintest <- function(x, qent = 18/60, molar = TRUE) {
   validate_perpetrator(x)
-  if(x@oral == FALSE) {
+
+  if(x$oral == FALSE) {
     out <- imaxssu(x, molar = molar)
   } else {
-    out <- x@dose * x@fa * x@ka / qent * 1000
-    ifelse(molar, out / x@mw, out)
+    out <- x$dose * x$fa * x$ka / qent * 1000
+    ifelse(molar, out / x$mw, out)
   }
 
 }

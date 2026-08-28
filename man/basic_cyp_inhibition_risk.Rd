@@ -48,6 +48,6 @@ the regulatory threshold is reached.
 }
 }
 \examples{
-basic_cyp_inhibition_risk(examplinib_parent, examplinib_cyp_inh_parent)
+basic_cyp_inhibition_risk(examplinib, examplinib_cyp_inhibition)
 
 }

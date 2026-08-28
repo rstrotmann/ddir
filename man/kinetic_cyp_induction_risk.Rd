@@ -2,24 +2,24 @@
 % Please edit documentation in R/risk_assessment.R
 \name{kinetic_cyp_induction_risk}
 \alias{kinetic_cyp_induction_risk}
-\title{Title}
+\title{Kinetic assessment of CYP induction risk}
 \usage{
 kinetic_cyp_induction_risk(perp, cyp_ind, d = 1)
 }
 \arguments{
 \item{perp}{Perpetrator object}
 
-\item{cyp_ind}{Induction object}
+\item{cyp_ind}{induction_data object.}
 
-\item{d}{Numeric}
+\item{d}{Scaling factor, defaults to 1.}
 }
 \value{
 DDI risk object
 }
 \description{
-Title
+Kinetic assessment of CYP induction risk
 }
 \examples{
-kinetic_cyp_induction_risk(examplinib_parent, examplinib_cyp_ind_parent)
+kinetic_cyp_induction_risk(examplinib, examplinib_cyp_induction)
 
 }

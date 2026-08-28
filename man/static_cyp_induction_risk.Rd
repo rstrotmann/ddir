@@ -2,12 +2,12 @@
 % Please edit documentation in R/risk_assessment.R
 \name{static_cyp_induction_risk}
 \alias{static_cyp_induction_risk}
-\title{Title}
+\title{Static risk assessment for CYP induction}
 \usage{
 static_cyp_induction_risk(perp, cyp_ind)
 }
 \arguments{
-\item{perp}{Perpetrator object}
+\item{perp}{Perpetrator object.}
 
 \item{cyp_ind}{Induction object.}
 }
@@ -15,8 +15,8 @@ static_cyp_induction_risk(perp, cyp_ind)
 DDI risk object
 }
 \description{
-Title
+Static risk assessment for CYP induction
 }
 \examples{
-static_cyp_induction_risk(examplinib_parent, examplinib_cyp_ind_parent)
+static_cyp_induction_risk(examplinib, examplinib_cyp_induction)
 }

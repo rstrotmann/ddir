@@ -1,24 +1,44 @@
-#' Validate perpetrator argument
+
+#' Validate perpetrator object
 #'
-#' @param obj Perpetrator object.
+#' @param obj A perpetrator object
 #'
 #' @returns Nothing.
 #' @noRd
-validate_perpetrator <- function(obj) {
-  obj_name <- deparse(substitute(obj))
+validate_perpetrator <- function(object) {
+  obj_name <- deparse(substitute(object))
 
-  if (!inherits(obj, "perpetrator"))
+  if (!inherits(object, "perpetrator"))
     stop(paste(obj_name, "must be a perpetrotor object"))
+
+  validate_argument(object$name, "character", allow_empty = TRUE)
+  validate_argument(object$oral, "logical")
+  validate_argument(object$mw, "numeric", expect_positive = TRUE)
+  validate_argument(object$dose, "numeric", expect_positive = TRUE, allow_na = TRUE)
+  validate_argument(object$imaxss, "numeric", expect_positive = TRUE)
+  validate_argument(object$fu, "fraction")
+  validate_argument(object$fumic, "fraction")
+  validate_argument(object$rb, "numeric", expect_positive = TRUE)
+  validate_argument(object$fa, "fraction", allow_na = TRUE)
+  validate_argument(object$fg, "fraction", allow_na = TRUE)
+  validate_argument(object$ka, "numeric", expect_positive = TRUE, allow_na = TRUE)
+  validate_argument(object$solubility, "numeric", expect_positive = TRUE)
+  validate_argument(object$source, "character", allow_multiple = TRUE, allow_empty = TRUE)
+
+  unexpected_source <- setdiff(names(object$source), names(object))
+  if (length(unexpected_source) > 0)
+    return(paste0("unxpected source: ", nice_enumeration(unexpected_source)))
 
   invisible(NULL)
 }
+
 
 #' Validate inhibitor argument
 #'
 #' @param obj Inhibitor object
 #' @param expected_fields Character or NULL.
 #'
-#' @returns
+#' @returns Nothing.
 #' @noRd
 validate_inhibitor <- function(obj, expected_fields = NULL) {
   obj_name <- deparse(substitute(obj))
@@ -37,6 +57,48 @@ validate_inhibitor <- function(obj, expected_fields = NULL) {
 }
 
 
+#' Validate inhibition_data object
+#'
+#' @param obj Inhibitor object
+#' @param expected_fields Character or NULL.
+#'
+#' @returns Nothing.
+#' @noRd
+validate_inhibition_data <- function(obj) {
+  obj_name <- deparse(substitute(obj))
+
+  if (!inherits(obj, "inhibition_data"))
+    stop(paste(obj_name, "must be an inhibition_data object"))
+
+  expected_fields <- c("object", "source")
+  missing_fields <- setdiff(expected_fields, names(obj))
+  if (length(missing_fields) > 0) {
+    stop(paste0(
+      "Missing columns in ", obj_name, ": ",
+      nice_enumeration(missing_fields)
+    ))
+  }
+  if (!any(c("ki", "ic50") %in% names(obj))) {
+    stop(paste("Either ki or ic50 must be in", obj_name))
+  }
+
+  known_objects <- c(
+    c("CYP1A1", "CYP1A2", "CYP2A6", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C18",
+      "CYP2C19", "CYP2D6", "CYP2E1", "CYP2J2", "CYP3A4", "CYP3A5", "CYP3A7"),
+    c("UGT1A1", "UGT1A3", "UGT1A4", "UGT1A6", "UGT1A9", "UGT2B7", "UGT2B15",
+      "UGT2B17"),
+    c("Pgp", "BCRP", "OATP1B1", "OATP1B3", "OAT1", "OAT3", "BSEP", "OCT1",
+      "OCT2", "MATE1", "MATE2k", "Pgp_sys", "BCRP_sys", "Pgp_int", "BCRP_int")
+  )
+  unknown_objects <- setdiff(
+    toupper(unique(obj$object)), toupper(known_objects))
+  if (length(unknown_objects) > 0)
+    warning(paste0("Unknown objects: ", nice_enumeration(unknown_objects)))
+
+  invisible(NULL)
+}
+
+
 #' Validate inducer argument
 #'
 #' @param obj Inducer object.
@@ -51,6 +113,30 @@ validate_inducer <- function(obj, expected_fields = NULL) {
     stop(paste(obj_name, "must be an inducer object"))
 
   missing_fields <- setdiff(expected_fields, names(obj@data))
+  if (length(missing_fields) > 0) {
+    stop(paste0(
+      "Missing columns in ", obj_name, ": ",
+      nice_enumeration(missing_fields)
+    ))
+  }
+  invisible(NULL)
+}
+
+
+#' Validate induction_data object
+#'
+#' @param obj Induction_data object.
+#'
+#' @returns Nothing.
+#' @noRd
+validate_induction_data <- function(obj) {
+  obj_name <- deparse(substitute(obj))
+  expected_fields <- c("object", "emax", "ec50", "max_c", "source")
+
+  if (!inherits(obj, "induction_data"))
+    stop(paste(obj_name, "must be an induction_data object"))
+
+  missing_fields <- setdiff(expected_fields, names(obj))
   if (length(missing_fields) > 0) {
     stop(paste0(
       "Missing columns in ", obj_name, ": ",

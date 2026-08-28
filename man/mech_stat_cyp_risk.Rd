@@ -77,10 +77,10 @@ the regulatory threshold is reached for the respective enzyme.
 }
 \examples{
 mech_stat_cyp_risk(
-  examplinib_parent,
-  examplinib_cyp_inh_parent,
-  examplinib_cyp_ind_parent,
-  examplinib_cyp_tdi_parent
+  examplinib,
+  examplinib_cyp_inhibition,
+  examplinib_cyp_induction,
+  examplinib_cyp_tdi
  )
 
 }

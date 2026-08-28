@@ -34,3 +34,7 @@ for details.
 
 \eqn{R>0.02} are considered to indicate a potential UGT inhibition risk.
 }
+\examples{
+basic_ugt_inhibition_risk(examplinib, examplinib_ugt_inhibition)
+
+}

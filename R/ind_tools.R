@@ -242,7 +242,7 @@ indmod <- function(
     ) |>
     mutate(ec50 = round(.data$ec50, 2))
 
-  out$inducer <- inducer(temp, precipitant = x@precipitant)
+  # out$inducer <- inducer(temp, precipitant = x@precipitant)
 
   out
 
