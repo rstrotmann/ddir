@@ -66,7 +66,7 @@ vec_restore.induction_data <- function(x, to, ...) {
 #' @returns Nothing.
 #' @import dplyr
 #' @import knitr
-#' @exportS3Method ddir::print
+#' @exportS3Method base::print
 print.induction_data <- function(x, ...) {
   # validate_induction_data(x)
 

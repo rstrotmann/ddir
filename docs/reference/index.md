@@ -2,35 +2,44 @@
 
 ## All functions
 
+- [`appendix_addin()`](appendix_addin.md) : Insert the standard DDI
+  assessment report appendix as mardown
 - [`basic_cyp_inhibition_risk()`](basic_cyp_inhibition_risk.md) : Basic
   CYP inhibition risk
-- [`basic_cyp_tdi_risk()`](basic_cyp_tdi_risk.md) : Title
+- [`basic_cyp_tdi_risk()`](basic_cyp_tdi_risk.md) : CYP time-dependent
+  inhibition risk
 - [`basic_ugt_inhibition_risk()`](basic_ugt_inhibition_risk.md) : UGT
   inhibition risk
+- [`cyp_ind_addin()`](cyp_ind_addin.md) : Insert a CYP inducer object
+  constructor
+- [`cyp_inh_addin()`](cyp_inh_addin.md) : Insert a CYP inhibitor object
+  constructor
 - [`cyp_reference_substrates`](cyp_reference_substrates.md) : CYP
   reference substrate data
 - [`cyp_turnover`](cyp_turnover.md) : CYP turnover rate constants
-- [`ddi_risk-class`](ddi_risk-class.md) : Generic DDI risk class
-  definition
-- [`examplinib_cyp_ind_metabolite`](examplinib_cyp_ind_metabolite.md) :
-  Examplinib metabolite CYP induction data
-- [`examplinib_cyp_ind_parent`](examplinib_cyp_ind_parent.md) :
-  Examplinib CYP induction data
-- [`examplinib_cyp_inh_metabolite`](examplinib_cyp_inh_metabolite.md) :
-  Examplinib metabolite CYP inhibition data
-- [`examplinib_cyp_inh_parent`](examplinib_cyp_inh_parent.md) :
+- [`dplyr_reconstruct(`*`<induction_data>`*`)`](dplyr_reconstruct.induction_data.md)
+  : Reconstruct inhibition_data after dplyr verbs
+- [`dplyr_reconstruct(`*`<inhibition_data>`*`)`](dplyr_reconstruct.inhibition_data.md)
+  : Reconstruct inhibition_data after dplyr verbs
+- [`dplyr_reconstruct(`*`<risk>`*`)`](dplyr_reconstruct.risk.md) :
+  reconstruct risk object
+- [`examplinib`](examplinib.md) : Perpetrator compound data for
+  examplinib
+- [`examplinib_cyp_induction`](examplinib_cyp_induction.md) : Examplinib
+  CYP induction data
+- [`examplinib_cyp_inhibition`](examplinib_cyp_inhibition.md) :
   Examplinib CYP inhibition data
-- [`examplinib_cyp_tdi_parent`](examplinib_cyp_tdi_parent.md) :
-  Examplinib CYP TDI data
-- [`examplinib_metabolite`](examplinib_metabolite.md) : Perpetrator
-  compound data for examplinib
-- [`examplinib_parent`](examplinib_parent.md) : Perpetrator compound
-  data for examplinib
-- [`examplinib_transporter_inh_parent`](examplinib_transporter_inh_parent.md)
+- [`examplinib_cyp_tdi`](examplinib_cyp_tdi.md) : Examplinib CYP TDI
+  data
+- [`examplinib_in_vitro_ind`](examplinib_in_vitro_ind.md) : in vitro
+  sample data for CYP3A4 mRNA induction
+- [`examplinib_in_vitro_ind1`](examplinib_in_vitro_ind1.md) : in vitro
+  sample data for CYP3 mRNA induction
+- [`examplinib_in_vitro_tdi`](examplinib_in_vitro_tdi.md) : in vitro
+  sample data for CYP3A4 TDI
+- [`examplinib_transporter_inhibition`](examplinib_transporter_inhibition.md)
   : Examplinib transporter inhibition data
-- [`examplinib_ugt_inh_metabolite`](examplinib_ugt_inh_metabolite.md) :
-  Examplinib metabolite UGT inhibition data
-- [`examplinib_ugt_inh_parent`](examplinib_ugt_inh_parent.md) :
+- [`examplinib_ugt_inhibition`](examplinib_ugt_inhibition.md) :
   Examplinib UGT inhibition data
 - [`hepatic_cyp_turnover`](hepatic_cyp_turnover.md) **\[deprecated\]** :
   Hepatic CYP turnover data based on various publications
@@ -38,36 +47,50 @@
 - [`imaxinletu()`](imaxinletu.md) : Cmax,u at the hepatic inlet
 - [`imaxintest()`](imaxintest.md) : Intestinal Cmax,u
 - [`imaxssu()`](imaxssu.md) : Cmax,ss,u
-- [`inducer-class`](inducer-class.md) : DDI CYP inducer data object
-- [`inducer()`](inducer.md) : DDI CYP inducer object constructor
-- [`inhibitor-class`](inhibitor-class.md) : Inhibitor class definition
-- [`inhibitor()`](inhibitor.md) : DDI inhibition data object
-  constructor.
-- [`key_conc()`](key_conc.md) : Key perpetrator concentrations
+- [`indmod()`](indmod.md) **\[experimental\]** : Analyze in vitro CYP
+  induction data
+- [`induction_data()`](induction_data.md) : induction_data constructor
+  alias
+- [`induction_experiment-class`](induction_experiment-class.md) : In
+  vitro induction data set
+- [`induction_experiment()`](induction_experiment.md) : induction
+  experiment data set constructor
+- [`induction_plot()`](induction_plot.md) : Plot in vitro CYP induction
+  data
+- [`inhibition_data()`](inhibition_data.md) : inhibition_data
+  constructor alias
+- [`key_conc_table()`](key_conc_table.md) : Key perpetrator
+  concentrations
 - [`kinetic_cyp_induction_risk()`](kinetic_cyp_induction_risk.md) :
-  Title
-- [`mech_stat_cyp_risk()`](mech_stat_cyp_risk.md) : Title
-- [`perpetrator-class`](perpetrator-class.md) : Perpetrator class
-  definition
-- [`perpetrator()`](perpetrator.md) : perpetrator class constructor
-- [`print(`*`<ddi_risk>`*`)`](print-ddi_risk-method.md) : Print ddi_risk
-  object
-- [`print(`*`<inducer>`*`)`](print-inducer-method.md) : Print DDI
-  inducer object
-- [`print(`*`<inhibitor>`*`)`](print-inhibitor-method.md) : Print DDI
-  inhibitor object.
-- [`print(`*`<perpetrator>`*`)`](print-perpetrator-method.md) : Property
-  table for perpetrator object
-- [`show(`*`<ddi_risk>`*`)`](show-ddi_risk-method.md) : Show ddi_risk
-  object
-- [`show(`*`<inducer>`*`)`](show-inducer-method.md) : Show DDI inducer
-  object
-- [`show(`*`<inhibitor>`*`)`](show-inhibitor-method.md) : Show DDI
-  inhibitor object.
-- [`show(`*`<perpetrator>`*`)`](show-perpetrator-method.md) : Show DDI
-  perpetrator objects.
-- [`static_cyp_induction_risk()`](static_cyp_induction_risk.md) : Title
-- [`transporter_inhibition_risk()`](transporter_inhibition_risk.md) : Drug transporter
-  inhibition risk
+  Kinetic assessment of CYP induction risk
+- [`mech_stat_cyp_risk()`](mech_stat_cyp_risk.md) : Mechanistic-static
+  risk assessment
+- [`perpetrator()`](perpetrator.md) : Perpetrator class definition
+- [`perpetrator_addin()`](perpetrator_addin.md) : Insert a perpetrator
+  object constructor
+- [`plot(`*`<induction_experiment>`*`)`](plot-induction_experiment-method.md)
+  : Plot method for induction_experiment objects
+- [`print(`*`<induction_experiment>`*`)`](print-induction_experiment-method.md)
+  : Pring method for induction_experiment objects
+- [`print(`*`<induction_data>`*`)`](print.induction_data.md) : Print
+  method for induction_data objects
+- [`print(`*`<inhibition_data>`*`)`](print.inhibition_data.md) : Print
+  method for inhibition_data objects
+- [`print(`*`<perpetrator>`*`)`](print.perpetrator.md) : Print
+  perpetrator object as markdown
+- [`print(`*`<risk>`*`)`](print.risk.md) : Print risk object
+- [`risk()`](risk.md) : DDI risk object constructor alias
+- [`show(`*`<induction_experiment>`*`)`](show-induction_experiment-method.md)
+  : Show method for induction_experiment objects
+- [`static_cyp_induction_risk()`](static_cyp_induction_risk.md) : Static
+  risk assessment for CYP induction
+- [`tdimod()`](tdimod.md) **\[experimental\]** : Derive TDI parameters
+  from enzyme activity data
+- [`transp_inh_addin()`](transp_inh_addin.md) : Insert a transporter
+  inhibitor object constructor
+- [`transporter_inhibition_risk()`](transporter_inhibition_risk.md) :
+  Drug transporter inhibition risk
 - [`transporter_reference_data`](transporter_reference_data.md) : Drug
   transporter reference data
+- [`ugt_inh_addin()`](ugt_inh_addin.md) : Insert a CYP inhibitor object
+  constructor

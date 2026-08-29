@@ -59,7 +59,7 @@ vec_restore.inhibition_data <- function(x, to, ...) {
 #' @returns Nothing.
 #' @import dplyr
 #' @import knitr
-#' @exportS3Method ddir::print
+#' @exportS3Method base::print
 print.inhibition_data <- function(x, ...) {
   # validate_inhibition_data(x)
 

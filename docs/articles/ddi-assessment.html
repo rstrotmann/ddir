@@ -13,8 +13,8 @@
     }
   };
 </script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="DDI assessment">
 </head>
@@ -71,11 +71,7 @@
     
 <p>This vignette shows how to assess the potential of a drug to act as a
 perpetrator of drug-drug interactions with CYP and UGT enzymes and drug
-transporters. The live code contained in this document relies on the
-following R packages:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">ddir</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
+transporters.</p>
 <div class="section level2">
 <h2 id="regulatory-background">Regulatory background<a class="anchor" aria-label="anchor" href="#regulatory-background"></a>
 </h2>
@@ -192,46 +188,8 @@ first step in the formal analysis. In the scope of this package, these
 key parameters are aggregated into a ‘perpetrator’ object. The package
 contains a sample perpetrator object for the ficitional drug
 ‘examplinib’:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">examplinib_parent</span></span>
-<span><span class="co">#&gt; ----- DDI perpetrator object -----</span></span>
-<span><span class="co">#&gt; name         examplinib                       </span></span>
-<span><span class="co">#&gt; oral         TRUE                             </span></span>
-<span><span class="co">#&gt; mw           492.6 g/mol                      </span></span>
-<span><span class="co">#&gt; dose         450 mg         (clinical dose)   </span></span>
-<span><span class="co">#&gt; imaxss       3530 ng/ml     (study 001)       </span></span>
-<span><span class="co">#&gt; fu           0.023          (study 002)       </span></span>
-<span><span class="co">#&gt; fumic        1              (default)         </span></span>
-<span><span class="co">#&gt; rb           1              (study 003)       </span></span>
-<span><span class="co">#&gt; fa           0.81           (study 003)       </span></span>
-<span><span class="co">#&gt; fg           1              (default)         </span></span>
-<span><span class="co">#&gt; ka           0.00267 /min   (unknown)         </span></span>
-<span><span class="co">#&gt; solubility   Inf mg/ml</span></span></code></pre></div>
-<p>The <code>ddir</code> package provides multiple options to create
-perpetrator objects. In the simplest case, the function
-<code>make_perpetrator()</code> can be used:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">perp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/perpetrator.html">perpetrator</a></span><span class="op">(</span></span>
-<span>  name <span class="op">=</span> <span class="st">"test"</span>,</span>
-<span>  dose <span class="op">=</span> <span class="fl">100</span>,</span>
-<span>  imaxss <span class="op">=</span> <span class="fl">1000</span>,</span>
-<span>  mw <span class="op">=</span> <span class="fl">500</span>,</span>
-<span>  oral <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  fu <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  fumic <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  rb <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  fa <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  fg <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  ka <span class="op">=</span> <span class="fl">0.1</span>,</span>
-<span>  solubility <span class="op">=</span> <span class="cn">Inf</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p>Other options are presented in a dedicated vignette (see
-<code>vignette("load-data")</code>).</p>
-<p>To facilitate the generation of R notebook-based reports,
-<code>property_table()</code> can be used to print a markdown-formatted
-table of the key compound parameters:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">examplinib_parent</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">examplinib</span></span></code></pre></div>
 <table class="table">
 <caption>Perpetrator compound parameters for examplinib</caption>
 <thead><tr class="header">
@@ -255,7 +213,7 @@ table of the key compound parameters:</p>
 <td align="left">
 <span class="math inline">\(dose\)</span> (mg)</td>
 <td align="left">450</td>
-<td align="left">clinical dose</td>
+<td align="left"></td>
 </tr>
 <tr class="even">
 <td align="left">
@@ -269,50 +227,67 @@ table of the key compound parameters:</p>
 <span class="math inline">\(C_{max,ss}\)</span>
 (ng/ml)</td>
 <td align="left">3530</td>
-<td align="left">study 001</td>
+<td align="left"></td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(f_u\)</span></td>
 <td align="left">0.023</td>
-<td align="left">study 002</td>
+<td align="left"></td>
 </tr>
 <tr class="odd">
 <td align="left"><span class="math inline">\(f_{u,mic}\)</span></td>
 <td align="left">1</td>
-<td align="left">default</td>
+<td align="left"></td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(R_B\)</span></td>
 <td align="left">1</td>
-<td align="left">study 003</td>
+<td align="left"></td>
 </tr>
 <tr class="odd">
 <td align="left"><span class="math inline">\(F_a\)</span></td>
 <td align="left">0.81</td>
-<td align="left">study 003</td>
+<td align="left"></td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(F_g\)</span></td>
 <td align="left">1</td>
-<td align="left">default</td>
+<td align="left"></td>
 </tr>
 <tr class="odd">
 <td align="left">
 <span class="math inline">\(k_a\)</span> (1/min)</td>
 <td align="left">0.00267</td>
-<td align="left">unknown</td>
+<td align="left"></td>
 </tr>
 </tbody>
 </table>
+<p>The function <code><a href="../reference/perpetrator.html">perpetrator()</a></code> can be used to create custom
+perpetrator objects:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">perp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/perpetrator.html">perpetrator</a></span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="st">"test"</span>,</span>
+<span>  dose <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  imaxss <span class="op">=</span> <span class="fl">1000</span>,</span>
+<span>  mw <span class="op">=</span> <span class="fl">500</span>,</span>
+<span>  oral <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  fu <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  fumic <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  rb <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  fa <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  fg <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  ka <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>  solubility <span class="op">=</span> <span class="cn">Inf</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="perpetrator-concentrations">Perpetrator concentrations<a class="anchor" aria-label="anchor" href="#perpetrator-concentrations"></a>
 </h2>
 <p>The relevant perpetrator concentrations for a perpetrator compound
-can be determined using <code><a href="../reference/key_conc.html">key_conc()</a></code> - please see the
+can be determined using <code><a href="../reference/key_conc_table.html">key_conc_table()</a></code> - please see the
 documentation to this function for details about the calculations.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/key_conc.html">key_conc</a></span><span class="op">(</span><span class="va">examplinib_parent</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/key_conc_table.html">key_conc_table</a></span><span class="op">(</span><span class="va">examplinib</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <caption>Key perpetrator concentrations for examplinib</caption>
 <thead><tr class="header">
@@ -351,42 +326,127 @@ M\)</span>)</th>
 <div class="section level3">
 <h3 id="cyp-enzymes">CYP enzymes<a class="anchor" aria-label="anchor" href="#cyp-enzymes"></a>
 </h3>
+<p>In vitro CYP inhibition data is expected as
+<code>inhibition_data</code> object that can be constructed like so:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cyp_inh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/inhibition_data.html">inhibition_data</a></span><span class="op">(</span></span>
+<span>  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
+<span>    <span class="op">~</span><span class="va">object</span>,  <span class="op">~</span><span class="va">ki</span>,     <span class="op">~</span><span class="va">source</span>,</span>
+<span>   <span class="st">"CYP1A2"</span>,   <span class="cn">NA</span>,          <span class="cn">NA</span>,</span>
+<span>   <span class="st">"CYP2B6"</span>,   <span class="cn">NA</span>,          <span class="cn">NA</span>,</span>
+<span>   <span class="st">"CYP2C8"</span>,   <span class="fl">11</span>, <span class="st">"study 001"</span>,</span>
+<span>   <span class="st">"CYP2C9"</span>,  <span class="fl">0.6</span>, <span class="st">"study 001"</span>,</span>
+<span>  <span class="st">"CYP2C19"</span>, <span class="fl">0.25</span>, <span class="st">"study 001"</span>,</span>
+<span>   <span class="st">"CYP2D6"</span>,   <span class="cn">NA</span>,          <span class="cn">NA</span>,</span>
+<span>   <span class="st">"CYP3A4"</span>, <span class="fl">12.5</span>, <span class="st">"study 001"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  precipitant <span class="op">=</span> <span class="st">"examplinib"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>Printing this object yields a convenient table view:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">cyp_inh</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<caption>In vitro inhibition data for precipitant examplinib</caption>
+<thead><tr class="header">
+<th align="left">object</th>
+<th align="right">ki</th>
+<th align="left">source</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">CYP1A2</td>
+<td align="right">NA</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">CYP2B6</td>
+<td align="right">NA</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">CYP2C8</td>
+<td align="right">11.00</td>
+<td align="left">study 001</td>
+</tr>
+<tr class="even">
+<td align="left">CYP2C9</td>
+<td align="right">0.60</td>
+<td align="left">study 001</td>
+</tr>
+<tr class="odd">
+<td align="left">CYP2C19</td>
+<td align="right">0.25</td>
+<td align="left">study 001</td>
+</tr>
+<tr class="even">
+<td align="left">CYP2D6</td>
+<td align="right">NA</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">CYP3A4</td>
+<td align="right">12.50</td>
+<td align="left">study 001</td>
+</tr>
+</tbody>
+</table>
+<p>The function to assess the clinical risk for direct CYP inhibition,
+<code><a href="../reference/basic_cyp_inhibition_risk.html">ddir::basic_cyp_inhibition_risk()</a></code>, takes a precipitant
+object and a CYP inhibition data object:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="../reference/basic_cyp_inhibition_risk.html">basic_cyp_inhibition_risk</a></span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_inh_parent</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="../reference/basic_cyp_inhibition_risk.html">basic_cyp_inhibition_risk</a></span><span class="op">(</span><span class="va">examplinib</span>, <span class="va">cyp_inh</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <caption>Direct CYP inhibition risk for examplinib</caption>
 <colgroup>
+<col width="12%">
+<col width="9%">
+<col width="9%">
+<col width="15%">
 <col width="7%">
-<col width="17%">
-<col width="19%">
-<col width="9%">
-<col width="4%">
-<col width="14%">
-<col width="9%">
-<col width="17%">
+<col width="13%">
+<col width="13%">
+<col width="18%">
 </colgroup>
 <thead><tr class="header">
-<th align="left">target</th>
-<th align="right">
-<span class="math inline">\(K_{i}\)</span> (<span class="math inline">\(\mu M\)</span>)</th>
-<th align="right">
-<span class="math inline">\(K_{i,u}\)</span> (<span class="math inline">\(\mu M\)</span>)</th>
+<th align="left">object</th>
+<th align="right">ki</th>
+<th align="right">kiu</th>
 <th align="left">source</th>
-<th align="right"><span class="math inline">\(R\)</span></th>
-<th align="left">risk (hepatic)</th>
-<th align="right"><span class="math inline">\(R_{gut}\)</span></th>
-<th align="left">risk (intestinal)</th>
+<th align="right">r</th>
+<th align="left">risk_hep</th>
+<th align="right">r_gut</th>
+<th align="left">risk_intest</th>
 </tr></thead>
 <tbody>
+<tr class="odd">
+<td align="left">CYP1A2</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">CYP2B6</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+</tr>
 <tr class="odd">
 <td align="left">CYP2C8</td>
 <td align="right">11.00</td>
 <td align="right">11.00</td>
 <td align="left">study 001</td>
 <td align="right">0.01</td>
-<td align="left">No</td>
+<td align="left">FALSE</td>
 <td align="right">NA</td>
-<td align="left"></td>
+<td align="left">NA</td>
 </tr>
 <tr class="even">
 <td align="left">CYP2C9</td>
@@ -394,9 +454,9 @@ M\)</span>)</th>
 <td align="right">0.60</td>
 <td align="left">study 001</td>
 <td align="right">0.27</td>
-<td align="left">Yes</td>
+<td align="left">TRUE</td>
 <td align="right">NA</td>
-<td align="left"></td>
+<td align="left">NA</td>
 </tr>
 <tr class="odd">
 <td align="left">CYP2C19</td>
@@ -404,19 +464,29 @@ M\)</span>)</th>
 <td align="right">0.25</td>
 <td align="left">study 001</td>
 <td align="right">0.66</td>
-<td align="left">Yes</td>
+<td align="left">TRUE</td>
 <td align="right">NA</td>
-<td align="left"></td>
+<td align="left">NA</td>
 </tr>
 <tr class="even">
+<td align="left">CYP2D6</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
 <td align="left">CYP3A4</td>
 <td align="right">12.50</td>
 <td align="right">12.50</td>
 <td align="left">study 001</td>
 <td align="right">0.01</td>
-<td align="left">No</td>
-<td align="right">292.33</td>
-<td align="left">Yes</td>
+<td align="left">FALSE</td>
+<td align="right">292.3264</td>
+<td align="left">TRUE</td>
 </tr>
 </tbody>
 </table>
@@ -425,91 +495,81 @@ M\)</span>)</th>
 <h3 id="ugt-enzymes">UGT enzymes<a class="anchor" aria-label="anchor" href="#ugt-enzymes"></a>
 </h3>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="../reference/basic_ugt_inhibition_risk.html">basic_ugt_inhibition_risk</a></span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_ugt_inh_parent</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="../reference/basic_ugt_inhibition_risk.html">basic_ugt_inhibition_risk</a></span><span class="op">(</span><span class="va">examplinib</span>, <span class="va">examplinib_ugt_inhibition</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <caption>UGT inhibition risk for examplinib</caption>
-<colgroup>
-<col width="12%">
-<col width="27%">
-<col width="30%">
-<col width="15%">
-<col width="7%">
-<col width="7%">
-</colgroup>
 <thead><tr class="header">
-<th align="left">target</th>
-<th align="right">
-<span class="math inline">\(K_{i}\)</span> (<span class="math inline">\(\mu M\)</span>)</th>
-<th align="right">
-<span class="math inline">\(K_{i,u}\)</span> (<span class="math inline">\(\mu M\)</span>)</th>
+<th align="left">object</th>
+<th align="right">ki</th>
+<th align="right">kiu</th>
 <th align="left">source</th>
-<th align="right"><span class="math inline">\(R\)</span></th>
+<th align="right">r</th>
 <th align="left">risk</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
 <td align="left">UGT1A1</td>
-<td align="right">7.50</td>
-<td align="right">7.50</td>
+<td align="right">15.0</td>
+<td align="right">15.0</td>
 <td align="left">study 009</td>
-<td align="right">0.02</td>
-<td align="left">Yes</td>
+<td align="right">0.01</td>
+<td align="left">FALSE</td>
 </tr>
 <tr class="even">
 <td align="left">UGT1A3</td>
-<td align="right">7.50</td>
-<td align="right">7.50</td>
+<td align="right">15.0</td>
+<td align="right">15.0</td>
 <td align="left">study 009</td>
-<td align="right">0.02</td>
-<td align="left">Yes</td>
+<td align="right">0.01</td>
+<td align="left">FALSE</td>
 </tr>
 <tr class="odd">
 <td align="left">UGT1A4</td>
-<td align="right">7.50</td>
-<td align="right">7.50</td>
+<td align="right">15.0</td>
+<td align="right">15.0</td>
 <td align="left">study 009</td>
-<td align="right">0.02</td>
-<td align="left">Yes</td>
+<td align="right">0.01</td>
+<td align="left">FALSE</td>
 </tr>
 <tr class="even">
 <td align="left">UGT1A6</td>
-<td align="right">7.50</td>
-<td align="right">7.50</td>
+<td align="right">15.0</td>
+<td align="right">15.0</td>
 <td align="left">study 009</td>
-<td align="right">0.02</td>
-<td align="left">Yes</td>
+<td align="right">0.01</td>
+<td align="left">FALSE</td>
 </tr>
 <tr class="odd">
 <td align="left">UGT1A9</td>
-<td align="right">1.90</td>
-<td align="right">1.90</td>
+<td align="right">3.8</td>
+<td align="right">3.8</td>
 <td align="left">study 009</td>
-<td align="right">0.09</td>
-<td align="left">Yes</td>
+<td align="right">0.04</td>
+<td align="left">TRUE</td>
 </tr>
 <tr class="even">
 <td align="left">UGT2B7</td>
-<td align="right">7.50</td>
-<td align="right">7.50</td>
+<td align="right">15.0</td>
+<td align="right">15.0</td>
 <td align="left">study 009</td>
-<td align="right">0.02</td>
-<td align="left">Yes</td>
+<td align="right">0.01</td>
+<td align="left">FALSE</td>
 </tr>
 <tr class="odd">
 <td align="left">UGT2B15</td>
-<td align="right">7.50</td>
-<td align="right">7.50</td>
+<td align="right">15.0</td>
+<td align="right">15.0</td>
 <td align="left">study 009</td>
-<td align="right">0.02</td>
-<td align="left">Yes</td>
+<td align="right">0.01</td>
+<td align="left">FALSE</td>
 </tr>
 <tr class="even">
 <td align="left">UGT2B17</td>
-<td align="right">3.05</td>
-<td align="right">3.05</td>
+<td align="right">6.1</td>
+<td align="right">6.1</td>
 <td align="left">study 009</td>
-<td align="right">0.05</td>
-<td align="left">Yes</td>
+<td align="right">0.03</td>
+<td align="left">TRUE</td>
 </tr>
 </tbody>
 </table>
@@ -519,32 +579,17 @@ M\)</span>)</th>
 <h2 id="time-dependent-enzyme-inhibition">Time-dependent enzyme inhibition<a class="anchor" aria-label="anchor" href="#time-dependent-enzyme-inhibition"></a>
 </h2>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="../reference/basic_cyp_tdi_risk.html">basic_cyp_tdi_risk</a></span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_tdi_parent</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="../reference/basic_cyp_tdi_risk.html">basic_cyp_tdi_risk</a></span><span class="op">(</span><span class="va">examplinib</span>, <span class="va">examplinib_cyp_tdi</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <caption>Time-dependent CYP inhibition risk for examplinib</caption>
-<colgroup>
-<col width="8%">
-<col width="21%">
-<col width="7%">
-<col width="21%">
-<col width="18%">
-<col width="11%">
-<col width="5%">
-<col width="5%">
-</colgroup>
 <thead><tr class="header">
-<th align="left">target</th>
-<th align="right">
-<span class="math inline">\(K_{i}\)</span> (<span class="math inline">\(\mu M\)</span>)</th>
-<th align="right"><span class="math inline">\(f_u\)</span></th>
-<th align="right">
-<span class="math inline">\(k_{inact}\)</span>
-(1/h)</th>
-<th align="right">
-<span class="math inline">\(k_{deg}\)</span>
-(1/h)</th>
+<th align="left">object</th>
+<th align="right">ki</th>
+<th align="right">fu</th>
+<th align="right">kinact</th>
+<th align="right">kdeg</th>
 <th align="left">source</th>
-<th align="right"><span class="math inline">\(R\)</span></th>
+<th align="right">r</th>
 <th align="left">risk</th>
 </tr></thead>
 <tbody><tr class="odd">
@@ -555,7 +600,7 @@ M\)</span>)</th>
 <td align="right">0.0193</td>
 <td align="left">study 001</td>
 <td align="right">2.72</td>
-<td align="left">Yes</td>
+<td align="left">TRUE</td>
 </tr></tbody>
 </table>
 </div>
@@ -566,25 +611,22 @@ M\)</span>)</th>
 <h3 id="fold-change-method">Fold-change method<a class="anchor" aria-label="anchor" href="#fold-change-method"></a>
 </h3>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="../reference/static_cyp_induction_risk.html">static_cyp_induction_risk</a></span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_ind_parent</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="../reference/static_cyp_induction_risk.html">static_cyp_induction_risk</a></span><span class="op">(</span><span class="va">examplinib</span>, <span class="va">examplinib_cyp_induction</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <caption>Static CYP induction risk for examplinib</caption>
 <colgroup>
+<col width="11%">
+<col width="7%">
 <col width="8%">
-<col width="11%">
-<col width="5%">
-<col width="11%">
-<col width="20%">
-<col width="5%">
-<col width="36%">
+<col width="14%">
+<col width="8%">
+<col width="47%">
 </colgroup>
 <thead><tr class="header">
-<th align="left">target</th>
-<th align="right"><span class="math inline">\(E_{max}\)</span></th>
-<th align="right">maxc</th>
+<th align="left">object</th>
+<th align="right">emax</th>
+<th align="right">max_c</th>
 <th align="left">source</th>
-<th align="right">
-<span class="math inline">\(max c\)</span> (<span class="math inline">\(\mu M\)</span>)</th>
 <th align="left">risk</th>
 <th align="left">note</th>
 </tr></thead>
@@ -594,8 +636,7 @@ M\)</span>)</th>
 <td align="right">1.00</td>
 <td align="right">5</td>
 <td align="left">study 007</td>
-<td align="right">5</td>
-<td align="left">No</td>
+<td align="left">FALSE</td>
 <td align="left">Not tested up to 50-fold Cmax,u</td>
 </tr>
 <tr class="even">
@@ -603,17 +644,47 @@ M\)</span>)</th>
 <td align="right">1.00</td>
 <td align="right">5</td>
 <td align="left">study 007</td>
-<td align="right">5</td>
-<td align="left">No</td>
+<td align="left">FALSE</td>
 <td align="left">Not tested up to 50-fold Cmax,u</td>
+</tr>
+<tr class="odd">
+<td align="left">CYP2C8</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">CYP2C9</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">CYP2C19</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">CYP2D6</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left"></td>
 </tr>
 <tr class="odd">
 <td align="left">CYP3A4</td>
 <td align="right">7.35</td>
 <td align="right">3</td>
 <td align="left">study 007</td>
-<td align="right">3</td>
-<td align="left">Yes</td>
+<td align="left">TRUE</td>
 <td align="left">Not tested up to 50-fold Cmax,u</td>
 </tr>
 </tbody>
@@ -623,28 +694,16 @@ M\)</span>)</th>
 <h3 id="basic-kinetic-model">Basic kinetic model<a class="anchor" aria-label="anchor" href="#basic-kinetic-model"></a>
 </h3>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="../reference/kinetic_cyp_induction_risk.html">kinetic_cyp_induction_risk</a></span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_ind_parent</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<table style="width:100%;" class="table">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="../reference/kinetic_cyp_induction_risk.html">kinetic_cyp_induction_risk</a></span><span class="op">(</span><span class="va">examplinib</span>, <span class="va">examplinib_cyp_induction</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
 <caption>Kinetic CYP induction risk for examplinib</caption>
-<colgroup>
-<col width="10%">
-<col width="14%">
-<col width="14%">
-<col width="7%">
-<col width="14%">
-<col width="25%">
-<col width="7%">
-<col width="7%">
-</colgroup>
 <thead><tr class="header">
-<th align="left">target</th>
-<th align="right"><span class="math inline">\(E_{max}\)</span></th>
-<th align="right"><span class="math inline">\(EC_{50}\)</span></th>
-<th align="right">maxc</th>
+<th align="left">object</th>
+<th align="right">emax</th>
+<th align="right">ec50</th>
+<th align="right">max_c</th>
 <th align="left">source</th>
-<th align="right">
-<span class="math inline">\(max c\)</span> (<span class="math inline">\(\mu M\)</span>)</th>
-<th align="right"><span class="math inline">\(R\)</span></th>
+<th align="right">r</th>
 <th align="left">risk</th>
 </tr></thead>
 <tbody>
@@ -654,9 +713,8 @@ M\)</span>)</th>
 <td align="right">NA</td>
 <td align="right">5</td>
 <td align="left">study 007</td>
-<td align="right">5</td>
 <td align="right">NA</td>
-<td align="left"></td>
+<td align="left">NA</td>
 </tr>
 <tr class="even">
 <td align="left">CYP2B6</td>
@@ -664,9 +722,44 @@ M\)</span>)</th>
 <td align="right">NA</td>
 <td align="right">5</td>
 <td align="left">study 007</td>
-<td align="right">5</td>
 <td align="right">NA</td>
-<td align="left"></td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">CYP2C8</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">CYP2C9</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">CYP2C19</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">CYP2D6</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
 </tr>
 <tr class="odd">
 <td align="left">CYP3A4</td>
@@ -674,9 +767,8 @@ M\)</span>)</th>
 <td align="right">1.64</td>
 <td align="right">3</td>
 <td align="left">study 007</td>
-<td align="right">3</td>
 <td align="right">0.21</td>
-<td align="left">Yes</td>
+<td align="left">TRUE</td>
 </tr>
 </tbody>
 </table>
@@ -686,44 +778,74 @@ M\)</span>)</th>
 <h2 id="mechanistic-static-assessment-of-cyp-related-ddi">Mechanistic-static assessment of CYP-related DDI<a class="anchor" aria-label="anchor" href="#mechanistic-static-assessment-of-cyp-related-ddi"></a>
 </h2>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="../reference/mech_stat_cyp_risk.html">mech_stat_cyp_risk</a></span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_cyp_inh_parent</span>,</span>
-<span>                   <span class="va">examplinib_cyp_ind_parent</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<table class="table">
-<caption>Mechanistic-static CYP inhibition risk for examplinib</caption>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="../reference/mech_stat_cyp_risk.html">mech_stat_cyp_risk</a></span><span class="op">(</span><span class="va">examplinib</span>, <span class="va">examplinib_cyp_inhibition</span>, <span class="va">examplinib_cyp_induction</span>, <span class="va">examplinib_cyp_tdi</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<table style="width:100%;" class="table">
+<caption>Mechanistic-static risk assessment for examplinib</caption>
 <colgroup>
+<col width="9%">
+<col width="14%">
 <col width="7%">
-<col width="11%">
-<col width="18%">
-<col width="9%">
-<col width="4%">
-<col width="10%">
-<col width="4%">
-<col width="4%">
-<col width="2%">
-<col width="2%">
-<col width="4%">
-<col width="4%">
-<col width="9%">
-<col width="4%">
+<col width="6%">
+<col width="6%">
+<col width="7%">
+<col width="6%">
+<col width="6%">
+<col width="6%">
+<col width="6%">
+<col width="6%">
+<col width="6%">
+<col width="6%">
+<col width="7%">
 </colgroup>
 <thead><tr class="header">
-<th align="left">target</th>
+<th align="left">object</th>
 <th align="left">substrate</th>
-<th align="right">
-<span class="math inline">\(K_{i,u}\)</span> (<span class="math inline">\(\mu M\)</span>)</th>
-<th align="right"><span class="math inline">\(f_{gut}\)</span></th>
+<th align="right">kiu</th>
+<th align="right">fgut</th>
 <th align="right">fm</th>
-<th align="right"><span class="math inline">\(fm_{CYP}\)</span></th>
+<th align="right">fmcyp</th>
 <th align="right">Ag</th>
 <th align="right">Ah</th>
 <th align="right">Bg</th>
 <th align="right">Bh</th>
 <th align="right">Cg</th>
 <th align="right">Ch</th>
-<th align="right"><span class="math inline">\(R_{AUC}\)</span></th>
+<th align="right">aucr</th>
 <th align="left">risk</th>
 </tr></thead>
 <tbody>
+<tr class="odd">
+<td align="left">CYP1A2</td>
+<td align="left">tizanidine</td>
+<td align="right">NA</td>
+<td align="right">1.00</td>
+<td align="right">0.95</td>
+<td align="right">0.98</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">CYP2B6</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+</tr>
 <tr class="odd">
 <td align="left">CYP2C8</td>
 <td align="left">repaglinide</td>
@@ -733,12 +855,12 @@ M\)</span>)</th>
 <td align="right">0.61</td>
 <td align="right">0.63</td>
 <td align="right">0.98</td>
-<td align="right">1</td>
-<td align="right">1</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
 <td align="right">1.00</td>
 <td align="right">1.00</td>
 <td align="right">1.01</td>
-<td align="left">No</td>
+<td align="left">FALSE</td>
 </tr>
 <tr class="even">
 <td align="left">CYP2C9</td>
@@ -749,12 +871,12 @@ M\)</span>)</th>
 <td align="right">0.91</td>
 <td align="right">0.08</td>
 <td align="right">0.76</td>
-<td align="right">1</td>
-<td align="right">1</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
 <td align="right">1.00</td>
 <td align="right">1.00</td>
 <td align="right">1.28</td>
-<td align="left">Yes</td>
+<td align="left">TRUE</td>
 </tr>
 <tr class="odd">
 <td align="left">CYP2C19</td>
@@ -765,14 +887,30 @@ M\)</span>)</th>
 <td align="right">0.87</td>
 <td align="right">0.04</td>
 <td align="right">0.56</td>
-<td align="right">1</td>
-<td align="right">1</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
 <td align="right">1.00</td>
 <td align="right">1.00</td>
 <td align="right">1.61</td>
-<td align="left">Yes</td>
+<td align="left">TRUE</td>
 </tr>
 <tr class="even">
+<td align="left">CYP2D6</td>
+<td align="left">desipramine</td>
+<td align="right">NA</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="right">0.85</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
 <td align="left">CYP3A4</td>
 <td align="left">midazolam</td>
 <td align="right">12.50</td>
@@ -781,12 +919,12 @@ M\)</span>)</th>
 <td align="right">1.00</td>
 <td align="right">0.65</td>
 <td align="right">0.98</td>
-<td align="right">1</td>
-<td align="right">1</td>
+<td align="right">0.43</td>
+<td align="right">0.48</td>
 <td align="right">6.88</td>
 <td align="right">1.77</td>
-<td align="right">0.23</td>
-<td align="left">Yes</td>
+<td align="right">0.84</td>
+<td align="left">FALSE</td>
 </tr>
 </tbody>
 </table>
@@ -795,15 +933,15 @@ M\)</span>)</th>
 <h2 id="transporter-inhibition">Transporter inhibition<a class="anchor" aria-label="anchor" href="#transporter-inhibition"></a>
 </h2>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="../reference/transporter_inhibition_risk.html">transporter_inhibition_risk</a></span><span class="op">(</span><span class="va">examplinib_parent</span>, <span class="va">examplinib_transporter_inh_parent</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="../reference/transporter_inhibition_risk.html">transporter_inhibition_risk</a></span><span class="op">(</span><span class="va">examplinib</span>, <span class="va">examplinib_transporter_inhibition</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <caption>Transporter inhibition risk for examplinib</caption>
 <thead><tr class="header">
-<th align="left">target</th>
-<th align="right"><span class="math inline">\(IC_{50}\)</span></th>
+<th align="left">object</th>
+<th align="right">ic50</th>
 <th align="left">source</th>
-<th align="left"><span class="math inline">\(i\)</span></th>
-<th align="right"><span class="math inline">\(R\)</span></th>
+<th align="left">i</th>
+<th align="right">r</th>
 <th align="right">threshold</th>
 <th align="left">risk</th>
 </tr></thead>
@@ -815,7 +953,7 @@ M\)</span>)</th>
 <td align="left">igut</td>
 <td align="right">8912.39</td>
 <td align="right">10.00</td>
-<td align="left">Yes</td>
+<td align="left">TRUE</td>
 </tr>
 <tr class="even">
 <td align="left">Pgp_sys</td>
@@ -824,7 +962,7 @@ M\)</span>)</th>
 <td align="left">imaxssu</td>
 <td align="right">0.40</td>
 <td align="right">0.02</td>
-<td align="left">Yes</td>
+<td align="left">TRUE</td>
 </tr>
 <tr class="odd">
 <td align="left">BCRP_int</td>
@@ -833,7 +971,7 @@ M\)</span>)</th>
 <td align="left">igut</td>
 <td align="right">1923.20</td>
 <td align="right">10.00</td>
-<td align="left">Yes</td>
+<td align="left">TRUE</td>
 </tr>
 <tr class="even">
 <td align="left">BCRP_sys</td>
@@ -842,7 +980,7 @@ M\)</span>)</th>
 <td align="left">imaxssu</td>
 <td align="right">0.09</td>
 <td align="right">0.02</td>
-<td align="left">Yes</td>
+<td align="left">TRUE</td>
 </tr>
 <tr class="odd">
 <td align="left">OATP1B1</td>
@@ -851,7 +989,7 @@ M\)</span>)</th>
 <td align="left">imaxinletu</td>
 <td align="right">0.00</td>
 <td align="right">0.10</td>
-<td align="left">No</td>
+<td align="left">FALSE</td>
 </tr>
 <tr class="even">
 <td align="left">OATP1B3</td>
@@ -860,34 +998,34 @@ M\)</span>)</th>
 <td align="left">imaxinletu</td>
 <td align="right">0.01</td>
 <td align="right">0.10</td>
-<td align="left">No</td>
+<td align="left">FALSE</td>
 </tr>
 <tr class="odd">
 <td align="left">OAT1</td>
 <td align="right">271.00</td>
-<td align="left"></td>
+<td align="left">NA</td>
 <td align="left">imaxssu</td>
 <td align="right">0.00</td>
 <td align="right">0.10</td>
-<td align="left">No</td>
+<td align="left">FALSE</td>
 </tr>
 <tr class="even">
 <td align="left">OAT3</td>
 <td align="right">300.00</td>
-<td align="left"></td>
+<td align="left">NA</td>
 <td align="left">imaxssu</td>
 <td align="right">0.00</td>
 <td align="right">0.10</td>
-<td align="left">No</td>
+<td align="left">FALSE</td>
 </tr>
 <tr class="odd">
 <td align="left">BSEP</td>
 <td align="right">12.80</td>
-<td align="left"></td>
+<td align="left">NA</td>
 <td align="left">imaxssu</td>
 <td align="right">0.01</td>
 <td align="right">0.10</td>
-<td align="left">No</td>
+<td align="left">FALSE</td>
 </tr>
 <tr class="even">
 <td align="left">OCT1</td>
@@ -896,7 +1034,7 @@ M\)</span>)</th>
 <td align="left">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
-<td align="left"></td>
+<td align="left">NA</td>
 </tr>
 <tr class="odd">
 <td align="left">OCT2</td>
@@ -905,7 +1043,7 @@ M\)</span>)</th>
 <td align="left">imaxssu</td>
 <td align="right">0.00</td>
 <td align="right">0.10</td>
-<td align="left">No</td>
+<td align="left">FALSE</td>
 </tr>
 <tr class="even">
 <td align="left">MATE1</td>
@@ -914,7 +1052,7 @@ M\)</span>)</th>
 <td align="left">imaxssu</td>
 <td align="right">0.05</td>
 <td align="right">0.02</td>
-<td align="left">Yes</td>
+<td align="left">TRUE</td>
 </tr>
 <tr class="odd">
 <td align="left">MATE2k</td>
@@ -923,7 +1061,7 @@ M\)</span>)</th>
 <td align="left">imaxssu</td>
 <td align="right">0.15</td>
 <td align="right">0.02</td>
-<td align="left">Yes</td>
+<td align="left">TRUE</td>
 </tr>
 </tbody>
 </table>

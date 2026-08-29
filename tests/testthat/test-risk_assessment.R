@@ -295,7 +295,7 @@ test_that("basic_ugt_inhibition_risk rejects wrong input classes and empty UGT d
 })
 
 
-test_that("basic_ugt_inhibition_risk drops CYP rows", {
+test_that("basic_ugt_inhibition_risk warns and drops CYP rows", {
   perp <- make_risk_perp()
   inh <- inhibition_data(
     tibble::tribble(
@@ -306,7 +306,10 @@ test_that("basic_ugt_inhibition_risk drops CYP rows", {
     precipitant = "testdrug"
   )
 
-  expect_no_warning(res <- basic_ugt_inhibition_risk(perp, inh))
+  expect_warning(
+    res <- basic_ugt_inhibition_risk(perp, inh),
+    "Non-UGT data were excluded \\(CYP3A4\\)"
+  )
   expect_equal(res$object, "UGT1A1")
 })
 
@@ -619,7 +622,7 @@ test_that("basic_cyp_tdi_risk rejects wrong classes, missing columns, and empty 
 })
 
 
-test_that("basic_cyp_tdi_risk warns about CYP3A5 but still includes it in the fitted table", {
+test_that("basic_cyp_tdi_risk warns about CYP3A5 and excludes it from the result", {
   perp <- make_risk_perp()
   tdi <- inhibition_data(
     tibble::tribble(
@@ -634,7 +637,7 @@ test_that("basic_cyp_tdi_risk warns about CYP3A5 but still includes it in the fi
     res <- basic_cyp_tdi_risk(perp, tdi),
     "Non-CYP data were excluded \\(CYP3A5\\)"
   )
-  expect_equal(res$object, c("CYP3A4", "CYP3A5"))
+  expect_equal(res$object, "CYP3A4")
 })
 
 
@@ -713,7 +716,7 @@ test_that("static_cyp_induction_risk rejects wrong classes and empty allowed CYP
 })
 
 
-test_that("static_cyp_induction_risk warns about CYP3A5 but still includes it in the table", {
+test_that("static_cyp_induction_risk warns about CYP3A5 and excludes it from the result", {
   perp <- make_risk_perp()
   ind <- induction_data(
     tibble::tribble(
@@ -728,7 +731,7 @@ test_that("static_cyp_induction_risk warns about CYP3A5 but still includes it in
     res <- static_cyp_induction_risk(perp, ind),
     "Non-CYP data were excluded \\(CYP3A5\\)"
   )
-  expect_equal(res$object, c("CYP3A4", "CYP3A5"))
+  expect_equal(res$object, "CYP3A4")
 })
 
 
@@ -811,7 +814,7 @@ test_that("kinetic_cyp_induction_risk rejects wrong classes and empty allowed CY
 })
 
 
-test_that("kinetic_cyp_induction_risk warns about CYP3A5 but still includes it in the table", {
+test_that("kinetic_cyp_induction_risk warns about CYP3A5 and excludes it from the result", {
   perp <- make_risk_perp()
   ind <- induction_data(
     tibble::tribble(
@@ -826,7 +829,7 @@ test_that("kinetic_cyp_induction_risk warns about CYP3A5 but still includes it i
     res <- kinetic_cyp_induction_risk(perp, ind),
     "Non-CYP data were excluded \\(CYP3A5\\)"
   )
-  expect_equal(res$object, c("CYP3A4", "CYP3A5"))
+  expect_equal(res$object, "CYP3A4")
 })
 
 

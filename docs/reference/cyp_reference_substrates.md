@@ -22,6 +22,7 @@ FDA and EMA guidelines.
 
 The CYP reference substrates currently implemented include:
 
+
     cyp     , substrate   , fgut , fm   , fmcyp
     CYP1A2  , tizanidine  , 1    , 0.95 , 0.98
     CYP2C8  , repaglinide , 1    , 1    , 0.61
@@ -32,5 +33,3 @@ The CYP reference substrates currently implemented include:
 ## See also
 
 [`mech_stat_cyp_risk()`](mech_stat_cyp_risk.md)
-
-mech_stat_cyp_risk_table

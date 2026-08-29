@@ -5,7 +5,7 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Basic CYP inhibition risk — basic_cyp_inhibition_risk"><meta name="description" content="Evaluate the clinical risk for direct (reversible) CYP inhibition according
+</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Basic CYP inhibition risk — basic_cyp_inhibition_risk"><meta name="description" content="Evaluate the clinical risk for direct (reversible) CYP inhibition according
 to the basic model defined in the ICH M12 guideline."><meta property="og:description" content="Evaluate the clinical risk for direct (reversible) CYP inhibition according
 to the basic model defined in the ICH M12 guideline."></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -99,6 +99,23 @@ the regulatory threshold is reached.</p>
 
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">basic_cyp_inhibition_risk</span><span class="op">(</span><span class="va">examplinib</span>, <span class="va">examplinib_cyp_inhibition</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ──────── Clinical DDI risk assessment ──────── </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Direct CYP inhibition risk for examplinib </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> object    ki     kiu    source      r      risk_hep   r_gut      risk_intest   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CYP1A2    NA     NA     NA          NA     NA         NA         NA            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CYP2B6    NA     NA     NA          NA     NA         NA         NA            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CYP2C8    11     11     study 001   0.01   FALSE      NA         NA            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CYP2C9    0.6    0.6    study 001   0.27   TRUE       NA         NA            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CYP2C19   0.25   0.25   study 001   0.66   TRUE       NA         NA            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CYP2D6    NA     NA     NA          NA     NA         NA         NA            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CYP3A4    12.5   12.5   study 001   0.01   FALSE      292.3264   TRUE</span>
+<span class="r-in"><span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

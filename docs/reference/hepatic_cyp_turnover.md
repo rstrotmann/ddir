@@ -2,7 +2,7 @@
 
 **\[deprecated\]**
 
-Please use [`cyp_turnover()`](cyp_turnover.md) instead.
+Please use [`ddir::cyp_turnover`](cyp_turnover.md)instead.
 
 ## Usage
 
@@ -54,6 +54,7 @@ publication:
 - in vivo method 3: Pharmacokinetic modeling of auto-induction
 
 These are the first few lines of the data frame:
+
 
        cyp            method mean_hl in_vivo                       reference   kdeg
     CYP1A2 In vitro Method 1      51   FALSE                   PMID: 2136526 0.0136

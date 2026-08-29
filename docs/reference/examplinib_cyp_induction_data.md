@@ -18,6 +18,7 @@ Fictional data, made up for demo purposes.
 
 ## Details
 
+
           name     cyp  emax ec50 maxc    source
     examplinib  CYP1A2  1.00   NA    5 study 007
     examplinib  CYP2B6  1.00   NA    5 study 007

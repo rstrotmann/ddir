@@ -9,6 +9,7 @@ interaction (DDI).
 You can install the development version of ddir like so:
 
 ``` r
+
 devtools::install_github("rstrotmann/ddir")
 ```
 
@@ -20,6 +21,7 @@ calculates the perpetrator DDI risk for direct CYP inhibition (basic
 method). All are provided as markdown-formatted output tables:
 
 ``` r
+
 library(ddir)
 library(knitr)
 
@@ -44,6 +46,7 @@ print(p)
 Perpetrator compound parameters for examplinib
 
 ``` r
+
 print(examplinib_cyp_inh_parent)
 ```
 
@@ -57,6 +60,7 @@ print(examplinib_cyp_inh_parent)
 In vitro inhibition data for examplinib
 
 ``` r
+
 print(basic_cyp_inhibition_risk(p, examplinib_cyp_inh_parent))
 ```
 
@@ -73,7 +77,7 @@ See also:
 [`kinetic_cyp_induction_risk()`](reference/kinetic_cyp_induction_risk.md),
 [`mech_stat_cyp_risk()`](reference/mech_stat_cyp_risk.md),
 [`basic_ugt_inhibition_risk()`](reference/basic_ugt_inhibition_risk.md),
-`transporter_inhibition_risk()`
+[`transporter_inhibition_risk()`](reference/transporter_inhibition_risk.md)
 
 Full documentation for `ddir` can be found together with the source code
 on [github](https://github.com/rstrotmann/ddir).

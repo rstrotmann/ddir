@@ -25,6 +25,7 @@ guideline](https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-g
 
 ## Details
 
+
     transporter , threshold , i
     Pgp_int     , 10        , igut
     Pgp_sys     , 0.02      , imaxssu
@@ -41,6 +42,6 @@ guideline](https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-g
 
 ## See also
 
-`key_concentrations()`
+[`key_conc_table()`](key_conc_table.md)
 
-`transporter_inhibition_risk()`
+[`transporter_inhibition_risk()`](transporter_inhibition_risk.md)

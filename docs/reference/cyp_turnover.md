@@ -19,6 +19,7 @@ This data set is taken from various literature sources
 
 ## Details
 
+
         cyp kdeg_hepatic kdeg_intestinal
      CYP1A1       0.0183              NA
      CYP1A2       0.0183              NA

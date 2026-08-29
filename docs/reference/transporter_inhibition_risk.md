@@ -27,6 +27,10 @@ transporter_inhibition_risk(
 
   Data frame.
 
+- qh:
+
+  Hepatic blood flow in l/min, defaults to 1.616 l/min.
+
 ## Value
 
 DDI risk object.
@@ -47,3 +51,26 @@ thresholds of concern are:
 | \\I\_{max,inlet,u}\\ | hepatic basolateral transporters OCT1, OATP1B1 and OATP1B3 | 0.1 |
 | \\C\_{max,ss,u}\\ | renal basolateral transporters OAT1, OAT3 and OCT2 | 0.1 |
 | \\C\_{max,ss,u}\\ | apical transporters MATE1 and MATE2-K | 0.02 |
+
+## Examples
+
+``` r
+transporter_inhibition_risk(examplinib, examplinib_transporter_inhibition)
+#> ──────── Clinical DDI risk assessment ──────── 
+#> Transporter inhibition risk for examplinib 
+#> 
+#> object     ic50   source      i            r         threshold   risk    
+#> Pgp_int    0.41   study 005   igut         8912.39   10          TRUE    
+#> Pgp_sys    0.41   study 005   imaxssu      0.4       0.02        TRUE    
+#> BCRP_int   1.9    study 005   igut         1923.2    10          TRUE    
+#> BCRP_sys   1.9    study 005   imaxssu      0.09      0.02        TRUE    
+#> OATP1B1    177    study 006   imaxinletu   0         0.1         FALSE   
+#> OATP1B3    35     study 006   imaxinletu   0.01      0.1         FALSE   
+#> OAT1       271    NA          imaxssu      0         0.1         FALSE   
+#> OAT3       300    NA          imaxssu      0         0.1         FALSE   
+#> BSEP       12.8   NA          imaxssu      0.01      0.1         FALSE   
+#> OCT1       2.3    study 006   NA           NA        NA          NA      
+#> OCT2       67     study 006   imaxssu      0         0.1         FALSE   
+#> MATE1      3.6    study 006   imaxssu      0.05      0.02        TRUE    
+#> MATE2k     1.1    study 006   imaxssu      0.15      0.02        TRUE
+```

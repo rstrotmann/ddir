@@ -41,10 +41,10 @@ provided as markdown-formatted output tables:
 library(ddir)
 library(knitr)
 
-p <- examplinib_parent
+p <- examplinib
 print(p)
-print(examplinib_cyp_inh_parent)
-print(basic_cyp_inhibition_risk(p, examplinib_cyp_inh_parent))
+print(examplinib_cyp_inhibition)
+print(basic_cyp_inhibition_risk(p, examplinib_cyp_inhibition))
 ```
 
 See also: `kinetic_cyp_induction_risk()`, `mech_stat_cyp_risk()`,

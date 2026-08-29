@@ -18,5 +18,6 @@ Fictional data, made up for demo purposes.
 
 ## Details
 
+
           name    cyp   ki kinact    source
     examplinib CYP3A4 30.7   0.04 study 001

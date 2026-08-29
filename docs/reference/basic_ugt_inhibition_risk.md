@@ -41,3 +41,21 @@ document](https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-gu
 for details.
 
 \\R\>0.02\\ are considered to indicate a potential UGT inhibition risk.
+
+## Examples
+
+``` r
+basic_ugt_inhibition_risk(examplinib, examplinib_ugt_inhibition)
+#> ──────── Clinical DDI risk assessment ──────── 
+#> UGT inhibition risk for examplinib 
+#> 
+#> object    ki    kiu   source      r      risk    
+#> UGT1A1    15    15    study 009   0.01   FALSE   
+#> UGT1A3    15    15    study 009   0.01   FALSE   
+#> UGT1A4    15    15    study 009   0.01   FALSE   
+#> UGT1A6    15    15    study 009   0.01   FALSE   
+#> UGT1A9    3.8   3.8   study 009   0.04   TRUE    
+#> UGT2B7    15    15    study 009   0.01   FALSE   
+#> UGT2B15   15    15    study 009   0.01   FALSE   
+#> UGT2B17   6.1   6.1   study 009   0.03   TRUE
+```

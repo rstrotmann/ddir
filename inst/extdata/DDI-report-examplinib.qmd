@@ -33,19 +33,19 @@ metab <- perpetrator(
 ```
 
 ```{r}
-cyp_inh <- inhibitor(
+cyp_inh <- inhibition_data(
   data = tribble(
-    ~target, ~ki, ~source,
+    ~object, ~ki, ~source,
     "CYP2C9",  7.01,  "study 001",
     "CYP2C19", 48.7, "study 001",
     "CYP3A4",  100, "study 001"
   ),
-  object = "examplinib"
+  precipitant = "examplinib"
 )
 
-ugt_inh <- inhibitor(
+ugt_inh <- inhibition_data(
   data = tibble::tribble(
-      ~target,  ~ki,     ~source,
+      ~object,  ~ki,     ~source,
      "UGT1A1",   15, "study 009",
      "UGT1A3",   15, "study 009",
      "UGT1A4",   15, "study 009",
@@ -55,12 +55,12 @@ ugt_inh <- inhibitor(
     "UGT2B15",   15, "study 009",
     "UGT2B17",  6.1, "study 009",
   ),
-  object = "examplinib"
+  precipitant = "examplinib"
 )
 
-transporter_inh <- inhibitor(
+transporter_inh <- inhibition_data(
   data = tibble::tribble(
-    ~target, ~ic50,     ~source,
+    ~object, ~ic50,     ~source,
       "Pgp",  0.41, "study 005",
      "BCRP",   1.9, "study 005",
      "OCT1",   2.3, "study 006",
@@ -73,20 +73,20 @@ transporter_inh <- inhibitor(
     "MATE1",   3.6, "study 006",
    "MATE2k",   1.1, "study 006"
   ),
-  object = "examplinib"
+  precipitant = "examplinib"
 )
 
-cyp_tdi <- inhibitor(
+cyp_tdi <- inhibition_data(
   data = tibble::tribble(
-    ~target, ~ki, ~kinact, ~source,
+    ~object, ~ki, ~kinact, ~source,
     "CYP3A4", 0.17,   0.04, "study 001"
   ),
-  object = "examplinib"
+  precipitant = "examplinib"
 )
 
-cyp_ind <- inducer(
+cyp_ind <- induction_data(
   data =tibble::tribble(
-       ~target, ~emax, ~ec50, ~max_c,     ~source,
+       ~object, ~emax, ~ec50, ~max_c,     ~source,
       "CYP1A2",     1,    NA,      5, "study 007",
       "CYP2B6",     1,    NA,      5, "study 007",
       "CYP2C8",    NA,    NA,     NA,          NA,
@@ -95,7 +95,7 @@ cyp_ind <- inducer(
       "CYP2D6",    NA,    NA,     NA,          NA,
       "CYP3A4",  7.35,  1.64,      3, "study 007"
      ),
-  object = "examplinib"
+  precipitant = "examplinib"
 )
 ```
 

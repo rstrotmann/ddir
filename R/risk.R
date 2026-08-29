@@ -8,8 +8,8 @@
 #' @noRd
 new_risk <- function(table, precipitant, title = NULL) {
   structure(
-    table,
-    class = unique(c("risk", class(table))),
+    as.data.frame(table),
+    class = unique(c("risk", "data.frame")),
     precipitant = precipitant,
     title = title
   )
@@ -63,7 +63,7 @@ dplyr_reconstruct.risk <- function(data, template) {
 #' @param ... Further arguments.
 #'
 #' @returns Nothing or a markdodwn-formatted table
-#' @exportS3Method ddir::print
+#' @exportS3Method base::print
 print.risk <- function(x, ...) {
   caption <- attr(x, "title")
   x <- mutate(x, across(any_of(
