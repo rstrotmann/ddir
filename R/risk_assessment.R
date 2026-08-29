@@ -125,7 +125,7 @@ basic_ugt_inhibition_risk <- function(perp, ugt_inh) {
   ki <- filter(ugt_inh, .data$object %in% allowed_objects)
   if (nrow(ki) == 0)
     stop("No inhibition data for known UGT enzymes found")
-  excluded_objects <- setdiff(unique(ugt_inh$target), allowed_objects)
+  excluded_objects <- setdiff(unique(ugt_inh$object), allowed_objects)
   if (length(excluded_objects) > 0)
     warning(paste0(
       "Non-UGT data were excluded (",
@@ -174,9 +174,9 @@ basic_ugt_inhibition_risk <- function(perp, ugt_inh) {
 #' @returns DDI risk object.
 #' @export
 #' @examples
-#' transporter_inh_risk(examplinib, examplinib_transporter_inhibition)
+#' transporter_inhibition_risk(examplinib, examplinib_transporter_inhibition)
 #'
-transporter_inh_risk <- function(
+transporter_inhibition_risk <- function(
     perp,
     transporter_inh,
     transporter_ref = transporter_reference_data,
@@ -244,7 +244,6 @@ transporter_inh_risk <- function(
 #' @export
 #' @examples
 #' basic_cyp_tdi_risk(examplinib, examplinib_cyp_tdi)
-#'
 basic_cyp_tdi_risk <- function(
     perp,
     cyp_tdi,
@@ -274,7 +273,7 @@ basic_cyp_tdi_risk <- function(
     ))
 
   # business logic
-  out <- cyp_tdi |>
+  out <- in_vitro |>
     mutate(
       kobs = .data$kinact * 5 * imaxssu(perp) /
         (.data$ki * perp$fumic + 5 * imaxssu(perp))
@@ -325,7 +324,7 @@ static_cyp_induction_risk <- function(perp, cyp_ind)  {
     ))
 
   # assess risk
-  out <- cyp_ind |>
+  out <- in_vitro |>
     mutate(maxc_imaxssu = round(.data$max_c / imaxssu(perp), 1)) |>
     mutate(risk = .data$emax >= 2)|>
     mutate(note = case_when(

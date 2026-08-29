@@ -45,10 +45,16 @@ induction_data <- function(data = NULL, precipitant = "") {
 #' @param template The object template.
 #'
 #' @returns A inhibition_data object.
-#' @export
-#' @noRd
+#' @exportS3Method dplyr::dplyr_reconstruct
 dplyr_reconstruct.induction_data <- function(data, template) {
   new_induction_data(data, attr(template, "precipitant"))
+}
+
+
+#' @importFrom vctrs vec_restore
+#' @exportS3Method vctrs::vec_restore
+vec_restore.induction_data <- function(x, to, ...) {
+  new_induction_data(x, attr(to, "precipitant"))
 }
 
 

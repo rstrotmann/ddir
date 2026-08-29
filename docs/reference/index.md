@@ -67,7 +67,7 @@
 - [`show(`*`<perpetrator>`*`)`](show-perpetrator-method.md) : Show DDI
   perpetrator objects.
 - [`static_cyp_induction_risk()`](static_cyp_induction_risk.md) : Title
-- [`transporter_inh_risk()`](transporter_inh_risk.md) : Drug transporter
+- [`transporter_inhibition_risk()`](transporter_inhibition_risk.md) : Drug transporter
   inhibition risk
 - [`transporter_reference_data`](transporter_reference_data.md) : Drug
   transporter reference data

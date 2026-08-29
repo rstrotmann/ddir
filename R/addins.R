@@ -26,7 +26,7 @@ perpetrator_addin <- function() {
 #' @export
 cyp_inh_addin <- function() {
   rstudioapi::insertText(
-    r"(inhibitor(
+    r"(inhibition_data(
   data = tibble::tribble(
     ~object, ~ki, ~source,
    "CYP1A2",  NA,      "",
@@ -48,7 +48,7 @@ cyp_inh_addin <- function() {
 #' @export
 ugt_inh_addin <- function() {
   rstudioapi::insertText(
-    r"(inhibitor(
+    r"(inhibition_data(
   data = tibble::tribble(
      ~object, ~ki, ~source,
     "UGT1A1",  NA,      "",
@@ -66,12 +66,12 @@ ugt_inh_addin <- function() {
 }
 
 
-#' Insert a CYP inhibitor object constructor
+#' Insert a transporter inhibitor object constructor
 #'
 #' @export
 transp_inh_addin <- function() {
   rstudioapi::insertText(
-    r"(inhibitor(
+    r"(inhibition_data(
     data = tibble::tribble(
     ~object, ~ki, ~source,
       "Pgp",  NA,      "",
@@ -97,7 +97,7 @@ transp_inh_addin <- function() {
 #' @export
 cyp_ind_addin <- function() {
   rstudioapi::insertText(
-    r"(inducer(
+    r"(induction_data(
   data = tibble::tribble(
      ~object, ~emax, ~ec50, ~max_c, ~source,
     "CYP3A4",    NA,    NA,     NA,      "",

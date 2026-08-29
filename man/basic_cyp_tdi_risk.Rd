@@ -22,5 +22,4 @@ CYP time-dependent inhibition risk
 }
 \examples{
 basic_cyp_tdi_risk(examplinib, examplinib_cyp_tdi)
-
 }

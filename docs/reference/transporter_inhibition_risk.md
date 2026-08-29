@@ -5,7 +5,7 @@ Drug transporter inhibition risk
 ## Usage
 
 ``` r
-transporter_inh_risk(
+transporter_inhibition_risk(
   perp,
   transporter_inh,
   transporter_ref = transporter_reference_data,

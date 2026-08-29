@@ -34,14 +34,20 @@ risk <- function(table, precipitant, title = NULL) {
 }
 
 
+#' @importFrom vctrs vec_restore
+#' @exportS3Method vctrs::vec_restore
+vec_restore.risk <- function(x, to, ...) {
+  new_risk(x, attr(to, "precipitant"), attr(to, "title"))
+}
+
+
 #' reconstruct risk object
 #'
 #' @param data The risk table.
 #' @param template The attributes.
 #'
 #' @returns A risk object.
-#' @export
-#' @noRd
+#' @exportS3Method dplyr::dplyr_reconstruct
 dplyr_reconstruct.risk <- function(data, template) {
   new_risk(
     data,

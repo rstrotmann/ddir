@@ -40,6 +40,6 @@ MATE2k      , 0.02      , imaxssu
 \seealso{
 \code{\link[=key_conc_table]{key_conc_table()}}
 
-\code{\link[=transporter_inh_risk]{transporter_inh_risk()}}
+\code{\link[=transporter_inhibition_risk]{transporter_inhibition_risk()}}
 }
 \keyword{datasets}

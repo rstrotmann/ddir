@@ -311,7 +311,7 @@ test_that("basic_ugt_inhibition_risk drops CYP rows", {
 })
 
 
-test_that("transporter_inh_risk expands Pgp and BCRP into intestinal and systemic rows", {
+test_that("transporter_inhibition_risk expands Pgp and BCRP into intestinal and systemic rows", {
   perp <- make_risk_perp()
   inh <- inhibition_data(
     tibble::tribble(
@@ -322,7 +322,7 @@ test_that("transporter_inh_risk expands Pgp and BCRP into intestinal and systemi
     ),
     precipitant = "testdrug"
   )
-  tbl <- transporter_inh_risk(perp, inh)
+  tbl <- transporter_inhibition_risk(perp, inh)
 
   expect_s3_class(tbl, "risk")
   expect_false(any(tbl$object %in% c("Pgp", "BCRP")))
@@ -341,7 +341,7 @@ test_that("transporter_inh_risk expands Pgp and BCRP into intestinal and systemi
 })
 
 
-test_that("transporter_inh_risk uses the ICH concentration metric and threshold for each row", {
+test_that("transporter_inhibition_risk uses the ICH concentration metric and threshold for each row", {
   perp <- make_risk_perp()
   inh <- inhibition_data(
     tibble::tribble(
@@ -352,7 +352,7 @@ test_that("transporter_inh_risk uses the ICH concentration metric and threshold 
     ),
     precipitant = "testdrug"
   )
-  tbl <- transporter_inh_risk(perp, inh)
+  tbl <- transporter_inhibition_risk(perp, inh)
   Igut <- igut(perp, molar = TRUE)
   Iu <- imaxssu(perp, molar = TRUE)
   Ih <- imaxinletu(perp, molar = TRUE)
@@ -383,7 +383,7 @@ test_that("transporter_inh_risk uses the ICH concentration metric and threshold 
 })
 
 
-test_that("transporter_inh_risk leaves r as NA when IC50 is missing", {
+test_that("transporter_inhibition_risk leaves r as NA when IC50 is missing", {
   perp <- make_risk_perp()
   inh <- inhibition_data(
     tibble::tribble(
@@ -392,14 +392,14 @@ test_that("transporter_inh_risk leaves r as NA when IC50 is missing", {
     ),
     precipitant = "testdrug"
   )
-  tbl <- transporter_inh_risk(perp, inh)
+  tbl <- transporter_inhibition_risk(perp, inh)
 
   expect_true(is.na(tbl$r))
   expect_true(is.na(tbl$risk))
 })
 
 
-test_that("transporter_inh_risk passes qh through to hepatic inlet concentration", {
+test_that("transporter_inhibition_risk passes qh through to hepatic inlet concentration", {
   perp <- make_risk_perp()
   inh <- inhibition_data(
     tibble::tribble(
@@ -408,8 +408,8 @@ test_that("transporter_inh_risk passes qh through to hepatic inlet concentration
     ),
     precipitant = "testdrug"
   )
-  default <- transporter_inh_risk(perp, inh, qh = 1.616)
-  custom <- transporter_inh_risk(perp, inh, qh = 0.808)
+  default <- transporter_inhibition_risk(perp, inh, qh = 1.616)
+  custom <- transporter_inhibition_risk(perp, inh, qh = 0.808)
 
   expect_equal(default$r, imaxinletu(perp, qh = 1.616, molar = TRUE) / 10)
   expect_equal(custom$r, imaxinletu(perp, qh = 0.808, molar = TRUE) / 10)
@@ -417,7 +417,7 @@ test_that("transporter_inh_risk passes qh through to hepatic inlet concentration
 })
 
 
-test_that("transporter_inh_risk uses a custom reference table when supplied", {
+test_that("transporter_inhibition_risk uses a custom reference table when supplied", {
   perp <- make_risk_perp()
   inh <- inhibition_data(
     tibble::tribble(
@@ -430,7 +430,7 @@ test_that("transporter_inh_risk uses a custom reference table when supplied", {
     ~object, ~threshold,        ~i,
     "OCT2" ,          1, "imaxssu"
   )
-  tbl <- transporter_inh_risk(perp, inh, transporter_ref = ref)
+  tbl <- transporter_inhibition_risk(perp, inh, transporter_ref = ref)
 
   expect_equal(tbl$threshold, 1)
   expect_equal(tbl$r, 1 / 10)
@@ -438,7 +438,7 @@ test_that("transporter_inh_risk uses a custom reference table when supplied", {
 })
 
 
-test_that("transporter_inh_risk rejects wrong classes and empty transporter data", {
+test_that("transporter_inhibition_risk rejects wrong classes and empty transporter data", {
   perp <- make_risk_perp()
   inh <- inhibition_data(
     tibble::tribble(
@@ -456,21 +456,21 @@ test_that("transporter_inh_risk rejects wrong classes and empty transporter data
   )
 
   expect_error(
-    transporter_inh_risk("not-a-perp", inh),
+    transporter_inhibition_risk("not-a-perp", inh),
     "perp must be a perpetrotor object"
   )
   expect_error(
-    transporter_inh_risk(perp, "not-an-inhibitor"),
+    transporter_inhibition_risk(perp, "not-an-inhibitor"),
     "transporter_inh must be an inhibition_data object"
   )
   expect_error(
-    transporter_inh_risk(perp, cyp_only),
+    transporter_inhibition_risk(perp, cyp_only),
     "No inhibition data for known transporters found"
   )
 })
 
 
-test_that("transporter_inh_risk warns and drops non-transporter objects", {
+test_that("transporter_inhibition_risk warns and drops non-transporter objects", {
   perp <- make_risk_perp()
   inh <- inhibition_data(
     tibble::tribble(
@@ -482,7 +482,7 @@ test_that("transporter_inh_risk warns and drops non-transporter objects", {
   )
 
   expect_warning(
-    res <- transporter_inh_risk(perp, inh),
+    res <- transporter_inhibition_risk(perp, inh),
     "Non-transporter data were excluded \\(CYP3A4\\)"
   )
   expect_equal(res$object, "OAT1")
@@ -1141,7 +1141,7 @@ test_that("examplinib UGT, TDI, induction and transporter assessments run", {
     kinetic <- kinetic_cyp_induction_risk(examplinib, examplinib_cyp_induction)
   )
   expect_no_error(
-    transp <- transporter_inh_risk(examplinib, examplinib_transporter_inhibition)
+    transp <- transporter_inhibition_risk(examplinib, examplinib_transporter_inhibition)
   )
   expect_no_error(
     msm <- mech_stat_cyp_risk(

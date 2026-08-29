@@ -62,11 +62,6 @@ perpetrator <- function(
 }
 
 
-# print <- function(obj) {
-#   UseMethod("print")
-# }
-
-
 
 #' Print perpetrator object as markdown
 #'
@@ -75,7 +70,7 @@ perpetrator <- function(
 #'
 #' @returns A markdown-formatted table.
 #' @import dplyr
-#' @exportS3Method ddir::print
+#' @exportS3Method base::print
 print.perpetrator <- function(x, ...) {
   out <- tibble::tribble(
            ~param,             ~parameter,   ~unit,

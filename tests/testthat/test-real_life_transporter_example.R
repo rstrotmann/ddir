@@ -2,7 +2,7 @@
 # Table 17 (baricitinib / OAT3 victims) and Posada et al., Clin Transl Sci 2017.
 #
 # Workflow: take the published MSM AUCR (ft = 0.44), back-calculate Iu/IC50,
-# and check that transporter_inh_risk() recovers that ratio.
+# and check that transporter_inhibition_risk() recovers that ratio.
 
 
 infer_i_over_ic50 <- function(aucr, ft = 0.44) {
@@ -42,7 +42,7 @@ test_that("probenecid OAT3 I/IC50 recovered from Gomez-Mantilla 2023 AUCR 1.67 i
     ),
     precipitant = "probenecid"
   )
-  tbl <- transporter_inh_risk(perp, inh)
+  tbl <- transporter_inhibition_risk(perp, inh)
   oat3 <- tbl[tbl$object == "OAT3", ]
 
   expect_equal(imaxssu(perp, molar = TRUE), Iu)
@@ -66,7 +66,7 @@ test_that("ibuprofen OAT3 I/IC50 recovered from Gomez-Mantilla 2023 AUCR 1.11 is
     ),
     precipitant = "ibuprofen"
   )
-  tbl <- transporter_inh_risk(perp, inh)
+  tbl <- transporter_inhibition_risk(perp, inh)
   oat3 <- tbl[tbl$object == "OAT3", ]
 
   expect_equal(oat3$r, i_over_ic50)
@@ -88,7 +88,7 @@ test_that("diclofenac OAT3 I/IC50 recovered from Gomez-Mantilla 2023 AUCR 1.00 i
     ),
     precipitant = "diclofenac"
   )
-  tbl <- transporter_inh_risk(perp, inh)
+  tbl <- transporter_inhibition_risk(perp, inh)
   oat3 <- tbl[tbl$object == "OAT3", ]
 
   expect_equal(oat3$r, i_over_ic50)

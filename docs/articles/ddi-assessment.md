@@ -247,7 +247,7 @@ Mechanistic-static CYP inhibition risk for examplinib
 ## Transporter inhibition
 
 ``` r
-print(transporter_inh_risk(examplinib_parent, examplinib_transporter_inh_parent))
+print(transporter_inhibition_risk(examplinib_parent, examplinib_transporter_inh_parent))
 ```
 
 | target   | \\IC\_{50}\\ | source    | \\i\\      |   \\R\\ | threshold | risk |

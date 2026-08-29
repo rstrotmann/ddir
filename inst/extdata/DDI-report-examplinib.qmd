@@ -243,7 +243,7 @@ Appendix 1.
 Note that OCT1 is currently not covered by the M12 guideline.
 
 ```{r results="asis"}
-print(transporter_inh_risk(perp, transporter_inh))
+print(transporter_inhibition_risk(perp, transporter_inh))
 ```
 
 \newpage

@@ -176,7 +176,7 @@ print(mech_stat_cyp_risk(examplinib, examplinib_cyp_inhibition, examplinib_cyp_i
 # Transporter inhibition
 
 ```{r results="asis"}
-print(transporter_inh_risk(examplinib, examplinib_transporter_inhibition))
+print(transporter_inhibition_risk(examplinib, examplinib_transporter_inhibition))
 ```
 
 

@@ -2,10 +2,10 @@
 % Please edit documentation in R/addins.R
 \name{transp_inh_addin}
 \alias{transp_inh_addin}
-\title{Insert a CYP inhibitor object constructor}
+\title{Insert a transporter inhibitor object constructor}
 \usage{
 transp_inh_addin()
 }
 \description{
-Insert a CYP inhibitor object constructor
+Insert a transporter inhibitor object constructor
 }
