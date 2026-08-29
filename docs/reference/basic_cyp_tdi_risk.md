@@ -12,7 +12,7 @@ basic_cyp_tdi_risk(perp, cyp_tdi, cyp_kdeg = cyp_turnover)
 
 - perp:
 
-  Perpetrator object.
+  Precipitant object.
 
 - cyp_tdi:
 

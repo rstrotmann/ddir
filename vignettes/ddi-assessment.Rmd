@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 ```
 
 This vignette shows how to assess the potential of a drug to act as a
-perpetrator of drug-drug interactions with CYP and UGT enzymes and drug
+precipitant of drug-drug interactions with CYP and UGT enzymes and drug
 transporters.
 
 # Regulatory background
@@ -67,17 +67,17 @@ drug-specific parameters:
 
 The specification of the key compound parameters is therefore the first step in
 the formal analysis. In the scope of this package, these key parameters are
-aggregated into a 'perpetrator' object. The package contains a sample
-perpetrator object for the ficitional drug 'examplinib':
+aggregated into a 'precipitant' object. The package contains a sample
+precipitant object for the ficitional drug 'examplinib':
 
 ```{r results="asis"}
 examplinib
 ```
 
-The function `perpetrator()` can be used to create custom perpetrator objects:
+The function `precipitant()` can be used to create custom precipitant objects:
 
 ```{r results="asis"}
-perp <- perpetrator(
+perp <- precipitant(
   name = "test",
   dose = 100,
   imaxss = 1000,
@@ -93,9 +93,9 @@ perp <- perpetrator(
 )
 ```
 
-# Perpetrator concentrations
+# Precipitant concentrations
 
-The relevant perpetrator concentrations for a perpetrator compound
+The relevant precipitant concentrations for a precipitant compound
 can be determined using `key_conc_table()` - please see the documentation to
 this function for details about the calculations.
 

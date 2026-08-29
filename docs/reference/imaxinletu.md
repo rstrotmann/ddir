@@ -12,7 +12,7 @@ imaxinletu(x, qh = 1.616, molar = TRUE)
 
 - x:
 
-  A perpetrator compound object.
+  A precipitant compound object.
 
 - qh:
 

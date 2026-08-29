@@ -12,7 +12,7 @@ infer_i_over_ic50 <- function(aucr, ft = 0.44) {
 
 
 make_perp_from_Iu <- function(name, mw, Iu, fu = 1) {
-  perpetrator(
+  precipitant(
     name       = name,
     oral       = FALSE,
     mw         = mw,

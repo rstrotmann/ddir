@@ -7,7 +7,7 @@
 basic_ugt_inhibition_risk(perp, ugt_inh)
 }
 \arguments{
-\item{perp}{The perpetrator object.}
+\item{perp}{The precipitant object.}
 
 \item{ugt_inh}{UGT inhibition data object.}
 }

@@ -12,7 +12,7 @@ kinetic_cyp_induction_risk(perp, cyp_ind, d = 1)
 
 - perp:
 
-  Perpetrator object
+  Precipitant object
 
 - cyp_ind:
 

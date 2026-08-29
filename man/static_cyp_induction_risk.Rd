@@ -7,7 +7,7 @@
 static_cyp_induction_risk(perp, cyp_ind)
 }
 \arguments{
-\item{perp}{Perpetrator object.}
+\item{perp}{Precipitant object.}
 
 \item{cyp_ind}{Induction object.}
 }

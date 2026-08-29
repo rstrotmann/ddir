@@ -12,7 +12,7 @@ igut(x, molar = FALSE)
 
 - x:
 
-  A perpetrator compound object.
+  A precipitant compound object.
 
 - molar:
 

@@ -1,7 +1,7 @@
 # DDI assessment
 
 This vignette shows how to assess the potential of a drug to act as a
-perpetrator of drug-drug interactions with CYP and UGT enzymes and drug
+precipitant of drug-drug interactions with CYP and UGT enzymes and drug
 transporters.
 
 ## Regulatory background
@@ -55,8 +55,8 @@ of drug-specific parameters:
 
 The specification of the key compound parameters is therefore the first
 step in the formal analysis. In the scope of this package, these key
-parameters are aggregated into a ‘perpetrator’ object. The package
-contains a sample perpetrator object for the ficitional drug
+parameters are aggregated into a ‘precipitant’ object. The package
+contains a sample precipitant object for the ficitional drug
 ‘examplinib’:
 
 ``` r
@@ -78,14 +78,14 @@ examplinib
 | \\F_g\\                 | 1       |        |
 | \\k_a\\ (1/min)         | 0.00267 |        |
 
-Perpetrator compound parameters for examplinib {.table}
+Precipitant compound parameters for examplinib {.table}
 
-The function [`perpetrator()`](../reference/perpetrator.md) can be used
-to create custom perpetrator objects:
+The function [`precipitant()`](../reference/precipitant.md) can be used
+to create custom precipitant objects:
 
 ``` r
 
-perp <- perpetrator(
+perp <- precipitant(
   name = "test",
   dose = 100,
   imaxss = 1000,
@@ -101,9 +101,9 @@ perp <- perpetrator(
 )
 ```
 
-## Perpetrator concentrations
+## Precipitant concentrations
 
-The relevant perpetrator concentrations for a perpetrator compound can
+The relevant precipitant concentrations for a precipitant compound can
 be determined using
 [`key_conc_table()`](../reference/key_conc_table.md) - please see the
 documentation to this function for details about the calculations.
@@ -120,7 +120,7 @@ key_conc_table(examplinib)
 | \\I\_{max,inlet,u}\\    |             95.04 |              0.19 |
 | \\I\_{max,intestinal}\\ |           3244.05 |              6.59 |
 
-Key perpetrator concentrations for examplinib {.table}
+Key precipitant concentrations for examplinib {.table}
 
 ## Direct enzyme inhibition
 

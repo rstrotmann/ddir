@@ -1,9 +1,9 @@
-#' Insert a perpetrator object constructor
+#' Insert a precipitant object constructor
 #'
 #' @export
-perpetrator_addin <- function() {
+precipitant_addin <- function() {
   rstudioapi::insertText(
-    r"(perpetrator(
+    r"(precipitant(
   name = "name",
   dose = 100,
   imaxss = 1000,
@@ -139,7 +139,7 @@ $$C_{max,ss,u}=I_{max,ss} * f_u$$
 
 ### Hepatic inlet concentration {-}
 
-The hepatic inlet concentration is considered the relevant perpetrator
+The hepatic inlet concentration is considered the relevant precipitant
 concentration for inhibition of the hepatic uptake transporters OATP1B1 and
 OATP1B3, and for the hepatic terms in the mechanistic static modeling equation
 (refer to Section '[Mechanistic static modeling of CYP inhibition/induction]').

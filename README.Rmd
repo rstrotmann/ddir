@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 <!-- badges: end -->
 
 Functions for the calculation and documentation of the
-potential of drugs to act as perpetrators of clinically relevant drug-drug
+potential of drugs to act as precipitants of clinically relevant drug-drug
 interaction (DDI).
 
 ## Installation
@@ -34,13 +34,15 @@ devtools::install_github("rstrotmann/ddir")
 
 The package provides sample data for a fictional drug, `examplinib`. The
 following code shows the relevant drug properties for examplinib, and calculates
-the perpetrator DDI risk for direct CYP inhibition (basic method). All are
+the precipitant DDI risk for direct CYP inhibition (basic method). All are
 provided as markdown-formatted output tables:
 
-```{r example}
+```{r}
 library(ddir)
 library(knitr)
+```
 
+```{r results="asis"}
 p <- examplinib
 print(p)
 print(examplinib_cyp_inhibition)

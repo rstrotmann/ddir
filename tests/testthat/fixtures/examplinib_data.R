@@ -1,4 +1,4 @@
-compounds <-read_perpetrators(textConnection("
+compounds <-read_precipitants(textConnection("
   # PARENT
   # compound,  param,    value,     source
   examplinib,  oral,     TRUE,

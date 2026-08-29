@@ -12,7 +12,7 @@ imaxintest(x, qent = 18/60, molar = TRUE)
 
 - x:
 
-  A perpetrator compound object.
+  A precipitant compound object.
 
 - qent:
 

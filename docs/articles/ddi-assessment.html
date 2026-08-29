@@ -70,7 +70,7 @@
     
     
 <p>This vignette shows how to assess the potential of a drug to act as a
-perpetrator of drug-drug interactions with CYP and UGT enzymes and drug
+precipitant of drug-drug interactions with CYP and UGT enzymes and drug
 transporters.</p>
 <div class="section level2">
 <h2 id="regulatory-background">Regulatory background<a class="anchor" aria-label="anchor" href="#regulatory-background"></a>
@@ -185,13 +185,13 @@ set of drug-specific parameters:</p>
 </table>
 <p>The specification of the key compound parameters is therefore the
 first step in the formal analysis. In the scope of this package, these
-key parameters are aggregated into a ‘perpetrator’ object. The package
-contains a sample perpetrator object for the ficitional drug
+key parameters are aggregated into a ‘precipitant’ object. The package
+contains a sample precipitant object for the ficitional drug
 ‘examplinib’:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">examplinib</span></span></code></pre></div>
 <table class="table">
-<caption>Perpetrator compound parameters for examplinib</caption>
+<caption>Precipitant compound parameters for examplinib</caption>
 <thead><tr class="header">
 <th align="left">parameter</th>
 <th align="left">value</th>
@@ -262,10 +262,10 @@ contains a sample perpetrator object for the ficitional drug
 </tr>
 </tbody>
 </table>
-<p>The function <code><a href="../reference/perpetrator.html">perpetrator()</a></code> can be used to create custom
-perpetrator objects:</p>
+<p>The function <code><a href="../reference/precipitant.html">precipitant()</a></code> can be used to create custom
+precipitant objects:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">perp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/perpetrator.html">perpetrator</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">perp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/precipitant.html">precipitant</a></span><span class="op">(</span></span>
 <span>  name <span class="op">=</span> <span class="st">"test"</span>,</span>
 <span>  dose <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>  imaxss <span class="op">=</span> <span class="fl">1000</span>,</span>
@@ -281,15 +281,15 @@ perpetrator objects:</p>
 <span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="perpetrator-concentrations">Perpetrator concentrations<a class="anchor" aria-label="anchor" href="#perpetrator-concentrations"></a>
+<h2 id="precipitant-concentrations">Precipitant concentrations<a class="anchor" aria-label="anchor" href="#precipitant-concentrations"></a>
 </h2>
-<p>The relevant perpetrator concentrations for a perpetrator compound
+<p>The relevant precipitant concentrations for a precipitant compound
 can be determined using <code><a href="../reference/key_conc_table.html">key_conc_table()</a></code> - please see the
 documentation to this function for details about the calculations.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/key_conc_table.html">key_conc_table</a></span><span class="op">(</span><span class="va">examplinib</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
-<caption>Key perpetrator concentrations for examplinib</caption>
+<caption>Key precipitant concentrations for examplinib</caption>
 <thead><tr class="header">
 <th align="left">parameter</th>
 <th align="right">value (<span class="math inline">\(ng/ml\)</span>)</th>

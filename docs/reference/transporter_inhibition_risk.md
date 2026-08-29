@@ -17,7 +17,7 @@ transporter_inhibition_risk(
 
 - perp:
 
-  Perpetrator object.
+  Precipitant object.
 
 - transporter_inh:
 
@@ -40,7 +40,7 @@ DDI risk object.
 The metric for the assessment of transporter interactions is
 \\R=\[I\]/IC\_{50}\\.
 
-The relevant perpetrator concentrations \\\[I\]\\ and regulatory
+The relevant precipitant concentrations \\\[I\]\\ and regulatory
 thresholds of concern are:
 
 |  |  |  |

@@ -66,6 +66,8 @@ dplyr_reconstruct.risk <- function(data, template) {
 #' @exportS3Method base::print
 print.risk <- function(x, ...) {
   caption <- attr(x, "title")
+  precipitant <-  attr(x, "precipitant")
+
   x <- mutate(x, across(any_of(
     c("r", "aucr", "Ag", "Ah", "Bg", "Bh", "Cg", "Ch")),
     function(i) round(i, 2)))
@@ -73,7 +75,7 @@ print.risk <- function(x, ...) {
   if (isTRUE(getOption("knitr.in.progress"))) {
     caption <- ifelse(
       is.null(caption),
-      paste0("DDI risk for precipitant ", attr(x, "precipitant")),
+      paste0("DDI risk for precipitant ", precipitant),
       caption
     )
     x |>

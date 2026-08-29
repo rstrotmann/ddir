@@ -13,7 +13,7 @@ examplinib_raw <- tibble::tribble(
   )
 
 examplinib <- do.call(
-  perpetrator,
+  precipitant,
   append(
     setNames(as.list(examplinib_raw$value), examplinib_raw$param),
     list(name = "examplinib")
@@ -100,7 +100,7 @@ usethis::use_data(examplinib_transporter_inhibition, overwrite = TRUE)
 #
 # ## EXAMPLINIB COMPOUNDS
 #
-# examplinib_compounds <- read_perpetrators(textConnection(
+# examplinib_compounds <- read_precipitants(textConnection(
 #   examplinib_compounds_string))
 #
 # examplinib_parent <- examplinib_compounds[[1]]

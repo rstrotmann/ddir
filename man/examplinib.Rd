@@ -3,9 +3,9 @@
 \docType{data}
 \name{examplinib}
 \alias{examplinib}
-\title{Perpetrator compound data for examplinib}
+\title{Precipitant compound data for examplinib}
 \format{
-An object of class \code{perpetrator} (inherits from \code{list}) of length 13.
+An object of class \code{precipitant} (inherits from \code{list}) of length 13.
 }
 \source{
 Fictional data, made up for demo purposes.
@@ -14,7 +14,7 @@ Fictional data, made up for demo purposes.
 examplinib
 }
 \description{
-Perpetrator compound data for examplinib
+Precipitant compound data for examplinib
 }
 \details{
 \preformatted{

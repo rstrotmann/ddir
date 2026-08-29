@@ -12,7 +12,7 @@ static_cyp_induction_risk(perp, cyp_ind)
 
 - perp:
 
-  Perpetrator object.
+  Precipitant object.
 
 - cyp_ind:
 

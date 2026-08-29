@@ -7,7 +7,7 @@
 basic_cyp_inhibition_risk(perp, cyp_inh)
 }
 \arguments{
-\item{perp}{The perpetrator object.}
+\item{perp}{The precipitant object.}
 
 \item{cyp_inh}{CYP inhibition data object.}
 }
@@ -27,7 +27,7 @@ respective CYP enzyme is considered, i.e., \eqn{R} for hepatic enzymes and
 
 \deqn{R=\frac{C_{max,ss,u}}{K_{i,u}}}
 
-\eqn{R} values > 0.02, i.e., maximal unbound perpetrator concentrations
+\eqn{R} values > 0.02, i.e., maximal unbound precipitant concentrations
 50-fold over \eqn{K_i} are considered to indicate a potential clinical CYP
 inhibition risk using this method.
 }
@@ -38,7 +38,7 @@ inhibition risk using this method.
 
 where
 
-\deqn{I_{gut}=\frac{Dose}{250\ mg}}
+\deqn{I_{gut}=\frac{Dose}{250\ ml}}
 
 \eqn{R} values > 10 are considered to indicate a clinical risk for
 intestinal CYP3A inhibition.

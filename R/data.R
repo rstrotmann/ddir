@@ -46,7 +46,7 @@
 "cyp_reference_substrates"
 
 
-#' Perpetrator compound data for examplinib
+#' Precipitant compound data for examplinib
 #'
 #' @details
 #' \preformatted{

@@ -1,7 +1,7 @@
-# Key perpetrator concentrations
+# Key precipitant concentrations
 
-Print a markdown-formatted table of the relevant perpetrator
-concentrations in \\\mu M\\ and ng/ml for a DDI perpetrator compound.
+Print a markdown-formatted table of the relevant precipitant
+concentrations in \\\mu M\\ and ng/ml for a DDI precipitant compound.
 
 ## Usage
 
@@ -13,7 +13,7 @@ key_conc_table(x, round = 2, qh = 1.616, qent = 18/60)
 
 - x:
 
-  DDI perpetrator object.
+  DDI precipitant object.
 
 - round:
 
@@ -85,7 +85,7 @@ plasma binding of the drug are not applicable.
 key_conc_table(examplinib)
 #> 
 #> 
-#> Table: Key perpetrator concentrations for examplinib
+#> Table: Key precipitant concentrations for examplinib
 #> 
 #> |parameter            | value ($ng/ml$)| value ($\mu M$)|
 #> |:--------------------|---------------:|---------------:|

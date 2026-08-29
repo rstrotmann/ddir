@@ -15,7 +15,7 @@
 #'
 #'   \deqn{R=\frac{C_{max,ss,u}}{K_{i,u}}}
 #'
-#'   \eqn{R} values > 0.02, i.e., maximal unbound perpetrator concentrations
+#'   \eqn{R} values > 0.02, i.e., maximal unbound precipitant concentrations
 #'   50-fold over \eqn{K_i} are considered to indicate a potential clinical CYP
 #'   inhibition risk using this method.
 #'
@@ -33,7 +33,7 @@
 #'   In the output, the columns `risk_hep` and `risk_intest` indicate whether
 #'   the regulatory threshold is reached.
 #'
-#' @param perp The perpetrator object.
+#' @param perp The precipitant object.
 #' @param cyp_inh CYP inhibition data object.
 #'
 #' @return DDI risk object.
@@ -44,10 +44,10 @@
 #'
 basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
   # input validation
-  validate_perpetrator(perp)
+  validate_precipitant(perp)
   validate_inhibition_data(cyp_inh)
   if (perp$name != attr(cyp_inh, "precipitant"))
-    warning("Perpetrator name and precipitant do not match!")
+    warning("Precipitant name and data precipitant do not match!")
 
   allowed_object <- c("CYP1A2", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19",
                       "CYP2D6", "CYP3A4")
@@ -105,7 +105,7 @@ basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
 #'
 #' \eqn{R>0.02} are considered to indicate a potential UGT inhibition risk.
 #'
-#' @param perp The perpetrator object.
+#' @param perp The precipitant object.
 #' @param ugt_inh UGT inhibition data object.
 #' @return DDI risk object.
 #' @importFrom methods new
@@ -115,10 +115,10 @@ basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
 #'
 basic_ugt_inhibition_risk <- function(perp, ugt_inh) {
   # input validation
-  validate_perpetrator(perp)
+  validate_precipitant(perp)
   validate_inhibition_data(ugt_inh)
   if (perp$name != attr(ugt_inh, "precipitant"))
-    warning("Perpetrator name and precipitant do not match!")
+    warning("Precipitant name and data precipitant do not match!")
 
   allowed_objects <- c("UGT1A1", "UGT1A3", "UGT1A4", "UGT1A6", "UGT1A9",
                       "UGT2B7", "UGT2B15", "UGT2B17")
@@ -155,7 +155,7 @@ basic_ugt_inhibition_risk <- function(perp, ugt_inh) {
 #' The metric for the assessment of transporter interactions is
 #' \eqn{R=[I]/IC_{50}}.
 #'
-#' The relevant perpetrator concentrations \eqn{[I]} and regulatory thresholds
+#' The relevant precipitant concentrations \eqn{[I]} and regulatory thresholds
 #' of concern are:
 #'
 #' | I                     | transporter                                                                    | threshold |
@@ -166,7 +166,7 @@ basic_ugt_inhibition_risk <- function(perp, ugt_inh) {
 #' | \eqn{C_{max,ss,u}}    | renal basolateral transporters OAT1, OAT3 and OCT2                             | 0.1       |
 #' | \eqn{C_{max,ss,u}}    | apical transporters MATE1 and MATE2-K                                          | 0.02      |
 #'
-#' @param perp Perpetrator object.
+#' @param perp Precipitant object.
 #' @param transporter_inh Inhibitor object.
 #' @param transporter_ref Data frame.
 #' @param qh Hepatic blood flow in l/min, defaults to 1.616 l/min.
@@ -183,11 +183,11 @@ transporter_inhibition_risk <- function(
     qh = 1.616
 ){
   # input validation
-  validate_perpetrator(perp)
+  validate_precipitant(perp)
   validate_inhibition_data(transporter_inh)
 
   if (perp$name != attr(transporter_inh, "precipitant"))
-    warning("Perpetrator name and precipitant do not match!")
+    warning("Precipitant name and data precipitant do not match!")
 
   allowed_objects <- c("Pgp", "BCRP", "OATP1B1", "OATP1B3", "OAT1", "OAT3",
                       "BSEP", "OCT1", "OCT2", "MATE1", "MATE2k")
@@ -235,7 +235,7 @@ transporter_inhibition_risk <- function(
 
 #' CYP time-dependent inhibition risk
 #'
-#' @param perp Perpetrator object.
+#' @param perp Precipitant object.
 #' @param cyp_tdi inhibition_data object.
 #' @param cyp_kdeg CYP turnover rates as data frame, defaults to
 #' [ddir::cyp_turnover].
@@ -250,7 +250,7 @@ basic_cyp_tdi_risk <- function(
     cyp_kdeg = cyp_turnover
 ) {
   # input validation
-  validate_perpetrator(perp)
+  validate_precipitant(perp)
   validate_inhibition_data(cyp_tdi)
   expected_columns <- c("object", "ki", "kinact", "source")
   missing_columns <- setdiff(expected_columns, names(cyp_tdi))
@@ -295,7 +295,7 @@ basic_cyp_tdi_risk <- function(
 
 #' Static risk assessment for CYP induction
 #'
-#' @param perp Perpetrator object.
+#' @param perp Precipitant object.
 #' @param cyp_ind Induction object.
 #'
 #' @returns DDI risk object
@@ -304,7 +304,7 @@ basic_cyp_tdi_risk <- function(
 #' static_cyp_induction_risk(examplinib, examplinib_cyp_induction)
 static_cyp_induction_risk <- function(perp, cyp_ind)  {
   # input validation
-  validate_perpetrator(perp)
+  validate_precipitant(perp)
   validate_induction_data(cyp_ind)
 
   allowed_object <- c("CYP1A2", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19",
@@ -342,7 +342,7 @@ static_cyp_induction_risk <- function(perp, cyp_ind)  {
 
 #' Kinetic assessment of CYP induction risk
 #'
-#' @param perp Perpetrator object
+#' @param perp Precipitant object
 #' @param cyp_ind induction_data object.
 #' @param d Scaling factor, defaults to 1.
 #'
@@ -353,7 +353,7 @@ static_cyp_induction_risk <- function(perp, cyp_ind)  {
 #'
 kinetic_cyp_induction_risk <- function(perp, cyp_ind, d = 1) {
   # input validation
-  validate_perpetrator(perp)
+  validate_precipitant(perp)
   validate_induction_data(cyp_ind)
 
   allowed_object <- c("CYP1A2", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19",
@@ -400,7 +400,7 @@ kinetic_cyp_induction_risk <- function(perp, cyp_ind, d = 1) {
 #'
 #'   \deqn{R=\frac{C_{max,ss,u}}{K_{i,u}}}
 #'
-#'   \eqn{R} values > 0.02, i.e., maximal unbound perpetrator concentrations
+#'   \eqn{R} values > 0.02, i.e., maximal unbound precipitant concentrations
 #'   50-fold over \eqn{K_i} are considered to indicate a potential clinical CYP
 #'   inhibition risk using this method.
 #'
@@ -418,7 +418,7 @@ kinetic_cyp_induction_risk <- function(perp, cyp_ind, d = 1) {
 #'   In the output, the columns `risk_hep` and `risk_intest` indicate whether
 #'   the regulatory threshold is reached for the respective enzyme.
 #'
-#' @param perp Perpetrator object.
+#' @param perp Precipitant object.
 #' @param cyp_inh Inhibitor object.
 #' @param cyp_ind Inducer object.
 #' @param cyp_tdi Inhibitor object.
@@ -454,7 +454,7 @@ mech_stat_cyp_risk <- function(
     qent = 18/60
 ) {
   # input validation
-  validate_perpetrator(perp)
+  validate_precipitant(perp)
   validate_inhibition_data(cyp_inh)
   validate_inhibition_data(cyp_tdi, allow_null = TRUE)
   validate_induction_data(cyp_ind, allow_null = TRUE)

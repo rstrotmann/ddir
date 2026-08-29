@@ -23,7 +23,7 @@ mech_stat_cyp_risk(
 
 - perp:
 
-  Perpetrator object.
+  Precipitant object.
 
 - cyp_inh:
 
@@ -80,7 +80,7 @@ document](https://www.ema.europa.eu/en/documents/scientific-guideline/ich-m12-gu
 
 \$\$R=\frac{C\_{max,ss,u}}{K\_{i,u}}\$\$
 
-\\R\\ values \> 0.02, i.e., maximal unbound perpetrator concentrations
+\\R\\ values \> 0.02, i.e., maximal unbound precipitant concentrations
 50-fold over \\K_i\\ are considered to indicate a potential clinical CYP
 inhibition risk using this method.
 

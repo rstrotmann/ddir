@@ -1,4 +1,4 @@
-# Literature-based CYP perpetrator examples.
+# Literature-based CYP precipitant examples.
 # Sources:
 # Gomez-Mantilla et al., Clin Pharmacokinet 2023 (doi:10.1007/s40262-022-01204-4)
 # Bergagnini-Kolev et al., AAPS J 2023 (doi:10.1208/s12248-023-00828-z)
@@ -15,7 +15,7 @@ liver_only_midazolam <- tibble::tribble(
 test_that("ivosidenib CYP3A4 MSM without gut matches Gomez-Mantilla 2023 AUCR 0.46", {
   # Cavg,ss 9.54 uM, fu 0.057, Emax 21.25, EC50 8.6 uM.
   # Paper MSM midazolam AUCR is 0.46 when gut contribution is omitted.
-  perp <- perpetrator(
+  perp <- precipitant(
     name       = "ivosidenib",
     oral       = FALSE,
     mw         = 583,
@@ -66,7 +66,7 @@ test_that("ivosidenib CYP3A4 MSM without gut matches Gomez-Mantilla 2023 AUCR 0.
 
 
 test_that("ivosidenib is a kinetic and static CYP3A4 induction risk", {
-  perp <- perpetrator(
+  perp <- precipitant(
     name       = "ivosidenib",
     oral       = FALSE,
     mw         = 583,
@@ -101,7 +101,7 @@ test_that("ivosidenib is a kinetic and static CYP3A4 induction risk", {
 
 
 test_that("voxelotor CYP3A4 MSM without gut is close to Gomez-Mantilla scenario 2 AUCR 2.27", {
-  perp <- perpetrator(
+  perp <- precipitant(
     name       = "voxelotor",
     oral       = FALSE,
     mw         = 337,
@@ -152,7 +152,7 @@ test_that("voxelotor CYP3A4 MSM without gut is close to Gomez-Mantilla scenario 
 
 
 test_that("PUR1900 itraconazole basic R1 with OH-itraconazole matches Bergagnini-Kolev 2023", {
-  perp <- perpetrator(
+  perp <- precipitant(
     name       = "PUR1900_itraconazole",
     oral       = TRUE,
     mw         = 705.6,
@@ -188,7 +188,7 @@ test_that("PUR1900 itraconazole basic R1 with OH-itraconazole matches Bergagnini
 test_that("rifampicin mRNA parameters from Almond 2016 are a strong kinetic CYP3A4 inducer", {
   # Indmax is fold-change; Fahmi / ddir kinetic Emax is fold-increase.
   # Unbound Cmax ~ 1.7 uM is a typical 600 mg QD value (Cmax 7 ug/ml, fu 0.2).
-  perp <- perpetrator(
+  perp <- precipitant(
     name       = "rifampicin",
     oral       = TRUE,
     mw         = 822.94,
@@ -229,7 +229,7 @@ test_that("BI 425809 CYP3A4 mRNA Emax from Desch 2023 is a static induction risk
     ),
     precipitant = "BI 425809"
   )
-  perp <- perpetrator(
+  perp <- precipitant(
     name       = "BI 425809",
     oral       = TRUE,
     mw         = 500,

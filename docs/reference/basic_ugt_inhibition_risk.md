@@ -14,7 +14,7 @@ basic_ugt_inhibition_risk(perp, ugt_inh)
 
 - perp:
 
-  The perpetrator object.
+  The precipitant object.
 
 - ugt_inh:
 

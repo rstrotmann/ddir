@@ -61,7 +61,7 @@
 </h1></div>
 <!-- badges: start -->
 <!-- badges: end -->
-<p>Functions for the calculation and documentation of the potential of drugs to act as perpetrators of clinically relevant drug-drug interaction (DDI).</p>
+<p>Functions for the calculation and documentation of the potential of drugs to act as precipitants of clinically relevant drug-drug interaction (DDI).</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -72,151 +72,129 @@
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<p>The package provides sample data for a fictional drug, <code>examplinib</code>. The following code shows the relevant drug properties for examplinib, and calculates the perpetrator DDI risk for direct CYP inhibition (basic method). All are provided as markdown-formatted output tables:</p>
+<p>The package provides sample data for a fictional drug, <code>examplinib</code>. The following code shows the relevant drug properties for examplinib, and calculates the precipitant DDI risk for direct CYP inhibition (basic method). All are provided as markdown-formatted output tables:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">ddir</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/" class="external-link">knitr</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="va">examplinib_parent</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="va">examplinib</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Table: Precipitant compound parameters for examplinib</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; |parameter            |value   |source |</span></span>
+<span><span class="co">#&gt; |:--------------------|:-------|:------|</span></span>
+<span><span class="co">#&gt; |oral                 |1       |       |</span></span>
+<span><span class="co">#&gt; |$MW$ (g/mol)         |492.6   |       |</span></span>
+<span><span class="co">#&gt; |$dose$ (mg)          |450     |       |</span></span>
+<span><span class="co">#&gt; |$solubility$ (mg/l)  |Inf     |       |</span></span>
+<span><span class="co">#&gt; |$C_{max,ss}$ (ng/ml) |3530    |       |</span></span>
+<span><span class="co">#&gt; |$f_u$                |0.023   |       |</span></span>
+<span><span class="co">#&gt; |$f_{u,mic}$          |1       |       |</span></span>
+<span><span class="co">#&gt; |$R_B$                |1       |       |</span></span>
+<span><span class="co">#&gt; |$F_a$                |0.81    |       |</span></span>
+<span><span class="co">#&gt; |$F_g$                |1       |       |</span></span>
+<span><span class="co">#&gt; |$k_a$ (1/min)        |0.00267 |       |</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">examplinib_cyp_inhibition</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr>
-<th align="left">parameter</th>
-<th align="left">value</th>
+<th align="left">object</th>
+<th align="right">ki</th>
 <th align="left">source</th>
 </tr></thead>
 <tbody>
 <tr>
-<td align="left">oral</td>
-<td align="left">1</td>
+<td align="left">CYP1A2</td>
+<td align="right">NA</td>
 <td align="left"></td>
 </tr>
 <tr>
-<td align="left">
-<span class="math inline">\(MW\)</span> (g/mol)</td>
-<td align="left">492.6</td>
+<td align="left">CYP2B6</td>
+<td align="right">NA</td>
 <td align="left"></td>
 </tr>
-<tr>
-<td align="left">
-<span class="math inline">\(dose\)</span> (mg)</td>
-<td align="left">450</td>
-<td align="left">clinical dose</td>
-</tr>
-<tr>
-<td align="left">
-<span class="math inline">\(solubility\)</span> (mg/l)</td>
-<td align="left">Inf</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">
-<span class="math inline">\(C_{max,ss}\)</span> (ng/ml)</td>
-<td align="left">3530</td>
-<td align="left">study 001</td>
-</tr>
-<tr>
-<td align="left"><span class="math inline">\(f_u\)</span></td>
-<td align="left">0.023</td>
-<td align="left">study 002</td>
-</tr>
-<tr>
-<td align="left"><span class="math inline">\(f_{u,mic}\)</span></td>
-<td align="left">1</td>
-<td align="left">default</td>
-</tr>
-<tr>
-<td align="left"><span class="math inline">\(R_B\)</span></td>
-<td align="left">1</td>
-<td align="left">study 003</td>
-</tr>
-<tr>
-<td align="left"><span class="math inline">\(F_a\)</span></td>
-<td align="left">0.81</td>
-<td align="left">study 003</td>
-</tr>
-<tr>
-<td align="left"><span class="math inline">\(F_g\)</span></td>
-<td align="left">1</td>
-<td align="left">default</td>
-</tr>
-<tr>
-<td align="left">
-<span class="math inline">\(k_a\)</span> (1/min)</td>
-<td align="left">0.00267</td>
-<td align="left">unknown</td>
-</tr>
-</tbody>
-</table>
-<p>Perpetrator compound parameters for examplinib</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">examplinib_cyp_inh_parent</span><span class="op">)</span></span></code></pre></div>
-<table class="table">
-<thead><tr>
-<th align="left">target</th>
-<th align="right">
-<span class="math inline">\(K_{i}\)</span> (<span class="math inline">\(\mu M\)</span>)</th>
-<th align="left">source</th>
-</tr></thead>
-<tbody>
 <tr>
 <td align="left">CYP2C8</td>
 <td align="right">11.00</td>
-<td align="left">(study 001)</td>
+<td align="left">study 001</td>
 </tr>
 <tr>
 <td align="left">CYP2C9</td>
 <td align="right">0.60</td>
-<td align="left">(study 001)</td>
+<td align="left">study 001</td>
 </tr>
 <tr>
 <td align="left">CYP2C19</td>
 <td align="right">0.25</td>
-<td align="left">(study 001)</td>
+<td align="left">study 001</td>
+</tr>
+<tr>
+<td align="left">CYP2D6</td>
+<td align="right">NA</td>
+<td align="left"></td>
 </tr>
 <tr>
 <td align="left">CYP3A4</td>
 <td align="right">12.50</td>
-<td align="left">(study 001)</td>
+<td align="left">study 001</td>
 </tr>
 </tbody>
 </table>
-<p>In vitro inhibition data for examplinib</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="reference/basic_cyp_inhibition_risk.html">basic_cyp_inhibition_risk</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">examplinib_cyp_inh_parent</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>In vitro inhibition data for precipitant examplinib</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="reference/basic_cyp_inhibition_risk.html">basic_cyp_inhibition_risk</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">examplinib_cyp_inhibition</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
 <col width="12%">
-<col width="12%">
-<col width="12%">
-<col width="12%">
-<col width="12%">
-<col width="12%">
-<col width="12%">
-<col width="12%">
+<col width="9%">
+<col width="9%">
+<col width="15%">
+<col width="8%">
+<col width="13%">
+<col width="13%">
+<col width="17%">
 </colgroup>
 <thead><tr>
-<th align="left">target</th>
-<th align="right">
-<span class="math inline">\(K_{i}\)</span> (<span class="math inline">\(\mu M\)</span>)</th>
-<th align="right">
-<span class="math inline">\(K_{i,u}\)</span> (<span class="math inline">\(\mu M\)</span>)</th>
+<th align="left">object</th>
+<th align="right">ki</th>
+<th align="right">kiu</th>
 <th align="left">source</th>
-<th align="right"><span class="math inline">\(R\)</span></th>
-<th align="left">risk (hepatic)</th>
-<th align="right"><span class="math inline">\(R_{gut}\)</span></th>
-<th align="left">risk (intestinal)</th>
+<th align="right">r</th>
+<th align="left">risk_hep</th>
+<th align="right">r_gut</th>
+<th align="left">risk_intest</th>
 </tr></thead>
 <tbody>
+<tr>
+<td align="left">CYP1A2</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">CYP2B6</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+</tr>
 <tr>
 <td align="left">CYP2C8</td>
 <td align="right">11.00</td>
 <td align="right">11.00</td>
 <td align="left">study 001</td>
 <td align="right">0.01</td>
-<td align="left">No</td>
+<td align="left">FALSE</td>
 <td align="right">NA</td>
-<td align="left"></td>
+<td align="left">NA</td>
 </tr>
 <tr>
 <td align="left">CYP2C9</td>
@@ -224,9 +202,9 @@
 <td align="right">0.60</td>
 <td align="left">study 001</td>
 <td align="right">0.27</td>
-<td align="left">Yes</td>
+<td align="left">TRUE</td>
 <td align="right">NA</td>
-<td align="left"></td>
+<td align="left">NA</td>
 </tr>
 <tr>
 <td align="left">CYP2C19</td>
@@ -234,9 +212,19 @@
 <td align="right">0.25</td>
 <td align="left">study 001</td>
 <td align="right">0.66</td>
-<td align="left">Yes</td>
+<td align="left">TRUE</td>
 <td align="right">NA</td>
-<td align="left"></td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">CYP2D6</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
 </tr>
 <tr>
 <td align="left">CYP3A4</td>
@@ -244,9 +232,9 @@
 <td align="right">12.50</td>
 <td align="left">study 001</td>
 <td align="right">0.01</td>
-<td align="left">No</td>
-<td align="right">292.33</td>
-<td align="left">Yes</td>
+<td align="left">FALSE</td>
+<td align="right">292.3264</td>
+<td align="left">TRUE</td>
 </tr>
 </tbody>
 </table>

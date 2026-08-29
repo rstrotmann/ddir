@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=TRUE, fig.width=4, fig.
 ```
 
 ```{r ompound_data}
-perp <- perpetrator(
+perp <- precipitant(
   "examplinib",
   dose = 50, imaxss = 566, mw = 420.5, oral = TRUE, fu = 0.046, fa = 1,
   fg = 1, rb = 0.9, ka = 0.1,
@@ -23,7 +23,7 @@ perp <- perpetrator(
              rb = "study 003")
 )
 
-metab <- perpetrator(
+metab <- precipitant(
   "M1",
   dose = 50, imaxss = 566, mw = 420.5, oral = TRUE, fu = 0.046, fa = 1,
   fg = 1, rb = 0.9, ka = 0.1,
@@ -113,13 +113,13 @@ All calculations were done using the
 The following physico-chemical, ADME and clinical exposure data were used for
 the calculation of the relevant precipitant drug concentrations:
 
-```{r perpetrator_properties, results="asis"}
+```{r precipitant_properties, results="asis"}
 print(perp)
 ```
 
-# Key perpetrator concentrations
+# Key precipitant concentrations
 
-The following perpetrator concentrations were calculated as described in 
+The following precipitant concentrations were calculated as described in 
 Appendix 1:
 
 ```{r results="asis"}
@@ -236,7 +236,7 @@ print(basic_ugt_inhibition_risk(perp, ugt_inh))
 ## DDI risk as inhibitor of drug transporters
 
 The metric for the assessment of the drug transporter inhibition risk is
-$R=[I]/IC_{50,u}$. For the perpetrator concentrations relevant for the
+$R=[I]/IC_{50,u}$. For the precipitant concentrations relevant for the
 individual transporters, refer to Section '[Inhibition of drug transporters]' in
 Appendix 1.
 
@@ -267,7 +267,7 @@ $$C_{max,ss,u}=I_{max,ss} * f_u$$
 
 ### Hepatic inlet concentration {-}
 
-The hepatic inlet concentration is considered the relevant perpetrator
+The hepatic inlet concentration is considered the relevant precipitant
 concentration for inhibition of the hepatic uptake transporters OATP1B1 and
 OATP1B3, and for the hepatic terms in the mechanistic static modeling equation
 (refer to Section '[Mechanistic static modeling of CYP inhibition/induction]').

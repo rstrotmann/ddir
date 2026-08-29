@@ -23,7 +23,7 @@
   : Reconstruct inhibition_data after dplyr verbs
 - [`dplyr_reconstruct(`*`<risk>`*`)`](dplyr_reconstruct.risk.md) :
   reconstruct risk object
-- [`examplinib`](examplinib.md) : Perpetrator compound data for
+- [`examplinib`](examplinib.md) : Precipitant compound data for
   examplinib
 - [`examplinib_cyp_induction`](examplinib_cyp_induction.md) : Examplinib
   CYP induction data
@@ -59,25 +59,25 @@
   data
 - [`inhibition_data()`](inhibition_data.md) : inhibition_data
   constructor alias
-- [`key_conc_table()`](key_conc_table.md) : Key perpetrator
+- [`key_conc_table()`](key_conc_table.md) : Key precipitant
   concentrations
 - [`kinetic_cyp_induction_risk()`](kinetic_cyp_induction_risk.md) :
   Kinetic assessment of CYP induction risk
 - [`mech_stat_cyp_risk()`](mech_stat_cyp_risk.md) : Mechanistic-static
   risk assessment
-- [`perpetrator()`](perpetrator.md) : Perpetrator class definition
-- [`perpetrator_addin()`](perpetrator_addin.md) : Insert a perpetrator
-  object constructor
 - [`plot(`*`<induction_experiment>`*`)`](plot-induction_experiment-method.md)
   : Plot method for induction_experiment objects
+- [`precipitant()`](precipitant.md) : Precipitant class definition
+- [`precipitant_addin()`](precipitant_addin.md) : Insert a precipitant
+  object constructor
 - [`print(`*`<induction_experiment>`*`)`](print-induction_experiment-method.md)
   : Pring method for induction_experiment objects
 - [`print(`*`<induction_data>`*`)`](print.induction_data.md) : Print
   method for induction_data objects
 - [`print(`*`<inhibition_data>`*`)`](print.inhibition_data.md) : Print
   method for inhibition_data objects
-- [`print(`*`<perpetrator>`*`)`](print.perpetrator.md) : Print
-  perpetrator object as markdown
+- [`print(`*`<precipitant>`*`)`](print.precipitant.md) : Print
+  precipitant object as markdown
 - [`print(`*`<risk>`*`)`](print.risk.md) : Print risk object
 - [`risk()`](risk.md) : DDI risk object constructor alias
 - [`show(`*`<induction_experiment>`*`)`](show-induction_experiment-method.md)

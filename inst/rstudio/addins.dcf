@@ -1,6 +1,6 @@
-Name: Perpetrator
-Description: Inserts a perpetrator constructor at the cursor position
-Binding: perpetrator_addin
+Name: Precipitant
+Description: Inserts a precipitant constructor at the cursor position
+Binding: precipitant_addin
 Interactive: false
 
 Name: CYP inhibitor

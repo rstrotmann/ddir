@@ -1,15 +1,15 @@
 
-#' Validate perpetrator object
+#' Validate precipitant object
 #'
-#' @param obj A perpetrator object
+#' @param obj A precipitant object
 #'
 #' @returns Nothing.
 #' @noRd
-validate_perpetrator <- function(object) {
+validate_precipitant <- function(object) {
   obj_name <- deparse(substitute(object))
 
-  if (!inherits(object, "perpetrator"))
-    stop(paste(obj_name, "must be a perpetrotor object"))
+  if (!inherits(object, "precipitant"))
+    stop(paste(obj_name, "must be a precipitant object"))
 
   validate_argument(object$name, "character", allow_empty = TRUE)
   validate_argument(object$oral, "logical")

@@ -12,7 +12,7 @@ transporter_inhibition_risk(
 )
 }
 \arguments{
-\item{perp}{Perpetrator object.}
+\item{perp}{Precipitant object.}
 
 \item{transporter_inh}{Inhibitor object.}
 
@@ -30,7 +30,7 @@ Drug transporter inhibition risk
 The metric for the assessment of transporter interactions is
 \eqn{R=[I]/IC_{50}}.
 
-The relevant perpetrator concentrations \eqn{[I]} and regulatory thresholds
+The relevant precipitant concentrations \eqn{[I]} and regulatory thresholds
 of concern are:\tabular{lll}{
    I \tab transporter \tab threshold \cr
    \eqn{I_{gut}} \tab P-gp and BRCR when drugs are orally administered \tab 10 \cr

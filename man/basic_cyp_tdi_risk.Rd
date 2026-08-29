@@ -7,7 +7,7 @@
 basic_cyp_tdi_risk(perp, cyp_tdi, cyp_kdeg = cyp_turnover)
 }
 \arguments{
-\item{perp}{Perpetrator object.}
+\item{perp}{Precipitant object.}
 
 \item{cyp_tdi}{inhibition_data object.}
 

@@ -12,7 +12,7 @@ imaxssu(x, molar = TRUE)
 
 - x:
 
-  A perpetrator compound object.
+  A precipitant compound object.
 
 - molar:
 

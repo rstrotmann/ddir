@@ -18,7 +18,7 @@ mech_stat_cyp_risk(
 )
 }
 \arguments{
-\item{perp}{Perpetrator object.}
+\item{perp}{Precipitant object.}
 
 \item{cyp_inh}{Inhibitor object.}
 
@@ -55,7 +55,7 @@ respective CYP enzyme is considered, i.e., \eqn{R} for hepatic enzymes and
 
 \deqn{R=\frac{C_{max,ss,u}}{K_{i,u}}}
 
-\eqn{R} values > 0.02, i.e., maximal unbound perpetrator concentrations
+\eqn{R} values > 0.02, i.e., maximal unbound precipitant concentrations
 50-fold over \eqn{K_i} are considered to indicate a potential clinical CYP
 inhibition risk using this method.
 }

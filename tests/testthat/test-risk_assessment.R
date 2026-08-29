@@ -14,7 +14,7 @@ make_risk_perp <- function(...) {
     solubility = Inf,
     source     = character(0)
   )
-  do.call(perpetrator, utils::modifyList(defaults, list(...)))
+  do.call(precipitant, utils::modifyList(defaults, list(...)))
 }
 
 
@@ -127,7 +127,7 @@ test_that("basic_cyp_inhibition_risk scales Ki,u with fumic", {
 })
 
 
-test_that("basic_cyp_inhibition_risk sets intestinal R to zero for IV perpetrators", {
+test_that("basic_cyp_inhibition_risk sets intestinal R to zero for IV precipitants", {
   perp <- make_risk_perp(oral = FALSE)
   inh <- inhibition_data(
     tibble::tribble(
@@ -175,7 +175,7 @@ test_that("basic_cyp_inhibition_risk rejects wrong input classes", {
 
   expect_error(
     basic_cyp_inhibition_risk("not-a-perp", inh),
-    "perp must be a perpetrotor object"
+    "perp must be a precipitant object"
   )
   expect_error(
     basic_cyp_inhibition_risk(perp, "not-an-inhibitor"),
@@ -220,7 +220,7 @@ test_that("basic_cyp_inhibition_risk warns and drops non-CYP objects", {
 })
 
 
-test_that("basic_cyp_inhibition_risk warns when perpetrator and precipitant names differ", {
+test_that("basic_cyp_inhibition_risk warns when object name and data precipitant differ", {
   perp <- make_risk_perp()
   inh <- inhibition_data(
     tibble::tribble(
@@ -232,7 +232,7 @@ test_that("basic_cyp_inhibition_risk warns when perpetrator and precipitant name
 
   expect_warning(
     basic_cyp_inhibition_risk(perp, inh),
-    "Perpetrator name and precipitant do not match"
+    "Precipitant name and data precipitant do not match"
   )
 })
 
@@ -282,7 +282,7 @@ test_that("basic_ugt_inhibition_risk rejects wrong input classes and empty UGT d
 
   expect_error(
     basic_ugt_inhibition_risk("not-a-perp", ugt),
-    "perp must be a perpetrotor object"
+    "perp must be a precipitant object"
   )
   expect_error(
     basic_ugt_inhibition_risk(perp, "not-an-inhibitor"),
@@ -460,7 +460,7 @@ test_that("transporter_inhibition_risk rejects wrong classes and empty transport
 
   expect_error(
     transporter_inhibition_risk("not-a-perp", inh),
-    "perp must be a perpetrotor object"
+    "perp must be a precipitant object"
   )
   expect_error(
     transporter_inhibition_risk(perp, "not-an-inhibitor"),
@@ -605,7 +605,7 @@ test_that("basic_cyp_tdi_risk rejects wrong classes, missing columns, and empty 
 
   expect_error(
     basic_cyp_tdi_risk("not-a-perp", tdi),
-    "perp must be a perpetrotor object"
+    "perp must be a precipitant object"
   )
   expect_error(
     basic_cyp_tdi_risk(perp, "not-an-inhibitor"),
@@ -703,7 +703,7 @@ test_that("static_cyp_induction_risk rejects wrong classes and empty allowed CYP
 
   expect_error(
     static_cyp_induction_risk("not-a-perp", ind),
-    "perp must be a perpetrotor object"
+    "perp must be a precipitant object"
   )
   expect_error(
     static_cyp_induction_risk(perp, "not-an-inducer"),
@@ -801,7 +801,7 @@ test_that("kinetic_cyp_induction_risk rejects wrong classes and empty allowed CY
 
   expect_error(
     kinetic_cyp_induction_risk("not-a-perp", ind),
-    "perp must be a perpetrotor object"
+    "perp must be a precipitant object"
   )
   expect_error(
     kinetic_cyp_induction_risk(perp, "not-an-inducer"),
@@ -1078,7 +1078,7 @@ test_that("mech_stat_cyp_risk rejects wrong input classes", {
 
   expect_error(
     mech_stat_cyp_risk("not-a-perp", inh, ind),
-    "perp must be a perpetrotor object"
+    "perp must be a precipitant object"
   )
   expect_error(
     mech_stat_cyp_risk(perp, "not-an-inhibitor", ind),

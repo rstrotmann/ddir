@@ -1,6 +1,6 @@
-# Perpetrator compound data for examplinib
+# Precipitant compound data for examplinib
 
-Perpetrator compound data for examplinib
+Precipitant compound data for examplinib
 
 ## Usage
 
@@ -10,7 +10,7 @@ examplinib
 
 ## Format
 
-An object of class `perpetrator` (inherits from `list`) of length 13.
+An object of class `precipitant` (inherits from `list`) of length 13.
 
 ## Source
 
