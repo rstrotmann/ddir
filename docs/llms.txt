@@ -24,26 +24,32 @@ method). All are provided as markdown-formatted output tables:
 
 library(ddir)
 library(knitr)
+```
+
+``` r
 
 p <- examplinib
 print(p)
-#> 
-#> 
-#> Table: Precipitant compound parameters for examplinib
-#> 
-#> |parameter            |value   |source |
-#> |:--------------------|:-------|:------|
-#> |oral                 |1       |       |
-#> |$MW$ (g/mol)         |492.6   |       |
-#> |$dose$ (mg)          |450     |       |
-#> |$solubility$ (mg/l)  |Inf     |       |
-#> |$C_{max,ss}$ (ng/ml) |3530    |       |
-#> |$f_u$                |0.023   |       |
-#> |$f_{u,mic}$          |1       |       |
-#> |$R_B$                |1       |       |
-#> |$F_a$                |0.81    |       |
-#> |$F_g$                |1       |       |
-#> |$k_a$ (1/min)        |0.00267 |       |
+```
+
+| parameter               | value   | source |
+|:------------------------|:--------|:-------|
+| oral                    | 1       |        |
+| \\MW\\ (g/mol)          | 492.6   |        |
+| \\dose\\ (mg)           | 450     |        |
+| \\solubility\\ (mg/l)   | Inf     |        |
+| \\C\_{max,ss}\\ (ng/ml) | 3530    |        |
+| \\f_u\\                 | 0.023   |        |
+| \\f\_{u,mic}\\          | 1       |        |
+| \\R_B\\                 | 1       |        |
+| \\F_a\\                 | 0.81    |        |
+| \\F_g\\                 | 1       |        |
+| \\k_a\\ (1/min)         | 0.00267 |        |
+
+Precipitant compound parameters for examplinib
+
+``` r
+
 print(examplinib_cyp_inhibition)
 ```
 
