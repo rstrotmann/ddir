@@ -119,7 +119,7 @@ cyp_ind_addin <- function() {
 appendix_addin <- function() {
   rstudioapi::insertText(
     r"(\newpage
-# Appendix 1: Calculations and formulae
+# Appendix 1: Calculations and formulas
 
 ## Relevant precipitant drug concentrations
 

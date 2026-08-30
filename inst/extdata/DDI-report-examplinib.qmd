@@ -247,7 +247,7 @@ print(transporter_inhibition_risk(perp, transporter_inh))
 ```
 
 \newpage
-# Appendix 1: Calculations and formulae
+# Appendix 1: Calculations and formulas
 
 ## Relevant precipitant drug concentrations
 
