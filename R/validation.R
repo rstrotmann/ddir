@@ -35,13 +35,20 @@ validate_precipitant <- function(object) {
 #'
 #' @param allow_null Logical.
 #' @param obj Inhibitor object
+#' @param allowed_objects Objects that will be retained in the output, defaults
+#' to all, if NULL.
 #'
-#' @returns Nothing.
+#' @returns The inhibition_data object, filtered to the allowed objects.
 #' @noRd
-validate_inhibition_data <- function(obj, allow_null = FALSE) {
+validate_inhibition_data <- function(
+    obj,
+    allowed_objects = NULL,
+    allow_null = FALSE
+  ){
+  # early fail on NULL, if applicable
   if (isTRUE(allow_null)) {
     if (is.null(obj))
-      return(invisible(NULL))
+      return(obj)
   }
 
   obj_name <- deparse(substitute(obj))
@@ -49,6 +56,7 @@ validate_inhibition_data <- function(obj, allow_null = FALSE) {
   if (!inherits(obj, "inhibition_data"))
     stop(paste(obj_name, "must be an inhibition_data object"))
 
+  # check required fields
   expected_fields <- c("object", "source")
   missing_fields <- setdiff(expected_fields, names(obj))
   if (length(missing_fields) > 0) {
@@ -61,43 +69,51 @@ validate_inhibition_data <- function(obj, allow_null = FALSE) {
     stop(paste("Either ki or ic50 must be in", obj_name))
   }
 
-  known_objects <- c(
-    c("CYP1A1", "CYP1A2", "CYP2A6", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C18",
-      "CYP2C19", "CYP2D6", "CYP2E1", "CYP2J2", "CYP3A4", "CYP3A5", "CYP3A7"),
-    c("UGT1A1", "UGT1A3", "UGT1A4", "UGT1A6", "UGT1A9", "UGT2B7", "UGT2B15",
-      "UGT2B17"),
-    c("Pgp", "BCRP", "OATP1B1", "OATP1B3", "OAT1", "OAT3", "BSEP", "OCT1",
-      "OCT2", "MATE1", "MATE2k", "Pgp_sys", "BCRP_sys", "Pgp_int", "BCRP_int")
-  )
-  unknown_objects <- setdiff(
-    toupper(unique(obj$object)), toupper(known_objects))
-  if (length(unknown_objects) > 0)
-    warning(paste0("Unknown objects: ", nice_enumeration(unknown_objects)))
+  # filter for allowed objects
+  if (!is.null(allowed_objects)) {
+    unexpected_objects <- setdiff(unique(obj$object), allowed_objects)
+    if (length(unexpected_objects) > 0) {
+      warning(paste0(
+        "Unexpected objects in ", obj_name, " removed: ",
+        nice_enumeration(unexpected_objects)
+      ))
+    }
 
-  invisible(NULL)
+    out <- filter(obj, .data$object %in% allowed_objects)
+  } else {
+    out <- obj
+  }
+
+  out
 }
 
 
 #' Validate induction_data object
 #'
 #' @param obj Induction_data object.
+#' @param allowed_objects Objects that will be retained in the output, defaults
+#' to all, if NULL.
 #' @param allow_null Logical.
 #'
 #' @returns Nothing.
 #' @noRd
-validate_induction_data <- function(obj, allow_null = FALSE) {
+validate_induction_data <- function(
+    obj,
+    allowed_objects = NULL,
+    allow_null = FALSE
+) {
   if (isTRUE(allow_null)) {
     if (is.null(obj))
-      return(invisible(NULL))
+      # return(invisible(NULL))
+      return(obj)
   }
 
   obj_name <- deparse(substitute(obj))
 
-  expected_fields <- c("object", "emax", "ec50", "max_c", "source")
-
   if (!inherits(obj, "induction_data"))
     stop(paste(obj_name, "must be an induction_data object"))
 
+  expected_fields <- c("object", "emax", "ec50", "max_c", "source")
   missing_fields <- setdiff(expected_fields, names(obj))
   if (length(missing_fields) > 0) {
     stop(paste0(
@@ -105,7 +121,21 @@ validate_induction_data <- function(obj, allow_null = FALSE) {
       nice_enumeration(missing_fields)
     ))
   }
-  invisible(NULL)
+
+  if (!is.null(allowed_objects)) {
+    unexpected_objects <- setdiff(unique(obj$object), allowed_objects)
+    if (length(unexpected_objects) > 0) {
+      warning(paste0(
+        "Unexpected objects in ", obj_name, " removed: ",
+        nice_enumeration(unexpected_objects)
+      ))
+    }
+    out <- filter(obj, .data$object %in% allowed_objects)
+  } else {
+    out <- obj
+  }
+
+  out
 }
 
 

@@ -45,25 +45,15 @@
 basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
   # input validation
   validate_precipitant(perp)
-  validate_inhibition_data(cyp_inh)
+
+  cyp_inh <- validate_inhibition_data(cyp_inh, allowed_objects = c("CYP1A2",
+    "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19", "CYP2D6", "CYP3A4"))
+
   if (perp$name != attr(cyp_inh, "precipitant"))
     warning("Precipitant name and data precipitant do not match!")
 
-  allowed_object <- c("CYP1A2", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19",
-                      "CYP2D6", "CYP3A4")
-  ki <- filter(cyp_inh, .data$object %in% allowed_object)
-  if (nrow(ki) == 0)
-    stop("No inhibition data for known CYP enzymes found")
-  excluded_object <- setdiff(unique(cyp_inh$object), allowed_object)
-  if (length(excluded_object) > 0)
-    warning(paste0(
-      "Non-CYP data were excluded (",
-      nice_enumeration(excluded_object),
-      ")"
-    ))
-
   # business logic
-  out <- ki |>
+  out <- cyp_inh |>
     mutate(kiu = ki * perp$fumic) |>
     mutate(r = imaxssu(perp, molar = TRUE) / kiu) |>
     mutate(r_gut = case_when(
@@ -116,24 +106,14 @@ basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
 basic_ugt_inhibition_risk <- function(perp, ugt_inh) {
   # input validation
   validate_precipitant(perp)
-  validate_inhibition_data(ugt_inh)
+
+  ugt_inh <- validate_inhibition_data(ugt_inh, allowed_objects = c("UGT1A1", "UGT1A3",
+    "UGT1A4", "UGT1A6", "UGT1A9", "UGT2B7", "UGT2B15", "UGT2B17"))
+
   if (perp$name != attr(ugt_inh, "precipitant"))
     warning("Precipitant name and data precipitant do not match!")
 
-  allowed_objects <- c("UGT1A1", "UGT1A3", "UGT1A4", "UGT1A6", "UGT1A9",
-                      "UGT2B7", "UGT2B15", "UGT2B17")
-  ki <- filter(ugt_inh, .data$object %in% allowed_objects)
-  if (nrow(ki) == 0)
-    stop("No inhibition data for known UGT enzymes found")
-  excluded_objects <- setdiff(unique(ugt_inh$object), allowed_objects)
-  if (length(excluded_objects) > 0)
-    warning(paste0(
-      "Non-UGT data were excluded (",
-      nice_enumeration(excluded_objects),
-      ")"
-    ))
-
-  out <- ki |>
+  out <- ugt_inh |>
     # mutate(ki = ic50/2) |>
     mutate(kiu = .data$ki * perp$fumic) |>
     mutate(r = imaxssu(perp) / .data$kiu) |>
@@ -184,24 +164,14 @@ transporter_inhibition_risk <- function(
 ){
   # input validation
   validate_precipitant(perp)
-  validate_inhibition_data(transporter_inh)
+
+  transporter_inh <- validate_inhibition_data(
+    transporter_inh, allowed_objects = c("Pgp", "BCRP", "OATP1B1", "OATP1B3",
+    "OAT1", "OAT3", "BSEP", "OCT1", "OCT2", "MATE1", "MATE2k")
+  )
 
   if (perp$name != attr(transporter_inh, "precipitant"))
     warning("Precipitant name and data precipitant do not match!")
-
-  allowed_objects <- c("Pgp", "BCRP", "OATP1B1", "OATP1B3", "OAT1", "OAT3",
-                      "BSEP", "OCT1", "OCT2", "MATE1", "MATE2k")
-
-  in_vitro <- filter(transporter_inh, .data$object %in% allowed_objects)
-  if (nrow(in_vitro) == 0)
-    stop("No inhibition data for known transporters found")
-  excluded_objects <- setdiff(unique(transporter_inh$object), allowed_objects)
-  if (length(excluded_objects) > 0)
-    warning(paste0(
-      "Non-transporter data were excluded (",
-      nice_enumeration(excluded_objects),
-      ")"
-    ))
 
   perp_conc <- data.frame(
     i = c("igut", "imaxssu", "imaxinletu"),
@@ -209,10 +179,11 @@ transporter_inhibition_risk <- function(
              imaxinletu(perp, qh = qh, molar = TRUE))
   )
 
-  out <- in_vitro |>
-    bind_rows(filter(in_vitro, .data$object %in% c("Pgp", "BCRP")) |>
+  # out <- in_vitro |>
+  out <- transporter_inh |>
+    bind_rows(filter(transporter_inh, .data$object %in% c("Pgp", "BCRP")) |>
                 mutate(object = paste0(.data$object, "_sys"))) |>
-    bind_rows(filter(in_vitro, .data$object %in% c("Pgp", "BCRP")) |>
+    bind_rows(filter(transporter_inh, .data$object %in% c("Pgp", "BCRP")) |>
                 mutate(object = paste0(.data$object, "_int"))) |>
     filter(!.data$object %in% c("Pgp", "BCRP")) |>
     left_join(
@@ -251,29 +222,18 @@ basic_cyp_tdi_risk <- function(
 ) {
   # input validation
   validate_precipitant(perp)
-  validate_inhibition_data(cyp_tdi)
+
+  cyp_tdi <- validate_inhibition_data(cyp_tdi, allowed_objects = c("CYP1A2",
+    "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19", "CYP2D6", "CYP3A4"))
+
   expected_columns <- c("object", "ki", "kinact", "source")
   missing_columns <- setdiff(expected_columns, names(cyp_tdi))
   if (length(missing_columns) > 0)
     stop(paste0(
       "Missing columns in cyp_tdi: ", nice_enumeration(missing_columns)))
 
-  allowed_object <- c("CYP1A2", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19",
-                      "CYP2D6", "CYP3A4")
-
-  in_vitro <- filter(cyp_tdi, .data$object %in% allowed_object)
-  if (nrow(in_vitro) == 0)
-    stop("No TDI data for known CYP enzymes found")
-  excluded_objects <- setdiff(unique(cyp_tdi$object), allowed_object)
-  if (length(excluded_objects) > 0)
-    warning(paste0(
-      "Non-CYP data were excluded (",
-      nice_enumeration(excluded_objects),
-      ")"
-    ))
-
   # business logic
-  out <- in_vitro |>
+  out <- cyp_tdi |>
     mutate(
       kobs = .data$kinact * 5 * imaxssu(perp) /
         (.data$ki * perp$fumic + 5 * imaxssu(perp))
@@ -305,26 +265,12 @@ basic_cyp_tdi_risk <- function(
 static_cyp_induction_risk <- function(perp, cyp_ind)  {
   # input validation
   validate_precipitant(perp)
-  validate_induction_data(cyp_ind)
 
-  allowed_object <- c("CYP1A2", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19",
-                      "CYP2D6", "CYP3A4")
-
-  in_vitro <- filter(cyp_ind, .data$object %in% allowed_object)
-
-  if (nrow(in_vitro) == 0)
-    stop("No CYP induction data for known CYP enzymes found")
-
-  excluded_object <- setdiff(unique(cyp_ind$object), allowed_object)
-  if (length(excluded_object) > 0)
-    warning(paste0(
-      "Non-CYP data were excluded (",
-      nice_enumeration(excluded_object),
-      ")"
-    ))
+  cyp_ind <- validate_induction_data(cyp_ind, allowed_objects = c("CYP1A2",
+    "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19", "CYP2D6", "CYP3A4"))
 
   # assess risk
-  out <- in_vitro |>
+  out <- cyp_ind |>
     mutate(maxc_imaxssu = round(.data$max_c / imaxssu(perp), 1)) |>
     mutate(risk = .data$emax >= 2)|>
     mutate(note = case_when(
@@ -354,26 +300,12 @@ static_cyp_induction_risk <- function(perp, cyp_ind)  {
 kinetic_cyp_induction_risk <- function(perp, cyp_ind, d = 1) {
   # input validation
   validate_precipitant(perp)
-  validate_induction_data(cyp_ind)
 
-  allowed_object <- c("CYP1A2", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19",
-                      "CYP2D6", "CYP3A4")
-
-  in_vitro <- filter(cyp_ind, .data$object %in% allowed_object)
-
-  if (nrow(in_vitro) == 0)
-    stop("No CYP induction data for known CYP enzymes found")
-
-  excluded_object <- setdiff(unique(cyp_ind$object), allowed_object)
-  if (length(excluded_object) > 0)
-    warning(paste0(
-      "Non-CYP data were excluded (",
-      nice_enumeration(excluded_object),
-      ")"
-    ))
+  cyp_ind <- validate_induction_data(cyp_ind, allowed_objects = c("CYP1A2",
+    "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19", "CYP2D6", "CYP3A4"))
 
   # business logic
-  out <- in_vitro |>
+  out <- cyp_ind |>
     mutate(r = 1 / (1 + d * .data$emax * 10 * imaxssu(perp) /
                       (.data$ec50 + 10 * imaxssu(perp)))
     ) |>

@@ -184,7 +184,7 @@ test_that("basic_cyp_inhibition_risk rejects wrong input classes", {
 })
 
 
-test_that("basic_cyp_inhibition_risk stops when no allowed CYP enzymes are present", {
+test_that("basic_cyp_inhibition_risk returns an empty risk table when no allowed CYP enzymes are present", {
   perp <- make_risk_perp()
   inh <- inhibition_data(
     tibble::tribble(
@@ -194,14 +194,16 @@ test_that("basic_cyp_inhibition_risk stops when no allowed CYP enzymes are prese
     precipitant = "testdrug"
   )
 
-  expect_error(
-    basic_cyp_inhibition_risk(perp, inh),
-    "No inhibition data for known CYP enzymes found"
+  expect_warning(
+    res <- basic_cyp_inhibition_risk(perp, inh),
+    "Unexpected objects in cyp_inh removed: CYP3A5"
   )
+  expect_s3_class(res, "risk")
+  expect_equal(nrow(res), 0)
 })
 
 
-test_that("basic_cyp_inhibition_risk warns and drops non-CYP objects", {
+test_that("basic_cyp_inhibition_risk drops non-CYP objects with a warning", {
   perp <- make_risk_perp()
   inh <- inhibition_data(
     tibble::tribble(
@@ -214,7 +216,7 @@ test_that("basic_cyp_inhibition_risk warns and drops non-CYP objects", {
 
   expect_warning(
     res <- basic_cyp_inhibition_risk(perp, inh),
-    "Non-CYP data were excluded \\(UGT1A1\\)"
+    "Unexpected objects in cyp_inh removed: UGT1A1"
   )
   expect_equal(res$object, "CYP3A4")
 })
@@ -263,19 +265,12 @@ test_that("basic_ugt_inhibition_risk uses Ki,u and Cmax,ss,u", {
 })
 
 
-test_that("basic_ugt_inhibition_risk rejects wrong input classes and empty UGT data", {
+test_that("basic_ugt_inhibition_risk rejects wrong input classes", {
   perp <- make_risk_perp()
   ugt <- inhibition_data(
     tibble::tribble(
       ~object , ~ki, ~source,
       "UGT1A1",  15, "study"
-    ),
-    precipitant = "testdrug"
-  )
-  cyp_only <- inhibition_data(
-    tibble::tribble(
-      ~object , ~ki, ~source,
-      "CYP3A4",  10, "study"
     ),
     precipitant = "testdrug"
   )
@@ -288,14 +283,29 @@ test_that("basic_ugt_inhibition_risk rejects wrong input classes and empty UGT d
     basic_ugt_inhibition_risk(perp, "not-an-inhibitor"),
     "ugt_inh must be an inhibition_data object"
   )
-  expect_error(
-    basic_ugt_inhibition_risk(perp, cyp_only),
-    "No inhibition data for known UGT enzymes found"
-  )
 })
 
 
-test_that("basic_ugt_inhibition_risk warns and drops CYP rows", {
+test_that("basic_ugt_inhibition_risk returns an empty risk table when no UGT enzymes are present", {
+  perp <- make_risk_perp()
+  cyp_only <- inhibition_data(
+    tibble::tribble(
+      ~object , ~ki, ~source,
+      "CYP3A4",  10, "study"
+    ),
+    precipitant = "testdrug"
+  )
+
+  expect_warning(
+    res <- basic_ugt_inhibition_risk(perp, cyp_only),
+    "Unexpected objects in ugt_inh removed: CYP3A4"
+  )
+  expect_s3_class(res, "risk")
+  expect_equal(nrow(res), 0)
+})
+
+
+test_that("basic_ugt_inhibition_risk drops CYP rows with a warning", {
   perp <- make_risk_perp()
   inh <- inhibition_data(
     tibble::tribble(
@@ -308,7 +318,7 @@ test_that("basic_ugt_inhibition_risk warns and drops CYP rows", {
 
   expect_warning(
     res <- basic_ugt_inhibition_risk(perp, inh),
-    "Non-UGT data were excluded \\(CYP3A4\\)"
+    "Unexpected objects in ugt_inh removed: CYP3A4"
   )
   expect_equal(res$object, "UGT1A1")
 })
@@ -441,19 +451,12 @@ test_that("transporter_inhibition_risk uses a custom reference table when suppli
 })
 
 
-test_that("transporter_inhibition_risk rejects wrong classes and empty transporter data", {
+test_that("transporter_inhibition_risk rejects wrong classes", {
   perp <- make_risk_perp()
   inh <- inhibition_data(
     tibble::tribble(
       ~object, ~ic50, ~source,
       "OAT1" ,    10, "study"
-    ),
-    precipitant = "testdrug"
-  )
-  cyp_only <- inhibition_data(
-    tibble::tribble(
-      ~object , ~ic50, ~source,
-      "CYP3A4",    10, "study"
     ),
     precipitant = "testdrug"
   )
@@ -466,14 +469,29 @@ test_that("transporter_inhibition_risk rejects wrong classes and empty transport
     transporter_inhibition_risk(perp, "not-an-inhibitor"),
     "transporter_inh must be an inhibition_data object"
   )
-  expect_error(
-    transporter_inhibition_risk(perp, cyp_only),
-    "No inhibition data for known transporters found"
-  )
 })
 
 
-test_that("transporter_inhibition_risk warns and drops non-transporter objects", {
+test_that("transporter_inhibition_risk returns an empty risk table when no transporters are present", {
+  perp <- make_risk_perp()
+  cyp_only <- inhibition_data(
+    tibble::tribble(
+      ~object , ~ic50, ~source,
+      "CYP3A4",    10, "study"
+    ),
+    precipitant = "testdrug"
+  )
+
+  expect_warning(
+    res <- transporter_inhibition_risk(perp, cyp_only),
+    "Unexpected objects in transporter_inh removed: CYP3A4"
+  )
+  expect_s3_class(res, "risk")
+  expect_equal(nrow(res), 0)
+})
+
+
+test_that("transporter_inhibition_risk drops non-transporter objects with a warning", {
   perp <- make_risk_perp()
   inh <- inhibition_data(
     tibble::tribble(
@@ -486,7 +504,7 @@ test_that("transporter_inhibition_risk warns and drops non-transporter objects",
 
   expect_warning(
     res <- transporter_inhibition_risk(perp, inh),
-    "Non-transporter data were excluded \\(CYP3A4\\)"
+    "Unexpected objects in transporter_inh removed: CYP3A4"
   )
   expect_equal(res$object, "OAT1")
 })
@@ -579,7 +597,7 @@ test_that("basic_cyp_tdi_risk can use a custom turnover table", {
 })
 
 
-test_that("basic_cyp_tdi_risk rejects wrong classes, missing columns, and empty CYP TDI", {
+test_that("basic_cyp_tdi_risk rejects wrong classes and missing columns", {
   perp <- make_risk_perp()
   tdi <- inhibition_data(
     tibble::tribble(
@@ -592,13 +610,6 @@ test_that("basic_cyp_tdi_risk rejects wrong classes, missing columns, and empty 
     tibble::tribble(
       ~object , ~ki, ~source,
       "CYP3A4",   1, "study"
-    ),
-    precipitant = "testdrug"
-  )
-  only_3a5 <- inhibition_data(
-    tibble::tribble(
-      ~object , ~ki, ~kinact, ~source,
-      "CYP3A5",   1,     0.1, "study"
     ),
     precipitant = "testdrug"
   )
@@ -615,14 +626,29 @@ test_that("basic_cyp_tdi_risk rejects wrong classes, missing columns, and empty 
     basic_cyp_tdi_risk(perp, no_kinact),
     "Missing columns in cyp_tdi: kinact"
   )
-  expect_error(
-    basic_cyp_tdi_risk(perp, only_3a5),
-    "No TDI data for known CYP enzymes found"
-  )
 })
 
 
-test_that("basic_cyp_tdi_risk warns about CYP3A5 and excludes it from the result", {
+test_that("basic_cyp_tdi_risk returns an empty risk table when no allowed CYP enzymes are present", {
+  perp <- make_risk_perp()
+  only_3a5 <- inhibition_data(
+    tibble::tribble(
+      ~object , ~ki, ~kinact, ~source,
+      "CYP3A5",   1,     0.1, "study"
+    ),
+    precipitant = "testdrug"
+  )
+
+  expect_warning(
+    res <- basic_cyp_tdi_risk(perp, only_3a5),
+    "Unexpected objects in cyp_tdi removed: CYP3A5"
+  )
+  expect_s3_class(res, "risk")
+  expect_equal(nrow(res), 0)
+})
+
+
+test_that("basic_cyp_tdi_risk drops CYP3A5 with a warning", {
   perp <- make_risk_perp()
   tdi <- inhibition_data(
     tibble::tribble(
@@ -635,7 +661,7 @@ test_that("basic_cyp_tdi_risk warns about CYP3A5 and excludes it from the result
 
   expect_warning(
     res <- basic_cyp_tdi_risk(perp, tdi),
-    "Non-CYP data were excluded \\(CYP3A5\\)"
+    "Unexpected objects in cyp_tdi removed: CYP3A5"
   )
   expect_equal(res$object, "CYP3A4")
 })
@@ -684,19 +710,12 @@ test_that("static_cyp_induction_risk leaves the note empty when max_c covers 50-
 })
 
 
-test_that("static_cyp_induction_risk rejects wrong classes and empty allowed CYP data", {
+test_that("static_cyp_induction_risk rejects wrong classes", {
   perp <- make_risk_perp()
   ind <- induction_data(
     tibble::tribble(
       ~object , ~emax, ~ec50, ~max_c, ~source,
       "CYP3A4",     2,     1,    100, "study"
-    ),
-    precipitant = "testdrug"
-  )
-  only_3a5 <- induction_data(
-    tibble::tribble(
-      ~object , ~emax, ~ec50, ~max_c, ~source,
-      "CYP3A5",     3,     1,    100, "study"
     ),
     precipitant = "testdrug"
   )
@@ -709,14 +728,29 @@ test_that("static_cyp_induction_risk rejects wrong classes and empty allowed CYP
     static_cyp_induction_risk(perp, "not-an-inducer"),
     "cyp_ind must be an induction_data object"
   )
-  expect_error(
-    static_cyp_induction_risk(perp, only_3a5),
-    "No CYP induction data for known CYP enzymes found"
-  )
 })
 
 
-test_that("static_cyp_induction_risk warns about CYP3A5 and excludes it from the result", {
+test_that("static_cyp_induction_risk returns an empty risk table when no allowed CYP enzymes are present", {
+  perp <- make_risk_perp()
+  only_3a5 <- induction_data(
+    tibble::tribble(
+      ~object , ~emax, ~ec50, ~max_c, ~source,
+      "CYP3A5",     3,     1,    100, "study"
+    ),
+    precipitant = "testdrug"
+  )
+
+  expect_warning(
+    res <- static_cyp_induction_risk(perp, only_3a5),
+    "Unexpected objects in cyp_ind removed: CYP3A5"
+  )
+  expect_s3_class(res, "risk")
+  expect_equal(nrow(res), 0)
+})
+
+
+test_that("static_cyp_induction_risk drops CYP3A5 with a warning", {
   perp <- make_risk_perp()
   ind <- induction_data(
     tibble::tribble(
@@ -729,7 +763,7 @@ test_that("static_cyp_induction_risk warns about CYP3A5 and excludes it from the
 
   expect_warning(
     res <- static_cyp_induction_risk(perp, ind),
-    "Non-CYP data were excluded \\(CYP3A5\\)"
+    "Unexpected objects in cyp_ind removed: CYP3A5"
   )
   expect_equal(res$object, "CYP3A4")
 })
@@ -782,19 +816,12 @@ test_that("kinetic_cyp_induction_risk is negative for weak induction and when d 
 })
 
 
-test_that("kinetic_cyp_induction_risk rejects wrong classes and empty allowed CYP data", {
+test_that("kinetic_cyp_induction_risk rejects wrong classes", {
   perp <- make_risk_perp()
   ind <- induction_data(
     tibble::tribble(
       ~object , ~emax, ~ec50, ~max_c, ~source,
       "CYP3A4",     2,     1,    100, "study"
-    ),
-    precipitant = "testdrug"
-  )
-  only_3a5 <- induction_data(
-    tibble::tribble(
-      ~object , ~emax, ~ec50, ~max_c, ~source,
-      "CYP3A5",     3,     1,    100, "study"
     ),
     precipitant = "testdrug"
   )
@@ -807,14 +834,29 @@ test_that("kinetic_cyp_induction_risk rejects wrong classes and empty allowed CY
     kinetic_cyp_induction_risk(perp, "not-an-inducer"),
     "cyp_ind must be an induction_data object"
   )
-  expect_error(
-    kinetic_cyp_induction_risk(perp, only_3a5),
-    "No CYP induction data for known CYP enzymes found"
-  )
 })
 
 
-test_that("kinetic_cyp_induction_risk warns about CYP3A5 and excludes it from the result", {
+test_that("kinetic_cyp_induction_risk returns an empty risk table when no allowed CYP enzymes are present", {
+  perp <- make_risk_perp()
+  only_3a5 <- induction_data(
+    tibble::tribble(
+      ~object , ~emax, ~ec50, ~max_c, ~source,
+      "CYP3A5",     3,     1,    100, "study"
+    ),
+    precipitant = "testdrug"
+  )
+
+  expect_warning(
+    res <- kinetic_cyp_induction_risk(perp, only_3a5),
+    "Unexpected objects in cyp_ind removed: CYP3A5"
+  )
+  expect_s3_class(res, "risk")
+  expect_equal(nrow(res), 0)
+})
+
+
+test_that("kinetic_cyp_induction_risk drops CYP3A5 with a warning", {
   perp <- make_risk_perp()
   ind <- induction_data(
     tibble::tribble(
@@ -827,7 +869,7 @@ test_that("kinetic_cyp_induction_risk warns about CYP3A5 and excludes it from th
 
   expect_warning(
     res <- kinetic_cyp_induction_risk(perp, ind),
-    "Non-CYP data were excluded \\(CYP3A5\\)"
+    "Unexpected objects in cyp_ind removed: CYP3A5"
   )
   expect_equal(res$object, "CYP3A4")
 })

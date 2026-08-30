@@ -24,7 +24,8 @@ Imports:
     tidyr,
     rstudioapi,
     methods,
-    stats
+    stats,
+    vctrs
 Suggests: 
     rmarkdown,
     testthat (>= 3.0.0)

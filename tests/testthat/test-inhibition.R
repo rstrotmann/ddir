@@ -121,17 +121,15 @@ test_that("inhibition_data constructor rejects input without inhibition columns"
 })
 
 
-test_that("inhibition_data constructor warns about unknown objects", {
+test_that("inhibition_data constructor keeps unknown objects without warning", {
   data <- tibble::tribble(
     ~object , ~ki, ~source,
     "CYP9Z9",  10, "study",
     "CYP3A4",   5, "study"
   )
 
-  expect_warning(
-    inhibition_data(data, precipitant = "testdrug"),
-    "Unknown objects: CYP9Z9"
-  )
+  expect_no_warning(x <- inhibition_data(data, precipitant = "testdrug"))
+  expect_equal(x$object, c("CYP9Z9", "CYP3A4"))
 })
 
 
