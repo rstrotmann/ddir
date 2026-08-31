@@ -13,6 +13,7 @@ new_inhibition_data <- function(data, precipitant = "") {
   )
 }
 
+
 #' inhibition_data constructor alias
 #'
 #' @param data A data frame with the columns object, ki and source.

@@ -406,7 +406,7 @@ mech_stat_cyp_risk <- function(
   }
 
   out <- cyp_inh |>
-    as.data.frame() |>
+    # as.data.frame() |>
 
     # direct inhibition
     mutate(kiu = .data$ki * fumic) |>
@@ -420,7 +420,7 @@ mech_stat_cyp_risk <- function(
     # TDI
     left_join(
       cyp_tdi |>
-        as.data.frame() |>
+        # as.data.frame() |>
         mutate(ki_tdi = .data$ki) |>
         select(-c("ki", "source")),
       by = "object") |>
@@ -437,7 +437,7 @@ mech_stat_cyp_risk <- function(
     # induction
     left_join(
       cyp_ind |>
-        as.data.frame() |>
+        # as.data.frame() |>
         select(-"source"),
       by = c("object")) |>
     mutate(Cg = case_when(

@@ -33,7 +33,7 @@ hepatic_cyp_turnover <-tibble::tribble(
     "CYP35", "In vitro Method 2",     "36",  "FALSE",                          "PMID: 10997941"
   )  |>
   mutate_all(str_trim) |>
-  as.data.frame() |>
+  # as.data.frame() |>
   mutate(in_vivo = str_detect(method, "In vivo")) |>
   mutate(mean_hl = as.numeric(mean_hl)) |>
   mutate(kdeg = round(log(2)/mean_hl, 4))
