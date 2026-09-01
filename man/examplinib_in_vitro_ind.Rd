@@ -5,7 +5,7 @@
 \alias{examplinib_in_vitro_ind}
 \title{in vitro sample data for CYP3A4 mRNA induction}
 \format{
-A data frame with 7 columns
+A induction_experiment object frame with 7 columns:
 \itemize{
 \item DONOR Hepatocyte donor
 \item TYPE Test  or positive control

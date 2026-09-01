@@ -10,7 +10,7 @@ examplinib_in_vitro_ind
 
 ## Format
 
-A data frame with 7 columns
+A induction_experiment object frame with 7 columns:
 
 - DONOR Hepatocyte donor
 

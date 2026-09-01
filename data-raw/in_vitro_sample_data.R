@@ -65,7 +65,8 @@ examplinib_in_vitro_ind <- tibble::tribble(
      "C",             "test",     3, "CYP1A2",   3.21,   9.2, "Study examplinib_ind",
      "C",             "test",    10, "CYP1A2",   4.15, 11.89, "Study examplinib_ind",
      "C", "positive_control",    NA, "CYP1A2",   34.9,   100, "Study examplinib_ind"
-  )
+  ) |>
+  induction_experiment(precipitant = "examplinib")
 
 usethis::use_data(examplinib_in_vitro_ind, overwrite = TRUE)
 
@@ -110,6 +111,7 @@ examplinib_in_vitro_ind1 <-tibble::tribble(
      "C",  "test",    10, "CYP1A2", 0.072, "Study examplinib_ind",
      "C",  "test",    10, "CYP2B6", 0.107, "Study examplinib_ind",
      "C",  "test",    10, "CYP3A4", 0.286, "Study examplinib_ind"
-  )
+  ) |>
+  induction_experiment(precipitant = "examplinib")
 
 usethis::use_data(examplinib_in_vitro_ind1, overwrite = TRUE)

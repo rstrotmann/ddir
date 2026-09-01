@@ -144,10 +144,8 @@ on [github](https://github.com/rstrotmann/ddir).
   induction data
 - [`induction_data()`](induction_data.md) : induction_data constructor
   alias
-- [`induction_experiment-class`](induction_experiment-class.md) : In
-  vitro induction data set
-- [`induction_experiment()`](induction_experiment.md) : induction
-  experiment data set constructor
+- [`induction_experiment()`](induction_experiment.md) : constructor for
+  induction_experiment objects
 - [`induction_plot()`](induction_plot.md) : Plot in vitro CYP induction
   data
 - [`inhibition_data()`](inhibition_data.md) : inhibition_data
@@ -158,23 +156,21 @@ on [github](https://github.com/rstrotmann/ddir).
   Kinetic assessment of CYP induction risk
 - [`mech_stat_cyp_risk()`](mech_stat_cyp_risk.md) : Mechanistic-static
   risk assessment
-- [`plot(`*`<induction_experiment>`*`)`](plot-induction_experiment-method.md)
-  : Plot method for induction_experiment objects
+- [`plot(`*`<induction_experiment>`*`)`](plot.induction_experiment.md) :
+  Plot generic for induction_experiment
 - [`precipitant()`](precipitant.md) : Precipitant class definition
 - [`precipitant_addin()`](precipitant_addin.md) : Insert a precipitant
   object constructor
-- [`print(`*`<induction_experiment>`*`)`](print-induction_experiment-method.md)
-  : Pring method for induction_experiment objects
 - [`print(`*`<induction_data>`*`)`](print.induction_data.md) : Print
   method for induction_data objects
+- [`print(`*`<induction_experiment>`*`)`](print.induction_experiment.md)
+  : Print generic for induction_experiment
 - [`print(`*`<inhibition_data>`*`)`](print.inhibition_data.md) : Print
   method for inhibition_data objects
 - [`print(`*`<precipitant>`*`)`](print.precipitant.md) : Print
   precipitant object as markdown
 - [`print(`*`<risk>`*`)`](print.risk.md) : Print risk object
 - [`risk()`](risk.md) : DDI risk object constructor alias
-- [`show(`*`<induction_experiment>`*`)`](show-induction_experiment-method.md)
-  : Show method for induction_experiment objects
 - [`static_cyp_induction_risk()`](static_cyp_induction_risk.md) : Static
   risk assessment for CYP induction
 - [`tdimod()`](tdimod.md) **\[experimental\]** : Derive TDI parameters

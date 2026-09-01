@@ -208,7 +208,7 @@
 #' CYP3A4 mRNA fold-change data at different precipitant concentrations
 #'
 #' @format
-#' A data frame with 7 columns
+#' A induction_experiment object frame with 7 columns:
 #' * DONOR Hepatocyte donor
 #' * TYPE Test  or positive control
 #' * CONC Precipitant concentration
@@ -228,7 +228,7 @@
 #' CYP3A4 mRNA fold-change data at different precipitant concentrations
 #'
 #' @format
-#' A data frame with 7 columns
+#' A induction_experiment object with 7 columns:
 #' * DONOR Hepatocyte donor
 #' * TYPE Test  or positive control
 #' * CONC Precipitant concentration

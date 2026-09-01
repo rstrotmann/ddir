@@ -1,95 +1,125 @@
-#' In vitro induction data set
+#' inner constructor for induction_experiment objects
 #'
-#' @slot precipitant character.
-#' @slot data data.frame.
+#' @param data A tibble.
+#' @param precipitant The precipitant as character.
 #'
-#' @returns An induction_experiment object
-#' @export
-setClass(Class = "induction_experiment",
-  representation(
-   precipitant = "character",
-   data = "data.frame"
-  ),
-  prototype(
-   precipitant = "",
-   data = data.frame(
-     DONOR = character(0),
-     SAMPLE = character(0),
-     CONC = numeric(0),
-     OBJECT = character(0),
-     FOLD = numeric(0),
-     REL = numeric(0),
-     SOURCE = character(0)
-   )
+#' @returns A induction_experiment object.
+#' @noRd
+new_induction_experiment <- function(data, precipitant = "") {
+  structure(
+    as_tibble(data),
+    class = unique(c("induction_experiment", "tbl_df", "tbl", "data.frame")),
+    precipitant = precipitant
   )
-)
-
-
-#' induction experiment data set constructor
-#'
-#' @param data A data frame.
-#' @param precipitant The precipitant.
-#'
-#' @returns induction_experiment object.
-#' @export
-#'
-#' @examples
-#' induction_experiment(examplinib_in_vitro_ind, "examplinib")
-induction_experiment <- function(data = NULL, precipitant = "") {
-  if (is.null(data))
-    data = data.frame(
-      DONOR = character(0),
-      SAMPLE = character(0),
-      CONC = numeric(0),
-      OBJECT = character(0),
-      FOLD = numeric(0),
-      REL = numeric(0),
-      SOURCE = character(0)
-    )
-  new("induction_experiment", data = data, precipitant = precipitant)
 }
 
 
-setValidity("induction_experiment", function(object) {
-  validate_argument(object@precipitant, "character", allow_empty = TRUE)
-
-  # validate data
-  expected_fields <- c("DONOR", "SAMPLE", "CONC", "OBJECT", "FOLD", "REL", "SOURCE")
-  missing_fields <- setdiff(expected_fields, names(object@data))
-  if (length(missing_fields) > 0)
-    return(paste0("Missing fields: ", nice_enumeration(missing_fields)))
-
-  known_objects <- c(
-    "CYP1A1", "CYP1A2", "CYP2A6", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C18",
-    "CYP2C19", "CYP2D6", "CYP2E1", "CYP2J2", "CYP3A4", "CYP3A5", "CYP3A7")
-
-  unknown_objects <- setdiff(
-    toupper(unique(object@data$OBJECT)), toupper(known_objects))
-
-  if (length(unknown_objects) > 0)
-    warning(paste0("Unknown objects: ", nice_enumeration(unknown_objects)))
-
-  TRUE
-})
-
-
-#' Show method for induction_experiment objects
+#' constructor for induction_experiment objects
 #'
-#' @param object An `induction_experiment` object.
+#' @param data A tibble.
+#' @param precipitant The precipitant as character.
 #'
-#' @returns Nothing.
+#' @returns An induction_experiment object.
 #' @export
-setMethod(
-  "show", "induction_experiment",
-  function(object) {
-    # line <- paste0(rep("=", 5), collapse="")
-    line <- hline()
-    cat(paste(line, "CYP induction experiment", line, "\n"))
-    cat(paste(
-      "Experiental data for in vitro CYP induction by",
-      object@precipitant, "\n\n"))
+induction_experiment <- function(data = NULL, precipitant = "") {
+  if (is.null(data))
+    # data <- empty_experiment_df()
+    data <- tibble(
+      DONOR = character(),
+      SAMPLE = character(),
+      CONC = numeric(),
+      OBJECT = character(),
+      FOLD = numeric(),
+      REL = numeric(),
+      SOURCE = character()
+    )
+  out <- new_induction_experiment(data, precipitant)
+  validate_induction_experiment(out)
+}
 
-    out <- object@data |>
+
+#' Validate induction_experiment object
+#'
+#' @param obj A induction_experiment object.
+#' @param allow_null Logical.
+#' @param allowed_objects Character.
+#'
+#' @returns The induction_experiment object with unknown objects deleted.
+#' @noRd
+validate_induction_experiment <- function(
+    obj, allow_null = FALSE, allowed_objects = NULL
+  ) {
+  # early fail on NULL, if applicable
+  if (isTRUE(allow_null)) {
+    if (is.null(obj))
+      return(obj)
+  }
+
+  obj_name <- deparse(substitute(obj))
+
+  if (!inherits(obj, "induction_experiment"))
+    stop(paste(obj_name, "must be an induction_experiment object"))
+
+  # check required fields
+  expected_fields <- c("DONOR", "CONC", "OBJECT", "SOURCE")
+  missing_fields <- setdiff(expected_fields, names(obj))
+  if (length(missing_fields) > 0) {
+    stop(paste0(
+      "Missing columns in ", obj_name, ": ",
+      nice_enumeration(missing_fields)
+    ))
+  }
+  if (!any(c("FOLD", "REL") %in% names(obj))) {
+    stop(paste("Either FOLD or REL must be in", obj_name))
+  }
+
+  # filter for allowed objects
+  if (is.null(allowed_objects)) {
+    # allowed_objects <- c("CYP1A2", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19",
+    #                      "CYP2D6", "CYP3A4")
+    allowed_objects <- unique(obj$OBJECT)
+  } else {
+  # if (!is.null(allowed_objects)) {
+    unexpected_objects <- setdiff(unique(obj$OBJECT), allowed_objects)
+    if (length(unexpected_objects) > 0) {
+      warning(paste0(
+        "Unexpected objects in ", obj_name, " removed: ",
+        nice_enumeration(unexpected_objects)
+      ))
+    }
+
+  }
+
+  filter(obj, .data$OBJECT %in% allowed_objects)
+}
+
+
+#' Print generic for induction_experiment
+#'
+#' @param x The induction_experiment object.
+#'
+#' @param ... Further parameters.
+#'
+#' @exportS3Method base::print
+print.induction_experiment <- function(x, ...) {
+  precipitant <- attr(x, "precipitant")
+
+  if (isTRUE(getOption("knitr.in.progress"))) {
+    x |>
+      mutate(SOURCE = case_when(
+        !is.na(SOURCE) & !SOURCE == "" ~ SOURCE,
+        .default = ""
+      )) |>
+      knitr::kable(caption = paste(
+        "CYP induction experiment for precipitant", precipitant
+      ))
+  } else {
+    cat(paste(hline(), "CYP induction experiment", hline(), "\n"))
+    cat(paste(
+      "Experimental data for in vitro CYP induction by",
+      precipitant, "\n\n"))
+
+    out <- x |>
       mutate(SOURCE = case_when(
         !is.na(SOURCE) & SOURCE != "" ~ SOURCE,
         .default = ""
@@ -97,53 +127,19 @@ setMethod(
 
     cat(df_to_string(out, colnames = TRUE))
   }
-)
+}
 
 
-#' Pring method for induction_experiment objects
+#' Plot generic for induction_experiment
 #'
-#' @param x An `induction_experiment` object.
+#' @param x The induction_experiment object.
 #'
-#' @returns Nothing.
-#' @export
-setMethod(
-  "print", "induction_experiment",
-  function(x) {
-    caption <- ifelse(
-      x@precipitant != "",
-      paste0("Experimental CYP induction data for ", x@precipitant),
-      "")
-
-    out <- x@data |>
-      mutate(SOURCE = case_when(
-        !is.na(SOURCE) & SOURCE != "" ~ SOURCE,
-        .default = ""
-      )) |>
-      knitr::kable(caption = caption, col.names = make_labels(x@data))
-
-    out
-  }
-)
-
-
-#' Plot method for induction_experiment objects
+#' @param type Columns to plot on y axis.
+#' @param ... Further parameters.
 #'
-#' @param x An `induction_experiment` object.
-#' @param type Metric to plot, `"FOLD"` or `"REL"`.
-#' @param ... Further arguments.
-#'
-#' @returns A ggplot object.
-#' @export
-setMethod(
-  "plot", "induction_experiment",
-  function(x, type = "FOLD", ...) {
-    caption <- ifelse(
-      x@precipitant != "",
-      paste0("Experimental CYP induction data for ", x@precipitant),
-      "")
-
-    induction_plot(x@data, type = type, ...) +
-      labs(x = paste(x@precipitant, "uM"),
-           title = paste("CYP induction by", x@precipitant))
-  }
-)
+#' @exportS3Method graphics::plot
+plot.induction_experiment <- function(x, type = "FOLD", ...) {
+  induction_plot(x, type = type, ...) +
+    labs(x = paste(attr(x, "precipitant"), "uM"),
+         title = paste("CYP induction by", attr(x, "precipitant")))
+}

@@ -57,6 +57,53 @@ induction_plot <- function(
 }
 
 
+#' Check in vitro induction experiment for down-regulation
+#'
+#' @description
+#' `r lifecycle::badge("experimental")`
+#'
+#' @param x An induction_experiment object.
+#' @param fold_threshold Threshold as numeric.
+#' @param by_donor Logical.
+#'
+#' @returns a data frame.
+#' @export
+#'
+#' @examples
+#' induction_downregulation(examplinib_in_vitro_ind1)
+induction_downregulation <- function(x, fold_threshold = 0.5, by_donor = TRUE) {
+  if (!inherits(x, "induction_experiment")) {
+    stop("x must be an induction_experiment object")
+  }
+  validate_argument(fold_threshold, "numeric")
+  validate_argument(by_donor, "logical")
+  if (!"FOLD" %in% names(x)) {
+    stop("FOLD is required to assess down-regulation")
+  }
+
+  groups <- if (isTRUE(by_donor)) {
+    c("OBJECT", "DONOR")
+  } else {
+    "OBJECT"
+  }
+
+  x |>
+    filter(.data$SAMPLE == "test", .data$CONC > 0, !is.na(.data$FOLD)) |>
+    reframe(
+      n = n(),
+      min_fold = min(.data$FOLD),
+      max_fold = max(.data$FOLD),
+      fold_maxc = .data$FOLD[which.max(.data$CONC)],
+      rho = suppressWarnings(
+        cor(.data$CONC, .data$FOLD, method = "spearman")
+      ),
+      downregulation = .data$fold_maxc < fold_threshold & .data$rho < 0,
+      .by = all_of(groups)
+    ) |>
+    arrange(.data$OBJECT, .data$DONOR)
+}
+
+
 #' Analyze in vitro CYP induction data
 #'
 #' Fit a 3-parameter hill function to the mRNA induction data from each
@@ -99,12 +146,8 @@ indmod <- function(
   validate_argument(individual_donors, "logical")
 
   # business logic
-  data <- mutate(x@data, ID = paste0(.data$OBJECT, "_", .data$DONOR)) |>
+  data <- mutate(x, ID = paste0(.data$OBJECT, "_", .data$DONOR)) |>
     filter(.data$CONC > 0)
-
-  # sigm <- function(c, emax, ec50, h) {
-  #   1 + (emax - 1) / (1 + exp(-(log(c) - log(ec50))/h))
-  # }
 
   sigm <- function(c, emax, ec50) {
     1 + (emax / (1 + exp(log(ec50) - log(c))))
@@ -117,35 +160,6 @@ indmod <- function(
     filter(.data$SAMPLE == "test") |>
     nest_by(.data$DONOR, .data$OBJECT, .data$ID) |>
     mutate(emax_obs = max(data$FOLD, na.rm = TRUE) - 1)
-
-  # non-linear modeling
-  # if (use_emax_obs == TRUE) {
-  #   out$data <- temp |>
-  #     mutate(mod = list(
-  #       nlsLM(
-  #         FOLD ~ sigm(CONC, emax_obs, ec50, n),
-  #         data = data,
-  #         start = list(ec50 = .1, n = 1),
-  #         lower = c(ec50 = 0, n = 1),
-  #         upper = c(ec50 = 100, n = 5),
-  #         control = nls.lm.control(maxiter = 1000)
-  #       )
-  #     )) |>
-  #     mutate(modpar = list(broom::tidy(.data$mod)))
-  # } else {
-  #   out$data <- temp |>
-  #     mutate(mod = list(
-  #       nlsLM(
-  #         FOLD ~ sigm(CONC, emax, ec50, n),
-  #         data = data,
-  #         start = list(emax = 2, ec50 = .1, n = 1),
-  #         lower = c(emax = NA, ec50 = 0, n = 1),
-  #         upper = c(emax = NA, ec50 = 100, n = 5),
-  #         control = nls.lm.control(maxiter = 1000)
-  #       )
-  #     )) |>
-  #     mutate(modpar = list(broom::tidy(.data$mod)))
-  # }
 
   if (use_emax_obs == TRUE) {
     out$data <- temp |>
@@ -200,7 +214,7 @@ indmod <- function(
     geom_point(data = filter(data, .data$SAMPLE == "test", !is.na(.data$FOLD)), size = 2) +
     scale_x_log10() +
     expand_limits(y = 0) +
-    labs(title = paste("In vitro CYP induction by", x@precipitant)) +
+    labs(title = paste("In vitro CYP induction by", attr(x, "precipitant"))) +
     theme_bw()
 
   if (isTRUE(individual_donors)) {
@@ -242,8 +256,5 @@ indmod <- function(
     ) |>
     mutate(ec50 = round(.data$ec50, 2))
 
-  # out$inducer <- inducer(temp, precipitant = x@precipitant)
-
   out
-
 }

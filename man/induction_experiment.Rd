@@ -2,21 +2,18 @@
 % Please edit documentation in R/in_vitro_inducer.R
 \name{induction_experiment}
 \alias{induction_experiment}
-\title{induction experiment data set constructor}
+\title{constructor for induction_experiment objects}
 \usage{
 induction_experiment(data = NULL, precipitant = "")
 }
 \arguments{
-\item{data}{A data frame.}
+\item{data}{A tibble.}
 
-\item{precipitant}{The precipitant.}
+\item{precipitant}{The precipitant as character.}
 }
 \value{
-induction_experiment object.
+An induction_experiment object.
 }
 \description{
-induction experiment data set constructor
-}
-\examples{
-induction_experiment(examplinib_in_vitro_ind, "examplinib")
+constructor for induction_experiment objects
 }
