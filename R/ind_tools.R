@@ -202,7 +202,7 @@ induction_downregulation <- function(x, fold_threshold = 0.5, by_donor = TRUE) {
 #' indmod(induction_experiment(examplinib_in_vitro_ind1, "examplinib"))
 indmod <- function(
     x,
-    use_emax_obs = TRUE,
+    use_emax_obs = FALSE,
     individual_donors = TRUE
 ) {
   # input validation

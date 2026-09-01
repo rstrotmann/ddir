@@ -4,7 +4,7 @@
 \alias{indmod}
 \title{Analyze in vitro CYP induction data}
 \usage{
-indmod(x, use_emax_obs = TRUE, individual_donors = TRUE)
+indmod(x, use_emax_obs = FALSE, individual_donors = TRUE)
 }
 \arguments{
 \item{x}{An \code{induction_experiment} object. A \code{FOLD} column is required.}

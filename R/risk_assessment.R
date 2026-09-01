@@ -342,7 +342,7 @@ kinetic_cyp_induction_risk <- function(perp, cyp_ind, d = 1) {
 #'
 #'   where
 #'
-#'   \deqn{I_{gut}=\frac{Dose}{250\ mg}}
+#'   \deqn{I_{gut}=\frac{Dose}{250\ ml}}
 #'
 #'   \eqn{R} values > 10 are considered to indicate a clinical risk for
 #'   intestinal CYP3A inhibition.

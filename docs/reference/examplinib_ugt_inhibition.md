@@ -10,8 +10,8 @@ examplinib_ugt_inhibition
 
 ## Format
 
-An object of class `inhibition_data` (inherits from `data.frame`) with 8
-rows and 3 columns.
+An object of class `inhibition_data` (inherits from `tbl_df`, `tbl`,
+`data.frame`) with 8 rows and 3 columns.
 
 ## Source
 

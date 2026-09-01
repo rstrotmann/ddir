@@ -42,7 +42,7 @@ unbound clinical exposure in the relevant pharmacokinetic compartment. For
 interactions with hepatic enzymes, the unbound maximal plasma concentration at
 steady state ($I_{max,ss,u}$) is considered, and for intestinal enzymes as
 victim of orally administered drugs, the maximal clinical dose, dissolved in a
-volume of 250 mg ($I_{gut}$).
+volume of 250 ml ($I_{gut}$).
 
 For interactions with basolateral hepatic transporters (OATP1B1, OATP1B3), the
 unbound hepatic inlet concentration ($I_{max,inlet,u}$) is considered that is

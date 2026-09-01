@@ -5,7 +5,7 @@
 \alias{examplinib_ugt_inhibition}
 \title{Examplinib UGT inhibition data}
 \format{
-An object of class \code{inhibition_data} (inherits from \code{data.frame}) with 8 rows and 3 columns.
+An object of class \code{inhibition_data} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 8 rows and 3 columns.
 }
 \source{
 Fictional data, made up for demo purposes.

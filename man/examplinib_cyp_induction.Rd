@@ -5,7 +5,7 @@
 \alias{examplinib_cyp_induction}
 \title{Examplinib CYP induction data}
 \format{
-An object of class \code{induction_data} (inherits from \code{data.frame}) with 7 rows and 5 columns.
+An object of class \code{induction_data} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 7 rows and 5 columns.
 }
 \source{
 Fictional data, made up for demo purposes.

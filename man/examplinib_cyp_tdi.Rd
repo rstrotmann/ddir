@@ -5,7 +5,7 @@
 \alias{examplinib_cyp_tdi}
 \title{Examplinib CYP TDI data}
 \format{
-An object of class \code{inhibition_data} (inherits from \code{data.frame}) with 1 rows and 4 columns.
+An object of class \code{inhibition_data} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 1 rows and 4 columns.
 }
 \source{
 Fictional data, made up for demo purposes.

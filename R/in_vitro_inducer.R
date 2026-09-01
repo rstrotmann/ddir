@@ -23,7 +23,6 @@ new_induction_experiment <- function(data, precipitant = "") {
 #' @export
 induction_experiment <- function(data = NULL, precipitant = "") {
   if (is.null(data))
-    # data <- empty_experiment_df()
     data <- tibble(
       DONOR = character(),
       SAMPLE = character(),
@@ -75,11 +74,8 @@ validate_induction_experiment <- function(
 
   # filter for allowed objects
   if (is.null(allowed_objects)) {
-    # allowed_objects <- c("CYP1A2", "CYP2B6", "CYP2C8", "CYP2C9", "CYP2C19",
-    #                      "CYP2D6", "CYP3A4")
     allowed_objects <- unique(obj$OBJECT)
   } else {
-  # if (!is.null(allowed_objects)) {
     unexpected_objects <- setdiff(unique(obj$OBJECT), allowed_objects)
     if (length(unexpected_objects) > 0) {
       warning(paste0(
@@ -87,7 +83,6 @@ validate_induction_experiment <- function(
         nice_enumeration(unexpected_objects)
       ))
     }
-
   }
 
   filter(obj, .data$OBJECT %in% allowed_objects)
