@@ -174,8 +174,8 @@ induction_downregulation <- function(x, fold_threshold = 0.5, by_donor = TRUE) {
 #' unchanged.
 #'
 #' @param x An `induction_experiment` object. A `FOLD` column is required.
-#' @param use_emax_obs If `TRUE` (default), constrain \(E_{max}\) to the
-#'   observed maximum fold-increase. If `FALSE`, \(E_{max}\) is fitted.
+#' @param use_emax_obs If `TRUE` (default), constrain `emax` to the
+#'   observed maximum fold-increase. If `FALSE`, `emax` is fitted.
 #' @param individual_donors If `TRUE` (default), `fold_plot` facets by
 #'   donor and isoform. If `FALSE`, facets by isoform and colours donors.
 #'

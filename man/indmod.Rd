@@ -9,8 +9,8 @@ indmod(x, use_emax_obs = FALSE, individual_donors = TRUE)
 \arguments{
 \item{x}{An \code{induction_experiment} object. A \code{FOLD} column is required.}
 
-\item{use_emax_obs}{If \code{TRUE} (default), constrain \(E_{max}\) to the
-observed maximum fold-increase. If \code{FALSE}, \(E_{max}\) is fitted.}
+\item{use_emax_obs}{If \code{TRUE} (default), constrain \code{emax} to the
+observed maximum fold-increase. If \code{FALSE}, \code{emax} is fitted.}
 
 \item{individual_donors}{If \code{TRUE} (default), \code{fold_plot} facets by
 donor and isoform. If \code{FALSE}, facets by isoform and colours donors.}
