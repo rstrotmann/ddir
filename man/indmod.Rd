@@ -7,32 +7,65 @@
 indmod(x, use_emax_obs = TRUE, individual_donors = TRUE)
 }
 \arguments{
-\item{x}{In vitro induction data as induction_experiment object.}
+\item{x}{An \code{induction_experiment} object. A \code{FOLD} column is required.}
 
-\item{use_emax_obs}{Constrain Emax to the observed Emax (default). If FALSE,
-Emax will be fitted.}
+\item{use_emax_obs}{If \code{TRUE} (default), constrain \(E_{max}\) to the
+observed maximum fold-increase. If \code{FALSE}, \(E_{max}\) is fitted.}
 
-\item{individual_donors}{Plot donors on individual panels.}
+\item{individual_donors}{If \code{TRUE} (default), \code{fold_plot} facets by
+donor and isoform. If \code{FALSE}, facets by isoform and colours donors.}
 }
 \value{
-A list with the elements:
+A named list:
 \itemize{
-\item data The original data, model and model parameters for each fit.
-\item fold_plot A ggplot object showing the original data and the fits.
-\item ind_param The ec50, hill (n) and emax parameters by donor and DDI object.
-\item inducer An inducer object representing the model parameters from the donor
-with the highest Emax per DDI object.
+\item \code{data} Nested tibble: raw curve, \code{nlsLM} fit, tidy coefficients, and
+\code{emax_obs} for each donor and isoform.
+\item \code{fold_plot} ggplot of observed \code{FOLD} and the fitted curves.
+\item \code{ind_param} Tidy coefficient table (\code{term}, \code{estimate}, …) by
+isoform and donor. With the default \code{use_emax_obs = TRUE} the only
+fitted term is \code{ec50}; \code{emax_obs} is a separate column.
+\item \code{downregulation} Tibble flagging donor/object combinations with suspected
+downregulation.
 }
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-\deqn{f = 1 + \frac{(E_{max}) * C^n}{(EC_{50}^n + C^n)}}
+For each hepatocyte donor and CYP isoform, fit a hyperbolic Emax model
+to vehicle-normalized mRNA fold-change (\code{FOLD}) from an
+\code{induction_experiment}.
 }
 \details{
-Fit a 3-parameter hill function to the mRNA induction data from each
-donor and DDI object.
+Fit Emax / EC50 curves to in vitro CYP mRNA induction
+
+Only \code{SAMPLE == "test"} rows with \code{CONC > 0} are used. The model is
+
+\deqn{f(C) = 1 + \frac{E_{max} \cdot C}{EC_{50} + C}}
+
+which is an Emax relationship with baseline 1 (vehicle) and Hill slope
+1.
+Emax is \strong{fold-increase} (fold-change minus 1), not
+fold-change. Observed Emax is \code{max(FOLD) - 1}.
+
+By default (\code{use_emax_obs = TRUE}) that observed value is held fixed
+and only EC50 is estimated. If \code{use_emax_obs = FALSE}, both
+Emax and EC50 are estimated.
+
+The fit assumes fold-change rises with concentration. Concentration-
+dependent down-regulation (see \code{\link[=induction_downregulation]{induction_downregulation()}}) is not
+modelled and will yield unusable parameters.
+
+\code{static_cyp_induction_risk()} treats \code{emax >= 2} as ICH ≥ 2-fold
+induction. Values from this function are fold-increase, so a 2.4-fold
+curve has \code{emax} 1.4 and would be called no risk if passed through
+unchanged.
 }
 \examples{
+indmod(examplinib_in_vitro_ind)
+
 indmod(induction_experiment(examplinib_in_vitro_ind, "examplinib"))
+indmod(induction_experiment(examplinib_in_vitro_ind1, "examplinib"))
+}
+\seealso{
+\code{\link[=induction_experiment]{induction_experiment()}}, \code{\link[=induction_downregulation]{induction_downregulation()}}
 }

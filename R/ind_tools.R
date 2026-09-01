@@ -57,19 +57,54 @@ induction_plot <- function(
 }
 
 
-#' Check in vitro induction experiment for down-regulation
+#' Flag concentration-dependent CYP mRNA down-regulation
 #'
 #' @description
 #' `r lifecycle::badge("experimental")`
 #'
-#' @param x An induction_experiment object.
-#' @param fold_threshold Threshold as numeric.
-#' @param by_donor Logical.
+#' For each CYP isoform (and, by default, each hepatocyte donor), decide
+#' whether vehicle-normalized mRNA fold-change falls as precipitant
+#' concentration rises, rather than being induced.
 #'
-#' @returns a data frame.
+#' @details
+#' Only `SAMPLE == "test"` rows with `CONC > 0` and non-missing `FOLD` are
+#' used. A curve is flagged when both of the following hold:
+#'
+#' * fold-change at the highest tested concentration is below
+#'   `fold_threshold` (default 0.5, i.e. ≤ 50% of vehicle);
+#' * Spearman's rank correlation of `CONC` with `FOLD` is negative, so
+#'   fold-change tends to decrease as concentration increases.
+#'
+#' `FOLD` is fold vs vehicle (1 = no change, &lt; 1 = suppression). Percent
+#' of positive control (`REL`) is not used. Isolated `FOLD < 1` points at
+#' low concentration, which occur in ordinary induction curves, do not
+#' trigger the flag.
+#'
+#' The rank correlation uses order only, not a linear fit on the µM scale.
+#' No p-value is required; typical induction experiments have too few
+#' concentrations for a Spearman test to be informative.
+#'
+#' @param x An `induction_experiment` object. A `FOLD` column is required.
+#' @param fold_threshold Maximum fold-change at the highest concentration
+#'   that still counts as suppression, as numeric. Defaults to 0.5.
+#' @param by_donor If `TRUE` (default), one row per isoform and donor. If
+#'   `FALSE`, donors are pooled and there is one row per isoform.
+#'
+#' @returns A data frame with one row per isoform, or per isoform and
+#'   donor, and the columns:
+#' * `OBJECT` CYP isoform.
+#' * `DONOR` Hepatocyte donor (omitted if `by_donor = FALSE`).
+#' * `n` Number of concentrations used.
+#' * `min_fold`, `max_fold` Range of `FOLD`.
+#' * `fold_maxc` `FOLD` at the highest `CONC`.
+#' * `rho` Spearman correlation of `CONC` and `FOLD`.
+#' * `downregulation` `TRUE` if the curve meets both criteria above.
+#'
+#' @importFrom stats cor
 #' @export
 #'
 #' @examples
+#' induction_downregulation(examplinib_in_vitro_ind)
 #' induction_downregulation(examplinib_in_vitro_ind1)
 induction_downregulation <- function(x, fold_threshold = 0.5, by_donor = TRUE) {
   if (!inherits(x, "induction_experiment")) {
@@ -106,33 +141,65 @@ induction_downregulation <- function(x, fold_threshold = 0.5, by_donor = TRUE) {
 
 #' Analyze in vitro CYP induction data
 #'
-#' Fit a 3-parameter hill function to the mRNA induction data from each
-#' donor and DDI object.
-#'
-#' @details
+#' Fit Emax / EC50 curves to in vitro CYP mRNA induction
 #'
 #' @description
 #' `r lifecycle::badge("experimental")`
 #'
-#' \deqn{f = 1 + \frac{(E_{max}) * C^n}{(EC_{50}^n + C^n)}}
+#' For each hepatocyte donor and CYP isoform, fit a hyperbolic Emax model
+#' to vehicle-normalized mRNA fold-change (`FOLD`) from an
+#' `induction_experiment`.
 #'
-#' @param x In vitro induction data as induction_experiment object.
-#' @param use_emax_obs Constrain Emax to the observed Emax (default). If FALSE,
-#' Emax will be fitted.
-#' @param individual_donors Plot donors on individual panels.
+#' @details
+#' Only `SAMPLE == "test"` rows with `CONC > 0` are used. The model is
 #'
-#' @returns A list with the elements:
-#' * data The original data, model and model parameters for each fit.
-#' * fold_plot A ggplot object showing the original data and the fits.
-#' * ind_param The ec50, hill (n) and emax parameters by donor and DDI object.
-#' * inducer An inducer object representing the model parameters from the donor
-#' with the highest Emax per DDI object.
+#' \deqn{f(C) = 1 + \frac{E_{max} \cdot C}{EC_{50} + C}}
+#'
+#' which is an Emax relationship with baseline 1 (vehicle) and Hill slope
+#' 1.
+#' Emax is **fold-increase** (fold-change minus 1), not
+#' fold-change. Observed Emax is `max(FOLD) - 1`.
+#'
+#' By default (`use_emax_obs = TRUE`) that observed value is held fixed
+#' and only EC50 is estimated. If `use_emax_obs = FALSE`, both
+#' Emax and EC50 are estimated.
+#'
+#' The fit assumes fold-change rises with concentration. Concentration-
+#' dependent down-regulation (see [ddir::induction_downregulation()]) is not
+#' modelled and will yield unusable parameters.
+#'
+#' `static_cyp_induction_risk()` treats `emax >= 2` as ICH ≥ 2-fold
+#' induction. Values from this function are fold-increase, so a 2.4-fold
+#' curve has `emax` 1.4 and would be called no risk if passed through
+#' unchanged.
+#'
+#' @param x An `induction_experiment` object. A `FOLD` column is required.
+#' @param use_emax_obs If `TRUE` (default), constrain \(E_{max}\) to the
+#'   observed maximum fold-increase. If `FALSE`, \(E_{max}\) is fitted.
+#' @param individual_donors If `TRUE` (default), `fold_plot` facets by
+#'   donor and isoform. If `FALSE`, facets by isoform and colours donors.
+#'
+#' @returns A named list:
+#' * `data` Nested tibble: raw curve, `nlsLM` fit, tidy coefficients, and
+#'   `emax_obs` for each donor and isoform.
+#' * `fold_plot` ggplot of observed `FOLD` and the fitted curves.
+#' * `ind_param` Tidy coefficient table (`term`, `estimate`, …) by
+#'   isoform and donor. With the default `use_emax_obs = TRUE` the only
+#'   fitted term is `ec50`; `emax_obs` is a separate column.
+#' * `downregulation` Tibble flagging donor/object combinations with suspected
+#'   downregulation.
+#'
+#' @seealso [ddir::induction_experiment()], [ddir::induction_downregulation()]
 #'
 #' @import ggplot2
 #' @export
 #'
 #' @examples
+#' indmod(examplinib_in_vitro_ind)
+#'
+#' @examples
 #' indmod(induction_experiment(examplinib_in_vitro_ind, "examplinib"))
+#' indmod(induction_experiment(examplinib_in_vitro_ind1, "examplinib"))
 indmod <- function(
     x,
     use_emax_obs = TRUE,
@@ -149,11 +216,28 @@ indmod <- function(
   data <- mutate(x, ID = paste0(.data$OBJECT, "_", .data$DONOR)) |>
     filter(.data$CONC > 0)
 
+  precipitant <- attr(x, "precipitant")
+
   sigm <- function(c, emax, ec50) {
     1 + (emax / (1 + exp(log(ec50) - log(c))))
   }
 
   out <- list()
+
+  # down-regulation check
+  downreg <- induction_downregulation(x)
+  out$downregulation <- downreg
+
+  if (any(downreg$downregulation)) {
+    temp <- downreg |>
+      filter(.data$downregulation) |>
+      distinct(.data$OBJECT)
+    warning(paste(
+      "Check for down-regulation of",
+      nice_enumeration(temp$OBJECT),
+      "by", precipitant
+    ))
+  }
 
   # prepare data set
   temp <- data |>
@@ -214,7 +298,7 @@ indmod <- function(
     geom_point(data = filter(data, .data$SAMPLE == "test", !is.na(.data$FOLD)), size = 2) +
     scale_x_log10() +
     expand_limits(y = 0) +
-    labs(title = paste("In vitro CYP induction by", attr(x, "precipitant"))) +
+    labs(title = paste("In vitro CYP induction by", precipitant)) +
     theme_bw()
 
   if (isTRUE(individual_donors)) {
