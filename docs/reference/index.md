@@ -51,6 +51,9 @@
   induction data
 - [`induction_data()`](induction_data.md) : induction_data constructor
   alias
+- [`induction_downregulation()`](induction_downregulation.md)
+  **\[experimental\]** : Flag concentration-dependent CYP mRNA
+  down-regulation
 - [`induction_experiment()`](induction_experiment.md) : constructor for
   induction_experiment objects
 - [`induction_plot()`](induction_plot.md) : Plot in vitro CYP induction

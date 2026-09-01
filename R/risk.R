@@ -8,8 +8,8 @@
 #' @noRd
 new_risk <- function(table, precipitant, title = NULL) {
   structure(
-    as.data.frame(table),
-    class = unique(c("risk", "data.frame")),
+    as_tibble(table),
+    class = unique(c("risk", "tbl_df", "tbl", "data.frame")),
     precipitant = precipitant,
     title = title
   )

@@ -124,6 +124,7 @@ induction_downregulation <- function(x, fold_threshold = 0.5, by_donor = TRUE) {
 
   x |>
     filter(.data$SAMPLE == "test", .data$CONC > 0, !is.na(.data$FOLD)) |>
+    arrange(.data$OBJECT, .data$DONOR) |>
     reframe(
       n = n(),
       min_fold = min(.data$FOLD),
@@ -134,8 +135,7 @@ induction_downregulation <- function(x, fold_threshold = 0.5, by_donor = TRUE) {
       ),
       downregulation = .data$fold_maxc < fold_threshold & .data$rho < 0,
       .by = all_of(groups)
-    ) |>
-    arrange(.data$OBJECT, .data$DONOR)
+    )
 }
 
 

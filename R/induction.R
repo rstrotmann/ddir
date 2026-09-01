@@ -8,7 +8,7 @@
 new_induction_data <- function(data = NULL, precipitant = "") {
   structure(
     data,
-    class = unique(c("induction_data", class(data))),
+    class = unique(c("induction_data", "tbl_df", "tbl", "data.frame")),
     precipitant = precipitant
   )
 }
@@ -23,7 +23,7 @@ new_induction_data <- function(data = NULL, precipitant = "") {
 #' @export
 induction_data <- function(data = NULL, precipitant = "") {
   if (is.null(data)) {
-    data <- data.frame(
+    data <- tibble(
       object = character(),
       emax = numeric(),
       ec50 = numeric(),
@@ -32,7 +32,7 @@ induction_data <- function(data = NULL, precipitant = "") {
     )
   }
 
-  out <- new_induction_data(as.data.frame(data), precipitant)
+  out <- new_induction_data(as_tibble(data), precipitant)
 
   validate_induction_data(out)
   out

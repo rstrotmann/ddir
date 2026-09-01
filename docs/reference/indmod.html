@@ -6,8 +6,12 @@
     }
   };
 </script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Analyze in vitro CYP induction data — indmod"><meta name="description" content="
-$$f = 1 + \frac{(E_{max}) * C^n}{(EC_{50}^n + C^n)}$$"><meta property="og:description" content="
-$$f = 1 + \frac{(E_{max}) * C^n}{(EC_{50}^n + C^n)}$$"></head><body>
+For each hepatocyte donor and CYP isoform, fit a hyperbolic Emax model
+to vehicle-normalized mRNA fold-change (FOLD) from an
+induction_experiment."><meta property="og:description" content="
+For each hepatocyte donor and CYP isoform, fit a hyperbolic Emax model
+to vehicle-normalized mRNA fold-change (FOLD) from an
+induction_experiment."></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -45,7 +49,9 @@ $$f = 1 + \frac{(E_{max}) * C^n}{(EC_{50}^n + C^n)}$$"></head><body>
 
     <div class="ref-description section level2">
     <p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="figures/lifecycle-experimental.svg" alt="[Experimental]"></a></p>
-<p>$$f = 1 + \frac{(E_{max}) * C^n}{(EC_{50}^n + C^n)}$$</p>
+<p>For each hepatocyte donor and CYP isoform, fit a hyperbolic Emax model
+to vehicle-normalized mRNA fold-change (<code>FOLD</code>) from an
+<code>induction_experiment</code>.</p>
     </div>
 
     <div class="section level2">
@@ -58,35 +64,69 @@ $$f = 1 + \frac{(E_{max}) * C^n}{(EC_{50}^n + C^n)}$$"></head><body>
 
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
-<dd><p>In vitro induction data as induction_experiment object.</p></dd>
+<dd><p>An <code>induction_experiment</code> object. A <code>FOLD</code> column is required.</p></dd>
 
 
 <dt id="arg-use-emax-obs">use_emax_obs<a class="anchor" aria-label="anchor" href="#arg-use-emax-obs"></a></dt>
-<dd><p>Constrain Emax to the observed Emax (default). If FALSE,
-Emax will be fitted.</p></dd>
+<dd><p>If <code>TRUE</code> (default), constrain \(E_max\) to the
+observed maximum fold-increase. If <code>FALSE</code>, \(E_max\) is fitted.</p></dd>
 
 
 <dt id="arg-individual-donors">individual_donors<a class="anchor" aria-label="anchor" href="#arg-individual-donors"></a></dt>
-<dd><p>Plot donors on individual panels.</p></dd>
+<dd><p>If <code>TRUE</code> (default), <code>fold_plot</code> facets by
+donor and isoform. If <code>FALSE</code>, facets by isoform and colours donors.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A list with the elements:</p><ul><li><p>data The original data, model and model parameters for each fit.</p></li>
-<li><p>fold_plot A ggplot object showing the original data and the fits.</p></li>
-<li><p>ind_param The ec50, hill (n) and emax parameters by donor and DDI object.</p></li>
-<li><p>inducer An inducer object representing the model parameters from the donor
-with the highest Emax per DDI object.</p></li>
+    <p>A named list:</p><ul><li><p><code>data</code> Nested tibble: raw curve, <code>nlsLM</code> fit, tidy coefficients, and
+<code>emax_obs</code> for each donor and isoform.</p></li>
+<li><p><code>fold_plot</code> ggplot of observed <code>FOLD</code> and the fitted curves.</p></li>
+<li><p><code>ind_param</code> Tidy coefficient table (<code>term</code>, <code>estimate</code>, …) by
+isoform and donor. With the default <code>use_emax_obs = TRUE</code> the only
+fitted term is <code>ec50</code>; <code>emax_obs</code> is a separate column.</p></li>
+<li><p><code>downregulation</code> Tibble flagging donor/object combinations with suspected
+downregulation.</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Fit a 3-parameter hill function to the mRNA induction data from each
-donor and DDI object.</p>
+    <p>Fit Emax / EC50 curves to in vitro CYP mRNA induction</p>
+<p>Only <code>SAMPLE == "test"</code> rows with <code>CONC &gt; 0</code> are used. The model is</p>
+<p>$$f(C) = 1 + \frac{E_{max} \cdot C}{EC_{50} + C}$$</p>
+<p>which is an Emax relationship with baseline 1 (vehicle) and Hill slope
+1.
+Emax is <strong>fold-increase</strong> (fold-change minus 1), not
+fold-change. Observed Emax is <code>max(FOLD) - 1</code>.</p>
+<p>By default (<code>use_emax_obs = TRUE</code>) that observed value is held fixed
+and only EC50 is estimated. If <code>use_emax_obs = FALSE</code>, both
+Emax and EC50 are estimated.</p>
+<p>The fit assumes fold-change rises with concentration. Concentration-
+dependent down-regulation (see <code><a href="induction_downregulation.html">induction_downregulation()</a></code>) is not
+modelled and will yield unusable parameters.</p>
+<p><code><a href="static_cyp_induction_risk.html">static_cyp_induction_risk()</a></code> treats <code>emax &gt;= 2</code> as ICH ≥ 2-fold
+induction. Values from this function are fold-increase, so a 2.4-fold
+curve has <code>emax</code> 1.4 and would be called no risk if passed through
+unchanged.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p><code><a href="induction_experiment.html">induction_experiment()</a></code>, <code><a href="induction_downregulation.html">induction_downregulation()</a></code></p></div>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">indmod</span><span class="op">(</span><span class="fu"><a href="induction_experiment.html">induction_experiment</a></span><span class="op">(</span><span class="va">examplinib_in_vitro_ind</span>, <span class="st">"examplinib"</span><span class="op">)</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">indmod</span><span class="op">(</span><span class="va">examplinib_in_vitro_ind</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $downregulation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 8</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   OBJECT DONOR     n min_fold max_fold fold_maxc   rho downregulation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> CYP1A2 A         4    1.38      7.37      7.37 1     FALSE         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> CYP1A2 B         4    1.24      5.09      5.09 1     FALSE         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> CYP1A2 C         4    1.56      4.15      4.15 1     FALSE         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> CYP3A4 A         7    0.904     6.33      6.33 1     FALSE         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> CYP3A4 B         8    0.655     2.31      2.31 0.619 FALSE         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> CYP3A4 C         8    0.648     1.58      1.58 0.238 FALSE         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $data</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Rowwise:  DONOR, OBJECT, ID</span></span>
@@ -112,6 +152,93 @@ donor and DDI object.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> CYP3A4 A     ec50     5.33      1.73     0.810     2.14   0.076<span style="text-decoration: underline;">1</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> CYP3A4 B     ec50     1.31      4.76     3.64      1.31   0.232 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> CYP3A4 C     ec50     0.585     6.51     9.19      0.708  0.502 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">indmod</span><span class="op">(</span><span class="fu"><a href="induction_experiment.html">induction_experiment</a></span><span class="op">(</span><span class="va">examplinib_in_vitro_ind</span>, <span class="st">"examplinib"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $downregulation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 8</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   OBJECT DONOR     n min_fold max_fold fold_maxc   rho downregulation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> CYP1A2 A         4    1.38      7.37      7.37 1     FALSE         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> CYP1A2 B         4    1.24      5.09      5.09 1     FALSE         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> CYP1A2 C         4    1.56      4.15      4.15 1     FALSE         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> CYP3A4 A         7    0.904     6.33      6.33 1     FALSE         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> CYP3A4 B         8    0.655     2.31      2.31 0.619 FALSE         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> CYP3A4 C         8    0.648     1.58      1.58 0.238 FALSE         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Rowwise:  DONOR, OBJECT, ID</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   DONOR OBJECT ID                     data emax_obs mod    modpar          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;list&lt;tibble[,5]&gt;&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> A     CYP1A2 CYP1A2_A            <span style="color: #949494;">[4 × 5]</span>    6.37  <span style="color: #949494;">&lt;nls&gt;</span>  <span style="color: #949494;">&lt;tibble [1 × 5]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> A     CYP3A4 CYP3A4_A            <span style="color: #949494;">[8 × 5]</span>    5.33  <span style="color: #949494;">&lt;nls&gt;</span>  <span style="color: #949494;">&lt;tibble [1 × 5]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> B     CYP1A2 CYP1A2_B            <span style="color: #949494;">[4 × 5]</span>    4.09  <span style="color: #949494;">&lt;nls&gt;</span>  <span style="color: #949494;">&lt;tibble [1 × 5]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> B     CYP3A4 CYP3A4_B            <span style="color: #949494;">[8 × 5]</span>    1.31  <span style="color: #949494;">&lt;nls&gt;</span>  <span style="color: #949494;">&lt;tibble [1 × 5]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> C     CYP1A2 CYP1A2_C            <span style="color: #949494;">[4 × 5]</span>    3.15  <span style="color: #949494;">&lt;nls&gt;</span>  <span style="color: #949494;">&lt;tibble [1 × 5]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> C     CYP3A4 CYP3A4_C            <span style="color: #949494;">[8 × 5]</span>    0.585 <span style="color: #949494;">&lt;nls&gt;</span>  <span style="color: #949494;">&lt;tibble [1 × 5]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $fold_plot</span>
+<span class="r-plt img"><img src="indmod-2.png" alt="" width="700" height="433"></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ind_param</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 8</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   OBJECT DONOR term  emax_obs estimate std.error statistic p.value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> CYP1A2 A     ec50     6.37      3.39     1.59      2.13   0.123 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> CYP1A2 B     ec50     4.09      2.60     0.936     2.78   0.069<span style="text-decoration: underline;">1</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> CYP1A2 C     ec50     3.15      1.29     0.242     5.30   0.013<span style="text-decoration: underline;">1</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> CYP3A4 A     ec50     5.33      1.73     0.810     2.14   0.076<span style="text-decoration: underline;">1</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> CYP3A4 B     ec50     1.31      4.76     3.64      1.31   0.232 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> CYP3A4 C     ec50     0.585     6.51     9.19      0.708  0.502 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span><span class="fu">indmod</span><span class="op">(</span><span class="fu"><a href="induction_experiment.html">induction_experiment</a></span><span class="op">(</span><span class="va">examplinib_in_vitro_ind1</span>, <span class="st">"examplinib"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Check for down-regulation of CYP1A2, CYP2B6 and CYP3A4 by examplinib</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $downregulation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 9 × 8</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   OBJECT DONOR     n min_fold max_fold fold_maxc   rho downregulation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> CYP1A2 A         4    0.087    0.951     0.087  -<span style="color: #BB0000;">1</span>   TRUE          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> CYP1A2 B         4    0.188    1.54      0.188  -<span style="color: #BB0000;">0.8</span> TRUE          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> CYP1A2 C         4    0.072    1.09      0.072  -<span style="color: #BB0000;">1</span>   TRUE          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> CYP2B6 A         4    0.188    1.07      0.188  -<span style="color: #BB0000;">0.8</span> TRUE          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> CYP2B6 B         4    0.341    1.36      0.341  -<span style="color: #BB0000;">0.8</span> TRUE          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> CYP2B6 C         4    0.107    0.978     0.107  -<span style="color: #BB0000;">1</span>   TRUE          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> CYP3A4 A         4    0.285    0.973     0.285  -<span style="color: #BB0000;">0.2</span> TRUE          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span> CYP3A4 B         4    0.293    1.79      0.293  -<span style="color: #BB0000;">0.8</span> TRUE          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">9</span> CYP3A4 C         4    0.286    1.06      0.286  -<span style="color: #BB0000;">0.8</span> TRUE          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 9 × 7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Rowwise:  DONOR, OBJECT, ID</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   DONOR OBJECT ID                     data emax_obs mod    modpar          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;list&lt;tibble[,4]&gt;&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> A     CYP1A2 CYP1A2_A            <span style="color: #949494;">[4 × 4]</span>  -<span style="color: #BB0000;">0.049</span><span style="color: #BB0000; text-decoration: underline;">0</span> <span style="color: #949494;">&lt;nls&gt;</span>  <span style="color: #949494;">&lt;tibble [1 × 5]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> A     CYP2B6 CYP2B6_A            <span style="color: #949494;">[4 × 4]</span>   0.069<span style="text-decoration: underline;">0</span> <span style="color: #949494;">&lt;nls&gt;</span>  <span style="color: #949494;">&lt;tibble [1 × 5]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> A     CYP3A4 CYP3A4_A            <span style="color: #949494;">[4 × 4]</span>  -<span style="color: #BB0000;">0.027</span><span style="color: #BB0000; text-decoration: underline;">0</span> <span style="color: #949494;">&lt;nls&gt;</span>  <span style="color: #949494;">&lt;tibble [1 × 5]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> B     CYP1A2 CYP1A2_B            <span style="color: #949494;">[4 × 4]</span>   0.535  <span style="color: #949494;">&lt;nls&gt;</span>  <span style="color: #949494;">&lt;tibble [1 × 5]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> B     CYP2B6 CYP2B6_B            <span style="color: #949494;">[4 × 4]</span>   0.356  <span style="color: #949494;">&lt;nls&gt;</span>  <span style="color: #949494;">&lt;tibble [1 × 5]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> B     CYP3A4 CYP3A4_B            <span style="color: #949494;">[4 × 4]</span>   0.79   <span style="color: #949494;">&lt;nls&gt;</span>  <span style="color: #949494;">&lt;tibble [1 × 5]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> C     CYP1A2 CYP1A2_C            <span style="color: #949494;">[4 × 4]</span>   0.092<span style="text-decoration: underline;">0</span> <span style="color: #949494;">&lt;nls&gt;</span>  <span style="color: #949494;">&lt;tibble [1 × 5]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span> C     CYP2B6 CYP2B6_C            <span style="color: #949494;">[4 × 4]</span>  -<span style="color: #BB0000;">0.022</span><span style="color: #BB0000; text-decoration: underline;">0</span> <span style="color: #949494;">&lt;nls&gt;</span>  <span style="color: #949494;">&lt;tibble [1 × 5]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">9</span> C     CYP3A4 CYP3A4_C            <span style="color: #949494;">[4 × 4]</span>   0.060<span style="text-decoration: underline;">0</span> <span style="color: #949494;">&lt;nls&gt;</span>  <span style="color: #949494;">&lt;tibble [1 × 5]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $fold_plot</span>
+<span class="r-plt img"><img src="indmod-3.png" alt="" width="700" height="433"></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ind_param</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 9 × 8</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   OBJECT DONOR term  emax_obs estimate std.error statistic p.value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> CYP1A2 A     ec50   -<span style="color: #BB0000;">0.049</span><span style="color: #BB0000; text-decoration: underline;">0</span>   0          1.34     0        1    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> CYP1A2 B     ec50    0.535    0.026<span style="text-decoration: underline;">1</span>     0.272    0.095<span style="text-decoration: underline;">9</span>   0.930</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> CYP1A2 C     ec50    0.092<span style="text-decoration: underline;">0</span> 100       <span style="text-decoration: underline;">8</span>414.       0.011<span style="text-decoration: underline;">9</span>   0.991</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> CYP2B6 A     ec50    0.069<span style="text-decoration: underline;">0</span> 100       <span style="text-decoration: underline;">9</span>259.       0.010<span style="text-decoration: underline;">8</span>   0.992</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> CYP2B6 B     ec50    0.356    0.048<span style="text-decoration: underline;">6</span>     0.420    0.116    0.915</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> CYP2B6 C     ec50   -<span style="color: #BB0000;">0.022</span><span style="color: #BB0000; text-decoration: underline;">0</span>   0          2.87     0        1    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> CYP3A4 A     ec50   -<span style="color: #BB0000;">0.027</span><span style="color: #BB0000; text-decoration: underline;">0</span>   0          1.66     0        1    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span> CYP3A4 B     ec50    0.79     0.125      0.527    0.237    0.828</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">9</span> CYP3A4 C     ec50    0.060<span style="text-decoration: underline;">0</span> 100       <span style="text-decoration: underline;">7</span>709.       0.013<span style="text-decoration: underline;">0</span>   0.990</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
