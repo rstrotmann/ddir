@@ -44,6 +44,21 @@ test_that("inhibition_data constructor stores CYP ki data and precipitant", {
 })
 
 
+test_that("inhibition_data constructor accepts transporter ic50 data without deriving ki", {
+  data <- tibble::tribble(
+    ~object  , ~ic50, ~source,
+    "OATP1B1",   0.5, "study",
+    "Pgp"    ,    10, "study"
+  )
+
+  expect_no_warning(x <- inhibition_data(data, precipitant = "testdrug"))
+  expect_s3_class(x, "inhibition_data")
+  expect_equal(x$object, c("OATP1B1", "Pgp"))
+  expect_equal(x$ic50, c(0.5, 10))
+  expect_false("ki" %in% names(x))
+})
+
+
 test_that("inhibition_data constructor keeps extra TDI columns", {
   data <- tibble::tribble(
     ~object ,  ~ki, ~kinact, ~source,
@@ -97,6 +112,52 @@ test_that("inhibition_data constructor rejects missing required columns", {
   expect_error(inhibition_data(no_object), "Missing columns")
   expect_error(inhibition_data(no_source), "Missing columns")
   expect_error(inhibition_data(no_potency), "Either ki or ic50")
+})
+
+
+test_that("inhibition_data constructor rejects input without inhibition columns", {
+  expect_error(inhibition_data(1), "Missing columns")
+  expect_error(inhibition_data(data.frame(a = 1)), "Missing columns")
+})
+
+
+test_that("ensure_ki derives ki from ic50/2 and warns", {
+  data <- tibble::tribble(
+    ~object , ~ic50, ~source,
+    "CYP3A4",    20, "study"
+  )
+
+  expect_warning(
+    out <- ddir:::ensure_ki(data),
+    "ki derived from ic50/2 assuming substrate concentration is close to KM"
+  )
+  expect_equal(out$ki, 10)
+  expect_equal(out$ic50, 20)
+})
+
+
+test_that("ensure_ki leaves an existing ki column unchanged", {
+  data <- tibble::tribble(
+    ~object , ~ki, ~ic50, ~source,
+    "CYP3A4",  10,    20, "study"
+  )
+
+  expect_no_warning(out <- ddir:::ensure_ki(data))
+  expect_equal(out$ki, 10)
+  expect_equal(out$ic50, 20)
+})
+
+
+test_that("ensure_ki errors when neither ki nor ic50 is present", {
+  data <- tibble::tribble(
+    ~object , ~source,
+    "CYP3A4", "study"
+  )
+
+  expect_error(
+    ddir:::ensure_ki(data),
+    "either a ki or an ic50"
+  )
 })
 
 

@@ -127,6 +127,43 @@ test_that("basic_cyp_inhibition_risk scales Ki,u with fumic", {
 })
 
 
+test_that("basic_cyp_inhibition_risk derives Ki from IC50/2", {
+  perp <- make_risk_perp()
+  inh <- inhibition_data(
+    tibble::tribble(
+      ~object , ~ic50, ~source,
+      "CYP2C9",    40, "study"
+    ),
+    precipitant = "testdrug"
+  )
+  Iu <- imaxssu(perp, molar = TRUE)
+
+  expect_warning(
+    tbl <- basic_cyp_inhibition_risk(perp, inh),
+    "ki derived from ic50/2 assuming substrate concentration is close to KM"
+  )
+  expect_equal(tbl$ki, 20)
+  expect_equal(tbl$kiu, 20)
+  expect_equal(tbl$r, Iu / 20)
+})
+
+
+test_that("basic_cyp_inhibition_risk prefers supplied ki over ic50", {
+  perp <- make_risk_perp()
+  inh <- inhibition_data(
+    tibble::tribble(
+      ~object , ~ki, ~ic50, ~source,
+      "CYP2C9",  40,    40, "study"
+    ),
+    precipitant = "testdrug"
+  )
+
+  expect_no_warning(tbl <- basic_cyp_inhibition_risk(perp, inh))
+  expect_equal(tbl$ki, 40)
+  expect_equal(tbl$r, imaxssu(perp, molar = TRUE) / 40)
+})
+
+
 test_that("basic_cyp_inhibition_risk sets intestinal R to zero for IV precipitants", {
   perp <- make_risk_perp(oral = FALSE)
   inh <- inhibition_data(
@@ -265,6 +302,28 @@ test_that("basic_ugt_inhibition_risk uses Ki,u and Cmax,ss,u", {
 })
 
 
+test_that("basic_ugt_inhibition_risk derives Ki from IC50/2", {
+  perp <- make_risk_perp()
+  inh <- inhibition_data(
+    tibble::tribble(
+      ~object , ~ic50, ~source,
+      "UGT1A9",    40, "study"
+    ),
+    precipitant = "testdrug"
+  )
+  Iu <- imaxssu(perp, molar = TRUE)
+
+  expect_warning(
+    tbl <- basic_ugt_inhibition_risk(perp, inh),
+    "ki derived from ic50/2 assuming substrate concentration is close to KM"
+  )
+  expect_equal(tbl$ki, 20)
+  expect_equal(tbl$kiu, 20)
+  expect_equal(tbl$r, Iu / 20)
+  expect_true(tbl$risk)
+})
+
+
 test_that("basic_ugt_inhibition_risk rejects wrong input classes", {
   perp <- make_risk_perp()
   ugt <- inhibition_data(
@@ -393,6 +452,25 @@ test_that("transporter_inhibition_risk uses the ICH concentration metric and thr
   expect_equal(mate$threshold, 0.02)
   expect_equal(mate$r, Iu / 25)
   expect_true(mate$risk)
+})
+
+
+test_that("transporter_inhibition_risk uses IC50 and does not derive ki", {
+  perp <- make_risk_perp()
+  inh <- inhibition_data(
+    tibble::tribble(
+      ~object, ~ic50, ~source,
+      "OAT1" ,    20, "study"
+    ),
+    precipitant = "testdrug"
+  )
+  Iu <- imaxssu(perp, molar = TRUE)
+
+  expect_false("ki" %in% names(inh))
+  expect_no_warning(tbl <- transporter_inhibition_risk(perp, inh))
+  expect_equal(tbl$ic50, 20)
+  expect_equal(tbl$r, Iu / 20)
+  expect_false("ki" %in% names(tbl))
 })
 
 
