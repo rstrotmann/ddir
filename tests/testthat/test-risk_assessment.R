@@ -69,11 +69,11 @@ test_that("basic_cyp_inhibition_risk computes hepatic and intestinal R from firs
   expect_equal(Iu, 1)
   expect_equal(Igut, 10000)
   expect_equal(res$kiu, res$ki * perp$fumic)
-  expect_equal(res$r, round(Iu / res$kiu, 4))
+  expect_equal(res$r, Iu / res$kiu)
   expect_equal(res$risk_hep, (Iu / res$kiu) > 0.02)
   expect_equal(
     res$r_gut,
-    c(NA_real_, NA_real_, round(Igut / 2000, 4))
+    c(NA_real_, NA_real_, Igut / 2000)
   )
   expect_equal(res$risk_intest, c(NA, NA, (Igut / 2000) > 10))
   expect_equal(res$risk_hep, c(TRUE, FALSE, FALSE))
@@ -123,7 +123,7 @@ test_that("basic_cyp_inhibition_risk scales Ki,u with fumic", {
   tbl <- basic_cyp_inhibition_risk(perp, inh)
 
   expect_equal(tbl$kiu, 20)
-  expect_equal(tbl$r, round(1 / 20, 4))
+  expect_equal(tbl$r, 1 / 20)
 })
 
 
@@ -1163,10 +1163,10 @@ test_that("examplinib CYP inhibition risk matches independent R values", {
   cyp3a4 <- tbl[tbl$object == "CYP3A4", ]
   cyp2c19 <- tbl[tbl$object == "CYP2C19", ]
 
-  expect_equal(cyp3a4$r, round(Iu / 12.5, 4))
-  expect_equal(cyp3a4$r_gut, round(Igut / 12.5, 4))
+  expect_equal(cyp3a4$r, Iu / 12.5)
+  expect_equal(cyp3a4$r_gut, Igut / 12.5)
   expect_true(cyp3a4$risk_intest)
-  expect_equal(cyp2c19$r, round(Iu / 0.25, 4))
+  expect_equal(cyp2c19$r, Iu / 0.25)
   expect_true(cyp2c19$risk_hep)
   expect_true(is.na(cyp2c19$r_gut))
 })

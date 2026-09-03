@@ -118,7 +118,7 @@ basic_ugt_inhibition_risk <- function(perp, ugt_inh) {
     mutate(kiu = .data$ki * perp$fumic) |>
     mutate(r = imaxssu(perp) / .data$kiu) |>
     mutate(risk = .data$r > 0.02) |>
-    mutate(r = round(.data$r, digits = 4)) |>
+    # mutate(r = round(.data$r, digits = 4)) |>
     select(c("object", "ki", "kiu", "source", "r", "risk"))
 
   risk(

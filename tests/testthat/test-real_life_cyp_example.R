@@ -179,7 +179,7 @@ test_that("PUR1900 itraconazole basic R1 with OH-itraconazole matches Bergagnini
   combined_r1 <- parent_r1 + oh_term
 
   expect_equal(imaxssu(perp, molar = TRUE), 0.0215 * 0.016)
-  expect_equal(tbl$r, round((0.0215 * 0.016) / 0.0013, 4))
+  expect_equal(tbl$r, (0.0215 * 0.016) / 0.0013)
   expect_true(tbl$risk_hep)
   expect_equal(combined_r1, 1.35, tolerance = 0.01)
 })

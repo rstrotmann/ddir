@@ -28,6 +28,16 @@ with_knitr <- function(expr) {
 }
 
 
+expect_table_contains_signif <- function(text, x, digits) {
+  v <- signif(x, digits)
+  sci <- formatC(v, format = "e", digits = max(digits - 1L, 0L))
+  expect_true(
+    grepl(as.character(v), text, fixed = TRUE) ||
+      grepl(sci, text, fixed = TRUE)
+  )
+}
+
+
 test_that("precipitant constructor populates all fields", {
   x <- make_test_precipitant()
 
@@ -203,7 +213,7 @@ test_that("imaxintest returns expected values for oral and non-oral compounds", 
 
 test_that("key_conc_table returns a formatted table with key concentration labels", {
   x <- make_test_precipitant()
-  output <- capture.output(key_conc_table(x, round = 2))
+  output <- capture.output(key_conc_table(x, signif = 3))
 
   expect_true(any(grepl("Key precipitant concentrations for examplinib", output)))
   expect_true(any(grepl("\\$I_\\{gut\\}\\$", output)))
@@ -487,50 +497,54 @@ test_that("imaxintest scales inversely with qent and is zero when fa is zero", {
 
 test_that("key_conc_table returns knitr_kable with matching helper values", {
   x <- make_test_precipitant()
-  out <- key_conc_table(x, round = 2)
+  digits <- 3
+  out <- key_conc_table(x, signif = digits)
   text <- paste(capture.output(out), collapse = "\n")
 
   expect_s3_class(out, "knitr_kable")
   expect_match(text, "value \\(\\$ng/ml\\$\\)")
   expect_match(text, "value \\(\\$\\\\mu M\\$\\)")
-  expect_match(text, as.character(round(igut(x, molar = FALSE), 2)))
-  expect_match(text, as.character(round(igut(x, molar = TRUE), 2)))
-  expect_match(text, as.character(round(imaxssu(x, molar = FALSE), 2)))
-  expect_match(text, as.character(round(imaxssu(x, molar = TRUE), 2)))
-  expect_match(text, as.character(round(imaxinletu(x, molar = FALSE), 2)))
-  expect_match(text, as.character(round(imaxinletu(x, molar = TRUE), 2)))
-  expect_match(text, as.character(round(imaxintest(x, molar = FALSE), 2)))
-  expect_match(text, as.character(round(imaxintest(x, molar = TRUE), 2)))
+  expect_table_contains_signif(text, igut(x, molar = FALSE), digits)
+  expect_table_contains_signif(text, igut(x, molar = TRUE), digits)
+  expect_table_contains_signif(text, imaxssu(x, molar = FALSE), digits)
+  expect_table_contains_signif(text, imaxssu(x, molar = TRUE), digits)
+  expect_table_contains_signif(text, imaxinletu(x, molar = FALSE), digits)
+  expect_table_contains_signif(text, imaxinletu(x, molar = TRUE), digits)
+  expect_table_contains_signif(text, imaxintest(x, molar = FALSE), digits)
+  expect_table_contains_signif(text, imaxintest(x, molar = TRUE), digits)
 })
 
 
-test_that("key_conc_table honors round, qh, and qent", {
+test_that("key_conc_table honors signif, qh, and qent", {
   x <- make_test_precipitant()
-  rounded <- paste(capture.output(key_conc_table(x, round = 0)), collapse = "\n")
+  coarse <- paste(capture.output(key_conc_table(x, signif = 1)), collapse = "\n")
   custom <- paste(
-    capture.output(key_conc_table(x, round = 2, qh = 0.808, qent = 9 / 60)),
+    capture.output(key_conc_table(x, signif = 3, qh = 0.808, qent = 9 / 60)),
     collapse = "\n"
   )
 
-  expect_match(rounded, as.character(round(imaxssu(x, molar = FALSE), 0)))
-  expect_match(
+  expect_table_contains_signif(coarse, imaxssu(x, molar = FALSE), 1)
+  expect_table_contains_signif(
     custom,
-    as.character(round(imaxinletu(x, qh = 0.808, molar = FALSE), 2))
+    imaxinletu(x, qh = 0.808, molar = FALSE),
+    3
   )
-  expect_match(
+  expect_table_contains_signif(
     custom,
-    as.character(round(imaxintest(x, qent = 9 / 60, molar = FALSE), 2))
+    imaxintest(x, qent = 9 / 60, molar = FALSE),
+    3
   )
 })
 
 
 test_that("key_conc_table uses IV branches for gut and intestinal terms", {
   x <- make_test_precipitant(oral = FALSE)
-  text <- paste(capture.output(key_conc_table(x, round = 2)), collapse = "\n")
+  digits <- 3
+  text <- paste(capture.output(key_conc_table(x, signif = digits)), collapse = "\n")
 
-  expect_match(text, as.character(round(igut(x, molar = FALSE), 2)))
-  expect_match(text, as.character(round(imaxintest(x, molar = FALSE), 2)))
-  expect_match(text, as.character(round(imaxssu(x, molar = FALSE), 2)))
+  expect_table_contains_signif(text, igut(x, molar = FALSE), digits)
+  expect_table_contains_signif(text, imaxintest(x, molar = FALSE), digits)
+  expect_table_contains_signif(text, imaxssu(x, molar = FALSE), digits)
   expect_equal(igut(x, molar = FALSE), 0)
   expect_equal(imaxintest(x, molar = FALSE), imaxssu(x, molar = FALSE))
 })
