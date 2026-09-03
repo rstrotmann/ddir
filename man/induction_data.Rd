@@ -7,13 +7,17 @@
 induction_data(data = NULL, precipitant = "")
 }
 \arguments{
-\item{data}{A data frame with the columns object, ki and source.}
+\item{data}{A data frame with the columns object, emax, ec50, max_c and source.}
 
 \item{precipitant}{The precipitant name as character.}
 }
 \value{
-An inhibition_data object.
+An induction_data object.
 }
 \description{
-induction_data constructor alias
+\itemize{
+\item emax: Fitted Emax
+\item ec50: Fitted EC50 in uM
+\item max_c: Maximally tested perpetrator concentration in uM.
+}
 }

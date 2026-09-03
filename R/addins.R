@@ -229,7 +229,7 @@ standard values are used unless otherwise indicated.
 Values of $R \ge 1.25$ is considered to indicate a clinically relevant TDI
 potential and suggest the need for further investigation.
 
-## Basic mRNA fold-change method method to assess CYP induction
+## Basic mRNA fold-change method to assess CYP induction
 
 This basic risk assessment evaluates the mRNA induction for a set of hepatocyte
 batches from different donors. Increases of CYP enzyme mRNA $\ge$ 2-fold at
@@ -310,7 +310,7 @@ low, so that $K_i \approx IC_{50}$ can be assumed. Under common assay conditions
 no protein is added to the medium so that the fraction unbound can be assumed 1,
 i.e. $IC_{50} = IC_{50,u}$.
 
-The following relevant precitipant concentrations $[I]$ and regulatory
+The following relevant precipitant concentrations $[I]$ and regulatory
 thresholds of concern apply for the transporters:
 
 | $I$                     | transporter                                                                    | threshold |

@@ -257,7 +257,6 @@ test_that("print in knitr returns a kable of oral parameters", {
   expect_match(text, "\\$R_B\\$")
   expect_match(text, "\\$C_\\{max,ss\\}\\$")
   expect_match(text, "\\$f_\\{u,mic\\}\\$")
-  expect_match(text, "mg/l")
   expect_match(text, "clinical dose")
   expect_match(text, "study 001")
 })

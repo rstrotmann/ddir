@@ -87,10 +87,14 @@ print.precipitant <- function(x, ...) {
              "ka",        "$k_a$ (1/min)",  "/min"
      ) |>
     dplyr::mutate(value = sapply(
-      c(x$oral, x$mw, x$dose, x$solubility, x$imaxss, x$fu, x$fumic, x$rb,
+      c(as.character(x$oral), x$mw, x$dose, x$solubility, x$imaxss, x$fu, x$fumic, x$rb,
         x$fa, x$fg, x$ka),
       as.character)) |>
     dplyr::select(-"unit")
+
+  if (x$solubility == Inf) {
+    out <- filter(out, param != "solubility")
+  }
 
   out$source <- unlist(lapply(
     out$param,

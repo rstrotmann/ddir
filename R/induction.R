@@ -3,7 +3,7 @@
 #' @param data A data frame with the columns object, ki and source.
 #' @param precipitant The precipitant name as character.
 #'
-#' @returns An inhibition_data object.
+#' @returns An induction_data object.
 #' @noRd
 new_induction_data <- function(data = NULL, precipitant = "") {
   structure(
@@ -16,10 +16,14 @@ new_induction_data <- function(data = NULL, precipitant = "") {
 
 #' induction_data constructor alias
 #'
-#' @param data A data frame with the columns object, ki and source.
+#' * emax: Fitted Emax
+#' * ec50: Fitted EC50 in uM
+#' * max_c: Maximally tested perpetrator concentration in uM.
+#'
+#' @param data A data frame with the columns object, emax, ec50, max_c and source.
 #' @param precipitant The precipitant name as character.
 #'
-#' @returns An inhibition_data object.
+#' @returns An induction_data object.
 #' @export
 induction_data <- function(data = NULL, precipitant = "") {
   if (is.null(data)) {
