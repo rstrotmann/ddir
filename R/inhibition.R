@@ -67,7 +67,7 @@ ensure_ki <- function(data) {
       data <- data |>
         mutate(ki = .data$ic50 / 2)
 
-      warning("ki derived from ic50/2 assuming substrate concentration is close to KM")
+      message("ki derived from ic50/2 assuming substrate concentration is close to KM")
     } else {
       stop("Input must contain either a ki or an ic50 column!")
     }

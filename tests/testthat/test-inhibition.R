@@ -127,7 +127,7 @@ test_that("ensure_ki derives ki from ic50/2 and warns", {
     "CYP3A4",    20, "study"
   )
 
-  expect_warning(
+  expect_message(
     out <- ddir:::ensure_ki(data),
     "ki derived from ic50/2 assuming substrate concentration is close to KM"
   )

@@ -138,7 +138,7 @@ test_that("basic_cyp_inhibition_risk derives Ki from IC50/2", {
   )
   Iu <- imaxssu(perp, molar = TRUE)
 
-  expect_warning(
+  expect_message(
     tbl <- basic_cyp_inhibition_risk(perp, inh),
     "ki derived from ic50/2 assuming substrate concentration is close to KM"
   )
@@ -313,7 +313,7 @@ test_that("basic_ugt_inhibition_risk derives Ki from IC50/2", {
   )
   Iu <- imaxssu(perp, molar = TRUE)
 
-  expect_warning(
+  expect_message(
     tbl <- basic_ugt_inhibition_risk(perp, inh),
     "ki derived from ic50/2 assuming substrate concentration is close to KM"
   )
