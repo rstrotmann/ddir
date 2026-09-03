@@ -4,12 +4,14 @@
 \alias{print.risk}
 \title{Print risk object}
 \usage{
-\method{print}{risk}(x, ...)
+\method{print}{risk}(x, ..., signif = 3)
 }
 \arguments{
 \item{x}{The risk object.}
 
 \item{...}{Further arguments.}
+
+\item{signif}{Number of significant digits.}
 }
 \value{
 Nothing or a markdodwn-formatted table

@@ -63,16 +63,25 @@ dplyr_reconstruct.risk <- function(data, template) {
 #'
 #' @param x The risk object.
 #' @param ... Further arguments.
+#' @param signif Number of significant digits.
 #'
 #' @returns Nothing or a markdodwn-formatted table
 #' @exportS3Method base::print
-print.risk <- function(x, ...) {
+print.risk <- function(x, ..., signif = 3) {
   caption <- attr(x, "title")
   precipitant <-  attr(x, "precipitant")
 
+  x <- as.data.frame(x)
+
   x <- mutate(x, across(any_of(
-    c("r", "aucr", "Ag", "Ah", "Bg", "Bh", "Cg", "Ch")),
-    function(i) round(i, 2)))
+    c("aucr", "Ag", "Ah", "Bg", "Bh", "Cg", "Ch")),
+    function(i) round(i, 2)
+    ))
+
+  x <- mutate(x, across(any_of(
+    c("r", "r_gut")),
+    function(i) signif(i, signif)
+  ))
 
   if (isTRUE(getOption("knitr.in.progress"))) {
     caption <- ifelse(
@@ -80,7 +89,19 @@ print.risk <- function(x, ...) {
       paste0("DDI risk for precipitant ", precipitant),
       caption
     )
+
     x |>
+      as.data.frame() |>
+      mutate(across(any_of(
+        c("r_gut", "risk_intest")),
+        function(i) {
+          ifelse(
+            !is.na(i),
+            as.character(i),
+            "-"
+          )
+        }
+      )) |>
       knitr::kable(caption = caption)
   } else {
     cat(paste(hline(), "Clinical DDI risk assessment",  hline(), "\n"))

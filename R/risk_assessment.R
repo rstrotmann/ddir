@@ -61,8 +61,8 @@ basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
       .default = NA)) |>
     mutate(risk_hep = r > 0.02) |>
     mutate(risk_intest = r_gut > 10)  |>
-    mutate(r = round(r, digits = 4)) |>
-    mutate(r_gut = round(r_gut, digits = 4)) |>
+    # mutate(r = round(r, digits = 4)) |>
+    # mutate(r_gut = round(r_gut, digits = 4)) |>
     select(c("object", "ki", "kiu", "source", "r", "risk_hep", "r_gut", "risk_intest"))
 
   risk(

@@ -80,10 +80,13 @@ print.inhibition_data <- function(x, ...) {
     cat(paste0(hline(), " DDI inhibition data ", hline(), "\n"))
 
     cat(paste(
-      "In vitro inhibition data for precipitant", attr(x, "precipitant"), "\n\n"))
+      "In vitro inhibition data for precipitant", attr(x, "precipitant"),
+      "\n\n"))
+
     out <- x |>
+      as.data.frame() |>
       mutate(source = case_when(
-        !is.na(source) & !source == "" ~ source,
+        !is.na(.data$source) & !.data$source == "" ~ .data$source,
         .default = ""
       ))
 

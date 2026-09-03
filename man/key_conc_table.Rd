@@ -4,12 +4,12 @@
 \alias{key_conc_table}
 \title{Key precipitant concentrations}
 \usage{
-key_conc_table(x, round = 3, qh = 1.616, qent = 18/60)
+key_conc_table(x, signif = 3, qh = 1.616, qent = 18/60)
 }
 \arguments{
 \item{x}{DDI precipitant object.}
 
-\item{round}{Number of decimal places.}
+\item{signif}{Number of significant places.}
 
 \item{qh}{Hepatic blood flow in L/min.}
 

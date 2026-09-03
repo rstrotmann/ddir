@@ -278,7 +278,7 @@ imaxintest <- function(x, qent = 18/60, molar = TRUE) {
 #' binding of the drug are not applicable.
 #'
 #' @param x DDI precipitant object.
-#' @param round Number of decimal places.
+#' @param signif Number of significant places.
 #' @param qh Hepatic blood flow in L/min.
 #' @param qent Enteric blood flow in L/min.
 #'
@@ -289,7 +289,7 @@ imaxintest <- function(x, qent = 18/60, molar = TRUE) {
 #'
 key_conc_table <- function(
     x,
-    round = 3,
+    signif = 3,
     qh = 1.616,
     qent = 18/60
 ) {
@@ -313,8 +313,8 @@ key_conc_table <- function(
     "$I_{max,inlet,u}$",
     "$I_{max,intestinal}$"
   ) |>
-    mutate(mass_conc = signif(kc(x, molar = FALSE), round)) |>
-    mutate(molar_conc = signif(kc(x, molar = TRUE), round))
+    mutate(mass_conc = signif(kc(x, molar = FALSE), signif)) |>
+    mutate(molar_conc = signif(kc(x, molar = TRUE), signif))
 
   col_names <- c("parameter", "value ($ng/ml$)", "value ($\\mu M$)")
   rownames(temp) <- NULL
