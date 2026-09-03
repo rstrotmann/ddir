@@ -191,6 +191,7 @@ validate_argument <- function(
     stop(paste0(param_name, " must be a ", type, " value"))
   }
 
+  # fraction
   if (type == "fraction") {
     if (any(param < 0 | param > 1, na.rm = TRUE))
       stop(paste0(param_name, " must be between 0 and 1!"))

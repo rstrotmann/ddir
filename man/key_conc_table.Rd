@@ -4,7 +4,7 @@
 \alias{key_conc_table}
 \title{Key precipitant concentrations}
 \usage{
-key_conc_table(x, round = 2, qh = 1.616, qent = 18/60)
+key_conc_table(x, round = 3, qh = 1.616, qent = 18/60)
 }
 \arguments{
 \item{x}{DDI precipitant object.}

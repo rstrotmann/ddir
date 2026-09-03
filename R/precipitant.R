@@ -289,9 +289,10 @@ imaxintest <- function(x, qent = 18/60, molar = TRUE) {
 #'
 key_conc_table <- function(
     x,
-    round = 2,
+    round = 3,
     qh = 1.616,
-    qent = 18/60) {
+    qent = 18/60
+) {
   # input validation
   validate_precipitant(x)
 
@@ -312,8 +313,8 @@ key_conc_table <- function(
     "$I_{max,inlet,u}$",
     "$I_{max,intestinal}$"
   ) |>
-    mutate(mass_conc = round(kc(x, molar = FALSE), round)) |>
-    mutate(molar_conc = round(kc(x, molar = TRUE), round))
+    mutate(mass_conc = signif(kc(x, molar = FALSE), round)) |>
+    mutate(molar_conc = signif(kc(x, molar = TRUE), round))
 
   col_names <- c("parameter", "value ($ng/ml$)", "value ($\\mu M$)")
   rownames(temp) <- NULL
