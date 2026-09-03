@@ -54,6 +54,7 @@ basic_cyp_inhibition_risk <- function(perp, cyp_inh) {
 
   # business logic
   out <- cyp_inh |>
+    ensure_ki() |>
     mutate(kiu = ki * perp$fumic) |>
     mutate(r = imaxssu(perp, molar = TRUE) / kiu) |>
     mutate(r_gut = case_when(
@@ -114,7 +115,7 @@ basic_ugt_inhibition_risk <- function(perp, ugt_inh) {
     warning("Precipitant name and data precipitant do not match!")
 
   out <- ugt_inh |>
-    # mutate(ki = ic50/2) |>
+    ensure_ki() |>
     mutate(kiu = .data$ki * perp$fumic) |>
     mutate(r = imaxssu(perp) / .data$kiu) |>
     mutate(risk = .data$r > 0.02) |>

@@ -7,7 +7,7 @@
 #' @noRd
 new_inhibition_data <- function(data, precipitant = "") {
   structure(
-    data,
+    relocate(data, any_of(c("object", "ic50", "ki", "kinact", "source"))),
     class = unique(c("inhibition_data", "tbl_df", "tbl", "data.frame")),
     precipitant = precipitant
   )
@@ -27,6 +27,7 @@ inhibition_data <- function(data = NULL, precipitant = "") {
       object = character(), ki = numeric(), source = character()
     )
   }
+
   out <- new_inhibition_data(as_tibble(data), precipitant)
   validate_inhibition_data(out)
   out
@@ -51,6 +52,27 @@ dplyr_reconstruct.inhibition_data <- function(data, template) {
 #' @noRd
 vec_restore.inhibition_data <- function(x, to, ...) {
   new_inhibition_data(x, attr(to, "precipitant"))
+}
+
+
+#' Reconstruct ki from ic50
+#'
+#' @param data A data frame.
+#'
+#' @returns A data frame.
+#' @noRd
+ensure_ki <- function(data) {
+  if (!"ki" %in% names(data)) {
+    if ("ic50" %in% names(data)) {
+      data <- data |>
+        mutate(ki = .data$ic50 / 2)
+
+      warning("ki derived from ic50/2 assuming substrate concentration is close to KM")
+    } else {
+      stop("Input must contain either a  ki or an ic50 column!")
+    }
+  }
+  data
 }
 
 

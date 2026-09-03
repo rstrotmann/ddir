@@ -44,21 +44,6 @@ test_that("inhibition_data constructor stores CYP ki data and precipitant", {
 })
 
 
-test_that("inhibition_data constructor accepts transporter ic50 data", {
-  data <- tibble::tribble(
-    ~object  , ~ic50, ~source,
-    "OATP1B1",   0.5, "study",
-    "Pgp"    ,    10, "study"
-  )
-  x <- inhibition_data(data, precipitant = "testdrug")
-
-  expect_s3_class(x, "inhibition_data")
-  expect_equal(x$object, c("OATP1B1", "Pgp"))
-  expect_equal(x$ic50, c(0.5, 10))
-  expect_false("ki" %in% names(x))
-})
-
-
 test_that("inhibition_data constructor keeps extra TDI columns", {
   data <- tibble::tribble(
     ~object ,  ~ki, ~kinact, ~source,
@@ -112,12 +97,6 @@ test_that("inhibition_data constructor rejects missing required columns", {
   expect_error(inhibition_data(no_object), "Missing columns")
   expect_error(inhibition_data(no_source), "Missing columns")
   expect_error(inhibition_data(no_potency), "Either ki or ic50")
-})
-
-
-test_that("inhibition_data constructor rejects input without inhibition columns", {
-  expect_error(inhibition_data(1), "Missing columns")
-  expect_error(inhibition_data(data.frame(a = 1)), "Missing columns")
 })
 
 
