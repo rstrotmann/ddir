@@ -240,8 +240,6 @@ $R=[I]/IC_{50,u}$. For the precipitant concentrations relevant for the
 individual transporters, refer to Section '[Inhibition of drug transporters]' in
 Appendix 1.
 
-Note that OCT1 is currently not covered by the M12 guideline.
-
 ```{r results="asis"}
 print(transporter_inhibition_risk(perp, transporter_inh))
 ```
@@ -445,7 +443,7 @@ thresholds of concern apply for the transporters:
 | $I_{gut}$         | P-gp and BRCR when drugs are orally administered                               | 10        |
 | $C_{max,ss,u}$    | P-gp and BRCR when drugs are administered parenterally or for drug metabolites | 0.02      |
 | $I_{max,inlet,u}$ | hepatic basolateral transporters OCT1, OATP1B1 and OATP1B3                     | 0.1       |
-| $C_{max,ss,u}$    | renal basolateral transporters OAT1, OAT3 and OCT2                             | 0.1       |
+| $C_{max,ss,u}$    | renal basolateral transporters OAT1, OAT3 and OCT2                             |> | 0.1       |
 | $C_{max,ss,u}$    | apical transporters MATE1 and MATE2-K                                          | 0.02      |
 
 

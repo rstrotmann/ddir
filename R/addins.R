@@ -35,7 +35,7 @@ cyp_inh_addin <- function() {
    "CYP2C9",  NA,      "",
   "CYP2C19",  NA,      "",
    "CYP2D6",  NA,      "",
-   "CYP3A4",  NA,      "",
+   "CYP3A4",  NA,      ""
   ),
   precipitant = "name"
 ))"
@@ -105,7 +105,7 @@ cyp_ind_addin <- function() {
     "CYP1A2",    NA,    NA,     NA,      "",
     "CYP2C8",    NA,    NA,     NA,      "",
     "CYP2C9",    NA,    NA,     NA,      "",
-   "CYP2C19",    NA,    NA,     NA,      "",
+   "CYP2C19",    NA,    NA,     NA,      ""
   ),
   precipitant = "name"
 ))"
