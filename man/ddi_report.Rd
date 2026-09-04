@@ -2,13 +2,27 @@
 % Please edit documentation in R/examples.R
 \name{ddi_report}
 \alias{ddi_report}
-\title{Open DDI assessment report template}
+\title{Open a DDI assessment report template}
 \usage{
-ddi_report()
+ddi_report(name = "DDI-assessment.qmd", overwrite = FALSE)
+}
+\arguments{
+\item{name}{Destination file. Defaults to \code{DDI-assessment.qmd} in the
+working directory.}
+
+\item{overwrite}{Overwrite \code{name} if it already exists.}
 }
 \value{
-Nothing
+The destination filename, invisibly.
 }
 \description{
-Open DDI assessment report template
+Crate a new DDI report template as R markdown file in the working directory,
+and open it. The new report contains examplinib data for reference. Requires
+RStudio for the editor; otherwise the file is written and the path is
+returned.
+}
+\examples{
+\dontrun{
+ddi_report()
+}
 }
