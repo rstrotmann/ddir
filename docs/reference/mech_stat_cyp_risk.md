@@ -90,7 +90,7 @@ inhibition risk using this method.
 
 where
 
-\$\$I\_{gut}=\frac{Dose}{250\\ mg}\$\$
+\$\$I\_{gut}=\frac{Dose}{250\\ ml}\$\$
 
 \\R\\ values \> 10 are considered to indicate a clinical risk for
 intestinal CYP3A inhibition.

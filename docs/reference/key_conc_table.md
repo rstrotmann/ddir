@@ -6,7 +6,7 @@ concentrations in \\\mu M\\ and ng/ml for a DDI precipitant compound.
 ## Usage
 
 ``` r
-key_conc_table(x, round = 2, qh = 1.616, qent = 18/60)
+key_conc_table(x, signif = 3, qh = 1.616, qent = 18/60)
 ```
 
 ## Arguments
@@ -15,9 +15,9 @@ key_conc_table(x, round = 2, qh = 1.616, qent = 18/60)
 
   DDI precipitant object.
 
-- round:
+- signif:
 
-  Number of decimal places.
+  Number of significant places.
 
 - qh:
 
@@ -89,8 +89,8 @@ key_conc_table(examplinib)
 #> 
 #> |parameter            | value ($ng/ml$)| value ($\mu M$)|
 #> |:--------------------|---------------:|---------------:|
-#> |$I_{gut}$            |      1800000.00|         3654.08|
-#> |$I_{max,ss,u}$       |           81.19|            0.16|
-#> |$I_{max,inlet,u}$    |           95.04|            0.19|
-#> |$I_{max,intestinal}$ |         3244.05|            6.59|
+#> |$I_{gut}$            |        1.80e+06|        3650.000|
+#> |$I_{max,ss,u}$       |        8.12e+01|           0.165|
+#> |$I_{max,inlet,u}$    |        9.50e+01|           0.193|
+#> |$I_{max,intestinal}$ |        3.24e+03|           6.590|
 ```

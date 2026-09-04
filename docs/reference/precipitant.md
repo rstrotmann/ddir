@@ -99,16 +99,15 @@ precipitant(
   source = c(dose = "clinical dose", imaxss = "study 001", fu = "study 002")
 )
 #> ──────── DDI precipitant examplinib ──────── 
-#> param        value     source          
-#> oral         1                         
-#> mw           492.6                     
-#> dose         450       clinical dose   
-#> solubility   Inf                       
-#> imaxss       3530      study 001       
-#> fu           0.023     study 002       
-#> fumic        1                         
-#> rb           1                         
-#> fa           0.81                      
-#> fg           1                         
-#> ka           0.00267
+#> param    value     source          
+#> oral     TRUE                      
+#> mw       492.6                     
+#> dose     450       clinical dose   
+#> imaxss   3530      study 001       
+#> fu       0.023     study 002       
+#> fumic    1                         
+#> rb       1                         
+#> fa       0.81                      
+#> fg       1                         
+#> ka       0.00267
 ```

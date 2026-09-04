@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.17.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.18.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -200,7 +200,7 @@ contains a sample precipitant object for the ficitional drug
 <tbody>
 <tr class="odd">
 <td align="left">oral</td>
-<td align="left">1</td>
+<td align="left">TRUE</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -217,44 +217,37 @@ contains a sample precipitant object for the ficitional drug
 </tr>
 <tr class="even">
 <td align="left">
-<span class="math inline">\(solubility\)</span>
-(mg/l)</td>
-<td align="left">Inf</td>
-<td align="left"></td>
-</tr>
-<tr class="odd">
-<td align="left">
 <span class="math inline">\(C_{max,ss}\)</span>
 (ng/ml)</td>
 <td align="left">3530</td>
 <td align="left"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><span class="math inline">\(f_u\)</span></td>
 <td align="left">0.023</td>
 <td align="left"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><span class="math inline">\(f_{u,mic}\)</span></td>
 <td align="left">1</td>
 <td align="left"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><span class="math inline">\(R_B\)</span></td>
 <td align="left">1</td>
 <td align="left"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><span class="math inline">\(F_a\)</span></td>
 <td align="left">0.81</td>
 <td align="left"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><span class="math inline">\(F_g\)</span></td>
 <td align="left">1</td>
 <td align="left"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">
 <span class="math inline">\(k_a\)</span> (1/min)</td>
 <td align="left">0.00267</td>
@@ -299,23 +292,23 @@ M\)</span>)</th>
 <tbody>
 <tr class="odd">
 <td align="left"><span class="math inline">\(I_{gut}\)</span></td>
-<td align="right">1800000.00</td>
-<td align="right">3654.08</td>
+<td align="right">1.80e+06</td>
+<td align="right">3650.000</td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(I_{max,ss,u}\)</span></td>
-<td align="right">81.19</td>
-<td align="right">0.16</td>
+<td align="right">8.12e+01</td>
+<td align="right">0.165</td>
 </tr>
 <tr class="odd">
 <td align="left"><span class="math inline">\(I_{max,inlet,u}\)</span></td>
-<td align="right">95.04</td>
-<td align="right">0.19</td>
+<td align="right">9.50e+01</td>
+<td align="right">0.193</td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(I_{max,intestinal}\)</span></td>
-<td align="right">3244.05</td>
-<td align="right">6.59</td>
+<td align="right">3.24e+03</td>
+<td align="right">6.590</td>
 </tr>
 </tbody>
 </table>
@@ -402,9 +395,9 @@ object and a CYP inhibition data object:</p>
 <col width="9%">
 <col width="9%">
 <col width="15%">
-<col width="7%">
-<col width="13%">
-<col width="13%">
+<col width="10%">
+<col width="14%">
+<col width="9%">
 <col width="18%">
 </colgroup>
 <thead><tr class="header">
@@ -414,7 +407,7 @@ object and a CYP inhibition data object:</p>
 <th align="left">source</th>
 <th align="right">r</th>
 <th align="left">risk_hep</th>
-<th align="right">r_gut</th>
+<th align="left">r_gut</th>
 <th align="left">risk_intest</th>
 </tr></thead>
 <tbody>
@@ -425,8 +418,8 @@ object and a CYP inhibition data object:</p>
 <td align="left">NA</td>
 <td align="right">NA</td>
 <td align="left">NA</td>
-<td align="right">NA</td>
-<td align="left">NA</td>
+<td align="left">-</td>
+<td align="left">-</td>
 </tr>
 <tr class="even">
 <td align="left">CYP2B6</td>
@@ -435,38 +428,38 @@ object and a CYP inhibition data object:</p>
 <td align="left">NA</td>
 <td align="right">NA</td>
 <td align="left">NA</td>
-<td align="right">NA</td>
-<td align="left">NA</td>
+<td align="left">-</td>
+<td align="left">-</td>
 </tr>
 <tr class="odd">
 <td align="left">CYP2C8</td>
 <td align="right">11.00</td>
 <td align="right">11.00</td>
 <td align="left">study 001</td>
-<td align="right">0.01</td>
+<td align="right">0.0150</td>
 <td align="left">FALSE</td>
-<td align="right">NA</td>
-<td align="left">NA</td>
+<td align="left">-</td>
+<td align="left">-</td>
 </tr>
 <tr class="even">
 <td align="left">CYP2C9</td>
 <td align="right">0.60</td>
 <td align="right">0.60</td>
 <td align="left">study 001</td>
-<td align="right">0.27</td>
+<td align="right">0.2750</td>
 <td align="left">TRUE</td>
-<td align="right">NA</td>
-<td align="left">NA</td>
+<td align="left">-</td>
+<td align="left">-</td>
 </tr>
 <tr class="odd">
 <td align="left">CYP2C19</td>
 <td align="right">0.25</td>
 <td align="right">0.25</td>
 <td align="left">study 001</td>
-<td align="right">0.66</td>
+<td align="right">0.6590</td>
 <td align="left">TRUE</td>
-<td align="right">NA</td>
-<td align="left">NA</td>
+<td align="left">-</td>
+<td align="left">-</td>
 </tr>
 <tr class="even">
 <td align="left">CYP2D6</td>
@@ -475,17 +468,17 @@ object and a CYP inhibition data object:</p>
 <td align="left">NA</td>
 <td align="right">NA</td>
 <td align="left">NA</td>
-<td align="right">NA</td>
-<td align="left">NA</td>
+<td align="left">-</td>
+<td align="left">-</td>
 </tr>
 <tr class="odd">
 <td align="left">CYP3A4</td>
 <td align="right">12.50</td>
 <td align="right">12.50</td>
 <td align="left">study 001</td>
-<td align="right">0.01</td>
+<td align="right">0.0132</td>
 <td align="left">FALSE</td>
-<td align="right">292.3264</td>
+<td align="left">292</td>
 <td align="left">TRUE</td>
 </tr>
 </tbody>
@@ -512,7 +505,7 @@ object and a CYP inhibition data object:</p>
 <td align="right">15.0</td>
 <td align="right">15.0</td>
 <td align="left">study 009</td>
-<td align="right">0.01</td>
+<td align="right">0.0110</td>
 <td align="left">FALSE</td>
 </tr>
 <tr class="even">
@@ -520,7 +513,7 @@ object and a CYP inhibition data object:</p>
 <td align="right">15.0</td>
 <td align="right">15.0</td>
 <td align="left">study 009</td>
-<td align="right">0.01</td>
+<td align="right">0.0110</td>
 <td align="left">FALSE</td>
 </tr>
 <tr class="odd">
@@ -528,7 +521,7 @@ object and a CYP inhibition data object:</p>
 <td align="right">15.0</td>
 <td align="right">15.0</td>
 <td align="left">study 009</td>
-<td align="right">0.01</td>
+<td align="right">0.0110</td>
 <td align="left">FALSE</td>
 </tr>
 <tr class="even">
@@ -536,7 +529,7 @@ object and a CYP inhibition data object:</p>
 <td align="right">15.0</td>
 <td align="right">15.0</td>
 <td align="left">study 009</td>
-<td align="right">0.01</td>
+<td align="right">0.0110</td>
 <td align="left">FALSE</td>
 </tr>
 <tr class="odd">
@@ -544,7 +537,7 @@ object and a CYP inhibition data object:</p>
 <td align="right">3.8</td>
 <td align="right">3.8</td>
 <td align="left">study 009</td>
-<td align="right">0.04</td>
+<td align="right">0.0434</td>
 <td align="left">TRUE</td>
 </tr>
 <tr class="even">
@@ -552,7 +545,7 @@ object and a CYP inhibition data object:</p>
 <td align="right">15.0</td>
 <td align="right">15.0</td>
 <td align="left">study 009</td>
-<td align="right">0.01</td>
+<td align="right">0.0110</td>
 <td align="left">FALSE</td>
 </tr>
 <tr class="odd">
@@ -560,7 +553,7 @@ object and a CYP inhibition data object:</p>
 <td align="right">15.0</td>
 <td align="right">15.0</td>
 <td align="left">study 009</td>
-<td align="right">0.01</td>
+<td align="right">0.0110</td>
 <td align="left">FALSE</td>
 </tr>
 <tr class="even">
@@ -568,7 +561,7 @@ object and a CYP inhibition data object:</p>
 <td align="right">6.1</td>
 <td align="right">6.1</td>
 <td align="left">study 009</td>
-<td align="right">0.03</td>
+<td align="right">0.0270</td>
 <td align="left">TRUE</td>
 </tr>
 </tbody>
@@ -767,7 +760,7 @@ object and a CYP inhibition data object:</p>
 <td align="right">1.64</td>
 <td align="right">3</td>
 <td align="left">study 007</td>
-<td align="right">0.21</td>
+<td align="right">0.213</td>
 <td align="left">TRUE</td>
 </tr>
 </tbody>
@@ -951,7 +944,7 @@ object and a CYP inhibition data object:</p>
 <td align="right">0.41</td>
 <td align="left">study 005</td>
 <td align="left">igut</td>
-<td align="right">8912.39</td>
+<td align="right">8.91e+03</td>
 <td align="right">10.00</td>
 <td align="left">TRUE</td>
 </tr>
@@ -960,7 +953,7 @@ object and a CYP inhibition data object:</p>
 <td align="right">0.41</td>
 <td align="left">study 005</td>
 <td align="left">imaxssu</td>
-<td align="right">0.40</td>
+<td align="right">4.02e-01</td>
 <td align="right">0.02</td>
 <td align="left">TRUE</td>
 </tr>
@@ -969,7 +962,7 @@ object and a CYP inhibition data object:</p>
 <td align="right">1.90</td>
 <td align="left">study 005</td>
 <td align="left">igut</td>
-<td align="right">1923.20</td>
+<td align="right">1.92e+03</td>
 <td align="right">10.00</td>
 <td align="left">TRUE</td>
 </tr>
@@ -978,7 +971,7 @@ object and a CYP inhibition data object:</p>
 <td align="right">1.90</td>
 <td align="left">study 005</td>
 <td align="left">imaxssu</td>
-<td align="right">0.09</td>
+<td align="right">8.67e-02</td>
 <td align="right">0.02</td>
 <td align="left">TRUE</td>
 </tr>
@@ -987,7 +980,7 @@ object and a CYP inhibition data object:</p>
 <td align="right">177.00</td>
 <td align="left">study 006</td>
 <td align="left">imaxinletu</td>
-<td align="right">0.00</td>
+<td align="right">1.09e-03</td>
 <td align="right">0.10</td>
 <td align="left">FALSE</td>
 </tr>
@@ -996,7 +989,7 @@ object and a CYP inhibition data object:</p>
 <td align="right">35.00</td>
 <td align="left">study 006</td>
 <td align="left">imaxinletu</td>
-<td align="right">0.01</td>
+<td align="right">5.51e-03</td>
 <td align="right">0.10</td>
 <td align="left">FALSE</td>
 </tr>
@@ -1005,7 +998,7 @@ object and a CYP inhibition data object:</p>
 <td align="right">271.00</td>
 <td align="left">NA</td>
 <td align="left">imaxssu</td>
-<td align="right">0.00</td>
+<td align="right">6.08e-04</td>
 <td align="right">0.10</td>
 <td align="left">FALSE</td>
 </tr>
@@ -1014,7 +1007,7 @@ object and a CYP inhibition data object:</p>
 <td align="right">300.00</td>
 <td align="left">NA</td>
 <td align="left">imaxssu</td>
-<td align="right">0.00</td>
+<td align="right">5.49e-04</td>
 <td align="right">0.10</td>
 <td align="left">FALSE</td>
 </tr>
@@ -1023,7 +1016,7 @@ object and a CYP inhibition data object:</p>
 <td align="right">12.80</td>
 <td align="left">NA</td>
 <td align="left">imaxssu</td>
-<td align="right">0.01</td>
+<td align="right">1.29e-02</td>
 <td align="right">0.10</td>
 <td align="left">FALSE</td>
 </tr>
@@ -1031,17 +1024,17 @@ object and a CYP inhibition data object:</p>
 <td align="left">OCT1</td>
 <td align="right">2.30</td>
 <td align="left">study 006</td>
-<td align="left">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="left">NA</td>
+<td align="left">imaxssu</td>
+<td align="right">7.17e-02</td>
+<td align="right">0.10</td>
+<td align="left">FALSE</td>
 </tr>
 <tr class="odd">
 <td align="left">OCT2</td>
 <td align="right">67.00</td>
 <td align="left">study 006</td>
 <td align="left">imaxssu</td>
-<td align="right">0.00</td>
+<td align="right">2.46e-03</td>
 <td align="right">0.10</td>
 <td align="left">FALSE</td>
 </tr>
@@ -1050,7 +1043,7 @@ object and a CYP inhibition data object:</p>
 <td align="right">3.60</td>
 <td align="left">study 006</td>
 <td align="left">imaxssu</td>
-<td align="right">0.05</td>
+<td align="right">4.58e-02</td>
 <td align="right">0.02</td>
 <td align="left">TRUE</td>
 </tr>
@@ -1059,7 +1052,7 @@ object and a CYP inhibition data object:</p>
 <td align="right">1.10</td>
 <td align="left">study 006</td>
 <td align="left">imaxssu</td>
-<td align="right">0.15</td>
+<td align="right">1.50e-01</td>
 <td align="right">0.02</td>
 <td align="left">TRUE</td>
 </tr>

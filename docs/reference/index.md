@@ -17,12 +17,9 @@
 - [`cyp_reference_substrates`](cyp_reference_substrates.md) : CYP
   reference substrate data
 - [`cyp_turnover`](cyp_turnover.md) : CYP turnover rate constants
-- [`dplyr_reconstruct(`*`<induction_data>`*`)`](dplyr_reconstruct.induction_data.md)
-  : Reconstruct inhibition_data after dplyr verbs
-- [`dplyr_reconstruct(`*`<inhibition_data>`*`)`](dplyr_reconstruct.inhibition_data.md)
-  : Reconstruct inhibition_data after dplyr verbs
-- [`dplyr_reconstruct(`*`<risk>`*`)`](dplyr_reconstruct.risk.md) :
-  reconstruct risk object
+- [`ddi_report()`](ddi_report.md) : Open a DDI assessment report
+  template
+- [`ddir_example()`](ddir_example.md) : Get example data path
 - [`examplinib`](examplinib.md) : Precipitant compound data for
   examplinib
 - [`examplinib_cyp_induction`](examplinib_cyp_induction.md) : Examplinib

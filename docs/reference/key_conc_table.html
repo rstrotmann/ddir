@@ -15,7 +15,7 @@ concentrations in \(\mu M\) and ng/ml for a DDI precipitant compound."></head><b
 
     <a class="navbar-brand me-2" href="../index.html">ddir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.17.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.18.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,7 +50,7 @@ concentrations in \(\mu M\) and ng/ml for a DDI precipitant compound.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">key_conc_table</span><span class="op">(</span><span class="va">x</span>, round <span class="op">=</span> <span class="fl">2</span>, qh <span class="op">=</span> <span class="fl">1.616</span>, qent <span class="op">=</span> <span class="fl">18</span><span class="op">/</span><span class="fl">60</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">key_conc_table</span><span class="op">(</span><span class="va">x</span>, signif <span class="op">=</span> <span class="fl">3</span>, qh <span class="op">=</span> <span class="fl">1.616</span>, qent <span class="op">=</span> <span class="fl">18</span><span class="op">/</span><span class="fl">60</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -61,8 +61,8 @@ concentrations in \(\mu M\) and ng/ml for a DDI precipitant compound.</p>
 <dd><p>DDI precipitant object.</p></dd>
 
 
-<dt id="arg-round">round<a class="anchor" aria-label="anchor" href="#arg-round"></a></dt>
-<dd><p>Number of decimal places.</p></dd>
+<dt id="arg-signif">signif<a class="anchor" aria-label="anchor" href="#arg-signif"></a></dt>
+<dd><p>Number of significant places.</p></dd>
 
 
 <dt id="arg-qh">qh<a class="anchor" aria-label="anchor" href="#arg-qh"></a></dt>
@@ -140,10 +140,10 @@ binding of the drug are not applicable.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |parameter            | value ($ng/ml$)| value ($\mu M$)|</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |:--------------------|---------------:|---------------:|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |$I_{gut}$            |      1800000.00|         3654.08|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |$I_{max,ss,u}$       |           81.19|            0.16|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |$I_{max,inlet,u}$    |           95.04|            0.19|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |$I_{max,intestinal}$ |         3244.05|            6.59|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |$I_{gut}$            |        1.80e+06|        3650.000|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |$I_{max,ss,u}$       |        8.12e+01|           0.165|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |$I_{max,inlet,u}$    |        9.50e+01|           0.193|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |$I_{max,intestinal}$ |        3.24e+03|           6.590|</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

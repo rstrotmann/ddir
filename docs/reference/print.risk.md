@@ -6,7 +6,7 @@ Print risk object
 
 ``` r
 # S3 method for class 'risk'
-print(x, ...)
+print(x, ..., signif = 3)
 ```
 
 ## Arguments
@@ -18,6 +18,10 @@ print(x, ...)
 - ...:
 
   Further arguments.
+
+- signif:
+
+  Number of significant digits.
 
 ## Value
 

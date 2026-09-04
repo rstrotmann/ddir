@@ -59,18 +59,18 @@ transporter_inhibition_risk(examplinib, examplinib_transporter_inhibition)
 #> ──────── Clinical DDI risk assessment ──────── 
 #> Transporter inhibition risk for examplinib 
 #> 
-#> object     ic50   source      i            r         threshold   risk    
-#> Pgp_int    0.41   study 005   igut         8912.39   10          TRUE    
-#> Pgp_sys    0.41   study 005   imaxssu      0.4       0.02        TRUE    
-#> BCRP_int   1.9    study 005   igut         1923.2    10          TRUE    
-#> BCRP_sys   1.9    study 005   imaxssu      0.09      0.02        TRUE    
-#> OATP1B1    177    study 006   imaxinletu   0         0.1         FALSE   
-#> OATP1B3    35     study 006   imaxinletu   0.01      0.1         FALSE   
-#> OAT1       271    NA          imaxssu      0         0.1         FALSE   
-#> OAT3       300    NA          imaxssu      0         0.1         FALSE   
-#> BSEP       12.8   NA          imaxssu      0.01      0.1         FALSE   
-#> OCT1       2.3    study 006   NA           NA        NA          NA      
-#> OCT2       67     study 006   imaxssu      0         0.1         FALSE   
-#> MATE1      3.6    study 006   imaxssu      0.05      0.02        TRUE    
-#> MATE2k     1.1    study 006   imaxssu      0.15      0.02        TRUE
+#> object     ic50   source      i            r          threshold   risk    
+#> Pgp_int    0.41   study 005   igut         8910       10          TRUE    
+#> Pgp_sys    0.41   study 005   imaxssu      0.402      0.02        TRUE    
+#> BCRP_int   1.9    study 005   igut         1920       10          TRUE    
+#> BCRP_sys   1.9    study 005   imaxssu      0.0867     0.02        TRUE    
+#> OATP1B1    177    study 006   imaxinletu   0.00109    0.1         FALSE   
+#> OATP1B3    35     study 006   imaxinletu   0.00551    0.1         FALSE   
+#> OAT1       271    NA          imaxssu      0.000608   0.1         FALSE   
+#> OAT3       300    NA          imaxssu      0.000549   0.1         FALSE   
+#> BSEP       12.8   NA          imaxssu      0.0129     0.1         FALSE   
+#> OCT1       2.3    study 006   imaxssu      0.0717     0.1         FALSE   
+#> OCT2       67     study 006   imaxssu      0.00246    0.1         FALSE   
+#> MATE1      3.6    study 006   imaxssu      0.0458     0.02        TRUE    
+#> MATE2k     1.1    study 006   imaxssu      0.15       0.02        TRUE
 ```

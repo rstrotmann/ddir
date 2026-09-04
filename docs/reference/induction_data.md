@@ -1,6 +1,10 @@
 # induction_data constructor alias
 
-induction_data constructor alias
+- emax: Fitted Emax
+
+- ec50: Fitted EC50 in uM
+
+- max_c: Maximally tested perpetrator concentration in uM.
 
 ## Usage
 
@@ -12,7 +16,7 @@ induction_data(data = NULL, precipitant = "")
 
 - data:
 
-  A data frame with the columns object, ki and source.
+  A data frame with the columns object, emax, ec50, max_c and source.
 
 - precipitant:
 
@@ -20,4 +24,4 @@ induction_data(data = NULL, precipitant = "")
 
 ## Value
 
-An inhibition_data object.
+An induction_data object.

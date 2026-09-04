@@ -62,12 +62,12 @@ basic_cyp_inhibition_risk(examplinib, examplinib_cyp_inhibition)
 #> ──────── Clinical DDI risk assessment ──────── 
 #> Direct CYP inhibition risk for examplinib 
 #> 
-#> object    ki     kiu    source      r      risk_hep   r_gut      risk_intest   
-#> CYP1A2    NA     NA     NA          NA     NA         NA         NA            
-#> CYP2B6    NA     NA     NA          NA     NA         NA         NA            
-#> CYP2C8    11     11     study 001   0.01   FALSE      NA         NA            
-#> CYP2C9    0.6    0.6    study 001   0.27   TRUE       NA         NA            
-#> CYP2C19   0.25   0.25   study 001   0.66   TRUE       NA         NA            
-#> CYP2D6    NA     NA     NA          NA     NA         NA         NA            
-#> CYP3A4    12.5   12.5   study 001   0.01   FALSE      292.3264   TRUE
+#> object    ki     kiu    source      r        risk_hep   r_gut   risk_intest   
+#> CYP1A2    NA     NA     NA          NA       NA         NA      NA            
+#> CYP2B6    NA     NA     NA          NA       NA         NA      NA            
+#> CYP2C8    11     11     study 001   0.015    FALSE      NA      NA            
+#> CYP2C9    0.6    0.6    study 001   0.275    TRUE       NA      NA            
+#> CYP2C19   0.25   0.25   study 001   0.659    TRUE       NA      NA            
+#> CYP2D6    NA     NA     NA          NA       NA         NA      NA            
+#> CYP3A4    12.5   12.5   study 001   0.0132   FALSE      292     TRUE
 ```

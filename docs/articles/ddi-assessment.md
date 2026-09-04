@@ -66,10 +66,9 @@ examplinib
 
 | parameter               | value   | source |
 |:------------------------|:--------|:-------|
-| oral                    | 1       |        |
+| oral                    | TRUE    |        |
 | \\MW\\ (g/mol)          | 492.6   |        |
 | \\dose\\ (mg)           | 450     |        |
-| \\solubility\\ (mg/l)   | Inf     |        |
 | \\C\_{max,ss}\\ (ng/ml) | 3530    |        |
 | \\f_u\\                 | 0.023   |        |
 | \\f\_{u,mic}\\          | 1       |        |
@@ -115,10 +114,10 @@ key_conc_table(examplinib)
 
 | parameter               | value (\\ng/ml\\) | value (\\\mu M\\) |
 |:------------------------|------------------:|------------------:|
-| \\I\_{gut}\\            |        1800000.00 |           3654.08 |
-| \\I\_{max,ss,u}\\       |             81.19 |              0.16 |
-| \\I\_{max,inlet,u}\\    |             95.04 |              0.19 |
-| \\I\_{max,intestinal}\\ |           3244.05 |              6.59 |
+| \\I\_{gut}\\            |          1.80e+06 |          3650.000 |
+| \\I\_{max,ss,u}\\       |          8.12e+01 |             0.165 |
+| \\I\_{max,inlet,u}\\    |          9.50e+01 |             0.193 |
+| \\I\_{max,intestinal}\\ |          3.24e+03 |             6.590 |
 
 Key precipitant concentrations for examplinib {.table}
 
@@ -174,15 +173,15 @@ takes a precipitant object and a CYP inhibition data object:
 print(basic_cyp_inhibition_risk(examplinib, cyp_inh))
 ```
 
-| object  |    ki |   kiu | source    |    r | risk_hep |    r_gut | risk_intest |
-|:--------|------:|------:|:----------|-----:|:---------|---------:|:------------|
-| CYP1A2  |    NA |    NA | NA        |   NA | NA       |       NA | NA          |
-| CYP2B6  |    NA |    NA | NA        |   NA | NA       |       NA | NA          |
-| CYP2C8  | 11.00 | 11.00 | study 001 | 0.01 | FALSE    |       NA | NA          |
-| CYP2C9  |  0.60 |  0.60 | study 001 | 0.27 | TRUE     |       NA | NA          |
-| CYP2C19 |  0.25 |  0.25 | study 001 | 0.66 | TRUE     |       NA | NA          |
-| CYP2D6  |    NA |    NA | NA        |   NA | NA       |       NA | NA          |
-| CYP3A4  | 12.50 | 12.50 | study 001 | 0.01 | FALSE    | 292.3264 | TRUE        |
+| object  |    ki |   kiu | source    |      r | risk_hep | r_gut | risk_intest |
+|:--------|------:|------:|:----------|-------:|:---------|:------|:------------|
+| CYP1A2  |    NA |    NA | NA        |     NA | NA       | \-    | \-          |
+| CYP2B6  |    NA |    NA | NA        |     NA | NA       | \-    | \-          |
+| CYP2C8  | 11.00 | 11.00 | study 001 | 0.0150 | FALSE    | \-    | \-          |
+| CYP2C9  |  0.60 |  0.60 | study 001 | 0.2750 | TRUE     | \-    | \-          |
+| CYP2C19 |  0.25 |  0.25 | study 001 | 0.6590 | TRUE     | \-    | \-          |
+| CYP2D6  |    NA |    NA | NA        |     NA | NA       | \-    | \-          |
+| CYP3A4  | 12.50 | 12.50 | study 001 | 0.0132 | FALSE    | 292   | TRUE        |
 
 Direct CYP inhibition risk for examplinib {.table}
 
@@ -193,16 +192,16 @@ Direct CYP inhibition risk for examplinib {.table}
 print(basic_ugt_inhibition_risk(examplinib, examplinib_ugt_inhibition))
 ```
 
-| object  |   ki |  kiu | source    |    r | risk  |
-|:--------|-----:|-----:|:----------|-----:|:------|
-| UGT1A1  | 15.0 | 15.0 | study 009 | 0.01 | FALSE |
-| UGT1A3  | 15.0 | 15.0 | study 009 | 0.01 | FALSE |
-| UGT1A4  | 15.0 | 15.0 | study 009 | 0.01 | FALSE |
-| UGT1A6  | 15.0 | 15.0 | study 009 | 0.01 | FALSE |
-| UGT1A9  |  3.8 |  3.8 | study 009 | 0.04 | TRUE  |
-| UGT2B7  | 15.0 | 15.0 | study 009 | 0.01 | FALSE |
-| UGT2B15 | 15.0 | 15.0 | study 009 | 0.01 | FALSE |
-| UGT2B17 |  6.1 |  6.1 | study 009 | 0.03 | TRUE  |
+| object  |   ki |  kiu | source    |      r | risk  |
+|:--------|-----:|-----:|:----------|-------:|:------|
+| UGT1A1  | 15.0 | 15.0 | study 009 | 0.0110 | FALSE |
+| UGT1A3  | 15.0 | 15.0 | study 009 | 0.0110 | FALSE |
+| UGT1A4  | 15.0 | 15.0 | study 009 | 0.0110 | FALSE |
+| UGT1A6  | 15.0 | 15.0 | study 009 | 0.0110 | FALSE |
+| UGT1A9  |  3.8 |  3.8 | study 009 | 0.0434 | TRUE  |
+| UGT2B7  | 15.0 | 15.0 | study 009 | 0.0110 | FALSE |
+| UGT2B15 | 15.0 | 15.0 | study 009 | 0.0110 | FALSE |
+| UGT2B17 |  6.1 |  6.1 | study 009 | 0.0270 | TRUE  |
 
 UGT inhibition risk for examplinib {.table}
 
@@ -247,15 +246,15 @@ Static CYP induction risk for examplinib {.table}
 print(kinetic_cyp_induction_risk(examplinib, examplinib_cyp_induction))
 ```
 
-| object  | emax | ec50 | max_c | source    |    r | risk |
-|:--------|-----:|-----:|------:|:----------|-----:|:-----|
-| CYP1A2  | 1.00 |   NA |     5 | study 007 |   NA | NA   |
-| CYP2B6  | 1.00 |   NA |     5 | study 007 |   NA | NA   |
-| CYP2C8  |   NA |   NA |    NA | NA        |   NA | NA   |
-| CYP2C9  |   NA |   NA |    NA | NA        |   NA | NA   |
-| CYP2C19 |   NA |   NA |    NA | NA        |   NA | NA   |
-| CYP2D6  |   NA |   NA |    NA | NA        |   NA | NA   |
-| CYP3A4  | 7.35 | 1.64 |     3 | study 007 | 0.21 | TRUE |
+| object  | emax | ec50 | max_c | source    |     r | risk |
+|:--------|-----:|-----:|------:|:----------|------:|:-----|
+| CYP1A2  | 1.00 |   NA |     5 | study 007 |    NA | NA   |
+| CYP2B6  | 1.00 |   NA |     5 | study 007 |    NA | NA   |
+| CYP2C8  |   NA |   NA |    NA | NA        |    NA | NA   |
+| CYP2C9  |   NA |   NA |    NA | NA        |    NA | NA   |
+| CYP2C19 |   NA |   NA |    NA | NA        |    NA | NA   |
+| CYP2D6  |   NA |   NA |    NA | NA        |    NA | NA   |
+| CYP3A4  | 7.35 | 1.64 |     3 | study 007 | 0.213 | TRUE |
 
 Kinetic CYP induction risk for examplinib {.table}
 
@@ -286,20 +285,20 @@ style="width:100%;"}
 print(transporter_inhibition_risk(examplinib, examplinib_transporter_inhibition))
 ```
 
-| object   |   ic50 | source    | i          |       r | threshold | risk  |
-|:---------|-------:|:----------|:-----------|--------:|----------:|:------|
-| Pgp_int  |   0.41 | study 005 | igut       | 8912.39 |     10.00 | TRUE  |
-| Pgp_sys  |   0.41 | study 005 | imaxssu    |    0.40 |      0.02 | TRUE  |
-| BCRP_int |   1.90 | study 005 | igut       | 1923.20 |     10.00 | TRUE  |
-| BCRP_sys |   1.90 | study 005 | imaxssu    |    0.09 |      0.02 | TRUE  |
-| OATP1B1  | 177.00 | study 006 | imaxinletu |    0.00 |      0.10 | FALSE |
-| OATP1B3  |  35.00 | study 006 | imaxinletu |    0.01 |      0.10 | FALSE |
-| OAT1     | 271.00 | NA        | imaxssu    |    0.00 |      0.10 | FALSE |
-| OAT3     | 300.00 | NA        | imaxssu    |    0.00 |      0.10 | FALSE |
-| BSEP     |  12.80 | NA        | imaxssu    |    0.01 |      0.10 | FALSE |
-| OCT1     |   2.30 | study 006 | NA         |      NA |        NA | NA    |
-| OCT2     |  67.00 | study 006 | imaxssu    |    0.00 |      0.10 | FALSE |
-| MATE1    |   3.60 | study 006 | imaxssu    |    0.05 |      0.02 | TRUE  |
-| MATE2k   |   1.10 | study 006 | imaxssu    |    0.15 |      0.02 | TRUE  |
+| object   |   ic50 | source    | i          |        r | threshold | risk  |
+|:---------|-------:|:----------|:-----------|---------:|----------:|:------|
+| Pgp_int  |   0.41 | study 005 | igut       | 8.91e+03 |     10.00 | TRUE  |
+| Pgp_sys  |   0.41 | study 005 | imaxssu    | 4.02e-01 |      0.02 | TRUE  |
+| BCRP_int |   1.90 | study 005 | igut       | 1.92e+03 |     10.00 | TRUE  |
+| BCRP_sys |   1.90 | study 005 | imaxssu    | 8.67e-02 |      0.02 | TRUE  |
+| OATP1B1  | 177.00 | study 006 | imaxinletu | 1.09e-03 |      0.10 | FALSE |
+| OATP1B3  |  35.00 | study 006 | imaxinletu | 5.51e-03 |      0.10 | FALSE |
+| OAT1     | 271.00 | NA        | imaxssu    | 6.08e-04 |      0.10 | FALSE |
+| OAT3     | 300.00 | NA        | imaxssu    | 5.49e-04 |      0.10 | FALSE |
+| BSEP     |  12.80 | NA        | imaxssu    | 1.29e-02 |      0.10 | FALSE |
+| OCT1     |   2.30 | study 006 | imaxssu    | 7.17e-02 |      0.10 | FALSE |
+| OCT2     |  67.00 | study 006 | imaxssu    | 2.46e-03 |      0.10 | FALSE |
+| MATE1    |   3.60 | study 006 | imaxssu    | 4.58e-02 |      0.02 | TRUE  |
+| MATE2k   |   1.10 | study 006 | imaxssu    | 1.50e-01 |      0.02 | TRUE  |
 
 Transporter inhibition risk for examplinib {.table}
